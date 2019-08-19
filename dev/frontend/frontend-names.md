@@ -1,0 +1,103 @@
+
+
+## 词命名
+
+- 头：header
+- 尾：bottom
+- 容器: container
+- 内容：content / container
+- 尾部/页脚：footer
+- 页面外围控制整体布局宽度：wrapper
+- 导航：nav
+- 主导航：mainbav
+- 子导航：subnav
+- 顶导航：topnav
+- 菜单：menu
+- 子菜单：submenu
+- 侧栏：sidebar
+- 上边栏：topSideBar
+- 下边栏：bottomSideBar
+- 左边栏：leftSidebar
+- 右导航：rightSidebar
+- 栏目：column
+- 左右中：left right center
+- 登陆：login
+- 登录条：loginBar
+- 标志：logo
+- 广告：banner
+- 主体：main
+- 热点：hot
+- 新闻：news
+- 下载：download
+- 搜索：search
+- 版权：copyright
+- 滚动：scroll
+- 按钮：btn
+- 内容：content
+- 标签页：tab
+- 图标: icon
+- 注释：note
+- 指南：guide
+- 购物车：cart
+- 当前的: current
+- 当前位置：position
+- 小技巧：tips
+- 加入：join
+- 指南：guild
+- 服务：service
+- 注册：register
+- 状态：status
+- 投票：vote
+- 文章列表：list
+- 提示信息：msg
+- 栏目标题：title
+- 友情链接：friendLink
+- 合作伙伴：partner
+- 摘要/概要/总结: summary
+
+## 通用页面命名
+
+- 首页：index.html
+- 下载：download.html
+- 公司介绍：profile.html
+- 联系我们：contact.html
+- 关于我们：about.html
+- 人才招聘：job.html
+- 加入我们：join.html
+- 发展历程：history.html
+- 新闻列表：news.html
+- 新闻详情：article.html
+- 客户留言：feedback.html
+- 常见问题：faq.html
+- 企业文化：culture.html
+- 公司环境：environment.html
+- 视频列表：videoList.html
+- 视频详情：videoDetail.html
+- 网站地图：sitemap.html
+- 隐私政策：privacy.html
+- 发送邮件：sendEmail.html
+- 用户列表页：userList.html
+- 用户详细页：userDetail.html
+
+## 电商
+
+- 登陆：login.html
+- 注册：register.html
+- 购物车：cart.html
+- 优惠券：coupon.html
+- 退换货：repair.html
+- 找回密码：forgotPassword.html
+- 审核订单：orderCheck.html
+- 提交订单：orderSubmit.html
+- 支付订单：orderPay.html
+- 用户中心: userCenter.html
+- 订单列表：orderList.html
+- 订单详情：orderDetail.html
+- 产品列表：productList.html
+- 产品详情：productDetail.html
+- 收货地址：address.html
+- 我的收藏：favorite.html
+- 我的评论：comment.html
+- 我关注的：focus.html
+- 浏览历史：history.html
+- 我的积分：integral.html
