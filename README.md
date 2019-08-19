@@ -11,6 +11,10 @@
 - [《人生七年》(第 1 ~ 9 部)](https://movie.douban.com/tag/#/?sort=T&tags=%E4%BA%BA%E7%94%9F%E4%B8%83%E5%B9%B4)
 - [《穷富翁大作战》(第 2 部)](https://movie.douban.com/subject/25926859/)
 
+## 线上仓库
+
+- <https://github.com/cdk8s/cdk8s-team-style>
+- <https://gitee.com/cdk8s/cdk8s-team-style>
 
 ## 声明（Notice）
 
@@ -77,8 +81,6 @@
 
 
 ## 细分（Category）
-
-- 如果想要更好的沟通，那就必须做到知己知彼，你能提别人换位思考
 
 ### 管理（PM）
 
@@ -173,28 +175,13 @@
 
 - 2019-08-15 ~ 2019-09-15 我正在休息、整理，有合适工作机会也可以联系（广州、深圳 - 中小企业）
 - 邮箱：`cdk8s#qq.com`
-- 微信公众号：`cd-k8s`
+- 微信公众号
+
+![](http://img.gitnavi.com/markdown/cdk8s_qr_300px.png)
+
 
 ## 忧伤
 
 ![功归一篑](http://img.gitnavi.com/markdown/build-railway.png)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
