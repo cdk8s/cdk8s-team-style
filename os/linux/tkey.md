@@ -178,8 +178,8 @@ ansible all -a 'ps'
         path: /root/.zshrc
         marker: "#{mark} MAVEN ENV"
         block: |
-            MAVEN_HOME=/usr/local/apache-maven-3.6.1
-            M3_HOME=/usr/local/apache-maven-3.6.1
+            MAVEN_HOME={{ maven_install_folder }}/apache-maven-3.6.1
+            M3_HOME={{ maven_install_folder }}/apache-maven-3.6.1
             PATH=$PATH:$M3_HOME/bin
             MAVEN_OPTS="-Xms256m -Xmx356m"
             export M3_HOME
@@ -198,6 +198,95 @@ ansible all -a 'ps'
 
 
 - 执行命令：`ansible-playbook /opt/maven-playbook.yml`
+
+```
+修改 Maven 源
+mkdir -p /data/local_maven_repository
+vim /usr/local/apache-maven-3.6.1/conf/settings.xml
+
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+
+
+    <localRepository>/data/local_maven_repository</localRepository>
+
+    <pluginGroups>
+    </pluginGroups>
+
+    <proxies>
+    </proxies>
+
+    <servers>
+    </servers>
+
+    <profiles>
+        <profile>
+            <id>aliyun</id>
+            <repositories>
+                <repository>
+                    <id>aliyun</id>
+                    <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                </repository>
+            </repositories>
+            <pluginRepositories>
+                <pluginRepository>
+                    <id>aliyun</id>
+                    <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                </pluginRepository>
+            </pluginRepositories>
+        </profile>
+        <profile>
+            <id>maven</id>
+            <repositories>
+                <repository>
+                    <id>maven</id>
+                    <url>https://repo.maven.apache.org/maven2/</url>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                </repository>
+            </repositories>
+            <pluginRepositories>
+                <pluginRepository>
+                    <id>maven</id>
+                    <url>https://repo.maven.apache.org/maven2/</url>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                </pluginRepository>
+            </pluginRepositories>
+        </profile>
+    </profiles>
+
+    <activeProfiles>
+        <activeProfile>aliyun</activeProfile>
+    </activeProfiles>
+
+</settings>
+```
+
 
 
 ## 安装 node
@@ -244,6 +333,7 @@ ansible all -a 'ps'
 - 执行命令：`ansible-playbook /opt/jenkins-playbook.yml`
 - 在安装完默认推荐的插件后还需要额外安装：
     - `Maven Integration`
+- 设置 `全局工具配置` [点击我查看设置方法](https://upload-images.jianshu.io/upload_images/19119711-17eac75f51516b69.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 -------------------------------------------------------------------
 
@@ -519,6 +609,129 @@ docker run \
 ```
 - 重新启动服务：`docker restart cdk8s-nginx`
 
+
+-------------------------------------------------------------------
+
+
+
+## Jenkins pipeline （Docker 方式运行）
+
+- **确保** 项目根目录有 Dockerfile 文件
+- Pipeline 写法
+- 特别注意：
+
+```
+这两个大写的名词来自 Jenkins 全局工具配置中相应配置的 name 中填写的内容
+jdk 'JDK8'
+maven 'MAVEN3'
+```
+
+```
+pipeline {
+  agent any
+
+  /*=======================================工具环境修改-start=======================================*/
+  tools {
+    jdk 'JDK8'
+    maven 'MAVEN3'
+  }
+  /*=======================================工具环境修改-end=======================================*/
+
+  options {
+    timestamps()
+    disableConcurrentBuilds()
+    buildDiscarder(logRotator(
+      numToKeepStr: '20',
+      daysToKeepStr: '30',
+    ))
+  }
+
+  /*=======================================常修改变量-start=======================================*/
+
+  environment {
+    gitUrl = "https://github.com/cdk8s/tkey.git"
+    branchName = "master"
+    giteeCredentialsId = "cdk8s-github"
+    projectWorkSpacePath = "${env.WORKSPACE}"
+    projectRootWorkSpacePath = "${env.WORKSPACE}/tkey-sso-server"
+    projectBuildTargetPath = "${projectRootWorkSpacePath}/target"
+
+
+    dockerImageName = "harbor.cdk8s.com/tkey/${env.JOB_NAME}:${env.BUILD_NUMBER}"
+    dockerContainerName = "${env.JOB_NAME}"
+    inHostPort = "9091"
+    inHostPortByActuator = "19091"
+    inDockerAndJavaPort = "9091"
+    inDockerAndJavaPortByActuator = "19091"
+    inHostLogPath = "/data/logs/${dockerContainerName}/${env.BUILD_NUMBER}"
+    inDockerLogPath = "/logs"
+    dockerRunParam = "--name=${dockerContainerName} -v /etc/hosts:/etc/hosts -v ${inHostLogPath}:${inDockerLogPath} --restart=always  -p ${inHostPort}:${inDockerAndJavaPort} -p ${inHostPortByActuator}:${inDockerAndJavaPortByActuator} -e SPRING_PROFILES_ACTIVE=test -e SERVER_PORT=${inHostPort} -e SPRING_REDIS_HOST=redis.cdk8s.com -e SPRING_REDIS_PASSWORD=123456 -e TKEY_NODE_NUMBER=12"
+  }
+  
+  /*=======================================常修改变量-end=======================================*/
+  
+  stages {
+    
+    stage('Pre Env') {
+      steps {
+         echo "======================================项目名称 = ${env.JOB_NAME}"
+         echo "======================================项目 URL = ${gitUrl}"
+         echo "======================================项目分支 = ${branchName}"
+         echo "======================================当前编译版本号 = ${env.BUILD_NUMBER}"
+         echo "======================================项目空间文件夹路径 = ${projectWorkSpacePath}"
+         echo "======================================项目 build 后 jar 路径 = ${projectBuildTargetPath}"
+         echo "======================================Docker 镜像名称 = ${dockerImageName}"
+         echo "======================================Docker 容器名称 = ${dockerContainerName}"
+      }
+    }
+    
+    stage('Git Clone'){
+      steps {
+          git branch: "${branchName}",
+          credentialsId: "${giteeCredentialsId}",
+          url: "${gitUrl}"
+      }
+    }
+
+    stage('Maven Clean') {
+      steps {
+        sh "mvn clean"
+      }
+    }
+
+    stage('Maven Package') {
+      steps {
+        sh "mvn package -DskipTests"
+      }
+    }
+
+    stage('构建 Docker 镜像') {
+      steps {
+        sh """
+            cd ${projectRootWorkSpacePath}
+            
+            docker build -t ${dockerImageName} ./
+        """
+      }
+    }
+
+    stage('运行 Docker 镜像') {
+      steps {
+        sh """
+            docker stop ${dockerContainerName} | true
+
+            docker rm -f ${dockerContainerName} | true
+            
+            docker run -d  ${dockerRunParam} ${dockerImageName}
+        """
+      }
+    }
+    
+    
+
+  }
+}
+```
 
 
 
