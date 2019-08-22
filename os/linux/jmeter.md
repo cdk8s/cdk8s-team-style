@@ -53,11 +53,12 @@ Copyright (c) 1999-2018 The Apache Software Foundation
 
 - Windows 是 GUI 操作，测试方便，Linux 只能用命令，所以这里进行记录
 - 准备好 jmx 测试脚本文件（可以在 Windows 上使用后，保存的脚本就是 jmx 后缀文件）
-- 如果 JVM 不够可以修改 bin/jmeter 文件中的：`JVM_ARGS=-Xms1024m -Xmx1024m -XX:MaxMetaspaceSize=256m`
+- 如果 JVM 不够可以修改 bin/jmeter 文件中的：`"${HEAP:="-Xms1g -Xmx1g -XX:MaxMetaspaceSize=256m"}"`
 - 测试：`jmeter -n -t /opt/myTest.jmx -l /opt/myReport.jtl`
 	- 参数 n 表示以 nogui 方式运行测试计划
 	- 参数 t 表示指定测试计划
 	- 参数 l 表示生成测试报告
+	- jtl 报告文件可以通过 JMeter UI 中添加：`Summary Report` 导入文件来查看
 - 更复杂一点的命令：`jmeter -n -t /opt/myTest.jmx -l /opt/myReport.jtl -e -o /opt/jmeter/htmlResult`
     - 参数 e 表示在结束后生成 html 报告
     - 参数 o 表示 html 报告存放路径 **（目录必须是空目录）**
@@ -68,6 +69,7 @@ Copyright (c) 1999-2018 The Apache Software Foundation
 
 ## JMeter 分布式安装
 
+- 为了方便测试我们会把 SSL 禁用，找到 bin/jmeter.properties 把该配置：`#server.rmi.ssl.disable=false` 打开注释，然后改为 true
 - 分布式环境：分为 server、client
 	- server 等同于 controller、master（server 其实也可以作为 Client 使用，但是不推荐这样做）
 	- client 等同于 agent、slave
