@@ -27,6 +27,7 @@
 - [Jenkins 安装和使用](jenkins.md)
 - [Maven 安装和使用](maven.md)
 - [Node 安装和使用](node.md)
+- [JMeter 安装和使用](jmeter.md)
 
 
 
