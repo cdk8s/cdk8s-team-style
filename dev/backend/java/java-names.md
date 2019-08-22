@@ -50,7 +50,7 @@
     - 获取分页对象（传参是对象）：`findPage`
     - 获取单个对象：`findOneById`、`findOneByUserName`
     - 获取单个对象（传参是对象）：`findOneByParam`
-    - 获取列表对象：`findListByUserName`
+    - 获取列表对象：`findListByUserName`、`findListByIdList`
     - 获取列表对象（传参是对象）：`findOneByParam`
 - 单个更新操作：`update`
 - 单个删除操作：`delete`
