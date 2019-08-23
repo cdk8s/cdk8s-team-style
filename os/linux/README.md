@@ -7,15 +7,14 @@
 
 ## 系统设置(System)
 
-- [Bash 设置](bash.md)
 - [CentOS 设置](centos.md)
-- [Monitor 使用](monitor.md)
 - [SSH 使用](ssh.md)
+- [Bash 设置](bash.md)
+- [Monitor 经验](monitor.md)
 
 
 ## 软件使用(Software)
 
-- [TKey 环境搭建]()
 - [Docker 安装和使用](docker.md)
 - [Nginx 安装和使用](nginx.md)
 - [Redis 安装和使用](redis.md)
