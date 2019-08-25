@@ -4,6 +4,16 @@
 ## Node 安装
 
 - **Homebrew 方式（推荐，因为避免权限问题）**：`brew install node`
+    - 如果你不想要最新版本的 node 可以先查询已有哪些版本：`brew search node`
+    - 目前稳定版本是 10，要安装 10 可以这样做：
+
+```
+brew install node@10
+
+brew link --overwrite --force node@10
+```
+
+
 - 其他方式：官网安装包下载：<https://nodejs.org/zh-cn/>
 
 ## Node 卸载
