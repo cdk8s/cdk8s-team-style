@@ -109,7 +109,7 @@
 |Command + Shift + C|打开“电脑”窗口|
 |Command + Shift + D|打开“桌面”文件夹|
 |Command + Shift + F|打开“我的所有文件”窗口|
-|Command + Shift + G|打开“前往文件夹”窗口|
+|Command + Shift + G|打开“前往文件夹”窗口，对于上传文件窗口很有用|
 |Command + Shift + H|打开当前 macOS 用户帐户的个人文件夹|
 |Command + Shift + I|打开 iCloud Drive|
 |Command + Shift + L|打开“下载”文件夹|
