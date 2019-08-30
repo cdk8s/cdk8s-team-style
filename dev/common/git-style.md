@@ -52,13 +52,13 @@ style: Changes that do not affect the meaning of the code (white-space, formatti
 test: Adding missing tests or correcting existing tests
 ```
 
-- 动词开头：增加、删除、修改
+- 动词开头：add、delete、update（用这几个英文开头是因为使用这几个中文有很多词可以选择，比如：增加、新增、创建等，让人很难记住）
 - 每改一个独立功能 commit 一次，别写了一堆功能再一次 commit，到时候做提交的代码检查会死人
 - 比如：
 
 ```
-docs: 增加 Git 规范
-feat: 增加 简化模式
+docs: add Git 规范
+feat: add 简化模式
 ```
 
 ## Gitflow 工作流
@@ -67,119 +67,4 @@ feat: 增加 简化模式
 
 ## 前后端 gitignore
 
-```
-out/
-target/
-node_modules/
-classes/
-.deploy*/
-.gradle
-*.log.*
-*.log
-
-# ======================================================
-
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-
-### IntelliJ IDEA ###
-.idea
-*.iws
-*.iml
-*.ipr
-
-### NetBeans ###
-nbproject/private/
-build/
-nbbuild/
-dist/
-nbdist/
-.nb-gradle/
-
-# ======================================================
-
-# Windows image file caches
-Thumbs.db
-ehthumbs.db
-
-# Folder config file
-Desktop.ini
-
-# Recycle Bin used on file shares
-$RECYCLE.BIN/
-
-# Windows Installer files
-*.cab
-*.msi
-*.msm
-*.msp
-
-# Windows shortcuts
-*.lnk
-
-# ======================================================
-
-# OSX
-.DS_Store
-.AppleDouble
-.LSOverride
-
-# Thumbnails
-._*
-
-# Files that might appear in the root of a volume
-.DocumentRevisions-V100
-.fseventsd
-.Spotlight-V100
-.TemporaryItems
-.Trashes
-.VolumeIcon.icns
-
-# Directories potentially created on remote AFP share
-.AppleDB
-.AppleDesktop
-Network Trash Folder
-Temporary Items
-.apdisk
-
-# ======================================================
-
-npm-debug.log*
-yarn-error.log
-.idea/
-.ipr
-.iws
-*~
-~*
-*.diff
-*.patch
-*.bak
-.*proj
-.svn/
-*.swp
-*.swo
-*.json.gzip
-.buildpath
-nohup.out
-dist
-*.tmp
-
-# ======================================================
-
-.DS_STORE
-*.pyc
-remote-repo/
-coverage/
-.module-cache
-*.log*
-chrome-user-data
-*.sublime-project
-*.sublime-workspace
-.vscode
-
-```
+- [.gitignore 模板](https://github.com/cdk8s/cdk8s-team-style/blob/master/common-config-file/.gitignore)
