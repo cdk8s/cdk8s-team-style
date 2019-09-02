@@ -29,6 +29,7 @@
 #### 生成不同账号的密钥、公钥
 
 - 下面以 macOS 环境为例，Windows 只是生成文件的存放目录不一样而已
+- 先切换目录：`cd ~/.ssh`
 
 ```
 ssh-keygen -t rsa -C "github_1_email@qq.com"
