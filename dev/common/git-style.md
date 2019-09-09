@@ -41,7 +41,7 @@
 - commit 前缀规范：采用 Angular 的规范：<https://github.com/angular/angular/blob/master/CONTRIBUTING.md#commit>
 
 ```
-build: Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm)
+build: Changes that affect the build system or external dependencies (example scopes: maven, gradle, gulp, broccoli, npm)
 ci: Changes to our CI configuration files and scripts (example scopes: Circle, BrowserStack, SauceLabs)
 docs: Documentation only changes
 feat: A new feature
@@ -52,13 +52,12 @@ style: Changes that do not affect the meaning of the code (white-space, formatti
 test: Adding missing tests or correcting existing tests
 ```
 
-- 动词开头：add、delete、update（用这几个英文开头是因为使用这几个中文有很多词可以选择，比如：增加、新增、创建等，让人很难记住）
 - 每改一个独立功能 commit 一次，别写了一堆功能再一次 commit，到时候做提交的代码检查会死人
 - 比如：
 
 ```
-docs: add Git 规范
-feat: add 简化模式
+docs: 更新 Git 规范
+feat: 新增简化模式
 ```
 
 ## Gitflow 工作流
