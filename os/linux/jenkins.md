@@ -189,6 +189,49 @@ This may also be found at: /root/.jenkins/secrets/initialAdminPassword
     - 授权策略 > 勾选 `登录用户可以做任何事` 或 `安全矩阵`
     - 点击保存
 
+## 设置邮箱
+
+- 必备插件
+	- Email Extension Plugin
+	- Email Extension Template Plugin
+- 打开配置页面：<http://127.0.0.1:18080/configure>
+- 找到：`Jenkins Location` 选项
+    - 系统管理员邮件地址，填写发送人邮件地址，该地址必须和等下配置的 smtp 用户名的一致
+- 找到：`Extended E-mail Notification` 选项
+- 该选项下的一些参数说明
+    - SMTP server：`smtp.163.com`
+    - Default Content Type：内容展现的格式，一般选择 HTML
+    - Default Recipients：默认收件人
+    - Default Subject：`Jenkins  构建结果通知：$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!`
+    - Default Content：
+
+```
+<hr/>
+<h3>(本邮件是程序自动发送，请勿回复！)</h3>
+<hr/>
+
+项目名称：$PROJECT_NAME<br/><hr/>
+构建编号：$BUILD_NUMBER<br/><hr/>
+构建状态：$BUILD_STATUS<br/><hr/>
+触发原因：${CAUSE}<br/><hr/>
+构建地址：<a href="$BUILD_URL">$BUILD_URL</a><br/><hr/>
+构建日志：<a href="${BUILD_URL}console">${BUILD_URL}console</a><br/><hr/>
+变更内容:${JELLY_SCRIPT,template="html"}<br/><hr/>
+```
+
+- 找到：`邮件通知` 选项
+    - SMTP服务器：`smtp.163.com`
+    - SMTP端口：`25`（勾选 ”Use SSL“ 时默认是465，否则是 25）
+    - 用户名：`xxx@163.com`
+    - 密码：现在邮箱为了避免密码泄露基本都要用授权码，不用登陆密码了
+    - 字符集：`UTF-8`
+
+- 勾选：`通过发送测试邮件测试配置`，填写一个收件箱地址，点击：`Test configuration` 看下是否能发送成功。
+- 工程配置开启邮箱通知，Pipeline 的方式可以参考：[这篇文章](https://blog.csdn.net/cpongo3/article/details/90603215)
+    
+
+
+
 -------------------------------------------------------------------
 
 ## pipeline 语法
