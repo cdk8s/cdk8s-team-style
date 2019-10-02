@@ -76,7 +76,18 @@ max_allowed_packet = 50M
 - 赋权：`chown -R 0:0 /data/docker/mysql/conf`
 	- 配置文件的赋权比较特殊，如果是给 777 权限会报：[Warning] World-writable config file '/etc/mysql/conf.d/mysql-1.cnf' is ignored，所以这里要特殊对待。容器内是用 root 的 uid，所以这里与之相匹配赋权即可。
 	- 我是进入容器 bash 内，输入：`whoami && id`，看到默认用户的 uid 是 0，所以这里才 chown 0
-- `docker run -p 3306:3306 --name cloud-mysql -v /data/docker/mysql/datadir:/var/lib/mysql -v /data/docker/mysql/log:/var/log/mysql -v /data/docker/mysql/conf:/etc/mysql/conf.d -e MYSQL_ROOT_PASSWORD=123456 -d mysql:5.7`
+- 启动
+
+```
+docker run -p 3306:3306 \
+    --name cloud-mysql \
+    -v /data/docker/mysql/datadir:/var/lib/mysql \
+    -v /data/docker/mysql/log:/var/log/mysql \
+    -v /data/docker/mysql/conf:/etc/mysql/conf.d \
+    -e MYSQL_ROOT_PASSWORD=123456 \
+    -d mysql:5.7
+```
+
 - 连上容器：`docker exec -it cloud-mysql /bin/bash`
 	- 连上 MySQL：`mysql -u root -p`
 	- 创建表：`CREATE DATABASE wormhole DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci;`
