@@ -113,6 +113,9 @@ sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/
 sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
 
 sudo yum install -y jenkins
+
+如果网络过慢则放后台运行，或者直接下载 rpm 包
+nohup yum install -y jenkins > /dev/null 2>&1 &
 ```
 
 - 查看安装后的情况：`rpm -ql jenkins`
@@ -135,6 +138,7 @@ sudo yum install -y jenkins
 /usr/lib/jenkins/：jenkins安装目录，war 包会放在这里。
 /etc/sysconfig/jenkins：jenkins配置文件，“端口”，“JENKINS_HOME” 等都可以在这里配置。
 /var/lib/jenkins/：默认的 JENKINS_HOME。
+~/.jenkins：当前用户的相关配置
 /var/log/jenkins/jenkins.log：jenkins 日志文件。
 ```
 
