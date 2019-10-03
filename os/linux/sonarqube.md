@@ -190,10 +190,21 @@ docker run -d --name sonarqube \
 - <https://docs.sonarqube.org/latest/extend/web-api/>
 - <https://docs.sonarqube.org/display/SONARQUBE43/Web+Service+API>
 
+## 常用插件
 
-
-
-
+- Chinese Pack
+- Git
+- LDAP
+- GitHub Authentication for SonarQube
+- [OpenID Connect Authentication for SonarQube](https://github.com/vaulttec/sonar-auth-oidc)
+- [GitLab Auth](https://github.com/gabrie-allaigre/sonar-auth-gitlab-plugin)
+- [MyBatis Plugin for SonarQube](https://github.com/donhui/sonar-mybatis)
+- SonarJava
+- SonarHTML
+- [SonarCSS](https://github.com/SonarSource/sonar-css)
+- [SonarJS](https://github.com/SonarSource/SonarJS)
+- [SonarTS（TypeScript）](https://github.com/SonarSource/SonarTS)
+- [YAML Analyzer](https://github.com/sbaudoin/sonar-yaml)
 
 
 
