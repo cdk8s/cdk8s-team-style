@@ -186,9 +186,17 @@ docker run -d --name sonarqube \
 
 ## SonarQube API
 
-
 - <https://docs.sonarqube.org/latest/extend/web-api/>
 - <https://docs.sonarqube.org/display/SONARQUBE43/Web+Service+API>
+- 主要取下面字段：
+
+```
+issues.severity
+issues.component
+issues.project
+issues.message
+```
+
 
 ## 常用插件
 
