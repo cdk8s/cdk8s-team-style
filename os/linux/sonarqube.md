@@ -45,12 +45,30 @@ XML
 
 - 官网说明：<https://hub.docker.com/_/sonarqube/>
 - 由于使用了 Elasticsearch，所以要确保：
+- 临时修改：
 
 ```
 sysctl -w vm.max_map_count=262144
 sysctl -w fs.file-max=65536
 ulimit -n 65536
 ulimit -u 4096
+```
+
+- 或者永久修改
+- 配置系统最大打开文件描述符数：`vim /etc/sysctl.conf`
+
+```
+fs.file-max=65535
+vm.max_map_count=262144
+```
+
+- 配置进程最大打开文件描述符：`vim /etc/security/limits.conf`
+
+```
+elasticsearch soft memlock unlimited
+elasticsearch hard memlock unlimited
+* soft nofile 262144
+* hard nofile 262144
 ```
 
 - 没有数据库方式：`docker run -d --name sonarqube -p 9000:9000 sonarqube`
