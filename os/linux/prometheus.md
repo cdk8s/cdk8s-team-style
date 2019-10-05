@@ -300,6 +300,138 @@ scrape_configs:
 - <https://segmentfault.com/a/1190000015576540>
 
 
+## PromQL
+
+- 资料：<https://songjiayang.gitbooks.io/prometheus/content/promql/summary.html>
+- 官网函数列表：<https://prometheus.io/docs/prometheus/latest/querying/functions/>
+- 类 SQL 对比，方便理解：
+
+```
+查询当前所有数据
+// PromQL
+http_requests_total
+
+// MySQL
+SELECT * from http_requests_total WHERE created_at BETWEEN 1495435700 AND 1495435710;
+
+-------------------------------------------------------------------
+
+条件查询
+// PromQL
+http_requests_total{code="200", handler="query"}
+
+// MySQL
+SELECT * from http_requests_total WHERE code="200" AND handler="query" AND created_at BETWEEN 1495435700 AND 1495435710;
+
+-------------------------------------------------------------------
+
+模糊查询: code 为 2xx 的数据
+// PromQL
+http_requests_total{code~="2xx"}
+
+// MySQL
+SELECT * from http_requests_total WHERE code LIKE "%2%" AND created_at BETWEEN 1495435700 AND 1495435710;
+
+-------------------------------------------------------------------
+
+比较查询: value 大于 100 的数据
+// PromQL
+http_requests_total > 100
+
+// MySQL
+SELECT * from http_requests_total WHERE value > 100 AND created_at BETWEEN 1495435700 AND 1495435710;
+
+-------------------------------------------------------------------
+
+范围区间查询: 过去 5 分钟数据
+// PromQL
+http_requests_total[5m]
+
+// MySQL
+SELECT * from http_requests_total WHERE created_at BETWEEN 1495435410 AND 1495435710;
+
+-------------------------------------------------------------------
+
+count 查询: 统计当前记录总数
+// PromQL
+count(http_requests_total)
+
+// MySQL
+SELECT COUNT(*) from http_requests_total WHERE created_at BETWEEN 1495435700 AND 1495435710;
+
+-------------------------------------------------------------------
+
+sum 查询: 统计当前数据总值
+// PromQL
+sum(http_requests_total)
+
+// MySQL
+SELECT SUM(value) from http_requests_total WHERE created_at BETWEEN 1495435700 AND 1495435710;
+
+-------------------------------------------------------------------
+
+avg 查询: 统计当前数据平均值
+// PromQL
+avg(http_requests_total)
+
+// MySQL
+SELECT AVG(value) from http_requests_total WHERE created_at BETWEEN 1495435700 AND 1495435710;
+
+-------------------------------------------------------------------
+
+top 查询: 查询最靠前的 3 个值
+// PromQL
+topk(3, http_requests_total)
+
+// MySQL
+SELECT * from http_requests_total WHERE created_at BETWEEN 1495435700 AND 1495435710 ORDER BY value DESC LIMIT 3;
+
+
+-------------------------------------------------------------------
+
+rate / irate 查询，过去 5 分钟平均每秒数值
+// PromQL
+rate(http_requests_total[5m])
+irate(http_requests_total[5m])
+
+// MySQL
+SELECT code, handler, instance, job, method, SUM(value)/300 AS value from http_requests_total WHERE created_at BETWEEN 1495435700 AND 1495435710  GROUP BY code, handler, instance, job, method;
+
+```
+
+- 查询条件支持正则匹配，例如：
+
+```
+http_requests_total{code!="200"}  // 表示查询 code 不为 "200" 的数据
+http_requests_total{code=～"2.."} // 表示查询 code 为 "2xx" 的数据
+http_requests_total{code!～"2.."} // 表示查询 code 不为 "2xx" 的数据
+```
+
+- 逻辑运算符:
+
+```
+支持的逻辑运算符有 and，or，unless, 例如 http_requests_total == 5 or http_requests_total == 2 表示 http_requests_total 结果中等于 5 或者 2 的数据。
+```
+
+- 聚合运算符:
+
+```
+支持的聚合运算符有 sum，min，max，avg，stddev，stdvar，count，count_values，bottomk，topk，quantile，, 例如 max(http_requests_total) 表示 http_requests_total 结果中最大的数据。
+注意，和四则运算类型，Prometheus 的运算符也有优先级，它们遵从（^）> (*, /, %) > (+, -) > (==, !=, <=, <, >=, >) > (and, unless) > (or) 的原则。
+```
+
+- 查看 http_requests_total 5分钟内，平均每秒数据
+
+```
+rate(http_requests_total[5m])
+irate(http_requests_total[5m])
+
+irate和rate都会用于计算某个指标在一定时间间隔内的变化速率。但是它们的计算方法有所不同：irate取的是在指定时间范围内的最近两个数据点来算速率，而rate会取指定时间范围内所有数据点，算出一组速率，然后取平均值作为结果。
+所以官网文档说：irate适合快速变化的计数器（counter），而rate适合缓慢变化的计数器（counter）。
+```
+
+
+
 ----------------------------------------------------------------------------------------------
 
 
@@ -309,5 +441,5 @@ scrape_configs:
     - 写得非常非常非常好
 - <https://www.hi-linux.com/posts/27014.html>
 - <https://www.linuxea.com/1915.html>
-
+- <https://blog.csdn.net/palet/article/details/82763695>
 
