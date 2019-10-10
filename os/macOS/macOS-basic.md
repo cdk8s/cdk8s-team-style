@@ -18,6 +18,7 @@
 
 - [如何连接有线网络/WiFi网络](http://www.jianshu.com/p/cac5084fdebd)
 - [查看本地 IP 地址](http://www.jianshu.com/p/149b984e3c43)
+- [修改为静态IP](https://www.jianshu.com/p/7b8d5a020682)
 - [改变鼠标/触摸板滚轮滑动方向](http://www.jianshu.com/p/005bfba5c080)
 - [触摸板的使用](http://www.jianshu.com/p/7a4fb9b084dc)
 - [修改F区键盘键为常规F1~F12键效果](http://www.jianshu.com/p/ceb873c3759d)
