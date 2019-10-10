@@ -171,9 +171,8 @@
 - [IDE 思维](https://github.com/cdk8s/cdk8s-team-style/blob/master/other/ide-style.md)
 
 
-## 特殊（Break）
+## 联系（Contact）
 
-- 2019-08-15 ~ 2019-09-15 我正在休息、整理，有合适工作机会也可以联系（广州、深圳 - 中小企业）
 - 邮箱：`cdk8s#qq.com`
 - 微信公众号
 
