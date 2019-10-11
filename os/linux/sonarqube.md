@@ -182,7 +182,7 @@ docker run -d --name sonarqube \
 ```
 
 - 然后对项目执行命令：`mvn clean install sonar:sonar -DskipTests`
-    - 这样在 SonarQube 会自动帮我们创建一个 Jenkins Job 名的项目
+    - 这样在 SonarQube 会自动帮我们创建一个 artifactId 名的项目
 
 ## SonarQube API
 
