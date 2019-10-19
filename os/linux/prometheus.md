@@ -5,7 +5,7 @@
 - CentOS 7 64位
 - 禁用防火墙、selinux、swap
 
-## Redis 基本介绍
+## Prometheus 基本介绍
 
 - 不错的发展史说明：<https://caicloud.io/blog/5a5db4203255f5063f2bd462>
 - 特别说明：一般这类环境要尽可能保证所有服务器时间一致
@@ -23,8 +23,8 @@
 ```
 # my global config
 global:
-  scrape_interval:     15s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
-  evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.
+  scrape_interval:     15s # 拉取监控服务信息周期
+  evaluation_interval: 15s # 读取配置规则周期时间
   # scrape_timeout is set to the global default (10s).
 
 # Alertmanager configuration
@@ -60,6 +60,7 @@ prom/prometheus
 
 ## 配置
 
+- Prometheus 默认数据是存储到本地磁盘，存储周期 15d。如果需要长期存储需要设置远程存储
 - 官网 exporter 列表：<https://prometheus.io/docs/instrumenting/exporters/>
 - 官网 exporter 暴露的端口列表：<https://github.com/prometheus/prometheus/wiki/Default-port-allocations>
 
