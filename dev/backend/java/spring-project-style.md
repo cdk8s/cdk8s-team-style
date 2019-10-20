@@ -7,7 +7,7 @@
 - 提交勾选：`Optimize imports`
 - 检查 TODO 是否还有未完成功能
 
-## 必须使用 Lombok
+## 必须 Lombok
 
 
 ## 必须 mapstruct
