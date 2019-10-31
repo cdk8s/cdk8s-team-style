@@ -53,13 +53,4 @@
     - Rekordbox DJ 系有：
     - [Pioneer DDJ-RX](https://list.tmall.com/search_product.htm?q=Pioneer+DDJ-RX&type=p&vmarket=&spm=a222r.8215186.a2227oh.d100&from=..pc_1_searchbutton)
      
-## 结束语
-
-- 多看书，少刷微博、朋友，也少看订阅号，包括 YouMeek 相关内容，真心话！
-- 对于喜欢音乐的人来讲，这辈子不一定要从事音乐，但是可以参与音乐！
-
------------------------------------
-
-<script type="text/javascript">var jd_union_pid="669693165";var jd_union_euid="";</script><script type="text/javascript" src="//ads.union.jd.com/static/js/union.js"></script>
-
 

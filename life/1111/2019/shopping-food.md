@@ -183,14 +183,3 @@
 - [无籽葡萄](http://search.jd.com/Search?keyword=无籽葡萄&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=a0baf6cab1e54029a3d3c1e308a01064-p_276666007&abt=3)
 - [火龙果](http://search.jd.com/Search?keyword=火龙果&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=006ccc14c0f54317be3af594857d4c60-p_276666007&abt=3)
 
-
-
-## 结束语
-
-- 呃，胖了？
-
-
---------------------------------------------------
-
-<script type="text/javascript">var jd_union_pid="669693165";var jd_union_euid="";</script><script type="text/javascript" src="//ads.union.jd.com/static/js/union.js"></script>
-

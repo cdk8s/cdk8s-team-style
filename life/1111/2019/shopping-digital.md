@@ -2,18 +2,12 @@
 ## 2019 年双十一购物指南-程序员-系列（数码篇）
 
 
-## 数码
-
-- 买数码产品我基本都在京东，基本可以当天到或是隔天到，退换货也方便，其他没啥原因。
-- 由于时间比较敢，后面几天还会不断地完善，包括优惠信息的地址。
-
 ### 手机
 
-- iPhone X 线上基本都没货，所以只能官网订，没啥好说了。
-- iPhone 8 现在的价格算是合适的，所以不考虑 X 就直接 8 吧。没必要买早期版本。
-- [iPhone 7](http://search.jd.com/Search?keyword=iPhone%207&enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=c89ade36e48b4374a7852850f39e0dc4-p_669693165&abt=3)
-- [iPhone 7 plus](http://search.jd.com/Search?keyword=iPhone%207%20plus&enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=70862429d0b04ce99539d4d5621a465e-p_669693165&abt=3)
-- 不用 Android 很久了，不知道市场怎样。但是如果再让我买应该会买小米。
+- 个人不喜欢齐刘海、挖孔
+- [iPhone-生态和摄像头](http://search.jd.com/Search?keyword=iPhone&enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=c89ade36e48b4374a7852850f39e0dc4-p_669693165&abt=3)
+- [Redmi K20Pro](http://search.jd.com/Search?keyword=Redmi%20K20Pro&enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=c89ade36e48b4374a7852850f39e0dc4-p_669693165&abt=3)
+- [华为 Mate](http://search.jd.com/Search?keyword=华为%20Mate&enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=c89ade36e48b4374a7852850f39e0dc4-p_669693165&abt=3)
 
 
 ### 移动硬盘 / U盘
@@ -92,14 +86,18 @@
 
 ### 蓝牙耳机
 
-- [索尼(SONY)WI-1000X](http://search.jd.com/Search?keyword=%E7%B4%A2%E5%B0%BC(SONY)WI-1000X&enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=8612610df57b4000b9c7118e1a1b08c5-p_669693165&abt=3)
-- [SONY MDR-EX750BT](http://search.jd.com/Search?keyword=SONY%20MDR-EX750BT&enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=d635f78cf9b94b8b8f362c938698c346-p_669693165&abt=3)
-    
+- [Apple AirPods Pro](http://search.jd.com/Search?keyword=Apple%20AirPods%20Pro&enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=8612610df57b4000b9c7118e1a1b08c5-p_669693165&abt=3)
+- [小米 AirDots](http://search.jd.com/Search?keyword=小米%20AirDots&enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=8612610df57b4000b9c7118e1a1b08c5-p_669693165&abt=3)
 
-### 蓝牙音响
 
-- [惠威（HiVi）M200MKIII](http://search.jd.com/Search?keyword=%E6%83%A0%E5%A8%81%EF%BC%88HiVi%EF%BC%89M200MKIII&enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=cfdff9a7e7db4b0ebd0b78fb75580d20-p_669693165&abt=3)
-- [漫步者（EDIFIER）S2000MKII](http://search.jd.com/Search?keyword=%E6%BC%AB%E6%AD%A5%E8%80%85%EF%BC%88EDIFIER%EF%BC%89S2000MKII&enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=a49cc400586e4cd2b1860ca240dae40f-p_669693165&abt=3)
+### 大蓝牙音响
+
+- [惠威 M200MKIII](http://search.jd.com/Search?keyword=惠威%20M200MKIII&enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=cfdff9a7e7db4b0ebd0b78fb75580d20-p_669693165&abt=3)
+- [漫步者 S2000MKIII](http://search.jd.com/Search?keyword=漫步者%20S2000MKIII&enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=a49cc400586e4cd2b1860ca240dae40f-p_669693165&abt=3)
+
+### 小蓝牙音箱
+
+- [小米 便携音箱](http://search.jd.com/Search?keyword=小米%20便携音箱&enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=a49cc400586e4cd2b1860ca240dae40f-p_669693165&abt=3)
 
 
 ### 平板电脑
@@ -135,13 +133,5 @@
 - [大疆（DJI）“御”Mavic Pro](http://search.jd.com/Search?keyword=%E5%A4%A7%E7%96%86%EF%BC%88DJI%EF%BC%89%E2%80%9C%E5%BE%A1%E2%80%9DMavic%20Pro&enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=222204b0d17f4dcebf8c3fe433190fc0-p_669693165&abt=3)
 
 
-
-## 结束语
-
-- 感叹有钱真好的同时也请勒紧口袋。
-
---------------------------------------------------
-
-<script type="text/javascript">var jd_union_pid="669693165";var jd_union_euid="";</script><script type="text/javascript" src="//ads.union.jd.com/static/js/union.js"></script>
 
 

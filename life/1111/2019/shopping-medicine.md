@@ -107,18 +107,3 @@
     - [蜂胶软胶囊](http://m.kaola.com/product/6200.html?sharer=6vp2kCCDbqrKrA9ZR6hUaVGyFF%2FrlZ6SY9vAMey9OL8%3D&shareOs=iOS&shareTo=wx)
     - [蔓越莓](http://m.kaola.com/product/4815.html?sharer=6vp2kCCDbqrKrA9ZR6hUaVGyFF%2FrlZ6SY9vAMey9OL8%3D&shareOs=iOS&shareTo=wx)
  
- 
-- 结束语
- 
-- 早睡、多吃水果蔬菜胜过很多保健品。
- 
-- 参考资料：
-    - <http://www.zhihu.com/question/24459290>
-
-
-
-
---------------------------------------------------
-
-<script type="text/javascript">var jd_union_pid="669693165";var jd_union_euid="";</script><script type="text/javascript" src="//ads.union.jd.com/static/js/union.js"></script>
-

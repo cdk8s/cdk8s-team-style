@@ -196,14 +196,3 @@
 
 
 
-## 结束语
-
-- 所有的电器对我来讲只有一个作用：让、我、做、懒、人！
-
-
-
---------------------------------------------------
-
-<script type="text/javascript">var jd_union_pid="669693165";var jd_union_euid="";</script><script type="text/javascript" src="//ads.union.jd.com/static/js/union.js"></script>
-
-
