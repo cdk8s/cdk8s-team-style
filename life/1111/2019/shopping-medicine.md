@@ -1,18 +1,21 @@
 
-## 2019 年双十一购物指南-程序员-系列（药品篇）
+# 2019 年双十一购物指南-程序员-系列（药品篇）
 
- 
-- **读这篇文章请慎重再慎重，前面五期都可以随便瞧，就这一期请在成年人陪同下观看!**
+## 声明
+
 - **针对幼儿/儿童的药物不在本篇文章里面，对于这类人群请牢记遵从医生说明。**
+- **在使用药品过程中，注意看说明书，注意过敏体质，药物冲突，注意事项等，这个非常非常重要**
 - 本篇整理的是我个人目前寥寥无几的医疗知识中根据个人体会整理出来的家庭常备药箱。有些是从网上找的。
-- 不提倡创可贴，这东西还没医用绷带好用，用不好还会影响受伤部位愈合，不好结巴，易感染，我是吃过这个亏。
-- 在使用药品过程中，注意看说明书，这个非常非常重要
- 
+
+
+## 内容
+
 - [家庭药箱](http://search.jd.com/Search?keyword=家庭药箱&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=419f24fac4764bb4b249285884eb9c7e-p_276666007&abt=3)
 - [电子体温计](http://search.jd.com/Search?keyword=电子体温计&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=b0a011defae94de0a0f81e96a9654a16-p_276666007&abt=3)
 - 刺伤/割伤/擦伤
     - 创口大一定要去医疗机构看下。创口小，先保证自己手是干净的，然后用生理盐水清洗伤口处位置，用碘伏/酒精清洗伤口周边皮肤，用棉棒按压伤口附近止血，尽量抬高受伤的位置，让血液不易流到伤口处，最后等止血后的伤口位置自然干燥。
     - 如果你在工地或是其他比较脏乱的地方，还需要准备一个消毒纱布进行预防这样的环境污染伤口。
+    - 不提倡创可贴，这东西还没医用绷带好用，用不好还会影响受伤部位愈合，不好结巴，易感染，我是吃过这个亏。如果出门在外预防外界粉尘也可以急用，但是要更换勤快。
     - [生理盐水（生理氯化钠溶液）](http://www.111.com.cn/search/search.action?keyWord=%25E7%2594%259F%25E7%2590%2586%25E6%25B0%25AF%25E5%258C%2596%25E9%2592%25A0%25E6%25BA%25B6%25E6%25B6%25B2)
     - [碘伏（不是碘酊噢，这两个不一样）](http://search.jd.com/Search?keyword=碘伏&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=45fa1f1b448b451e98b424ce61742851-p_276666007&abt=3)
     - [医用绷带](http://search.jd.com/Search?keyword=医用绷带&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=2759ec164c49482f80783ae433fa84db-p_276666007&abt=3)
@@ -25,7 +28,7 @@
     - [生理盐水（生理氯化钠溶液）](http://www.111.com.cn/search/search.action?keyWord=%25E7%2594%259F%25E7%2590%2586%25E6%25B0%25AF%25E5%258C%2596%25E9%2592%25A0%25E6%25BA%25B6%25E6%25B6%25B2)
     - [碘伏（不是碘酊噢，这两个不一样）](http://search.jd.com/Search?keyword=碘伏&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=45fa1f1b448b451e98b424ce61742851-p_276666007&abt=3)
     - [注射针头](http://search.jd.com/Search?keyword=注射针头&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=ed475761c7ff48948f646ab390162fcb-p_276666007&abt=3)
-    - [美宝湿润烧伤膏](https://list.tmall.com/search_product.htm?q=%C3%C0%B1%A6%CA%AA%C8%F3%C9%D5%C9%CB%B8%E0&type=p&vmarket=&spm=a222y.22577.a2227oh.d100&from=yao..pc_1_searchbutton)
+    - [美宝湿润烧伤膏](http://search.jd.com/Search?keyword=美宝湿润烧伤膏&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=ed475761c7ff48948f646ab390162fcb-p_276666007&abt=3)
     - [医用绷带](http://search.jd.com/Search?keyword=医用绷带&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=2759ec164c49482f80783ae433fa84db-p_276666007&abt=3)
     - [无菌纱布](http://search.jd.com/Search?keyword=无菌纱布&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=7ad418bded154cc09e993983fdd67bac-p_276666007&abt=3)
     - [医用镊子](http://search.jd.com/Search?keyword=医用镊子&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=298ed83c09784dd9a166c10875c4b198-p_276666007&abt=3)
@@ -33,12 +36,16 @@
 - 感冒发烧
     - 多喝水
     - 多休息
-    - 多吃粥
+    - 多吃粥。吃完多走动，不走动消化能力会很差，精神气也会更差。
+    - 空气流通
     - 每顿饭后都必须洗牙，没条件洗牙就用漱口水
     - [复方氨酚烷胺片](http://search.jd.com/Search?keyword=复方氨酚烷胺片&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=30c9f3ae4f9344bc80bf2ff563edc76c-p_276666007&abt=3)，**适应症为适用于缓解普通感冒及流行性感冒引起的发热、头痛、四肢酸痛、打喷嚏、流鼻涕、鼻塞、咽痛等症状。**
     - [芬必得](http://search.jd.com/Search?keyword=芬必得&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=63985febabef4a81b971af8865a153c7-p_276666007&abt=3)，**用于缓解轻至中度疼痛如头痛、关节痛、偏头痛、牙痛、肌肉痛、神经痛、痛经。也用于普通感冒或流行性感冒引起的发热**
     - [曼秀雷敦薄荷膏](http://search.jd.com/Search?keyword=曼秀雷敦薄荷膏&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=70d7289e099b496288e25fe43849dfad-p_276666007&abt=3)，**用于由伤风感冒所致的鼻塞，昆虫叮咬及皮肤开裂等症的对症治疗。**
     - [维生素C](http://search.jd.com/Search?keyword=维生素C&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=7bcac73ed7d740bcb30f62b2511056ab-p_276666007&abt=3)
+    - [幸福伤风素（复方氨酚肾素片）](http://search.jd.com/Search?keyword=复方氨酚肾素片&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=7bcac73ed7d740bcb30f62b2511056ab-p_276666007&abt=3)
+    - [儿童幸福伤风素（儿童复方氨酚肾素片）](http://search.jd.com/Search?keyword=儿童复方氨酚肾素片&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=7bcac73ed7d740bcb30f62b2511056ab-p_276666007&abt=3)
+    - [Robitussin 乐必治 止咳药水（香港）](http://search.jd.com/Search?keyword=Robitussin&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=7bcac73ed7d740bcb30f62b2511056ab-p_276666007&abt=3)
 - 跌打损伤
     - 这里假设的是你没有皮外伤的前提，有皮外伤，要先处理皮外伤，并且注意下面这些药是否可以对在皮外伤处进行涂抹（一般是不行）
     - 没有皮外伤的情况下，受伤24小时内用冷敷，24小时后用药膏推拿，让它发热。
@@ -66,12 +73,13 @@
     - [曼秀雷敦薄荷膏](http://search.jd.com/Search?keyword=曼秀雷敦薄荷膏&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=a531cf371b6849dab6932df1d25093a4-p_276666007&abt=3)，**用于由伤风感冒所致的鼻塞，昆虫叮咬及皮肤开裂等症的对症治疗。**
 - 口腔溃疡
     - 每顿饭后都必须洗牙，没条件洗牙就用漱口水
-    - [口腔炎喷雾剂](http://search.jd.com/Search?keyword=口腔炎喷雾剂&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=2f1c7bd584b54df9844b358ab9ba12c4-p_276666007&abt=3)
+    - [蜂胶口腔膜](http://search.jd.com/Search?keyword=蜂胶口腔膜&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=cbab6c2e75674e86819d91542c8561c3-p_276666007&abt=3)
+    - [大正 口内炎贴（日本）](http://search.jd.com/Search?keyword=大正%20口内炎贴&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=cbab6c2e75674e86819d91542c8561c3-p_276666007&abt=3)
     - [维生素C](http://search.jd.com/Search?keyword=维生素C&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=cbab6c2e75674e86819d91542c8561c3-p_276666007&abt=3)
 - 过敏
     - 过敏很多类型，具体请根据自身情况进行选择药物。
-    - [复方甘草酸苷片](https://list.tmall.com/search_product.htm?q=复方甘草酸苷片&type=p&style=&cat=all&vmarket=)
-    - [皿治林 咪唑斯汀缓释片](https://list.tmall.com/search_product.htm?q=%C3%F3%D6%CE%C1%D6&type=p&spm=a220m.1000858.a2227oh.d100&from=.list.pc_1_searchbutton)
+    - [复方甘草酸苷片](http://search.jd.com/Search?keyword=复方甘草酸苷片&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=94f6367229514b3ea8c5a43af21fde4d-p_276666007&abt=3)
+    - [皿治林 咪唑斯汀缓释片](http://search.jd.com/Search?keyword=皿治林%20咪唑斯汀缓释片&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=94f6367229514b3ea8c5a43af21fde4d-p_276666007&abt=3)
     - [丁酸氢化可的松乳膏](http://search.jd.com/Search?keyword=丁酸氢化可的松乳膏&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=94f6367229514b3ea8c5a43af21fde4d-p_276666007&abt=3)
     - [大宝](http://search.jd.com/Search?keyword=大宝&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=fc9d605bd3d54deb8419ba7e1a3d4e1a-p_276666007&abt=3)
 - [晕车/晕船/晕机]()
@@ -88,22 +96,22 @@
     - 保健品一般走的都是特定需求。每个人的体质不一样，对应的保健品也各不相同，我比较挑食，所有有些元素我需要用这类要来补充。
     - 不建议一下子吃太多这里药品，在一个时间段吃 1~2 种就差不多了，要有针对性。
     - 对应功能你可以点击进去详细查看，建议通读，了解下保健品市场。
-    - [男性 维生素综合片](http://m.kaola.com/product/37628.html?sharer=6vp2kCCDbqrKrA9ZR6hUaVGyFF%2FrlZ6SY9vAMey9OL8%3D&shareOs=iOS&shareTo=wx)
-    - [女性 维生素综合片](http://m.kaola.com/product/37625.html?sharer=6vp2kCCDbqrKrA9ZR6hUaVGyFF%2FrlZ6SY9vAMey9OL8%3D&shareOs=iOS&shareTo=wx)
-    - [家庭装 维生素综合片](http://m.kaola.com/product/4771.html?sharer=6vp2kCCDbqrKrA9ZR6hUaVGyFF%2FrlZ6SY9vAMey9OL8%3D&shareOs=iOS&shareTo=wx)
-    - [孕妇 维生素综合片](http://m.kaola.com/product/1025370.html?sharer=6vp2kCCDbqrKrA9ZR6hUaVGyFF%2FrlZ6SY9vAMey9OL8%3D&shareOs=iOS&shareTo=wx)
-    - [孕妇产后 维生素综合片](http://m.kaola.com/product/1219441.html?sharer=6vp2kCCDbqrKrA9ZR6hUaVGyFF%2FrlZ6SY9vAMey9OL8%3D&shareOs=iOS&shareTo=wx)
-    - [中老年 维生素综合片](http://m.kaola.com/product/17627.html?sharer=6vp2kCCDbqrKrA9ZR6hUaVGyFF%2FrlZ6SY9vAMey9OL8%3D&shareOs=iOS&shareTo=wx)
-    - [葡萄籽软胶囊](http://m.kaola.com/product/11932.html?sharer=6vp2kCCDbqrKrA9ZR6hUaVGyFF%2FrlZ6SY9vAMey9OL8%3D&shareOs=iOS&shareTo=wx)
-    - [奶蓟草](http://m.kaola.com/product/10735.html?sharer=6vp2kCCDbqrKrA9ZR6hUaVGyFF%2FrlZ6SY9vAMey9OL8%3D&shareOs=iOS&shareTo=wx)
-    - [钙胶囊](http://m.kaola.com/product/21602.html?sharer=6vp2kCCDbqrKrA9ZR6hUaVGyFF%2FrlZ6SY9vAMey9OL8%3D&shareOs=iOS&shareTo=wx)
-    - [叶黄素](http://m.kaola.com/product/6763.html?sharer=6vp2kCCDbqrKrA9ZR6hUaVGyFF%2FrlZ6SY9vAMey9OL8%3D&shareOs=iOS&shareTo=wx)
-    - [番茄红素胶囊](http://m.kaola.com/product/280262.html?sharer=6vp2kCCDbqrKrA9ZR6hUaVGyFF%2FrlZ6SY9vAMey9OL8%3D&shareOs=iOS&shareTo=wx)
-    - [蛋白粉](http://m.kaola.com/product/1335120.html?sharer=6vp2kCCDbqrKrA9ZR6hUaVGyFF%2FrlZ6SY9vAMey9OL8%3D&shareOs=iOS&shareTo=wx)
-    - [鱼油](http://m.kaola.com/product/4696.html?sharer=6vp2kCCDbqrKrA9ZR6hUaVGyFF%2FrlZ6SY9vAMey9OL8%3D&shareOs=iOS&shareTo=wx)
-    - [大豆异黄酮胶囊](http://m.kaola.com/product/280827.html?sharer=6vp2kCCDbqrKrA9ZR6hUaVGyFF%2FrlZ6SY9vAMey9OL8%3D&shareOs=iOS&shareTo=wx)
-    - [大豆卵磷脂胶囊](http://m.kaola.com/product/4753.html?sharer=6vp2kCCDbqrKrA9ZR6hUaVGyFF%2FrlZ6SY9vAMey9OL8%3D&shareOs=iOS&shareTo=wx)
-    - [辅酶Q10](http://m.kaola.com/product/4754.html?sharer=6vp2kCCDbqrKrA9ZR6hUaVGyFF%2FrlZ6SY9vAMey9OL8%3D&shareOs=iOS&shareTo=wx)
-    - [蜂胶软胶囊](http://m.kaola.com/product/6200.html?sharer=6vp2kCCDbqrKrA9ZR6hUaVGyFF%2FrlZ6SY9vAMey9OL8%3D&shareOs=iOS&shareTo=wx)
-    - [蔓越莓](http://m.kaola.com/product/4815.html?sharer=6vp2kCCDbqrKrA9ZR6hUaVGyFF%2FrlZ6SY9vAMey9OL8%3D&shareOs=iOS&shareTo=wx)
+    - [男性 维生素综合片](http://search.jd.com/Search?keyword=男性%20维生素综合片&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=dafc9d4b25894be99d8575b43fe62d6c-p_276666007&abt=3)
+    - [女性 维生素综合片](http://search.jd.com/Search?keyword=女性%20维生素综合片&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=dafc9d4b25894be99d8575b43fe62d6c-p_276666007&abt=3)
+    - [家庭装 维生素综合片](http://search.jd.com/Search?keyword=家庭装%20维生素综合片&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=dafc9d4b25894be99d8575b43fe62d6c-p_276666007&abt=3)
+    - [孕妇 维生素综合片](http://search.jd.com/Search?keyword=孕妇%20维生素综合片&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=dafc9d4b25894be99d8575b43fe62d6c-p_276666007&abt=3)
+    - [孕妇 产后维生素综合片](http://search.jd.com/Search?keyword=孕妇%20产后维生素综合片&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=dafc9d4b25894be99d8575b43fe62d6c-p_276666007&abt=3)
+    - [中老年 维生素综合片](http://search.jd.com/Search?keyword=中老年%20维生素综合片&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=dafc9d4b25894be99d8575b43fe62d6c-p_276666007&abt=3)
+    - [葡萄籽软胶囊](http://search.jd.com/Search?keyword=葡萄籽软胶囊&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=dafc9d4b25894be99d8575b43fe62d6c-p_276666007&abt=3)
+    - [奶蓟草](http://search.jd.com/Search?keyword=奶蓟草&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=dafc9d4b25894be99d8575b43fe62d6c-p_276666007&abt=3)
+    - [钙胶囊](http://search.jd.com/Search?keyword=钙胶囊&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=dafc9d4b25894be99d8575b43fe62d6c-p_276666007&abt=3)
+    - [叶黄素](http://search.jd.com/Search?keyword=叶黄素&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=dafc9d4b25894be99d8575b43fe62d6c-p_276666007&abt=3)
+    - [番茄红素胶囊](http://search.jd.com/Search?keyword=番茄红素胶囊&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=dafc9d4b25894be99d8575b43fe62d6c-p_276666007&abt=3)
+    - [蛋白粉](http://search.jd.com/Search?keyword=蛋白粉&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=dafc9d4b25894be99d8575b43fe62d6c-p_276666007&abt=3)
+    - [鱼油](http://search.jd.com/Search?keyword=鱼油&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=dafc9d4b25894be99d8575b43fe62d6c-p_276666007&abt=3)
+    - [大豆异黄酮胶囊](http://search.jd.com/Search?keyword=大豆异黄酮胶囊&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=dafc9d4b25894be99d8575b43fe62d6c-p_276666007&abt=3)
+    - [大豆卵磷脂胶囊](http://search.jd.com/Search?keyword=大豆卵磷脂胶囊&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=dafc9d4b25894be99d8575b43fe62d6c-p_276666007&abt=3)
+    - [辅酶Q10](http://search.jd.com/Search?keyword=辅酶Q10&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=dafc9d4b25894be99d8575b43fe62d6c-p_276666007&abt=3)
+    - [蜂胶软胶囊](http://search.jd.com/Search?keyword=蜂胶软胶囊&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=dafc9d4b25894be99d8575b43fe62d6c-p_276666007&abt=3)
+    - [蔓越莓](http://search.jd.com/Search?keyword=蔓越莓&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=dafc9d4b25894be99d8575b43fe62d6c-p_276666007&abt=3)
  

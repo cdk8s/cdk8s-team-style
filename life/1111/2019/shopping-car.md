@@ -1,8 +1,8 @@
 
-## 2019 年双十一购物指南-程序员-系列（汽车篇）
+# 2019 年双十一购物指南-程序员-系列（汽车篇）
 
 
-### 选车（买菜车）
+## 选车（买菜车）
 
 - 维库出品的买车攻略视频教程（讲的还行）：<https://www.bilibili.com/video/av60881212/?p=1>
 - 核心，根据预算挑选车：`一般情况下，一分钱一分货`
@@ -57,20 +57,20 @@
     - 自适应远近光
 
 
-### 汽车用品
+## 汽车用品
 
-- 重力感应 手机导航支架
-- 汽车胎压计
-- 车载充气泵
-- 汽车应急电源
-- 行车记录仪
-- 汽车胎压监测 内置
-- 自动升窗器
-- 汽车隔音
-- 驾驶眼镜（日间、夜间）
-- 临时停车牌（不要买金属的）
-- HUB抬头显示（不能常插）
-- 音响改装（考虑汽车蓄电池）
+- [重力感应 手机导航支架](http://search.jd.com/Search?keyword=重力感应%20手机导航支架&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=dafc9d4b25894be99d8575b43fe62d6c-p_276666007&abt=3)
+- [汽车胎压计](http://search.jd.com/Search?keyword=汽车胎压计&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=dafc9d4b25894be99d8575b43fe62d6c-p_276666007&abt=3)
+- [车载充气泵](http://search.jd.com/Search?keyword=车载充气泵&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=dafc9d4b25894be99d8575b43fe62d6c-p_276666007&abt=3)
+- [汽车应急电源](http://search.jd.com/Search?keyword=汽车应急电源&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=dafc9d4b25894be99d8575b43fe62d6c-p_276666007&abt=3)
+- [行车记录仪](http://search.jd.com/Search?keyword=行车记录仪&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=dafc9d4b25894be99d8575b43fe62d6c-p_276666007&abt=3)
+- [汽车胎压监测 内置](http://search.jd.com/Search?keyword=汽车胎压监测%20内置&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=dafc9d4b25894be99d8575b43fe62d6c-p_276666007&abt=3)
+- [自动升窗器](http://search.jd.com/Search?keyword=自动升窗器&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=dafc9d4b25894be99d8575b43fe62d6c-p_276666007&abt=3)
+- [汽车隔音](http://search.jd.com/Search?keyword=汽车隔音&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=dafc9d4b25894be99d8575b43fe62d6c-p_276666007&abt=3)
+- [驾驶眼镜（日间、夜间）](http://search.jd.com/Search?keyword=驾驶眼镜&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=dafc9d4b25894be99d8575b43fe62d6c-p_276666007&abt=3)
+- [临时停车牌（不要买金属的）](http://search.jd.com/Search?keyword=临时停车牌&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=dafc9d4b25894be99d8575b43fe62d6c-p_276666007&abt=3)
+- [HUB抬头显示（不能停车常插，耗电）](http://search.jd.com/Search?keyword=HUB抬头显示&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=dafc9d4b25894be99d8575b43fe62d6c-p_276666007&abt=3)
+- [音响改装（考虑汽车蓄电池）](http://search.jd.com/Search?keyword=音响改装&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=dafc9d4b25894be99d8575b43fe62d6c-p_276666007&abt=3)
 
 
 

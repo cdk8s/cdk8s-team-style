@@ -1,6 +1,6 @@
 
 
-## 2019 年双十一购物指南-程序员-系列（日用篇）
+# 2019 年双十一购物指南-程序员-系列（日用篇）
 
 
 
@@ -20,7 +20,7 @@
     - [威洁士 彩漂](http://search.jd.com/Search?keyword=威洁士%20彩漂&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=abef40ffb3cb46ee9dc03f22a8a9e7fb-p_276666007&abt=3)
 - [厨卫清洁](http://search.jd.com/Search?keyword=厨卫清洁&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=e425eb091206484984726b2358bde6a0-p_276666007&abt=3)
     - [滴露 消毒液](http://search.jd.com/Search?keyword=滴露%20消毒液&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=ff1d2aec1b0d49cba7ba42f75f83d000-p_276666007&abt=3)
-    - [妈妈壹选 洗洁精](http://search.jd.com/Search?keyword=妈妈壹选%20洗洁精&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=3e2097cd8da3459a9a59c9336de8fe35-p_276666007&abt=3)
+    - [绿劲 洗洁精](http://search.jd.com/Search?keyword=妈妈壹选%20洗洁精&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=3e2097cd8da3459a9a59c9336de8fe35-p_276666007&abt=3)
     - [威猛先生 油污净](http://search.jd.com/Search?keyword=威猛先生%20油污净&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=2334b48bf3c54eee9da8beb42606ab14-p_276666007&abt=3)
     - [威猛先生 洁厕剂](http://search.jd.com/Search?keyword=威猛先生%20洁厕剂&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=2cdde2d9b778404b83841d6a74a63b11-p_276666007&abt=3)
     - [威猛先生 浴室清洁剂](http://search.jd.com/Search?keyword=威猛先生%20浴室清洁剂&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=3ab543c964004b58ab428681c8f8cd92-p_276666007&abt=3)
@@ -92,10 +92,13 @@
 - [床上用品](http://search.jd.com/Search?keyword=床上用品&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=6c83c01f65d54f7a811be7b3cc3dda91-p_276666007&abt=3)
     - [宜家 四件套](http://search.jd.com/Search?keyword=宜家%20四件套&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=1473ed6736454665988cb2fccb8c3029-p_276666007&abt=3)
     - [宜家 床垫](http://search.jd.com/Search?keyword=宜家%20床垫&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=1473ed6736454665988cb2fccb8c3029-p_276666007&abt=3)
+        - [家居破坏王-有拆解很多床垫](https://space.bilibili.com/429066859)
     - [蚕丝被](http://search.jd.com/Search?keyword=蚕丝被&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=fec7667508544614895d94b9e5d6d484-p_276666007&abt=3)
     - [羽绒被](http://search.jd.com/Search?keyword=羽绒被&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=0276059bef9d4edf902005f98a1084e4-p_276666007&abt=3)
     - [冰丝席](http://search.jd.com/Search?keyword=冰丝席&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=3466ebaf1b52488dbf08a0d40aad9cd3-p_276666007&abt=3)
     - [乳胶枕](http://search.jd.com/Search?keyword=乳胶枕&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=0276059bef9d4edf902005f98a1084e4-p_276666007&abt=3)
+    - [小米枕头](http://search.jd.com/Search?keyword=小米枕头&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=0276059bef9d4edf902005f98a1084e4-p_276666007&abt=3)
+    - [宜家枕头](http://search.jd.com/Search?keyword=宜家枕头&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=0276059bef9d4edf902005f98a1084e4-p_276666007&abt=3)
 - [家纺布艺](http://search.jd.com/Search?keyword=家纺布艺&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=4ff3720977e2452faabcca580f9cc537-p_276666007&abt=3)
     - [乐巢 遮光窗帘](http://search.jd.com/Search?keyword=乐巢%20遮光窗帘&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=a7daae1abc7f41efa4bc02bad0d3b1f7-p_276666007&abt=3)
 - [毛巾拖鞋](http://search.jd.com/Search?keyword=毛巾拖鞋&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=b5f3840d0ec0406b992d12a3f777fc75-p_276666007&abt=3)
@@ -104,6 +107,9 @@
     - [漏水凉拖](http://search.jd.com/Search?keyword=漏水凉拖&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=62e49cd32bfa4cff84b03ade4c1914bb-p_276666007&abt=3)
     - [纯棉拖鞋](http://search.jd.com/Search?keyword=纯棉拖鞋&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=26e969d1dc2f43ab9883c6e8bcfc1fb6-p_276666007&abt=3)
 - [餐具水具](http://search.jd.com/Search?keyword=餐具水具&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=440b0a1e5e7a48e4bbe42fd744b74bfa-p_276666007&abt=3)
+    - [宜家 奥夫塔 碗碟（钢化玻璃）](https://www.ikea.cn/cn/zh/catalog/products/60258916/)
+    - [双枪筷子](http://search.jd.com/Search?keyword=双枪筷子&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=a40ceebcf4a0410d83ab817f5ff5ef93-p_276666007&abt=3)
+    - [宜家保温壶](http://search.jd.com/Search?keyword=宜家保温壶&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=a40ceebcf4a0410d83ab817f5ff5ef93-p_276666007&abt=3)
     - [象印保温杯](http://search.jd.com/Search?keyword=象印保温杯&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=a40ceebcf4a0410d83ab817f5ff5ef93-p_276666007&abt=3)
     - [膳魔师保温杯](http://search.jd.com/Search?keyword=膳魔师保温杯&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=0631929c99924e8386ac68eaa110c2cd-p_276666007&abt=3)
     - [虎牌保温杯](http://search.jd.com/Search?keyword=虎牌保温杯&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=4c07ff3cdb2d416ba5f3ce012b29c214-p_276666007&abt=3)
@@ -112,6 +118,7 @@
     - [透明玻璃茶壶 花茶](http://search.jd.com/Search?keyword=透明玻璃茶壶%20花茶&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=62e266eeb6a34e289a380331dc0311f2-p_276666007&abt=3)
     - [安扣茶色奶粉罐](http://search.jd.com/Search?keyword=安扣茶色奶粉罐&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=62e266eeb6a34e289a380331dc0311f2-p_276666007&abt=3)
     - [HARIO 冷水壶](http://search.jd.com/Search?keyword=HARIO%20冷水壶&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=62e266eeb6a34e289a380331dc0311f2-p_276666007&abt=3)
+    - [水壶 大容量](http://search.jd.com/Search?keyword=水壶%20大容量&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=62e266eeb6a34e289a380331dc0311f2-p_276666007&abt=3)
 - [厨具锅具](http://search.jd.com/Search?keyword=厨具锅具&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=c0614e6a83d74422b110e08dee9865d6-p_276666007&abt=3)
     - [铸铁锅](http://search.jd.com/Search?keyword=铸铁锅&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=2a8e3f64f16344ea8abdd6881be4227e-p_276666007&abt=3)
     - [炒锅](http://search.jd.com/Search?keyword=炒锅&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=49f3d0fe0c344412bbcb89ea269e2573-p_276666007&abt=3)
@@ -139,6 +146,7 @@
     - [蟹八件](http://search.jd.com/Search?keyword=蟹八件&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=088eaa634acd4a32ba26a8d4b7f575b2-p_276666007&abt=3)
     - [厨房脉冲点火器](http://search.jd.com/Search?keyword=厨房脉冲点火器&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=088eaa634acd4a32ba26a8d4b7f575b2-p_276666007&abt=3)
 - [收纳洗晒](http://search.jd.com/Search?keyword=收纳洗晒&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=31ec9a59590f4c13a51c4d7a06a2f80b-p_276666007&abt=3)
+    - [宜家 带架洗衣用袋 加尔](https://www.ikea.cn/cn/zh/catalog/products/10171826/)
     - [门后挂钩](http://search.jd.com/Search?keyword=门后挂钩&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=a12c9f7932304965ad460383940c41eb-p_276666007&abt=3)
     - [厨房收纳架](http://search.jd.com/Search?keyword=厨房收纳架&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=9001579abf314e9ab8667f6f2a2391a3-p_276666007&abt=3)
     - [自定义收纳架](http://search.jd.com/Search?keyword=自定义收纳架&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=2a46b75c59ae40d8a5d9f9f0b0422af0-p_276666007&abt=3)
