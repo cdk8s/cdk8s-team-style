@@ -107,11 +107,11 @@
 
 ### 开发共识（Consensus）
 
-- [HTTP 请求风格](https://github.com/cdk8s/cdk8s-team-style/blob/master/dev/common/http-request.md)
-- [Mock 调试](https://github.com/cdk8s/cdk8s-team-style/blob/master/dev/common/mock.md)
 - [EditConfig 风格](https://github.com/cdk8s/cdk8s-team-style/blob/master/dev/common/editconfig-style.md)
 - [Git 风格](https://github.com/cdk8s/cdk8s-team-style/blob/master/dev/common/git-style.md)
 - [Git 多账号体系](https://github.com/cdk8s/cdk8s-team-style/blob/master/dev/common/git-multi-account.md)
+- [HTTP 请求风格](https://github.com/cdk8s/cdk8s-team-style/blob/master/dev/common/http-request.md)
+- [Mock 调试](https://github.com/cdk8s/cdk8s-team-style/blob/master/dev/common/mock.md)
 
 ### 后端（Backend）
 
@@ -176,7 +176,7 @@
 - 邮箱：`cdk8s#qq.com`
 - 微信公众号
 
-![](http://img.gitnavi.com/markdown/cdk8s_qr_300px.png)
+![公众号](http://img.gitnavi.com/markdown/cdk8s_qr_300px.png)
 
 
 ## 忧伤
