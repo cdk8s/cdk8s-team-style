@@ -26,31 +26,41 @@ USE `oauth_sso`;
 - 关键字和保留字列表：<https://dev.mysql.com/doc/refman/5.7/en/keywords.html>
 
 ```
-DROP TABLE IF EXISTS `oauth_client`;
+DROP TABLE IF EXISTS `sys_user`;
 
-CREATE TABLE `oauth_client`
+CREATE TABLE `sys_user`
 (
-    `id`             bigint       NOT NULL COMMENT '主键ID',
-    `client_name`    varchar(35)  NOT NULL COMMENT '账号名称',
-    `client_id`      varchar(35)  NOT NULL COMMENT '账号ID',
-    `client_secret`  varchar(35)  NOT NULL COMMENT '账号密钥',
-    `client_url`     varchar(200) NOT NULL DEFAULT '' COMMENT '账号匹配的网站，支持正则符号',
-    `client_desc`    varchar(50)  NULL COMMENT '账号描述',
-    `logo_url`       varchar(200) NULL COMMENT 'logo 的链接地址',
-    `ranking`        tinyint      NOT NULL DEFAULT '100' COMMENT '排序，默认值100，值越小越靠前(rank 是关键字不允许用)',
-    `remark`         varchar(255) NULL COMMENT '备注',
-    `state_enum`     tinyint      NOT NULL DEFAULT '1' COMMENT '是否启动, 1正常，2禁用',
-    `delete_enum`    tinyint      NOT NULL DEFAULT '1' COMMENT '是否删除, 1正常，2删除',
-    `create_date`    bigint       NOT NULL COMMENT '创建时间',
-    `create_user_id` bigint       NOT NULL COMMENT '创建人',
-    `update_date`    bigint       NOT NULL COMMENT '更新时间',
-    `update_user_id` bigint       NOT NULL COMMENT '更新人',
-    `delete_date`    bigint       NULL COMMENT '删除时间',
-    `delete_user_id` bigint       NULL COMMENT '删除人',
-    PRIMARY KEY (`id`)
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4 COMMENT ='客户端信息表';
+    `id`                   bigint      NOT NULL COMMENT '主键ID',
+    `username`             varchar(50) NOT NULL COMMENT '用户账号',
+    `user_password`        varchar(50) NOT NULL COMMENT '登录密码',
+    `password_salt`        varchar(10) NOT NULL COMMENT '密码盐:放于密码后面',
+    `user_email`           varchar(50) NULL COMMENT '邮箱地址',
+    `telephone`            varchar(20) NULL COMMENT '固话',
+    `mobile_phone`         varchar(20) NULL COMMENT '手机号',
+    `gender_enum`          tinyint     NOT NULL DEFAULT '1' COMMENT '性别:[1=保密=PRIVACY, 2=男性=MALE, 3=女性=FEMALE, 4=中性=NEUTRAL]max=4',
+    `register_type_enum`   tinyint     NOT NULL DEFAULT '1' COMMENT '注册方式:[1=系统预置=SYSTEM_INIT, 2=后台管理系统新增=MANAGEMENT_ADD, 3=主动注册=REGISTER, 4=被邀请注册=INVITE]max=4',
+    `register_origin_enum` tinyint     NOT NULL DEFAULT '1' COMMENT '注册来源:[1=WEB方式=WEB, 2=安卓APP=ANDROID, 3=苹果APP=IOS, 4=H5=H5, 5=微信小程序=WECHAT_MINI_PROGRAM, 6=微信公众号=WECHAT_OFFICIAL_ACCOUNT]max=6',
+    `state_enum`           tinyint     NOT NULL DEFAULT '1' COMMENT '启用状态:[1=启用=ENABLE, 2=禁用=DISABLE]max=2',
+    `delete_enum`          tinyint     NOT NULL DEFAULT '1' COMMENT '删除状态:[1=未删除=NOT_DELETED, 2=已删除=DELETED]max=2',
+    `create_date`          bigint      NOT NULL COMMENT '创建时间',
+    `create_user_id`       bigint      NOT NULL COMMENT '创建人',
+    `update_date`          bigint      NOT NULL COMMENT '更新时间',
+    `update_user_id`       bigint      NOT NULL COMMENT '更新人',
+    `delete_date`          bigint      NULL COMMENT '删除时间',
+    `delete_user_id`       bigint      NULL COMMENT '删除人',
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `unique_username` (`username`) USING BTREE COMMENT '登录用户名唯一'
+) COMMENT ='用户表';
 ```
+
+- 以上有几个规则会决定代码生成器：
+    - `密码盐:放于密码后面`
+        - 英文冒号左边的 `密码盐` 会对外展示，`放于密码后面` 是用于团队说明
+    - `启用状态:[1=启用=ENABLE, 2=禁用=DISABLE]max=2`
+        - 英文冒号左边的 `启用状态` 会对外展示
+        - `[1=启用=ENABLE, 2=禁用=DISABLE]` 会生成 StateEnum.java 类中的 name，code，description 相关
+        - `max=2` 代表 API 请求校验的传入值的最大值限制
+
 
 ### 大型项目表前缀
 
