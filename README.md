@@ -121,7 +121,7 @@
 - [Java 命名风格](https://github.com/cdk8s/cdk8s-team-style/blob/master/dev/backend/java/java-names.md)
 - [Lombok](https://github.com/cdk8s/cdk8s-team-style/blob/master/dev/backend/java/java-lombok.md)
 - [程序日志输出风格](https://github.com/cdk8s/cdk8s-team-style/blob/master/dev/backend/java/java-log-style.md)
-- 微服务风格
+- [Hibernate Validator 请求参数校验](https://github.com/cdk8s/cdk8s-team-style/blob/master/dev/backend/java/hibernate-validator-style.md)
 
 ### 前端（Frontend）
 
