@@ -122,6 +122,7 @@
 - [Lombok](https://github.com/cdk8s/cdk8s-team-style/blob/master/dev/backend/java/java-lombok.md)
 - [程序日志输出风格](https://github.com/cdk8s/cdk8s-team-style/blob/master/dev/backend/java/java-log-style.md)
 - [Hibernate Validator 请求参数校验](https://github.com/cdk8s/cdk8s-team-style/blob/master/dev/backend/java/hibernate-validator-style.md)
+- [MapStruct - Java bean 映射工具](https://github.com/cdk8s/cdk8s-team-style/blob/master/dev/backend/java/java-mapstruct.md)
 
 ### 前端（Frontend）
 
