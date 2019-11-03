@@ -119,8 +119,9 @@
 - [中间件](https://github.com/cdk8s/cdk8s-team-style/blob/master/dev/backend/component-style.md)
 - [Spring 项目风格](https://github.com/cdk8s/cdk8s-team-style/blob/master/dev/backend/java/spring-project-style.md)
 - [Java 命名风格](https://github.com/cdk8s/cdk8s-team-style/blob/master/dev/backend/java/java-names.md)
-- [Lombok](https://github.com/cdk8s/cdk8s-team-style/blob/master/dev/backend/java/java-lombok.md)
 - [程序日志输出风格](https://github.com/cdk8s/cdk8s-team-style/blob/master/dev/backend/java/java-log-style.md)
+- [Lombok](https://github.com/cdk8s/cdk8s-team-style/blob/master/dev/backend/java/java-lombok.md)
+- [Swagger](https://github.com/cdk8s/cdk8s-team-style/blob/master/dev/backend/java/java-swagger.md)
 - [Hibernate Validator 请求参数校验](https://github.com/cdk8s/cdk8s-team-style/blob/master/dev/backend/java/hibernate-validator-style.md)
 - [MapStruct - Java bean 映射工具](https://github.com/cdk8s/cdk8s-team-style/blob/master/dev/backend/java/java-mapstruct.md)
 
