@@ -20,9 +20,11 @@
 
 - 库名：最多 32 个字符
 
-```
+```mysql
 DROP DATABASE IF EXISTS `oauth_sso`;
+
 CREATE DATABASE IF NOT EXISTS `oauth_sso` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci;
+
 USE `oauth_sso`;
 ```
 
@@ -105,59 +107,71 @@ CREATE TABLE `sys_user`
         - `[1=启用=ENABLE, 2=禁用=DISABLE]` 会生成 StateEnum.java 类中的 name，code，description 相关
         - `max=2` 代表 API 请求校验的传入值的最大值限制
 
-### 表追加新字段
+### 其他常用 DML SQL 语句
 
-```
+- 表追加新字段
+
+```sql
 ALTER TABLE `my_db`.`my_table` ADD COLUMN `contract_no_` VARCHAR(32) NULL COMMENT '合同编号' AFTER `id`;
 ```
 
-### 表删除字段
+- 表删除字段
 
-```
+```sql
 ALTER TABLE `my_db`.`my_table` DROP COLUMN charge_user_id;
 ```
 
-### 修改字段长度
+- 修改字段长度
 
-```
+```sql
 ALTER TABLE `my_db`.`my_table` MODIFY COLUMN my_create_date varchar(100);
 ```
 
-### 修改字段可以为空
+- 修改字段可以为空
 
-```
+```sql
 ALTER TABLE `my_db`.`my_table` MODIFY COLUMN data_value varchar(1024) null;
 ```
 
+- 创建数据表索引
 
-### 创建数据表索引
-
-```
+```sql
 ALTER TABLE `my_db`.`my_table` ADD INDEX index_client_id (client_id); 
 ALTER TABLE `my_db`.`my_table` ADD INDEX index_client_id_url (client_id,client_url); 
 ```
 
-### 删除数据表索引
+- 删除数据表索引
 
 ```
 DROP INDEX index_client_id ON `my_db`.`my_table`;
 ```
 
-#### JDBC 连接：mysql-connector-java 8.x
+### JDBC 连接设置（mysql-connector-java）
 
-- `com.mysql.cj.jdbc.Driver`
+- 8.x 版本
 
+```yaml
+spring:
+  datasource:
+    platform: mysql
+    sql-script-encoding: utf-8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/cdk8s_sculptor_boot?useSSL=false&autoReconnect=true&allowMultiQueries=true&rewriteBatchedStatements=true&serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=UTF-8&character_set_client=utf8mb4&character_set_connection=utf8mb4&character_set_database=utf8mb4&character_set_results=utf8mb4&character_set_server=utf8mb4&character_set_system=utf8&character_set_filesystem=binary&collation_connection=utf8mb4_unicode_520_ci&collation_database=utf8mb4_unicode_520_ci&collation_server=utf8mb4_unicode_520_ci
+    username: root
+    password: 123456
 ```
-jdbc:mysql://127.0.0.1:3306/tkey-demo?useSSL=false&autoReconnect=true&allowMultiQueries=true&rewriteBatchedStatements=true&serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=UTF-8&character_set_client=utf8mb4&character_set_connection=utf8mb4&character_set_database=utf8mb4&character_set_results=utf8mb4&character_set_server=utf8mb4&character_set_system=utf8&character_set_filesystem=binary&collation_connection=utf8mb4_unicode_520_ci&collation_database=utf8mb4_unicode_520_ci&collation_server=utf8mb4_unicode_520_ci
-```
 
+- 5.x 版本
 
-#### JDBC 连接：mysql-connector-java 5.x
-
-- `com.mysql.jdbc.Driver`
-
-```
-jdbc:mysql://127.0.0.1:3306/tkey-demo?useSSL=false&autoReconnect=true&allowMultiQueries=true&rewriteBatchedStatements=true&serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8&character_set_client=utf8mb4&character_set_connection=utf8mb4&character_set_database=utf8mb4&character_set_results=utf8mb4&character_set_server=utf8mb4&character_set_system=utf8&character_set_filesystem=binary&collation_connection=utf8mb4_unicode_520_ci&collation_database=utf8mb4_unicode_520_ci&collation_server=utf8mb4_unicode_520_ci
+```yaml
+spring:
+  datasource:
+    platform: mysql
+    sql-script-encoding: utf-8
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/cdk8s_sculptor_boot?useSSL=false&autoReconnect=true&allowMultiQueries=true&rewriteBatchedStatements=true&serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8&character_set_client=utf8mb4&character_set_connection=utf8mb4&character_set_database=utf8mb4&character_set_results=utf8mb4&character_set_server=utf8mb4&character_set_system=utf8&character_set_filesystem=binary&collation_connection=utf8mb4_unicode_520_ci&collation_database=utf8mb4_unicode_520_ci&collation_server=utf8mb4_unicode_520_ci
+    username: root
+    password: 123456
 ```
 
  -------------------------------------------------------------------
@@ -201,7 +215,7 @@ sql 文件必须以这个开头
 
 - 依赖包
 
-```
+```xml
 <!--liquibase 数据库表结构变更管理-->
 <dependency>
     <groupId>org.liquibase</groupId>
@@ -212,7 +226,7 @@ sql 文件必须以这个开头
 
 - 配置文件：
 
-```
+```yaml
 spring:
   liquibase:
     enabled: true
@@ -284,11 +298,14 @@ spring:
 #### 服务状态查询
 
 - 查看当前数据库的状态，常用的有：
-	- 查看当前 MySQL 版本：`show variables like '%version%';`
-	- 查看系统状态：`show status;`
-	- 查看刚刚执行 SQL 是否有警告信息：`show warnings;`
-	- 查看刚刚执行 SQL 是否有错误信息：`show errors;`
-	- 查看当前连接数量：`show status like 'max_used_connections';`
+    - 查看当前 MySQL 版本：`show variables like '%version%';`
+    - 查看系统状态：`show status;`
+    - 查看刚刚执行 SQL 是否有警告信息：`show warnings;`
+    - 查看刚刚执行 SQL 是否有错误信息：`show errors;`
+    - 查看当前连接数量：`show status like 'max_used_connections';`
+    - 查看已经连接的所有线程状况：`show full processlist;`
+        - 输出参数说明：<http://www.ibloger.net/article/2519.html>
+        - 可以结束某些连接：`kill id值`
 - 查看当前 MySQL 中已经记录了多少条慢查询，前提是配置文件中开启慢查询记录了.
     - `show status like '%slow_queries%';`
 - 查询当前 MySQL 中查询、更新、删除执行多少条了，可以通过这个来判断系统是侧重于读还是侧重于写，如果是写要考虑使用读写分离。
