@@ -112,6 +112,7 @@
 - [Git 多账号体系](https://github.com/cdk8s/cdk8s-team-style/blob/master/dev/common/git-multi-account.md)
 - [HTTP 请求风格](https://github.com/cdk8s/cdk8s-team-style/blob/master/dev/common/http-request.md)
 - [Mock 调试](https://github.com/cdk8s/cdk8s-team-style/blob/master/dev/common/mock.md)
+- [UML 建模](https://github.com/cdk8s/cdk8s-team-style/blob/master/dev/common/uml-style.md)
 
 ### 后端（Backend）
 
