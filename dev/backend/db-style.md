@@ -5,13 +5,17 @@
 
 - 所有 Text，Blob 等大字段的数据，都必须存储到另外的独立表中，然后有业务 ID 关联业务主表
 
+### 线上更新脚本规则（必须中的必须）
+
+- DDL（数据定义语言）和 DML（数据操纵语言）必须分开成两个文件
+- DDL 是指：CREATE TABLE/VIEW/INDEX
+- DML 是指：INSERT/UPDATE/DELETE DATA
 
 ### 创建数据库
 
 - 库名：最多 32 个字符
 
 ```
-
 DROP DATABASE IF EXISTS `oauth_sso`;
 CREATE DATABASE IF NOT EXISTS `oauth_sso` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci;
 USE `oauth_sso`;
@@ -124,6 +128,67 @@ jdbc:mysql://127.0.0.1:3306/tkey-demo?useSSL=false&autoReconnect=true&allowMulti
 
 ```
 jdbc:mysql://127.0.0.1:3306/tkey-demo?useSSL=false&autoReconnect=true&allowMultiQueries=true&rewriteBatchedStatements=true&serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8&character_set_client=utf8mb4&character_set_connection=utf8mb4&character_set_database=utf8mb4&character_set_results=utf8mb4&character_set_server=utf8mb4&character_set_system=utf8&character_set_filesystem=binary&collation_connection=utf8mb4_unicode_520_ci&collation_database=utf8mb4_unicode_520_ci&collation_server=utf8mb4_unicode_520_ci
+```
+
+ -------------------------------------------------------------------
+ 
+### 单体系统更新可以使用 liquibase 方案
+ 
+ - 只对开发/测试环境有效，生产环境需要 DBA 手工执行和检查
+- 示例 `/db/changelog/ddb.changelog-master.sql` 文件
+
+```
+--liquibase formatted sql
+--changeset youmeek:1
+CREATE TABLE `sys_user` (
+  `id` varchar(36) NOT NULL COMMENT '主键ID',
+  `username` varchar(32) NOT NULL COMMENT '用户账号',
+  PRIMARY KEY (`id`)
+)COMMENT='用户表';
+
+--changeset youmeek:2
+insert  into `sys_user`(`id`,`username`,`user_password`,`email`,`delete_enum`,`create_date`,`lock_version`)
+values ('374933329427959808','admin','e10adc3949ba59abbe56e057f20f883e','judas.n@qq.com','0','1514736123456',3);
+insert  into `sys_user`(`id`,`username`,`user_password`,`email`,`delete_enum`,`create_date`,`lock_version`)
+values ('374933329427959809','judasn','e10adc3949ba59abbe56e057f20f883e','363379444@qq.com','0','1514736123456',2);
+```
+
+- 脚本说明
+
+
+```
+sql 文件必须以这个开头
+--liquibase formatted sql
+
+
+每个版本的 SQL 前面要加上：
+--changeset youmeek:1.1
+加上这个注释之后，该注释下面的所有 sql 都会在启动的时候被判断，如果发现这个版本未执行就会被执行。
+可以有换行，并且支持分号隔开的多个语句。
+
+原理是 liquibase 会在我们数据库上增加一个表，专门记录执行过的版本号
+```
+
+- 依赖包
+
+```
+<!--liquibase 数据库表结构变更管理-->
+<dependency>
+    <groupId>org.liquibase</groupId>
+    <artifactId>liquibase-core</artifactId>
+</dependency>
+```
+
+
+- 配置文件：
+
+```
+spring:
+  liquibase:
+    enabled: true
+    change-log: 'classpath:/db/changelog/db.changelog-master.sql'
+    # 每次都先删除后执行
+    drop-first: false
 ```
 
  
