@@ -238,3 +238,10 @@ public class SysUserController {
 }
 
 ```
+
+-------------------------------------------------------------------
+
+## Swagger 衍生出来的项目
+
+- [knife4j（前身叫做 swagger-bootstrap-ui）](https://gitee.com/xiaoym/knife4j)
+- [swagger2markup](https://github.com/Swagger2Markup/swagger2markup)
