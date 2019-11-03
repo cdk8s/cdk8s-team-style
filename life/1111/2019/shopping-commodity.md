@@ -35,6 +35,7 @@
     - [垃圾桶 厨房 分类](http://search.jd.com/Search?keyword=垃圾桶%20厨房%20分类&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=2cdde2d9b778404b83841d6a74a63b11-p_276666007&abt=3)
     - [垃圾桶 厨房 挂式](http://search.jd.com/Search?keyword=垃圾桶%20厨房%20挂式&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=36f5155a86cd4d01928107a98b932b1b-p_276666007&abt=3)
     - [垃圾桶 卫生间 感应](http://search.jd.com/Search?keyword=垃圾桶%20卫生间%20感应&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=36f5155a86cd4d01928107a98b932b1b-p_276666007&abt=3)
+    - [垃圾桶 卫生间 窄型](http://search.jd.com/Search?keyword=垃圾桶%20卫生间%20感应&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=36f5155a86cd4d01928107a98b932b1b-p_276666007&abt=3)
 - [居室清洁](http://search.jd.com/Search?keyword=居室清洁&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=4d4ba862a6474b6bba9ed6b9f157ba25-p_276666007&abt=3)
     - [除湿剂（建议除湿机）](http://search.jd.com/Search?keyword=除湿剂&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=733d6dcaa4794d198c44b73614a75da0-p_276666007&abt=3)
     - [干燥剂](http://search.jd.com/Search?keyword=干燥剂&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=65f2cf3054034af4bdacc8a59ec99468-p_276666007&abt=3)
