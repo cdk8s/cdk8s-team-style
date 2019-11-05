@@ -63,7 +63,3 @@ feat: 新增简化模式
 ## Gitflow 工作流
 
 - [点击查看](https://github.com/judasn/IntelliJ-IDEA-Tutorial/blob/master/vcs-introduce.md#git-flow-%E7%9A%84%E4%BB%8B%E7%BB%8D)
-
-## 前后端 gitignore
-
-- [.gitignore 模板](https://github.com/cdk8s/cdk8s-team-style/blob/master/common-config-file/.gitignore)
