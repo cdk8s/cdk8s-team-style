@@ -37,6 +37,9 @@ USE `oauth_sso`;
     - rel_（Relationship）
     - biz_（Business）
 - 表名：最多 32 个字符
+- 字段名含有数字的写法
+    - 正确：`ip_region1`
+    - 错误：`ip_region_1`
 - 单表最大容量预估在 1000W ~ 5000W
 - 浮点数用：decimal 类型。金额类型必须是 decimal 或者 bigint（程序需要额外处理倍数问题）
 - 枚举对象在表字段中的设计
