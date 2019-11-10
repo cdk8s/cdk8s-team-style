@@ -23,7 +23,7 @@
 
 ## 后端开发场景
 
-- [macOS 下 Java + Docker 开发环境](macOS-java-node-docker-env.md)
+- [macOS 下 Java + Docker 开发环境](macOS-java-docker-env.md)
 
 ## 前端开发场景
 
