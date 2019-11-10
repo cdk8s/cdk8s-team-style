@@ -1,19 +1,29 @@
 
 # 2019 年双十一购物指南-程序员-系列
 
-- 这个系列一共有：**7 大篇**
-- **[数码](http://www.youmeek.com/20191111-digital/)**
-- **[电器](http://www.youmeek.com/20191111-electric/)**
-- **[用品](http://www.youmeek.com/20191111-commodity/)**
-- **[文化](http://www.youmeek.com/20191111-culture/)**
-- **[食品](http://www.youmeek.com/20191111-food/)**
-- **[药品](http://www.youmeek.com/20191111-medicine/)**
-- **[汽车](http://www.youmeek.com/20191111-car/)**
+- **[数码](https://github.com/cdk8s/cdk8s-team-style/blob/master/life/1111/2019/shopping-digital.md)**
+- **[日用](https://github.com/cdk8s/cdk8s-team-style/blob/master/life/1111/2019/shopping-commodity.md)**
+- **[电器](https://github.com/cdk8s/cdk8s-team-style/blob/master/life/1111/2019/shopping-electric.md)**
+- **[食品](https://github.com/cdk8s/cdk8s-team-style/blob/master/life/1111/2019/shopping-food.md)**
+- **[药品](https://github.com/cdk8s/cdk8s-team-style/blob/master/life/1111/2019/shopping-medicine.md)**
+- **[文化](https://github.com/cdk8s/cdk8s-team-style/blob/master/life/1111/2019/shopping-culture.md)**
+- **[汽车](https://github.com/cdk8s/cdk8s-team-style/blob/master/life/1111/2019/shopping-car.md)**
+
+## 声明
+
+- 以上系列内容过于主观，请在成年人陪同下阅读
+- 作为成年人，要独立思考，每个人生活方式都有其独特的背景。要学会考虑南北天气差异、饮食差异、文化差异等特点。
+- 请对消费主义有一定理解：
+    - [纪录片《无节制消费的元凶》](https://www.bilibili.com/bangumi/media/md20526)
+    - [纪录片《疯狂的消费时代》](https://v.qq.com/x/cover/z58lv1i894wb85u.html)
+    - [书籍《消费社会》](https://book.douban.com/subject/25900948/)
+- 国外的牌子不一定好，国内的牌子也不一定坏。主要在于自己要多试，找到合适自己的牌子。核心逻辑是：尽可能缩小尝试成本。
+- 理解大数据杀熟
 
 ## 关于假洋牌
 
 - 如果你要买的东西欧美牌子，最好 Google 一下国外的英文资料
-- 也可以美亚/德亚/英亚上面看下他们的销量
+- 也可以美亚 / 德亚 / 英亚上面看下他们的销量
 - 也可以到 [企查查](https://www.qichacha.com/) / [天眼查](https://www.tianyancha.com/) 查询该品牌/产品/商标
     - 企业一般都会注册自己的商品，不然火了被人拿走就亏了
 - 国内现在有很多假洋货。有的质量虽然还可以，但是这种耍人让人很不爽。

@@ -174,6 +174,11 @@
 - [IDE 思维](https://github.com/cdk8s/cdk8s-team-style/blob/master/other/ide-style.md)
 
 
+## 生活用品指南
+
+- [购物指南-程序员-系列](https://github.com/cdk8s/cdk8s-team-style/blob/master/life/1111/2019/shopping.md)
+
+
 ## 联系（Contact）
 
 - 邮箱：`cdk8s#qq.com`
