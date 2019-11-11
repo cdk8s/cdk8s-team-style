@@ -12,6 +12,8 @@
 
 - 官网下载 JDK7：<http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html>
 - 官网下载 JDK8：<http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html>
+    - jdk-8u231-macosx-x64.dmg
+    - 百度云（d8rj）：<https://pan.baidu.com/s/1VFAi0gpMWikTgjTQokZEhQ>
 - Java 开发环境理论上一般都是这个优先安装的。
 - 安装过程和 Windows 没啥区别，都是下一步下一步，只是比 Windows 简单，连安装路径都不需要改而已，所以这里不截图了。
 - 我这边不管是 Windows、Mac、Linux，只要开发环境，JAVA_HOME 我都是 JDK8，同时还装有 JDK6、JDK7，在使用 IntelliJ IDEA 的时候，我可以同时使用三个版本的 JDK。
