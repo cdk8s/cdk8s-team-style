@@ -5,9 +5,10 @@
 
 ## Redis
 
-- 复词用下划线：`platform:sys_role:1`
+- 复词用下划线：`PLATFORM:SYS_ROLE:1`
 - 不能有特殊符号，包含空格、换行、单双引号以及其他转义字符
-- key 命名：`业务名:表名:id`，比如：`platform:sys_role:1`
+- key 命名：`业务名:表名:id`，比如：`PLATFORM:SYS_ROLE:1`
+- key 固定部分全部大写，动态部分随意。
 - 更多：
     - [阿里云Redis开发规范](https://yq.aliyun.com/articles/531067)
     - [Redis开发规范](https://blog.csdn.net/mysqldba23/article/details/69390344)
