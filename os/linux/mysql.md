@@ -68,6 +68,11 @@ init_connect = 'SET NAMES utf8mb4'
 character-set-server = utf8mb4
 lower_case_table_names = 1
 max_allowed_packet = 50M
+
+# 避免在 dump 命令中加上密码后提示：Using a password on the command line interface can be insecure
+[mysqldump]
+user=root
+password=123456
 ```
 
 - 赋权（避免挂载的时候，一些程序需要容器中的用户的特定权限使用）：`chmod -R 777 /data/docker/mysql/datadir /data/docker/mysql/log`
