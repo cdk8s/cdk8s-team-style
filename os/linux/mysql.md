@@ -20,13 +20,11 @@
 
 ```
 docker run \
-	--name mysql-jira \
+	--name mysql \
 	--restart always \
 	-p 3306:3306 \
-	-e MYSQL_ROOT_PASSWORD=adg_123456 \
-	-e MYSQL_DATABASE=jira_db \
-	-e MYSQL_USER=jira_user \
-	-e MYSQL_PASSWORD=jira_123456 \
+	-e MYSQL_ROOT_PASSWORD=123456 \
+	-e MYSQL_DATABASE=youmeek_nav \
 	-d \
 	mysql:5.7
 ```
@@ -81,6 +79,7 @@ max_allowed_packet = 50M
 ```
 docker run -p 3306:3306 \
     --name cloud-mysql \
+    --restart always \
     -v /data/docker/mysql/datadir:/var/lib/mysql \
     -v /data/docker/mysql/log:/var/log/mysql \
     -v /data/docker/mysql/conf:/etc/mysql/conf.d \
