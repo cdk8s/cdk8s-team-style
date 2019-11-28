@@ -68,7 +68,7 @@ init_connect = 'SET NAMES utf8mb4'
 character-set-server = utf8mb4
 lower_case_table_names = 1
 max_allowed_packet = 50M
-sql_mode=STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION;
+sql_mode=STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION
 
 # 避免在 dump 命令中加上密码后提示：Using a password on the command line interface can be insecure
 [mysqldump]
@@ -215,7 +215,7 @@ this is incompatible with sql_mode=only_full_group_by
 - 解决办法，修改 my.cnf，增加这一行：
 
 ```
-sql_mode=STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION;
+sql_mode=STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION
 ```
 
 
