@@ -155,4 +155,11 @@ sudo /usr/local/mysql/support-files/mysql.server stop
 sudo /usr/local/mysql/support-files/mysql.server restart
 ```
 
+- 如果你要卸载
+
+```
+sudo rm -rf /usr/local/mysql
+sudo rm -rf /Library/PreferencePanes/MySQL*
+sudo rm -rf /var/db/receipts/com.mysql.*
+```
 
