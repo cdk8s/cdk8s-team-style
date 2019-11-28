@@ -142,4 +142,17 @@ max_allowed_packet = 50M
 sql_mode=STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION;
 ```
 
+- 通过命令行操作 MySQL
+
+```
+启动MySQL服务
+sudo /usr/local/MySQL/support-files/mysql.server start
+
+停止MySQL服务
+sudo /usr/local/mysql/support-files/mysql.server stop
+
+重启MySQL服务
+sudo /usr/local/mysql/support-files/mysql.server restart
+```
+
 
