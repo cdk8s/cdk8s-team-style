@@ -9,6 +9,7 @@
 
 - DDL（数据定义语言）和 DML（数据操纵语言）必须分开成两个文件
 - DDL 是指：CREATE TABLE/VIEW/INDEX
+    - 其中创建表中不要带索引信息，索引要单独创建。因为 H2 的脚本不支持相应关键字，而我们单元测试一般都要用到 H2。
 - DML 是指：INSERT/UPDATE/DELETE DATA
 
 ### 名词说明
@@ -143,8 +144,9 @@ ALTER TABLE `my_db`.`my_table` MODIFY COLUMN data_value varchar(1024) null;
 - 创建数据表索引
 
 ```sql
-ALTER TABLE `my_db`.`my_table` ADD INDEX index_client_id (client_id); 
-ALTER TABLE `my_db`.`my_table` ADD INDEX index_client_id_url (client_id,client_url); 
+ALTER TABLE `my_db`.`my_table` ADD INDEX index_client_id (client_id) COMMENT '单个关键字'; 
+ALTER TABLE `my_db`.`my_table` ADD INDEX index_client_id_url (client_id,client_url) COMMENT '多个关键字'; 
+ALTER TABLE `my_db`.`my_table` ADD UNIQUE KEY unique_username (username) COMMENT '登录用户名唯一'; 
 ```
 
 - 删除数据表索引
