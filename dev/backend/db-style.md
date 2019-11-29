@@ -262,6 +262,7 @@ spring:
     - group by 的时候尽可能也有 order by，如果没啥列需要排序可以 order by null
     - 多表关联下 order by 的列最好是在连接顺序的第一张表
     - group by 和 distinct 字段尽可能使用索引
+        - 如果你只是为了去重，优先选择 distinct
     - order by 字段尽可能使用索引
 - 索引事项
     - 避免在索引列上使用计算函数
