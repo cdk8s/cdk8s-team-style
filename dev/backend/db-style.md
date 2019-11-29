@@ -429,6 +429,38 @@ SELECT * FROM information_schema.innodb_trx;
 
 ## EXPLAIN 分析
 
+- 至少百万数据准备（每个模块都有批量的单元测试方法，改为多个批次提交）
+- 需要关闭控制台 log 输出
+- 例如：
+
+```
+@Test
+public void a_batchCreate() {
+    long currentEpochMilli = DatetimeUtil.currentEpochMilli();
+    Long currentUserId = UserInfoContext.getCurrentUserId();
+    for (int j = 0; j < 150; j++) {
+        List<SysUser> entityList = new ArrayList<>();
+        for (int i = 0; i < 7000; i++) {
+            SysUser entity = new SysUser();
+            // 根据业务补充其他属性：RandomUtil.randomAlphabetic(6)
+            entity.setId(GenerateIdUtil.getId());
+            entity.setUsername(RandomUtil.randomAlphabetic(12));
+        
+            entity.setStateEnum(StateEnum.ENABLE.getCode());
+            entity.setDeleteEnum(DeleteEnum.NOT_DELETED.getCode());
+            entity.setCreateDate(currentEpochMilli);
+            entity.setCreateUserId(currentUserId);
+            entity.setUpdateDate(currentEpochMilli);
+            entity.setUpdateUserId(currentUserId);
+            entityList.add(entity);
+        }
+
+        int result = sysUserMapper.batchInsertList(entityList);
+    }
+}
+```
+
+
 - 使用 EXPLAIN 进行 SQL 语句分析：`EXPLAIN SELECT * FROM sys_user;`，效果如下：
 
 ```
