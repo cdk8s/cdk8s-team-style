@@ -19,8 +19,9 @@ brew link --overwrite --force node@10
 ## Node 卸载
 
 - Homebrew 卸载（也是挺麻烦的，重新安装各种东西要删除）：`brew uninstall node`
+    - `sudo rm -rf /usr/local/Cellar/node*`
     - `sudo rm -rf /usr/local/share/systemtap`
-    - `sudo rm -rf /usr/local/lib/dtrace/node`
+    - `sudo rm -rf /usr/local/lib/dtrace/node*`
 - 官网安装包卸载：
     - `sudo rm -rf /usr/local/{bin/{node,npm,node-debug,node-gyp},include/node*,lib/node_modules/npm,lib/node,share/man/*/node*}`
     - `sudo rm -rf ~/.npm*`
@@ -44,6 +45,7 @@ brew link --overwrite --force node@10
 ## Yarn 安装
 
 - 官网说明：<https://yarnpkg.com/lang/zh-hans/docs/install/#mac-stable>
+- 先查询已有哪些版本：`brew search yarn`
 - **Homebrew 方式（推荐）**：`brew install yarn`
 - 升级：`brew upgrade yarn`
 - 查看版本：`yarn --version`
