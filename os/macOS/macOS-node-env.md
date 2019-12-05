@@ -19,7 +19,6 @@ brew link --overwrite --force node@10
 ## Node 卸载
 
 - Homebrew 卸载（也是挺麻烦的，重新安装各种东西要删除）：`brew uninstall node`
-    - `sudo rm -rf /usr/local/bin/node /usr/local/bin/npm`
     - `sudo rm -rf /usr/local/Cellar/node*`
     - `sudo rm -rf /usr/local/share/systemtap`
     - `sudo rm -rf /usr/local/lib/dtrace/node*`
