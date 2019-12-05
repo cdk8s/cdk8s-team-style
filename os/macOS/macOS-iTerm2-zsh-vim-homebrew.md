@@ -9,84 +9,7 @@
 - **牢记：** 装了 zsh 之后，修改终端配置就变成了：`vim ~/.zshrc`，而不是：`vim ~/.bash_profile`，所以以后看到别人的文章中需要：`vim ~/.bash_profile`，那你自己要变通思想过来。
 - 同时更新修改后的配置文件也从：`source ~/.bash_profile`，变成了：`source ~/.zshrc`，当然还有其他取取巧方式，这里不谈。
 
-## iTerm2 知识
 
-### iTerm2 是什么
-
-- iTerm2 官网：<http://iterm2.com/>
-- wiki 介绍：<https://en.wikipedia.org/wiki/ITerm2>
-
-### 安装 iTerm2
-
-- 在安装之前先说下前提，你的 Mac 必须装有：Homebrew，等下 zsh 要用到。
-	- 如果你不知道 Homebrew 是做什么，可以查看我写的另外一篇文章：[一个Java程序员眼中的Mac OS（系列五：包管理工具）](http://code.youmeek.com/2016/11/27/2016/11/Mac-Homebrew/)
-- 下载 iTerm 2
-    - 当前时间（2016-10-31）最新版为：3.0.10
-    - 下载地址，官网：<https://iterm2.com/>
-- 安装 iTerm 2
-    - 官网下载下来是一个 zip 压缩包，解压出来有一个 `.app` 文件，双击运行即可安装，或是拖到应用程序里面。
-- 更改配色方案
-    - 目前大家喜欢设置的配色方案为 solarized，iTerm2 默认是有带的，如果没有则访问：<https://github.com/altercation/solarized>
-        - 在项目中找到 solarized/iterm2-colors-solarized 目录，下面有两个文件：Solarized Dark.itermcolors 和 Solarized Light.itermcolors，双击这两个文件就可以把配置文件导入到 iTerm 里了。
-    - 更改后的配色最终效果如下图：已经截图了。同时还要再切换到 Text 标签，把 `Draw bold text in bold font` 的勾去掉。
-    - <a href= "http://img.youmeek.com/2016/Mac-iTerm2-1.jpg" class="foobox"><img src="http://img.youmeek.com/2016/Mac-iTerm2-1.jpg" alt="iTerm2介绍"></a>
-
-
-### iTerm2 软件特色
-
-- 智能选中
-    - 在 iTerm2 中，连续双击选中，连续三击选中整行，连续四击智能选中（智能规则可配置），可以识别网址，引号引起的字符串，邮箱地址等。
-	- 在 iTerm2 中，选中即复制。即任何选中状态的字符串都被放到了系统剪切板中。
-- Hotkey Window (快速调出窗口)
-	- 这个非常好用，默认是没有设置，需要自己设置下。
-	- 实际使用时我们经常会遇到这种场景：有时候只是执行几行命令，然后就不再使用它。可是我们还是必须要打开终端，使用完成后关闭它。但是用 iTerm2 这个功能只要按快捷键，出来虚化的终端，输入命令，然后再把光标放在其他地方自动就消息了。
-	- 设置和效果如下图：
-	    - <a href= "http://img.youmeek.com/2016/Mac-iTerm2-2.jpg" class="foobox"><img src="http://img.youmeek.com/2016/Mac-iTerm2-2.jpg" alt="iTerm2介绍"></a>
-	    - <a href= "http://img.youmeek.com/2016/Mac-iTerm2-3.jpg" class="foobox"><img src="http://img.youmeek.com/2016/Mac-iTerm2-3.jpg" alt="iTerm2介绍"></a>
-- iTerm2 常用快捷键
-	- 这篇文章配了很多图，如果你想更加具体地了解可以看这篇文章，我不想截图了：<http://swiftcafe.io/2015/07/25/iterm/>
-
-|快捷键|介绍|
-|:---------|:---------|
-|输入的命令开头字符 + Command + ;|根据输入的前缀历史记录自动补全|
-|Command + ;|根据历史记录自动补全|
-|Command + [ 或 command + ]|切换屏幕|
-|Command + enter|进入全屏模式，再按一次返回|
-|Command + 鼠标单击|可以打开文件，文件夹和链接（iTerm2 是可以对显示的内容进行点击的哦）|
-|Command + n|新建新的 Window 窗口|
-|Command + t|新建标签页|
-|Command + w|关闭当前标签或是窗口|
-|Command + d|竖直分屏|
-|Command + r|清屏|
-|Command + /|按完之后，整个屏幕变成白茫茫的，而光标位置是一个小圆圈清除显示出来|
-|Command + 方向键|切换标签页|
-|Command + 数字|切换到指定数字标签页|
-|Command + f|查找，所查找的内容会被自动复制 ,输入查找的部分字符，找到匹配的值按 tab，即可复制，带有补全功能|
-|Command + option + e|全屏并排展示所有已经打开的标签页，带有可以搜索。|
-|Command + Option + b|历史回放，类似视频录像的东西，有记录你最近时间内的操作。有一个类似播放器的进度条可以拖动查看你做了什么。存放内容设置（Preferences -> Genernal -> Instant Replay）。|
-|Command + Option + 数字|切换 Window 窗口|
-|Command + shift + d |水平分屏|
-|Command + shift + h|查看剪贴板历史，在光标位置下方会出现一列你输入过的历史记录|
-|Command + Shift + m|可以保存当前位置，之后可以按Command + Shift + j跳回这个位置。|
-|Command + shift + alt + w|关闭所有窗口|
-|Control + u|清空当前行，无论光标在什么位置|
-|Control + a|移动到行首|
-|Control + e|移动到行尾|
-|Control + f|向前移动，相当于方向键右|
-|Control + b|向后移动，相当于方向键左|
-|Control + p|上一条命令，相当于方向键上|
-|Control + n|下一条命令，相当于方向键下|
-|Control + r|搜索历史命令|
-|Control + y|召回最近用命令删除的文字|
-|Control + h|删除光标之前的字符|
-|Control + d|删除光标所在位置的字符|
-|Control + w|删除光标之前的单词|
-|Control + k|删除从光标到行尾的内容|
-|Control + c|结束当前状态，另起一行|
-|Control + t|交换光标和之前的字符|
-
-
--------------------------------------------------------------------
 
 ### Homebrew 是什么
 
@@ -163,6 +86,86 @@ brew update
 
 -------------------------------------------------------------------
 
+
+## iTerm2 知识
+
+### iTerm2 是什么
+
+- iTerm2 官网：<http://iterm2.com/>
+- wiki 介绍：<https://en.wikipedia.org/wiki/ITerm2>
+
+### 安装 iTerm2
+
+- 在安装之前先说下前提，你的 Mac 必须装有：Homebrew，等下 zsh 要用到。
+- 下载 iTerm 2
+    - 当前时间（2016-10-31）最新版为：3.0.10
+    - 下载地址，官网：<https://iterm2.com/>
+- 安装 iTerm 2
+    - 官网下载下来是一个 zip 压缩包，解压出来有一个 `.app` 文件，双击运行即可安装，或是拖到应用程序里面。
+- 更改配色方案
+    - 目前大家喜欢设置的配色方案为 solarized，iTerm2 默认是有带的，如果没有则访问：<https://github.com/altercation/solarized>
+        - 在项目中找到 solarized/iterm2-colors-solarized 目录，下面有两个文件：Solarized Dark.itermcolors 和 Solarized Light.itermcolors，双击这两个文件就可以把配置文件导入到 iTerm 里了。
+    - 更改后的配色最终效果如下图：已经截图了。同时还要再切换到 Text 标签，把 `Draw bold text in bold font` 的勾去掉。
+    - <a href= "http://img.youmeek.com/2016/Mac-iTerm2-1.jpg" class="foobox"><img src="http://img.youmeek.com/2016/Mac-iTerm2-1.jpg" alt="iTerm2介绍"></a>
+
+
+### iTerm2 软件特色
+
+- 智能选中
+    - 在 iTerm2 中，连续双击选中，连续三击选中整行，连续四击智能选中（智能规则可配置），可以识别网址，引号引起的字符串，邮箱地址等。
+	- 在 iTerm2 中，选中即复制。即任何选中状态的字符串都被放到了系统剪切板中。
+- Hotkey Window (快速调出窗口)
+	- 这个非常好用，默认是没有设置，需要自己设置下。
+	- 实际使用时我们经常会遇到这种场景：有时候只是执行几行命令，然后就不再使用它。可是我们还是必须要打开终端，使用完成后关闭它。但是用 iTerm2 这个功能只要按快捷键，出来虚化的终端，输入命令，然后再把光标放在其他地方自动就消息了。
+	- 设置和效果如下图：
+	    - <a href= "http://img.youmeek.com/2016/Mac-iTerm2-2.jpg" class="foobox"><img src="http://img.youmeek.com/2016/Mac-iTerm2-2.jpg" alt="iTerm2介绍"></a>
+	    - <a href= "http://img.youmeek.com/2016/Mac-iTerm2-3.jpg" class="foobox"><img src="http://img.youmeek.com/2016/Mac-iTerm2-3.jpg" alt="iTerm2介绍"></a>
+- iTerm2 常用快捷键
+	- 这篇文章配了很多图，如果你想更加具体地了解可以看这篇文章，我不想截图了：<http://swiftcafe.io/2015/07/25/iterm/>
+
+|快捷键|介绍|
+|:---------|:---------|
+|输入的命令开头字符 + Command + ;|根据输入的前缀历史记录自动补全|
+|Command + ;|根据历史记录自动补全|
+|Command + [ 或 command + ]|切换屏幕|
+|Command + enter|进入全屏模式，再按一次返回|
+|Command + 鼠标单击|可以打开文件，文件夹和链接（iTerm2 是可以对显示的内容进行点击的哦）|
+|Command + n|新建新的 Window 窗口|
+|Command + t|新建标签页|
+|Command + w|关闭当前标签或是窗口|
+|Command + d|竖直分屏|
+|Command + r|清屏|
+|Command + /|按完之后，整个屏幕变成白茫茫的，而光标位置是一个小圆圈清除显示出来|
+|Command + 方向键|切换标签页|
+|Command + 数字|切换到指定数字标签页|
+|Command + f|查找，所查找的内容会被自动复制 ,输入查找的部分字符，找到匹配的值按 tab，即可复制，带有补全功能|
+|Command + option + e|全屏并排展示所有已经打开的标签页，带有可以搜索。|
+|Command + Option + b|历史回放，类似视频录像的东西，有记录你最近时间内的操作。有一个类似播放器的进度条可以拖动查看你做了什么。存放内容设置（Preferences -> Genernal -> Instant Replay）。|
+|Command + Option + 数字|切换 Window 窗口|
+|Command + shift + d |水平分屏|
+|Command + shift + h|查看剪贴板历史，在光标位置下方会出现一列你输入过的历史记录|
+|Command + Shift + m|可以保存当前位置，之后可以按Command + Shift + j跳回这个位置。|
+|Command + shift + alt + w|关闭所有窗口|
+|Control + u|清空当前行，无论光标在什么位置|
+|Control + a|移动到行首|
+|Control + e|移动到行尾|
+|Control + f|向前移动，相当于方向键右|
+|Control + b|向后移动，相当于方向键左|
+|Control + p|上一条命令，相当于方向键上|
+|Control + n|下一条命令，相当于方向键下|
+|Control + r|搜索历史命令|
+|Control + y|召回最近用命令删除的文字|
+|Control + h|删除光标之前的字符|
+|Control + d|删除光标所在位置的字符|
+|Control + w|删除光标之前的单词|
+|Control + k|删除从光标到行尾的内容|
+|Control + c|结束当前状态，另起一行|
+|Control + t|交换光标和之前的字符|
+
+
+-------------------------------------------------------------------
+
+
 ### 安装 Zsh + oh-my-Zsh
 
 - Zsh 官网：<https://www.zsh.org/>
@@ -227,7 +230,6 @@ export LESS_TERMCAP_us=$'\E[04;38;5;146m' # begin underline
 ## Proxychains4 为终端做代理
 
 - 保证你本地有一个 socks5 到代理工具，不然下面的方法你无法使用。我这里的工具是：Shadowsocks
-	- 如果你不懂 Shadowsocks 相关，可以看：<http://life.youmeek.com/2016/08/19/2016/08/VPS/>
 - 安装 Proxychains4，输入命令：`brew install proxychains-ng`
 - 修改配置文件：`vim /usr/local/etc/proxychains.conf`
     - 在配置文件中找到：`[ProxyList]`（也就是第 111 行的地方），在其下面一行新增一条：`socks5  127.0.0.1 1080 # my vps`

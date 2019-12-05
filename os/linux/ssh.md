@@ -64,8 +64,8 @@
 
 ## 常用 SSH 连接终端
 
-- Windows -- Xshell：<http://www.youmeek.com/ssh-terminal-emulator-recommend-xshell-and-xftp/>
-- Mac -- ZOC：<http://xclient.info/s/zoc-terminal.html>
+- XShell（Windows）
+- ZOC（macOS）
 
 ## 查看 SSH 登录日志
 

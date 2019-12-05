@@ -54,8 +54,7 @@ sudo rm -rf /Library/Java/JavaVirtualMachines/jdk1.8.0_112.jdk
 	- 如果启动 Tomcat 的时候报：`Permission denied`，你则可以：打开终端，进入 Tomcat\bin 目录，然后执行：`chmod 777 *.sh`
 	- 如果启动 Tomcat 之后，控制台乱码了，并且你确认你在 IntelliJ IDEA 的 Preferences 中设置的控制台字体是支持中文的，那你可以尝试下在 Tomcat VM 参数上加上：`-Dfile.encoding=UTF-8`
 	- Git 的路径配置：`Preferences -- Version Control -- Git -- Path to Git executable` 的值是：`/usr/local/git/bin/git`
-	- 如果你已经看过前面的：[一个Java程序员眼中的Mac OS（系列六：终端方案iTerm2 + Zsh）](http://code.youmeek.com/2016/11/29/2016/11/Mac-iTerm2/)，假设你也已经安装了 zsh
-		- 那你的 IntelliJ IDEA 终端路径可以改成 zsh 的，配置方法在 `Preferences -- Tools -- Terminal -- Shell path` 的值改为是：`/bin/zsh`
+    - 那你的 IntelliJ IDEA 终端路径可以改成 zsh 的，配置方法在 `Preferences -- Tools -- Terminal -- Shell path` 的值改为是：`/bin/zsh`
 - IntelliJ IDEA 在 Mac 下的配置文件保存路径
 	- 下面内容中：`XXXXXX`，表示 IntelliJ IDEA 的版本号，IntelliJ IDEA 的配置目录是跟版本号有关系的。
 	- `/Users/你的用户名/Library/Application Support/IntelliJIdeaXXXXXX`，用于保存安装的插件
@@ -71,7 +70,6 @@ sudo rm -rf /Library/Java/JavaVirtualMachines/jdk1.8.0_112.jdk
 - 官网下载：<http://maven.apache.org/download.cgi>
 - Maven 是绿色版的，任何系统都适用。
 - 安装方式和 Windows、Linux 没啥本质区别，都是把 zip 文件夹解压，然后新增几个系统变量，修改 Maven 配置文件参数。
-- 如果你不懂 Maven 相关知识可以查看我过去写的这篇文章：[构建工具-Maven-相关知识-整理专题](http://code.youmeek.com/2016/03/09/2016/03/Maven/)
 - 我是把 Maven 解压后，直接把 Windows 的 settings.xml 复制过来，修改下该文件本地仓库的路径，其他没啥可以改的了。
 - 然后本地仓库的那些依赖包是直接从 Windows 下拷贝过来的，这个是任何系统下都兼容的，不需要额外处理。
 - 最后再用 IntelliJ IDEA 对 Maven 的配置路径重新做了修改。
