@@ -1,14 +1,33 @@
 # Gitlab 安装和配置
 
-## Docker 安装方式
+## Docker 官网安装方式
 
+- 官网提供了镜像：<https://docs.gitlab.com/omnibus/docker/>
 - 创建宿主机挂载目录：`mkdir -p /data/docker/gitlab/config /data/docker/gitlab/logs /data/docker/gitlab/data`
 
 ```
 sudo docker run --detach \
   --hostname 139.159.190.24 \
-  --publish 443:443 --publish 80:80 \
-  --name gitlab \
+  --publish 10443:443 --publish 10080:80 --publish 10022:22 \
+  --name cdk8s-gitlab \
+  --restart always \
+  --volume /data/docker/gitlab/config:/etc/gitlab \
+  --volume /data/docker/gitlab/logs:/var/log/gitlab \
+  --volume /data/docker/gitlab/data:/var/opt/gitlab \
+  gitlab/gitlab-ce:latest
+```
+
+- 升级版本方法（本质是保证挂载目录位置）：
+
+```
+sudo docker stop cdk8s-gitlab && docker rm cdk8s-gitlab
+
+sudo docker pull gitlab/gitlab-ce:latest
+
+sudo docker run --detach \
+  --hostname 139.159.190.24 \
+  --publish 10443:443 --publish 10080:80 --publish 10022:22 \
+  --name cdk8s-gitlab \
   --restart always \
   --volume /data/docker/gitlab/config:/etc/gitlab \
   --volume /data/docker/gitlab/logs:/var/log/gitlab \
@@ -17,7 +36,7 @@ sudo docker run --detach \
 ```
 
 
-## Docker Compose 安装方式
+## Docker Compose 安装方式（非官方）
 
 - 创建宿主机挂载目录：`mkdir -p /data/docker/gitlab/gitlab /data/docker/gitlab/redis /data/docker/gitlab/postgresql`
 - 赋权（避免挂载的时候，一些程序需要容器中的用户的特定权限使用）：`chown -R 777 /data/docker/gitlab/gitlab /data/docker/gitlab/redis /data/docker/gitlab/postgresql`
