@@ -35,6 +35,43 @@ docker run \
 CREATE DATABASE sonar;
 ```
 
+## PostgreSQL 10 带 zhparser（非官方）
+
+- <https://hub.docker.com/r/chenxinaz/zhparser>
+- 字典文件在容器：`/usr/share/postgresql/10/tsearch_data`
+- 配置文件在容器：`/var/lib/postgresql/data/postgresql.conf`
+
+```
+mkdir -p /data/docker/pgsql/data
+
+chmod -R 777 /data/docker/pgsql
+
+docker run \
+	-d \
+	-p 5432:5432 \
+	-v /data/docker/pgsql/data:/var/lib/postgresql/data \
+	chenxinaz/zhparser
+```
+
+## PostgreSQL 11 带 zhparser（非官方）
+
+- <https://hub.docker.com/r/davidlauhn/postgres-11-with-zhparser>
+- 字典文件在容器（在 macOS 下没映射成功，不知道为什么）：`/usr/share/postgresql/11/tsearch_data`
+- 配置文件在容器：`/var/lib/postgresql/data/postgresql.conf`
+
+```
+mkdir -p /data/docker/pgsql/data
+
+chmod -R 777 /data/docker/pgsql
+
+docker run \
+	-d \
+	-p 5432:5432 \
+	-v /data/docker/pgsql/data:/var/lib/postgresql/data \
+	davidlauhn/postgres-11-with-zhparser
+```
+
+
 
 ## 资料
 
