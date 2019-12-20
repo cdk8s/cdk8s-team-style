@@ -35,40 +35,35 @@ docker run \
 CREATE DATABASE sonar;
 ```
 
-## PostgreSQL 10 带 zhparser（非官方）
-
-- <https://hub.docker.com/r/chenxinaz/zhparser>
-- 字典文件在容器：`/usr/share/postgresql/10/tsearch_data`
-- 配置文件在容器：`/var/lib/postgresql/data/postgresql.conf`
-
-```
-mkdir -p /data/docker/pgsql/data
-
-chmod -R 777 /data/docker/pgsql
-
-docker run \
-	-d \
-	-p 5432:5432 \
-	-v /data/docker/pgsql/data:/var/lib/postgresql/data \
-	chenxinaz/zhparser
-```
-
 ## PostgreSQL 11 带 zhparser（非官方）
 
 - <https://hub.docker.com/r/davidlauhn/postgres-11-with-zhparser>
+- 如果要使用 10 版本，可以看，配置方法都一样：<https://hub.docker.com/r/chenxinaz/zhparser>
 - 字典文件在容器（在 macOS 下没映射成功，不知道为什么）：`/usr/share/postgresql/11/tsearch_data`
 - 配置文件在容器：`/var/lib/postgresql/data/postgresql.conf`
 
 ```
-mkdir -p /data/docker/pgsql/data
+mkdir -p /Users/youmeek/docker_data/pgsql11/data /Users/youmeek/docker_data/pgsql11/conf
 
-chmod -R 777 /data/docker/pgsql
+sudo chmod -R 777 /Users/youmeek/docker_data/pgsql11
+
+先启动一个简单容器拿配置文件：
+docker run -d --name pgsql11 davidlauhn/postgres-11-with-zhparser
+
+复制配置文件
+docker cp pgsql11:/var/lib/postgresql/data/postgresql.conf /Users/youmeek/docker_data/pgsql11
+
 
 docker run \
 	-d \
+	--name pgsql11 \
+	-e POSTGRES_PASSWORD=123456 \
+	-v /Users/youmeek/docker_data/pgsql11/conf/postgresql.conf:/etc/postgresql/postgresql.conf \
+	-v /Users/youmeek/docker_data/pgsql11/data:/var/lib/postgresql/data \
 	-p 5432:5432 \
-	-v /data/docker/pgsql/data:/var/lib/postgresql/data \
-	davidlauhn/postgres-11-with-zhparser
+	davidlauhn/postgres-11-with-zhparser \
+	-c 'config_file=/etc/postgresql/postgresql.conf'
+
 ```
 
 
