@@ -1,6 +1,6 @@
 # Gitlab 安装和配置
 
-## Docker 官网安装方式
+## Docker 官网安装方式（推荐）
 
 - 官网提供了镜像：<https://docs.gitlab.com/omnibus/docker/>
 - 创建宿主机挂载目录：`mkdir -p /data/docker/gitlab/config /data/docker/gitlab/logs /data/docker/gitlab/data`
@@ -35,58 +35,13 @@ sudo docker run --detach \
   gitlab/gitlab-ce:latest
 ```
 
-
-## Docker Compose 安装方式（非官方）
-
-- 创建宿主机挂载目录：`mkdir -p /data/docker/gitlab/gitlab /data/docker/gitlab/redis /data/docker/gitlab/postgresql`
-- 赋权（避免挂载的时候，一些程序需要容器中的用户的特定权限使用）：`chown -R 777 /data/docker/gitlab/gitlab /data/docker/gitlab/redis /data/docker/gitlab/postgresql`
-- 这里使用 docker-compose 的启动方式，所以需要创建 docker-compose.yml 文件：
-
-```yml
-gitlab:
-  image: sameersbn/gitlab:10.4.2-1
-  ports:
-    - "10022:22"
-    - "10080:80"
-  links:
-    - gitlab-redis:redisio
-    - gitlab-postgresql:postgresql
-  environment:
-    - GITLAB_PORT=80
-    - GITLAB_SSH_PORT=22
-    - GITLAB_SECRETS_DB_KEY_BASE=long-and-random-alpha-numeric-string
-    - GITLAB_SECRETS_SECRET_KEY_BASE=long-and-random-alpha-numeric-string
-    - GITLAB_SECRETS_OTP_KEY_BASE=long-and-random-alpha-numeric-string
-  volumes:
-    - /data/docker/gitlab/gitlab:/home/git/data
-  restart: always
-gitlab-redis:
-  image: sameersbn/redis
-  volumes:
-    - /data/docker/gitlab/redis:/var/lib/redis
-  restart: always
-gitlab-postgresql:
-  image: sameersbn/postgresql:9.6-2
-  environment:
-    - DB_NAME=gitlabhq_production
-    - DB_USER=gitlab
-    - DB_PASS=password
-    - DB_EXTENSION=pg_trgm
-  volumes:
-    - /data/docker/gitlab/postgresql:/var/lib/postgresql
-  restart: always
-```
-
-- 启动：`docker-compose up -d`
-- 浏览器访问：<http://192.168.0.105:10080>
-
 ## Gitlab 高可用方案（High Availability）
 
 - 官网：<https://about.gitlab.com/high-availability/>
 - 本质就是把文件、缓存、数据库抽离出来，然后部署多个 Gitlab 用 nginx 前面做负载。
 
 
-## 原始安装方式（推荐）
+## 原始安装方式
 
 - 推荐至少内存 4G，它有大量组件
 - 有开源版本和收费版本，各版本比较：<https://about.gitlab.com/products/>
