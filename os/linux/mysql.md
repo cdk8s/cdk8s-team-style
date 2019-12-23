@@ -264,6 +264,348 @@ swapon /swapfile
 - explain
     - 哪些场景不走索引进行全表扫描
 
+-------------------------------------------------------------------
+
+## Percona TPCC-MySQL 测试工具
+
+- 可以较好地模拟真实测试结果数据
+- 官网主页：<https://github.com/Percona-Lab/tpcc-mysql>
+
+```
+TPC-C 是专门针对联机交易处理系统（OLTP系统）的规范，一般情况下我们也把这类系统称为业务处理系统。
+TPC-C是TPC(Transaction Processing Performance Council)组织发布的一个测试规范，用于模拟测试复杂的在线事务处理系统。其测试结果包括每分钟事务数(tpmC)，以及每事务的成本(Price/tpmC)。
+在进行大压力下MySQL的一些行为时经常使用。
+```
+
+#### 安装
+
+- 先确定本机安装过 MySQL
+- 并且安装过：`yum install mysql-devel`
+
+```
+git clone https://github.com/Percona-Lab/tpcc-mysql
+cd tpcc-mysql/src
+make
+
+如果make没报错，就会在tpcc-mysql 根目录文件夹下生成tpcc二进制命令行工具tpcc_load、tpcc_start
+
+如果要同时支持 PgSQL 可以考虑：https://github.com/Percona-Lab/sysbench-tpcc
+```
+
+#### 测试的几个表介绍
+
+```
+tpcc-mysql的业务逻辑及其相关的几个表作用如下：
+New-Order：新订单，主要对应 new_orders 表
+Payment：支付，主要对应 orders、history 表
+Order-Status：订单状态，主要对应 orders、order_line 表
+Delivery：发货，主要对应 order_line 表
+Stock-Level：库存，主要对应 stock 表
+
+其他相关表：
+客户：主要对应customer表
+地区：主要对应district表
+商品：主要对应item表
+仓库：主要对应warehouse表
+```
+
+#### 准备
+
+- 测试阿里云 ECS 与 RDS 是否相通：
+- 记得在 RDS 添加账号和给账号配置权限，包括：配置权限、数据权限（默认添加账号后都是没有开启的，还要自己手动开启）
+- 还要添加内网 ECS 到 RDS 的白名单 IP 里面
+- 或者在 RDS 上开启外网访问设置，但是也设置 IP 白名单（访问 ip.cn 查看自己的外网 IP 地址，比如：120.85.112.97）
+- RDS 的内网地址和外网地址不一样，要认真看。
+
+```
+ping rm-wz9v0vej02ys79jbj.mysql.rds.aliyuncs.com
+
+mysql -h rm-wz9v0vej02ys79jbj.mysql.rds.aliyuncs.com -P 3306 -u myaccount -p
+
+输入密码：Aa123456
+```
+
+
+
+```
+创库，名字为：TPCC：
+CREATE DATABASE TPCC DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+
+
+导入项目中的出初始化数据脚本：
+创建表：create_table.sql
+/usr/bin/mysql -h rm-wz9v0vej02ys79jbj.mysql.rds.aliyuncs.com -u myaccount -p tpcc < /root/tpcc-mysql/create_table.sql
+
+创建索引和外键：add_fkey_idx.sql
+/usr/bin/mysql -h rm-wz9v0vej02ys79jbj.mysql.rds.aliyuncs.com -u myaccount -p tpcc < /root/tpcc-mysql/add_fkey_idx.sql
+```
+
+
+#### 测试
+
+- 数据库：阿里云 RDS-MySQL-5.7-2C4G
+- 测试机：阿里云 ECS-4C4G-CentOS7.6
+- 根据测试，不同的 ECS 测试机，不同的 RDS 测试结果有时候差距挺大的，这个很蛋疼。
+
+- 需要注意的是 tpcc 默认会读取 /var/lib/mysql/mysql.sock 这个 socket 文件。因此，如果你的socket文件不在相应路径的话，可以做个软连接，或者通过TCP/IP的方式连接测试服务器
+- 准备数据：
+
+```
+cd /opt/tpcc-mysql
+./tpcc_load -h rm-wz9v0vej02ys79jbj.mysql.rds.aliyuncs.com -P 3306 -d TPCC -u myaccount -p Aa123456 -w 80
+-w 80 表示创建 80 个仓库数据
+这个过程花费时间还是挺长的，建议测试机是高性能计算型。2CPU 差不多要 8h，你自己估量下。
+我这边 RDS 监控中，曲线上每秒 insert 差不多在 2W 差不多，如果你没有这个数，速度可能就很慢了。
+我这边差不多用了 2.5h 完成数据准备。
+
+
+插入过程 RDS-2C4G 的监控情况：
+CPU利用率 24%
+内存 30% ~ 40% （随着数据增加而增大）
+连接数：1%
+IOPS：9%
+已使用存储空间：5.5G ~ 10G
+
+要模拟出够真实的数据，仓库不要太少，一般要大于 100，
+下面是基于 80 个库的最终数据：
+
+select count(*) from customer;
+    2400000
+select count(*) from district;
+    800    
+select count(*) from history;
+    2400000
+select count(*) from item;
+    100000
+select count(*) from new_orders;
+    720000
+select count(*) from order_line;
+    23996450
+select count(*) from orders;
+    2400000
+select count(*) from stock;
+    8000000
+select count(*) from warehouse;
+    80
+```
+
+- 开始测试：
+
+```
+
+./tpcc_start -h rm-wz9v0vej02ys79jbj.mysql.rds.aliyuncs.com -P 3306 -d TPCC -u myaccount -p Aa123456 -w 80 -c 200 -r 300 -l 1800 -f /opt/mysql_tpcc_100_20190325
+
+-w 100 表示 100 个仓库数据
+-c 200 表示并发 200 个线程
+-r 300 表示预热 300 秒
+-l 1800 表示持续压测 1800 秒
+```
+
+
+#### 报表
+
+
+```
+<TpmC>
+188.000 TpmC
+TpmC结果值(每分钟事务数，该值是第一次统计结果中的新订单事务数除以总耗时分钟数，例如本例中是：372/2=186)
+tpmC值在国内外被广泛用于衡量计算机系统的事务处理能力
+```
+
+- RDS-2C4G-80个仓库结果：
+- CPU：100%，内存：34%，连接数：17%，IOPS：62%，磁盘空间：20G
+
+
+```
+1780, trx: 979, 95%: 1849.535, 99%: 2402.613, max_rt: 3401.947, 986|3248.772, 98|698.821, 103|4202.110, 101|4547.416
+1790, trx: 1021, 95%: 1898.903, 99%: 2700.936, max_rt: 3848.142, 999|3150.117, 100|500.740, 102|3600.104, 100|5551.834
+1800, trx: 989, 95%: 1899.472, 99%: 2847.899, max_rt: 4455.064, 989|3049.921, 101|699.144, 97|3599.021, 102|5151.141
+
+STOPPING THREADS........................................................................................................................................................................................................
+
+<Raw Results>
+  [0] sc:2 lt:174378  rt:0  fl:0 avg_rt: 1192.8 (5)
+  [1] sc:253 lt:173935  rt:0  fl:0 avg_rt: 542.7 (5)
+  [2] sc:4726 lt:12712  rt:0  fl:0 avg_rt: 144.7 (5)
+  [3] sc:0 lt:17435  rt:0  fl:0 avg_rt: 3029.8 (80)
+  [4] sc:0 lt:17435  rt:0  fl:0 avg_rt: 3550.7 (20)
+ in 1800 sec.
+
+<Raw Results2(sum ver.)>
+  [0] sc:2  lt:174378  rt:0  fl:0
+  [1] sc:254  lt:174096  rt:0  fl:0
+  [2] sc:4726  lt:12712  rt:0  fl:0
+  [3] sc:0  lt:17437  rt:0  fl:0
+  [4] sc:0  lt:17435  rt:0  fl:0
+
+<Constraint Check> (all must be [OK])
+ [transaction percentage]
+        Payment: 43.45% (>=43.0%) [OK]
+   Order-Status: 4.35% (>= 4.0%) [OK]
+       Delivery: 4.35% (>= 4.0%) [OK]
+    Stock-Level: 4.35% (>= 4.0%) [OK]
+ [response time (at least 90% passed)]
+      New-Order: 0.00%  [NG] *
+        Payment: 0.15%  [NG] *
+   Order-Status: 27.10%  [NG] *
+       Delivery: 0.00%  [NG] *
+    Stock-Level: 0.00%  [NG] *
+
+<TpmC>
+                 5812.667 TpmC
+```
+
+- 升级：RDS-4C8G-80个仓库结果
+- CPU：100%，内存：55%，连接数：10%，IOPS：20%，磁盘空间：25G
+
+```
+1780, trx: 2303, 95%: 796.121, 99%: 1099.640, max_rt: 1596.883, 2293|2249.288, 232|256.393, 230|1694.050, 235|2550.775
+1790, trx: 2336, 95%: 798.030, 99%: 1093.403, max_rt: 1547.840, 2338|2803.739, 234|305.185, 232|1799.869, 228|2453.748
+1800, trx: 2305, 95%: 801.381, 99%: 1048.528, max_rt: 1297.465, 2306|1798.565, 229|304.329, 227|1649.609, 233|2549.599
+
+STOPPING THREADS........................................................................................................................................................................................................
+
+<Raw Results>
+  [0] sc:7 lt:406567  rt:0  fl:0 avg_rt: 493.7 (5)
+  [1] sc:10485 lt:395860  rt:0  fl:0 avg_rt: 240.1 (5)
+  [2] sc:24615 lt:16045  rt:0  fl:0 avg_rt: 49.4 (5)
+  [3] sc:0 lt:40651  rt:0  fl:0 avg_rt: 1273.6 (80)
+  [4] sc:0 lt:40656  rt:0  fl:0 avg_rt: 1665.3 (20)
+ in 1800 sec.
+
+<Raw Results2(sum ver.)>
+  [0] sc:7  lt:406569  rt:0  fl:0
+  [1] sc:10487  lt:396098  rt:0  fl:0
+  [2] sc:24615  lt:16045  rt:0  fl:0
+  [3] sc:0  lt:40655  rt:0  fl:0
+  [4] sc:0  lt:40659  rt:0  fl:0
+
+<Constraint Check> (all must be [OK])
+ [transaction percentage]
+        Payment: 43.46% (>=43.0%) [OK]
+   Order-Status: 4.35% (>= 4.0%) [OK]
+       Delivery: 4.35% (>= 4.0%) [OK]
+    Stock-Level: 4.35% (>= 4.0%) [OK]
+ [response time (at least 90% passed)]
+      New-Order: 0.00%  [NG] *
+        Payment: 2.58%  [NG] *
+   Order-Status: 60.54%  [NG] *
+       Delivery: 0.00%  [NG] *
+    Stock-Level: 0.00%  [NG] *
+
+<TpmC>
+                 13552.467 TpmC
+```
+
+
+- 升级：RDS-8C16G-80个仓库结果
+- CPU：100%，内存：35%，连接数：5%，IOPS：18%，磁盘空间：30G
+
+```
+1780, trx: 4502, 95%: 398.131, 99%: 501.634, max_rt: 772.128, 4473|740.073, 446|183.361, 448|1042.264, 442|1302.569
+1790, trx: 4465, 95%: 398.489, 99%: 541.424, max_rt: 803.659, 4476|845.313, 448|152.917, 450|997.319, 454|1250.160
+1800, trx: 4506, 95%: 397.774, 99%: 501.334, max_rt: 747.074, 4508|701.625, 453|108.619, 450|1052.293, 451|1107.277
+
+STOPPING THREADS........................................................................................................................................................................................................
+
+<Raw Results>
+  [0] sc:20 lt:803738  rt:0  fl:0 avg_rt: 240.5 (5)
+  [1] sc:13844 lt:789535  rt:0  fl:0 avg_rt: 128.5 (5)
+  [2] sc:54560 lt:25817  rt:0  fl:0 avg_rt: 22.1 (5)
+  [3] sc:0 lt:80372  rt:0  fl:0 avg_rt: 739.8 (80)
+  [4] sc:0 lt:80378  rt:0  fl:0 avg_rt: 771.1 (20)
+ in 1800 sec.
+
+<Raw Results2(sum ver.)>
+  [0] sc:20  lt:803747  rt:0  fl:0
+  [1] sc:13845  lt:789916  rt:0  fl:0
+  [2] sc:54561  lt:25817  rt:0  fl:0
+  [3] sc:0  lt:80377  rt:0  fl:0
+  [4] sc:0  lt:80381  rt:0  fl:0
+
+<Constraint Check> (all must be [OK])
+ [transaction percentage]
+        Payment: 43.47% (>=43.0%) [OK]
+   Order-Status: 4.35% (>= 4.0%) [OK]
+       Delivery: 4.35% (>= 4.0%) [OK]
+    Stock-Level: 4.35% (>= 4.0%) [OK]
+ [response time (at least 90% passed)]
+      New-Order: 0.00%  [NG] *
+        Payment: 1.72%  [NG] *
+   Order-Status: 67.88%  [NG] *
+       Delivery: 0.00%  [NG] *
+    Stock-Level: 0.00%  [NG] *
+
+<TpmC>
+                 26791.934 TpmC
+```
+
+
+- 升级：RDS-16C64G-80个仓库结果
+- CPU：100%，内存：18%，连接数：2%，IOPS：10%，磁盘空间：40G
+
+```
+1780, trx: 8413, 95%: 203.560, 99%: 279.322, max_rt: 451.010, 8414|441.849, 841|92.900, 839|583.340, 843|644.276
+1790, trx: 8269, 95%: 204.599, 99%: 282.602, max_rt: 444.075, 8262|412.414, 827|91.551, 831|665.421, 824|616.396
+1800, trx: 8395, 95%: 202.285, 99%: 255.026, max_rt: 436.136, 8404|446.292, 839|87.081, 839|609.221, 842|697.509
+
+STOPPING THREADS........................................................................................................................................................................................................
+
+<Raw Results>
+  [0] sc:37 lt:1532893  rt:0  fl:0 avg_rt: 124.8 (5)
+  [1] sc:36091 lt:1496111  rt:0  fl:0 avg_rt: 68.5 (5)
+  [2] sc:105738 lt:47555  rt:0  fl:0 avg_rt: 11.4 (5)
+  [3] sc:0 lt:153285  rt:0  fl:0 avg_rt: 404.6 (80)
+  [4] sc:0 lt:153293  rt:0  fl:0 avg_rt: 389.5 (20)
+ in 1800 sec.
+
+<Raw Results2(sum ver.)>
+  [0] sc:37  lt:1532918  rt:0  fl:0
+  [1] sc:36093  lt:1496868  rt:0  fl:0
+  [2] sc:105739  lt:47556  rt:0  fl:0
+  [3] sc:0  lt:153297  rt:0  fl:0
+  [4] sc:0  lt:153298  rt:0  fl:0
+
+<Constraint Check> (all must be [OK])
+ [transaction percentage]
+        Payment: 43.47% (>=43.0%) [OK]
+   Order-Status: 4.35% (>= 4.0%) [OK]
+       Delivery: 4.35% (>= 4.0%) [OK]
+    Stock-Level: 4.35% (>= 4.0%) [OK]
+ [response time (at least 90% passed)]
+      New-Order: 0.00%  [NG] *
+        Payment: 2.36%  [NG] *
+   Order-Status: 68.98%  [NG] *
+       Delivery: 0.00%  [NG] *
+    Stock-Level: 0.00%  [NG] *
+
+<TpmC>
+                 51097.668 TpmC
+```
+
+
+- 几轮下来，最终数据量：
+
+```
+select count(*) from customer;
+    2400000
+select count(*) from district;
+    800    
+select count(*) from history;
+    5779395
+select count(*) from item;
+    100000
+select count(*) from new_orders;
+    764970
+select count(*) from order_line;
+    57453708
+select count(*) from orders;
+    5745589
+select count(*) from stock;
+    8000000
+select count(*) from warehouse;
+    80
+```
 
 
 ## 资料
