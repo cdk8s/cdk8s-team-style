@@ -6,6 +6,7 @@
 
 - 本文思路从一开始就定位为基于云数据库来部署，不考虑生产环境自己搭建、维护、备份
 - 本文只为：sculptor-boot-generator 代码生成器体系服务 [Github](https://github.com/cdk8s/sculptor-boot-generator) [Gitee](https://gitee.com/cdk8s/sculptor-boot-generator)
+- 感谢群里老鐡童鞋审稿!
 
 #### PostgreSQL 资料打包
 
@@ -56,6 +57,7 @@
 - 界面体验比 DBeaver 更加友好，支持模型与 SQL 转换
 - 支持各种场景的导入导出
 - 官网介绍：<https://www.navicat.com.cn/products/navicat-premium>
+- 但是，pgAdmin 也有一些优点，比如有 Dashboard、Statistics 可以直观查看服务器的一些统计信息。
 
 -------------------------------------------------------------------
 
@@ -179,6 +181,30 @@ COMMENT ON COLUMN sys_user.id IS '主键ID';
 COMMENT ON COLUMN sys_user.username IS '用户账号';
 COMMENT ON COLUMN sys_user.real_name IS '真实姓名';
 省略其他
+```
+
+#### PostgreSQL 与 MySQL 事务差
+
+- PostgreSQL 除了常规的 DML 的 ROLLBACK 之外，还支持 DDL 的 ROLLBACK
+- 常规脚本操作，稳妥一点的流程基本是：`BEGIN > COMMIT / ROLLBACK`
+- PostgreSQL 额外支持 DDL 操作，比如 CREATE TABLE，TRUNCATE 等的 ROLLBACK
+- 测试：
+
+```
+select count(*) from sys_user;
+假设返回有 9 条数据
+
+BEGIN;
+
+TRUNCATE sys_user;
+
+select count(*) from sys_user;
+返回有 0 条数据
+
+ROLLBACK;
+
+select count(*) from sys_user;
+还是返回有 9 条数据
 ```
 
 #### PostgreSQL 与 MySQL 在 Java 使用
@@ -460,9 +486,10 @@ host    replication     all             ::1/128                 trust
 host all all all md5
 ```
 
-## PostgreSQL 的数据库和模式说明
+## PostgreSQL 的数据库和模式说明（schema）
 
-- PostgreSQL 相对 MySQL 表特殊的地方在于其数据库下面还有一个东西叫做：`模式`，默认每个库下都有一个 `public` 模式
+- 这里把 schema 翻译成模式，我记得好像是阿里云还是哪里看到的，暂且就这样叫吧。
+- PostgreSQL 相对 MySQL 表特殊的地方在于其数据库下面还有一个东西叫做：`schema 模式`，默认每个库下都有一个 `public` 模式
 - PostgreSQL 支持多模式，但是不推荐使用其他。因为 `public` 是默认模式，所以在写查询 SQL 的时候可以省掉这个，这样方便以后系统做数据库迁移
 
 
@@ -471,6 +498,16 @@ host all all all md5
 ```
 查看版本
 select version();
+
+查看软件配置
+select * from pg_config;
+
+查看设置参数
+select * from pg_settings;
+
+更多目录参数：
+https://www.postgresql.org/docs/11/catalogs.html
+http://postgres.cn/docs/10/catalogs.html
 
 创建用户
 CREATE USER root WITH PASSWORD '123456';
@@ -859,6 +896,9 @@ shared_blks_written：SQL 写入的共享内存数据块数量
 shared_blks_dirtied：SQL 产生的共享内存数据脏块数量
 ```
 
+- 如果是本地部署，需要通过 WEB UI 界面查看以上信息，可以借助它：pg_web_stats
+- pg_web_stats：<https://github.com/kirs/pg_web_stats>
+
 #### 日志检查
 
 - 设置日志输出格式为 csvlog
@@ -958,6 +998,12 @@ vacuumdb -d dbName -f -z -v
 - 推荐空间数据类型统一使用 Geometry 类型
 - PostgreSQL 也内置了几个几何类型，但是跟 PostGIS 的不是同机制，推荐使用以 ST 开头的对象（ST = Spatial Type）
 
+#### pg_pathman
+
+- 官网：<https://github.com/postgrespro/pg_pathman>
+- 看德哥文章说比内置分区性能来的好，我没试过，大家可以自己试试。阿里云的 PostgreSQL 11 已经内置该插件
+
+
 #### pgRouting 插件
 
 - 基于 PostgreSQL 和 PostGIS 提供了地理位置引路系统
@@ -999,11 +1045,14 @@ vacuumdb -d dbName -f -z -v
 
 ## PostgreSQL 衍生生态介绍
 
+- Amazon Aurora 的 PostgreSQL 兼容版本：<https://aws.amazon.com/cn/rds/aurora/>
 - 实时数据仓库、大规模并行处理、BI、AI
     - GreenPlum：<https://greenplum.org/>
     - 阿里云版本：<https://www.aliyun.com/product/gpdb>
+    - Amazon Redshift：<https://aws.amazon.com/cn/redshift/>
 - NewSQL（外部接口是 PostgreSQL）
     - CockroachDB：<https://github.com/cockroachdb/cockroach>
+    - YugabyteDB：<https://www.yugabyte.com/yugabytedb/>
 - 大规模并行处理
     - Postgres-XL：<https://www.postgres-xl.org/>
 - 高可用方案
