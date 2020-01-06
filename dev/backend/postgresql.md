@@ -1045,6 +1045,7 @@ vacuumdb -d dbName -f -z -v
 
 ## PostgreSQL 衍生生态介绍
 
+- 阿里云 Polardb 兼容 PostgreSQL：<https://www.aliyun.com/product/polardb>
 - Amazon Aurora 的 PostgreSQL 兼容版本：<https://aws.amazon.com/cn/rds/aurora/>
 - 实时数据仓库、大规模并行处理、BI、AI
     - GreenPlum：<https://greenplum.org/>
