@@ -1,6 +1,6 @@
 
 
-# MySQL 转 PostgreSQL 经验
+# MySQL 过渡 PostgreSQL 经验
 
 ## 声明
 
@@ -520,6 +520,23 @@ GRANT ALL PRIVILEGES ON DATABASE newDbName TO root;
 
 导出数据：docker exec -it 容器ID pg_dump -h localhost -U postgres 数据库名 > /data/backup.sql
 ```
+
+## 其他常用 SQL
+
+```
+查询存储 java 时间戳（13位）数据的时间可读方式，国内时间需要加 + 8
+select id, to_char(to_timestamp(create_date/1000),'yyyy-MM-dd HH24:MI:SS')::timestamp + '8 hour' as createdate from sys_role;
+
+除了加 hour 还可以如下单位
+'1 year'
+'1 month'
+'1 day'
+'1 hour'
+'1 min'
+'1 sec'
+'1 year 2 month 3 day 4 hour 5 min 6 sec'
+```
+
 
 -------------------------------------------------------------------
 
