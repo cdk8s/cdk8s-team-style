@@ -1,12 +1,40 @@
 
 # 阿里云常用服务
 
-- 只有上云才能撑住规模化后的发展
-    - 初期技术选型上尽可能寻找云支持的
-    - 在公司规模小，自建服务基本都做不到 99.999% 高可用
-    - 在公司规模发展变迅速时，如果云技术和已有技术契合，迁移成本会低很多很多
+## 只有上云才能撑住规模化后的发展
+
+- 初期技术选型上尽可能寻找云支持的
+- 在公司规模小，自建服务基本都做不到 99.999% 高可用
+- 在公司规模发展变迅速时，如果云技术和已有技术契合，迁移成本会低很多很多
+- 目前暂定只选择：[阿里云服务](https://www.aliyun.com/minisite/goods?userCode=v2zozyxz)
+- 这里罗列了阿里云常用的一些：[产品](https://github.com/cdk8s/cdk8s-team-style/blob/master/ops/aliyun.md)
 
 -------------------------------------------------------------------
+
+
+## 对象存储 OSS
+
+- 能用 OSS 的就不要用 NAS
+- 基本上现在常见的图片、音视频等文件格式都可以存储到 OSS
+- <https://www.aliyun.com/product/oss>
+    - [图片处理](https://help.aliyun.com/document_detail/44686.html)
+    - [文档预览](https://help.aliyun.com/document_detail/99373.html)
+    - [图片识别](https://help.aliyun.com/document_detail/99383.html)
+    - [视频点播](https://help.aliyun.com/product/29932.html)
+    - [视频直播](https://help.aliyun.com/document_detail/29951.html)
+    - [短视频](https://promotion.aliyun.com/ntms/act/shortvideo.html)
+    - [爬虫风险管理](https://www.aliyun.com/product/antibot)
+    
+## 人工只能
+
+- [视觉智能开放平台](https://vision.aliyun.com/)
+- [NLP自学习平台](https://ai.aliyun.com/nlp/nlpautoml)
+- [录音文件识别](https://ai.aliyun.com/nls/filetrans)
+- [实时语音识别](https://ai.aliyun.com/nls/trans)
+- [深度学习框架支持和](https://help.aliyun.com/document_detail/148437.html)
+- [视频内容分析](https://promotion.aliyun.com/ntms/act/video-content-create.html)
+- [人脸人体](https://vision.aliyun.com/facebody)
+- [文字识别](https://help.aliyun.com/document_detail/146692.html)
 
 ## 容器服务 ACK
 
@@ -28,13 +56,29 @@
 
 - <https://www.aliyun.com/product/drds>
 
+## 云数据库 POLARDB
+
+- <https://www.aliyun.com/product/polardb>
+
 ## 时序时空数据库 TSDB
 
 - <https://www.aliyun.com/product/hitsdb>
 
+## 时序数据库 InfluxDB
+
+- <https://www.aliyun.com/product/hitsdb_influxdb_pre>
+
+## 时序数据库 Prometheus
+
+- <https://www.aliyun.com/product/hitsdb_prometheus_pre>
+
 ## 云数据库 HBase 版
 
 - <https://cn.aliyun.com/product/hbase>
+
+## 云数据库 ClickHouse
+
+- <https://www.aliyun.com/product/clickhouse>
 
 ## 阿里云 · Elasticsearch
 
@@ -72,11 +116,6 @@
 
 - <https://www.aliyun.com/product/slb>
 
-## 对象存储 OSS
-
-- 能用 OSS 的就不要用 NAS
-- 基本上现在常见的图片、音视频等文件格式都可以存储到 OSS
-- <https://www.aliyun.com/product/oss>
 
 ## 日志服务 LOG
 
