@@ -16,17 +16,18 @@
 
 - 能用 OSS 的就不要用 NAS
 - 基本上现在常见的图片、音视频等文件格式都可以存储到 OSS
-- <https://www.aliyun.com/product/oss>
-    - [图片处理](https://help.aliyun.com/document_detail/44686.html)
-    - [文档预览](https://help.aliyun.com/document_detail/99373.html)
-    - [图片识别](https://help.aliyun.com/document_detail/99383.html)
-    - [视频点播](https://help.aliyun.com/product/29932.html)
-    - [视频直播](https://help.aliyun.com/document_detail/29951.html)
-    - [短视频](https://promotion.aliyun.com/ntms/act/shortvideo.html)
-    - [爬虫风险管理](https://www.aliyun.com/product/antibot)
+- 对象存储 OSS <https://www.aliyun.com/product/oss>
+- [阿里云 OSS 实用工具](https://promotion.aliyun.com/ntms/ossedu6.html)
+- [图片处理](https://help.aliyun.com/document_detail/44686.html)
+- [文档预览](https://help.aliyun.com/document_detail/99373.html)
+- [图片识别](https://help.aliyun.com/document_detail/99383.html)
+- [视频点播](https://help.aliyun.com/product/29932.html)
+- [视频直播](https://help.aliyun.com/document_detail/29951.html)
+- [短视频](https://promotion.aliyun.com/ntms/act/shortvideo.html)
     
 ## 人工只能
 
+- [爬虫风险管理](https://www.aliyun.com/product/antibot)
 - [视觉智能开放平台](https://vision.aliyun.com/)
 - [NLP自学习平台](https://ai.aliyun.com/nlp/nlpautoml)
 - [录音文件识别](https://ai.aliyun.com/nls/filetrans)
