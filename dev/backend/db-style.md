@@ -155,6 +155,88 @@ ALTER TABLE `my_db`.`my_table` ADD UNIQUE KEY unique_username (username) COMMENT
 DROP INDEX index_client_id ON `my_db`.`my_table`;
 ```
 
+### 常用连接语句
+
+- 查询
+
+```sql
+-- 交叉连接 - CROSS JOIN，交叉查询的结果集是：两个结果集的乘积。显示列结果是，第一张表的列+第二张表的列数据
+-- 哪个表放一个位置，哪张表的列先显示
+SELECT * FROM product CROSS JOIN sku;
+
+-- 内连接 - INNER JOIN，取两张表的交集
+SELECT p.*,s.*
+FROM product AS p INNER JOIN sku AS s
+ON p.product_id = s.product_id;
+
+-- 左外连接（LEFT OUTER JOIN），返回左表所有的行，即使右表中有部分数据跟左表不匹配。右表中不匹配的信息那部分信息不会显示出来。
+SELECT p.*,s.*
+FROM product AS p LEFT OUTER JOIN sku AS s
+ON p.product_id = s.product_id;
+
+-- 右外连接（RIGHT OUTER JOIN），返回右表所有的行，即使左表中有部分数据跟右表不匹配。左表中不匹配的信息那部分信息不会显示出来。
+SELECT p.*,s.*
+FROM product AS p RIGHT OUTER JOIN sku AS s
+ON p.product_id = s.product_id;
+
+-- 全连接（MySQL不支持，所以只能用特殊方法来处理）（FULL OUTER JOIN）
+-- 特殊要求：左连接查询的结果集的列，必须和右连接查询的结果集的列是一样的个数，如果不一样，会报错。
+-- 两个查询的结果集最好也别取不同列值，不然结果会整合在一起，不合理
+SELECT p.*,s.*
+FROM product AS p LEFT OUTER JOIN sku AS s
+ON p.product_id = s.product_id
+UNION
+SELECT p.*,s.*
+FROM product AS p RIGHT OUTER JOIN sku AS s
+-- 交叉连接 - CROSS JOIN，交叉查询的结果集是：两个结果集的乘积。显示列结果是，第一张表的列+第二张表的列数据
+-- 哪个表放一个位置，哪张表的列先显示
+SELECT * FROM product CROSS JOIN sku;
+
+-- 内连接 - INNER JOIN，取两张表的交集
+SELECT p.*,s.*
+FROM product AS p INNER JOIN sku AS s
+ON p.product_id = s.product_id;
+
+-- 左外连接（LEFT OUTER JOIN），返回左表所有的行，即使右表中有部分数据跟左表不匹配。右表中不匹配的信息那部分信息不会显示出来。
+SELECT p.*,s.*
+FROM product AS p LEFT OUTER JOIN sku AS s
+ON p.product_id = s.product_id;
+
+-- 右外连接（RIGHT OUTER JOIN），返回右表所有的行，即使左表中有部分数据跟右表不匹配。左表中不匹配的信息那部分信息不会显示出来。
+SELECT p.*,s.*
+FROM product AS p RIGHT OUTER JOIN sku AS s
+ON p.product_id = s.product_id;
+
+-- 全连接（MySQL不支持，所以只能用特殊方法来处理）（FULL OUTER JOIN）
+-- 特殊要求：左连接查询的结果集的列，必须和右连接查询的结果集的列是一样的个数，如果不一样，会报错。
+-- 两个查询的结果集最好也别取不同列值，不然结果会整合在一起，不合理
+SELECT p.*,s.*
+FROM product AS p LEFT OUTER JOIN sku AS s
+ON p.product_id = s.product_id
+UNION
+SELECT p.*,s.*
+FROM product AS p RIGHT OUTER JOIN sku AS s
+ON p.product_id = s.product_id;
+```
+
+- 更新
+
+```sql
+UPDATE 
+product AS p JOIN sku AS s 
+ON p.product_id = s.product_id
+AND p.name = 'iPhone'
+SET s.sal = 10000, p.name = 'iPhone x';
+```
+
+- 删除
+
+```sql
+DELETE p,s FROM product AS p JOIN sku AS s 
+ON p.product_id = s.product_id
+AND p.name = 'iPhone';
+```
+
 ### JDBC 连接设置（mysql-connector-java）
 
 - 8.x 版本
@@ -304,6 +386,14 @@ spring:
 		- 插入数据之前执行禁止事务的自动提交，数据插入完成后再恢复，可以提供插入速度。
 		- 禁用：`SET autocommit = 0;`
 		- 开启：`SET autocommit = 1;`
+
+-------------------------------------------------------------------
+
+## MySQL 事务
+
+- 事务有4种特性：原子性、一致性、隔离性、持久性
+- 事务的隔离性由锁机制实现
+- 原子性、一致性和持久性由事务的 redo 日志和 undo 日志来保证。
 
 -------------------------------------------------------------------
 
