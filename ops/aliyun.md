@@ -45,6 +45,10 @@
 
 - <https://www.aliyun.com/product/ecs>
 
+## 数据管理（Web 数据库管理终端）
+
+- <https://www.aliyun.com/product/dms>
+
 ## 云数据库RDS MySQL 版
 
 - <https://www.aliyun.com/product/rds/mysql>
@@ -57,7 +61,7 @@
 
 - <https://www.aliyun.com/product/drds>
 
-## 云数据库 POLARDB
+## 云数据库 POLARDB（比 DRDS 优先）
 
 - <https://www.aliyun.com/product/polardb>
 
