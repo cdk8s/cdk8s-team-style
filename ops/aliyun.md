@@ -100,6 +100,16 @@
 ## 图数据库 GDB
 
 - <https://www.aliyun.com/product/gdb>
+- 核心
+    - 支持 TinkerPop Gremlin 查询语言
+- 场景：
+    - 构建复杂的社交网络系统
+    - 构建个人信用信息系统，欺诈检测场景
+    - 构建多维度电商场景，进行个性化推荐
+    - 构建数据高度连接的复杂知识图谱
+    - 构建网络IT拓扑图
+- 集成
+    - dataworks：基于dataworks，GDB支持从MySQL、ODPS、OTS等导入数据。提供了丰富的配置规则，支持表数据到图点、边数据的多种映射，包括导入自定义的常量字段等
 
 ## 云数据库 Redis 版
 
@@ -136,11 +146,11 @@
 
 - <https://www.aliyun.com/product/apigateway>
 
-## Quick BI
+## Quick BI（倾向于离线数据报表）
 
 - <https://data.aliyun.com/product/bi>
 
-## DataV数据可视化
+## DataV数据可视化（倾向于实时数据报表）
 
 - <https://data.aliyun.com/visual/datav>
 
