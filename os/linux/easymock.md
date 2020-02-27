@@ -65,6 +65,24 @@ networks:
 - 访问地址：<http://119.23.241.211:7300>
 - 直接输入用户名密码，没有会自动注册，目前没有看到有超级管理员的概念
 
+## 导出导入
+
+- 没用用户名和密码
+- 一共有如下集合
+
+```
+groups
+mock_counts
+mocks
+projects
+user_group
+user_project
+users
+```
+
+- 导出：`docker exec -it root_mongodb_1 mongoexport -h 127.0.0.1 -d easy-mock -c mocks -o /data/db/mongodb-back.json --type json`
+- 导入：`docker exec -it root_mongodb_1 mongoimport -h 127.0.0.1 -d easy-mock -c mocks --file /data/db/mongodb-back.json --type json`
+
 
 
 
