@@ -17,16 +17,16 @@
 
 - API_CODE
     - 类别码（1位英文字母）+ 数字编号（3位数字，建议累加，代表接口数量）+ 操作码（1位英文字母）+ 具体业务（因为单词）
-    - `c101p_order_detail`
-        - `c`101p_order_detail 是类别码，共享项目中约定 c 代表专家栏目功能
-        - c`101`p_order_detail 代表专家栏目下的第 1 个接口
-        - c101`p`_order_detail 代表 page 查询分页
-        - c101p_`order_detail` 代表操作的业务是订单详情
+    - `c101p_product`
+        - `c`101p_product 是类别码，共享项目中约定 c 代表专家栏目功能
+        - c`101`p_product 代表专家栏目下的第 1 个接口
+        - c101`p`_product 代表 page 查询分页
+        - c101p_`product` 代表操作的业务是商品业务
     - `c102c_order`
         - `c`102c_order 是类别码，共享项目中约定 c 代表专家栏目功能
         - c`102`c_order 代表专家栏目下的第 2 个接口
         - c102`c`_order 代表 create 创建数据
-        - c102c_`order` 代表操作的业务是订单
+        - c102c_`order` 代表操作的业务是订单业务
 - 要求
     - 全部小写组成
     - 复词用下划线分割
