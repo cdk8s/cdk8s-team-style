@@ -169,7 +169,7 @@
 ```
 {
   "data": {
-    "id_token": "Cd534924C12561De4Eb948531A7Fdeb9"
+    "token": "Cd534924C12561De4Eb948531A7Fdeb9"
   },
   "isSuccess": true,
   "msg": "登出成功",
