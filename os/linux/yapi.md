@@ -15,7 +15,7 @@
 
 - 推荐
 - <https://github.com/fjc0k/docker-YApi>
-
+- 特别注意点，记得把 YAPI_CLOSE_REGISTER=true 改为 false，不然无法让别人注册
 
 ## Docker 快速部署-方案2
 
