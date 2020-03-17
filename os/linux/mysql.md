@@ -31,12 +31,22 @@ docker run \
 
 - 连上容器：`docker exec -it mysql-jira /bin/bash`
 	- 连上 MySQL：`mysql -u root -p`
-- 设置编码：
+- 设置数据库编码：
 
 ```
 SET NAMES 'utf8mb4';
 alter database jira_db character set utf8mb4;
 ```
+
+- 修改已有表编码
+
+```
+先查询出所有表名：
+select table_name,`engine`,table_collation from information_schema.`TABLES` where TABLE_SCHEMA = '库名';
+
+alter table 表名 convert to character set utf8mb4;
+```
+
 
 ## Docker 安装 MySQL 5.7（带挂载）
 
