@@ -4,7 +4,33 @@
 ## 内网穿透软件
 
 - 全傻瓜需求：花生壳（有免费）
+
+```
+- 下载软件：<https://hsk.oray.com/>
+- 官网帮助文档：<https://service.oray.com/question/10541.html>
+- 下一步下一步安装
+- 打开软件，微信扫码登录
+- 点击右下角加号 "添加映射"，会跳转到花生壳官网
+- 选择：【用户中心】--【花生壳管理】--【点击对应帐号】--【域名列表】
+```
+
+
 - 半傻瓜需求：natapp（有免费）
+
+```
+- 官网帮助文档：<https://natapp.cn/article/natapp_newbie>
+- 官网注册账号
+- 登录，点击左上角：购买免费隧道
+- 填写映射的本地端口后会给你生成一个 authtoken
+- Windows 系统
+    - 修改 config.ini，填写 authtoken
+    - 双击 natapp.exe 即可
+- Linux、macOS
+     - 赋权：chmod a+x natapp
+     - 执行：./natapp -authtoken=9ab6b9040a624f40
+- 执行成功会告诉你一个临时的免费域名
+```
+
 - 全配置需求：frp
 - 一般都要下载花生壳、natapp，它们都是有崩过的经历，所以别在关键时候掉链子了
 
