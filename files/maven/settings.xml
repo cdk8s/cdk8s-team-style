@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+		  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		  xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+
+	<!--指定本地仓库路径 start-->
+	<!--Windows 的写法-->
+	<localRepository>D:\software\my_local_repository</localRepository>
+
+	<!--Linux / macOS 的写法-->
+	<!--<localRepository>/Users/youmeek/software/maven/my_local_repository</localRepository>-->
+	<!--指定本地仓库路径 end-->
+
+	<pluginGroups>
+	</pluginGroups>
+
+	<proxies>
+	</proxies>
+
+	<profiles>
+		<profile>
+			<id>aliyun</id>
+			<repositories>
+				<repository>
+					<id>aliyun</id>
+					<url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+					<releases>
+						<enabled>true</enabled>
+					</releases>
+					<snapshots>
+						<enabled>true</enabled>
+					</snapshots>
+				</repository>
+			</repositories>
+			<pluginRepositories>
+				<pluginRepository>
+					<id>aliyun</id>
+					<url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+					<releases>
+						<enabled>true</enabled>
+					</releases>
+					<snapshots>
+						<enabled>true</enabled>
+					</snapshots>
+				</pluginRepository>
+			</pluginRepositories>
+		</profile>
+		<profile>
+			<id>maven</id>
+			<repositories>
+				<repository>
+					<id>maven</id>
+					<url>https://repo.maven.apache.org/maven2/</url>
+					<releases>
+						<enabled>true</enabled>
+					</releases>
+					<snapshots>
+						<enabled>true</enabled>
+					</snapshots>
+				</repository>
+			</repositories>
+			<pluginRepositories>
+				<pluginRepository>
+					<id>maven</id>
+					<url>https://repo.maven.apache.org/maven2/</url>
+					<releases>
+						<enabled>true</enabled>
+					</releases>
+					<snapshots>
+						<enabled>true</enabled>
+					</snapshots>
+				</pluginRepository>
+			</pluginRepositories>
+		</profile>
+	</profiles>
+
+	<activeProfiles>
+		<activeProfile>aliyun</activeProfile>
+	</activeProfiles>
+
+</settings>
