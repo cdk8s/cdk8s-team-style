@@ -14,9 +14,8 @@
 
 #### API_CODE 的组成
 
-
 - API_CODE
-    - 类别码（1位英文字母）+ 数字编号（3位数字，建议累加，代表接口数量）+ 操作码（1位英文字母）+ 具体业务（因为单词）
+    - 类别码（1位英文字母）+ 数字编号（3位数字，建议累加，代表接口数量，以 YApi 的 ID 为准）+ 操作码（1位英文字母）+ 具体业务（因为单词）
     - `c101p_product`
         - `c`101p_product 是类别码，共享项目中约定 c 代表专家栏目功能
         - c`101`p_product 代表专家栏目下的第 1 个接口
@@ -61,6 +60,7 @@
     - 100009 数据异常
     - 100010 调用内部服务接口异常
     - 100011 调用第三方接口异常
+    - 200001 未认证
     - 999999 系统异常
 
 ### 响应失败（"isSuccess": false）
@@ -474,6 +474,17 @@
 }
 ```
 
+#### 单个对象查询
+
+- 请求方式：`POST`
+- URL：<https://github.com/cdk8s/store/sysUser/view>
+- 请求参数：
+
+```
+{
+  "id": "11111111111111111111"
+}
+```
 
 #### 单个对象新增
 
@@ -565,17 +576,6 @@
 }
 ```
 
-
-### GET 请求
-
-- 通过 ID 查看单个对象（GET）：<https://github.com/cdk8s/store/sysUser/detail?id=123456>
-- 通过 ID 删除单个对象（GET）：<https://github.com/cdk8s/store/sysUser/delete?id=123456>
-- 通过 userName 查看单个对象（GET）：<https://github.com/cdk8s/store/sysUser/detailByUserName?userName=123456>
-- 通过 userName 查看列表（GET）：<https://github.com/cdk8s/store/sysUser/listByUserName?userName=123456>
-- 特殊场景可以考虑 GET 带复杂查询：
-    - get + query string 对 cache 更友好
-    - get + query string 可加入浏览器收藏夹
-    - get + query string 对搜索引擎更友好
 
 
 
