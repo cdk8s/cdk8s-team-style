@@ -27,6 +27,7 @@
 
 - 先安装 Xcode command line tools：
     - 打开终端，输入：`xcode-select --install `，如果提示已经安装过了那就不用管了。
+- 国内源安装推荐文：<https://zhuanlan.zhihu.com/p/111014448>
 - 打开终端，复制该命令：`ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`
     - 根据提示，按回车键
     - 根据提示，输入当前用户的密码
