@@ -41,6 +41,7 @@
 
 -------------------------------------------------------------------
 
+
 ## 响应 JSON 规范
 
 ### 响应格式解释
@@ -443,6 +444,11 @@
 - app_uhid（硬件信息）
 - app_token（app token 字段）
 - app_userid（用户id）
+
+### 请求头内容场景
+
+- 如果是上传文件：`Content-Type: multipart/form-data`
+- 如果普通请求：`Content-Type: application/json`
 
 ### POST 请求
 
