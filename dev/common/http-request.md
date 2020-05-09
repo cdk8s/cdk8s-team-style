@@ -38,6 +38,17 @@
 }
 ```
 
+#### 单个对象查询
+
+- 请求方式：`POST`
+- URL：<https://github.com/cdk8s/store/sysUser/view>
+- 请求参数：
+
+```
+{
+  "id": "11111111111111111111"
+}
+```
 
 #### 单个对象新增
 
@@ -132,12 +143,7 @@
 
 ### GET 请求
 
-- 通过 ID 查看单个对象（GET）：<https://github.com/cdk8s/store/sysUser/detail?id=123456>
-- 通过 ID 删除单个对象（GET）：<https://github.com/cdk8s/store/sysUser/delete?id=123456>
-- 通过 userName 查看单个对象（GET）：<https://github.com/cdk8s/store/sysUser/detailByUserName?userName=123456>
-- 通过 userName 查看列表（GET）：<https://github.com/cdk8s/store/sysUser/listByUserName?userName=123456>
 - 特殊场景可以考虑 GET 带复杂查询：
-    - get + query string 对 cache 更友好
     - get + query string 可加入浏览器收藏夹
     - get + query string 对搜索引擎更友好
 
