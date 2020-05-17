@@ -32,13 +32,15 @@
     - 4.0
     - 4.2
 - 阿里云支持版本：<https://www.aliyun.com/product/mongodb>
-- 先创建一个宿主机以后用来存放数据的目录：`mkdir -p /data/docker/mongo/db`
-- 赋权：`chmod 777 -R /data/docker/mongo/db`
-- 首次运行镜像：`docker run --name cloud-mongo -p 27017:27017 -v /data/docker/mongo/db:/data/db -d mongo:4.0`
-- 进入容器中 mongo shell 交互界面：`docker exec -it cloud-mongo mongo adg_mongo_db`
+- 先创建一个宿主机以后用来存放数据的目录：`mkdir -p ~/docker/mongo/db`
+- 赋权：`chmod 777 -R ~/docker/mongo/db`
+- 首次运行镜像：`docker run --name cloud-mongo -p 27017:27017 -v ~/docker/mongo/db:/data/db -d mongo:4.0`
+- 进入容器中 mongo shell 交互界面：`docker exec -it cloud-mongo mongo`
 - 创建一个用户：
 
 ```
+use adg_mongo_db
+
 db.createUser(
     {
         user: "adguser",
@@ -53,7 +55,7 @@ db.createUser(
 
 - 然后停掉容器：`docker stop cloud-mongo`
 - 然后删除容器：`docker rm cloud-mongo`
-- 重新运行镜像，这次增加需要授权才能访问的配置：`docker run -d -p 27017:27017 -v /data/docker/mongo/db:/data/db --restart always --name cloud-mongo mongo:4.0 --auth`
+- 重新运行镜像，这次增加需要授权才能访问的配置：`docker run -d -p 27017:27017 -v ~/docker/mongo/db:/data/db --restart always --name cloud-mongo mongo:4.0 --auth`
 - 重新启动服务：`docker restart cloud-mongo`
 - 导出：`docker exec -it cloud-mongo mongoexport -h 127.0.0.1 -u 用户名 -p 密码 -d 库名 -c 集合名 -o /data/db/mongodb.json --type json`
 - 导入：`docker exec -it cloud-mongo mongoimport -h 127.0.0.1 -u 用户名 -p 密码 -d 库名 -c 集合名 --file /data/db/mongodb.json --type json`
