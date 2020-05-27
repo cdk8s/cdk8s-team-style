@@ -80,8 +80,12 @@ brew update
     - 查看那些已安装的程序需要更新：`brew outdated`
 - 使用国内源
     - 默认的源实在速度有够慢的
-    - 方法（内容一）：<https://mirror.tuna.tsinghua.edu.cn/help/homebrew/>
-    - 方法（内容二）：<https://mirror.tuna.tsinghua.edu.cn/help/homebrew-bottles/>
+    - 中科大
+        - <https://lug.ustc.edu.cn/wiki/mirrors/help/brew.git>
+        - <https://lug.ustc.edu.cn/wiki/mirrors/help/homebrew-bottles>
+    - 清华
+        - <https://mirror.tuna.tsinghua.edu.cn/help/homebrew/>
+        - <https://mirror.tuna.tsinghua.edu.cn/help/homebrew-bottles/>
 
 
 
