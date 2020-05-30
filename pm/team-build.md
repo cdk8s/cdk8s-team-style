@@ -21,7 +21,66 @@
 - YAPI
 - 原型
 
+-------------------------------------------------------------------
 
+## 外部人员建设
+
+#### 渠道
+
+- 平台
+    - 程序员客栈
+    - 码市
+    - 猪八戒
+    - 开源众包
+    - 电鸭社区
+    - 智城外包网
+    - 实现网
+    - 猿急送
+    - 人人开发
+    - 开发邦
+    - 快码
+    - 英选
+    - 软件项目交易网
+    - AngelList
+    - Dribbble
+    - Freelancer
+    - Remoteok
+    - Toptal
+    - Topcoder
+    - Upwork
+- 其他
+    - 闲鱼一些社区
+    - QQ 群一些社区
+    - 百度贴吧
+
+#### 招聘描述
+
+- 必备基础技能
+    - Git
+    - IntelliJ IDEA
+    - HTML
+    - MySQL
+    - MyBatis
+    - Maven
+    - Java
+    - Spring Boot
+- 熟练基础技能
+    - Redis
+    - Thymeleaf
+    - jQuery
+- 加分项
+    - 良好沟通能力、学习能力
+    - Linux 基础命令
+    - React、Vue
+    - Lucene
+    - UML（ER图、流程图）
+
+
+#### 预评估、定位
+
+#### 输出评估、沉淀
+
+#### 长期合作
 
 
 
