@@ -53,28 +53,6 @@
     - QQ 群一些社区
     - 百度贴吧
 
-#### 招聘描述
-
-- 必备基础技能
-    - Git
-    - IntelliJ IDEA
-    - HTML
-    - MySQL
-    - MyBatis
-    - Maven
-    - Java
-    - Spring Boot
-- 熟练基础技能
-    - Redis
-    - Thymeleaf
-    - jQuery
-- 加分项
-    - 良好沟通能力、学习能力
-    - Linux 基础命令
-    - React、Vue
-    - Lucene
-    - UML（ER图、流程图）
-
 
 #### 预评估、定位
 
