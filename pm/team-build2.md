@@ -14,14 +14,22 @@
     - Java
     - Spring Boot
 - 熟练基础技能
-    - Redis
-    - Thymeleaf
     - jQuery
+    - Nginx
+    - Redis
+    - RabbitMQ
+    - Thymeleaf
+    - Docker
     - 基础安全设计
+    - 第三方平台接入经验
 - 加分项
-    - 良好沟通能力、学习能力
-    - Linux 基础命令
+    - 良好沟通、学习能力
+    - 限流、幂等思维
     - 抓包能力
+    - Spring Cloud
+    - Sharding-JDBC
+    - Linux 基础命令
+    - Jenkins
     - React、Vue
     - Lucene
     - UML（ER图、流程图）
@@ -32,21 +40,26 @@
     - Git
     - Chrome 开发者工具
     - HTTP
-    - HTML
-    - CSS
+    - HTML、CSS、JavaScript
     - jQuery
-    - React 或 Vue
     - ES6
+    - Less
+    - React 或 Vue
 - 熟练基础技能
-    - 第三方平台接入经验
+    - webpack
 - 加分项
+    - 良好沟通、学习能力
+    - 第三方平台接入经验
     - TypeScript
+    - WebSocket
     - Taro
-    - Node.js
+    - Nginx
+    - uni-app
+    - Node.js：Koa2、Next.js、Nuxt.js
     - MySQL
+    - Linux
     - 数据可视化
     - 抓包
-    - Linux
 
 #### 测试
 
@@ -62,6 +75,7 @@
 - 熟练基础技能
     - MySQL 基础 SQL
 - 加分项
-    - 良好沟通能力、学习能力
+    - 良好沟通、学习能力
     - UML（ER图、流程图）
-    - 压力测试
+    - 压力测试经验
+    - 自动化测试经验
