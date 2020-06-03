@@ -15,10 +15,10 @@
     - Spring Boot
 - 熟练基础技能
     - jQuery
+    - Thymeleaf
     - Nginx
     - Redis
     - RabbitMQ
-    - Thymeleaf
     - Docker
     - 基础安全设计
     - 第三方平台接入经验
@@ -27,7 +27,7 @@
     - 限流、幂等思维
     - 抓包能力
     - Spring Cloud
-    - Sharding-JDBC
+    - ShardingSphere 或 Sharding-JDBC
     - Linux 基础命令
     - Jenkins
     - React、Vue
