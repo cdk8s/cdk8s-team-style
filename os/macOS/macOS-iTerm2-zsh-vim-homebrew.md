@@ -242,7 +242,7 @@ export LESS_TERMCAP_us=$'\E[04;38;5;146m' # begin underline
 - 修改终端配置，让命令更加简洁：
     - 如果你是 zsh 终端，配置修改：`vim ~/.zshrc`，添加一行：`alias proxy='proxychains4'`
     - 如果你是 bash 终端，配置修改：`vim ~/.bash_profile`，添加一行：`alias proxy='proxychains4'`
-    - 修改之后，以后要用 proxychains4 执行穿墙命令的话，那就可以这样写：`proxy wget google.com`
+    - 修改之后，以后要用 proxychains4 执行穿墙命令的话，那就可以这样写：`proxy curl www.google.com`
 
 
 ## 资料整理
