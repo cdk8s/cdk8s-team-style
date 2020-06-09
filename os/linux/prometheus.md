@@ -46,6 +46,10 @@ scrape_configs:
     metrics_path: '/tkey-actuator/actuator/prometheus'
     static_configs:
     - targets: ['192.168.2.225:19091']
+    # 如果是暴露在外网的 nginx，可以通过配置 nginx 的 basic_auth 来支持认证
+    basic_auth:
+      username: admin
+      password: 123456
 ```
 
 - 启动
