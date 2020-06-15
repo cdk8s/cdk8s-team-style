@@ -104,6 +104,32 @@
     - 原型上的难点组件列表
     - 兼容性要求
     - 讨论难点功能点列表，尽可能降低优先级
+- 静态页面目录结构
+
+```
+- static
+    - theme
+        - default
+            - css
+            - js
+            - image
+    - component
+        - jquery
+        - bootstrap
+        - layui
+- page
+    - common
+        - header.html
+        - footer.html
+    - user-center
+        - index.html
+    - shop-center
+        - index.html
+    - 每个模块都要独立出一个目录
+        - index.html
+- index.html
+```
+
 - 混合开发
     - 检查点
         - 框架选择
