@@ -29,6 +29,14 @@
 - [JMeter 安装和使用](jmeter.md)
 - [GoAccess 安装和使用](goaccess.md)
 - [Portainer 安装和使用](portainer.md)
+- [YApi 安装和使用](yapi.md)
+- [SonarQube 安装和使用](sonarqube.md)
+- [PostgreSQL 安装和使用](postgresql.md)
+- [OpenResty 安装和使用](openresty.md)
+- [MongoDB 安装和使用](mongodb.md)
+- [JIRA 安装和使用](jira.md)
+- [Gitlab 安装和使用](gitlab.md)
+- [Elasticsearch 安装和使用](elasticsearch.md)
 
 
 
