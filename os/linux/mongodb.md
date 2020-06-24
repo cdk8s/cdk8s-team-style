@@ -10,6 +10,8 @@
 - MongoDB 没有新建数据库的命令，只要进行 insert 或其它操作，MongoDB 就会自动帮你建立数据库和 collection。当查询一个不存在的 collection 时也不会出错，MongoDB 会认为那是一个空的 collection。
 - 一个对象被插入到数据库中时，如果它没有 ID，会自动生成一个 "_id" 字段，为 12 字节(24位)16进制数。
 - 当然如果插入文档不带 _id，则系统会帮你自动创建一个，如果自己指定了就用自己指定的。
+- **核心：**
+    - 使用 mongo 在插入数据的时候，每次插入的字段都可以各不相同，这对于那些表结构无法确定的业务来讲很有帮助
 
 ## 如果你用 Spring Data MongoDB 依赖请注意
 
@@ -43,7 +45,7 @@
     - 4.2
 - 先创建一个宿主机以后用来存放数据的目录：`mkdir -p /data/docker/mongo/db`
 - 赋权：`chmod 777 -R /data/docker/mongo/db`
-- 运行镜像 3.4：
+- 运行镜像 3.4（带有一个 admin 库的超级管理员。admin 库是权限数据库，专门负责超管，不能用于做业务库）：
 
 ```
 docker run --name cloud-mongo \
@@ -139,7 +141,115 @@ security:
   authorization: enabled
 ```
 
-## 常用命令
+## 命名规范
+
+- 数据库名：区分大小写，推荐全部小写，复词用下划线分开，eg：`my_test_db`
+- 集合名：不能使用系统预留的 `system.` 做为前缀
+
+
+## 常用 CURD 命令
+
+#### 插入 1 条数据（如果集合不存在则自动创建）
+
+```
+db.my_collection.insert(
+	{
+		"book_name": "这是书名2",
+		"book_price": 33.32,
+		"book_author": "这是作者名2",
+		"book_time": "2020-06-25 00:58:05",
+		"group": {
+			"price": 2682,
+			"customer_num": 2
+		}
+	}
+)
+
+成功插入返回结果格式：WriteResult({ "nInserted" : 1, "writeConcernError" : [ ] })
+```
+
+#### 插入多条数据
+
+```
+db.my_collection.insert(
+    [
+        {
+            "book_name": "这是书名3",
+            "book_price": 33.33,
+            "book_author": "这是作者名3",
+            "book_time": "2020-06-25 00:58:05",
+            "group": {
+                "price": 2683,
+                "customer_num": 3
+            }
+        },
+        {
+            "book_name": "这是书名4",
+            "book_price": 33.34,
+            "book_author": "这是作者名4",
+            "book_time": "2020-06-25 00:58:05",
+            "group": {
+                "price": 2684,
+                "customer_num": 4
+            }
+        }
+    ]
+)
+
+成功插入返回结果格式：
+BulkWriteResult({
+	"nRemoved" : 0,
+	"nInserted" : 2,
+	"nUpserted" : 0,
+	"nMatched" : 0,
+	"nModified" : 0,
+	"writeErrors" : [ ]
+})
+
+```
+
+#### 查询集合所有数据
+
+```
+db.my_collection.find()
+```
+
+#### 单个条件查询（根属性）
+
+```
+db.my_collection.find(
+    {
+        "book_name": "这是书名3"
+    }
+)
+```
+
+#### 单个条件查询（嵌套属性）
+
+```
+db.my_collection.find(
+    {
+        "group.customer_num": 2
+    }
+)
+```
+
+#### 单个条件分页查询
+
+```
+db.my_collection.find(
+    {
+        "group.customer_num": 2
+    }
+).skip(0).limit(5)
+
+等同于：select from my_collection limit 0, 5
+```
+
+
+-------------------------------------------------------------------
+
+## 常用查询命令
 
 - `show dbs`，查看已有数据库
 - `use 数据库名`，进入指定数据库，如果这个数据库不存在了也是可以进入的，进入之后 insert 一条语句就会自动创建了。
@@ -161,8 +271,8 @@ security:
 - `db.集名称.find({}, {y:true})`，select y from foo
 - `db.集名称.find({"address.city":"gz"})`，搜索嵌套文档address中city值为gz的记录
 - `db.集名称.find({likes:"math"})`，搜索数组
-- `db.集名称.insert({"a":1,"b":2})`，插入一个测试数据
 - `db.集名称.find({name:"lichuang"})`，根据索引或字段查找数据
+- `db.集名称.insert({"a":1,"b":2})`，插入一个测试数据
 - `db.集名称.update({name:"张三"},{$set:{name:"李四"}})`，更新数据，等同于：UPDATE 表名 SET name='李四' WHERE name = '张三'
 - `db.集名称.update({name:"张三"},{$set:{name:"李四"},{upsert:true},{multi:true}})`，更新数据，等同于：UPDATE 表名 SET name='李四' WHERE name = '张三'。其中特殊的是 upsert 为 true 的时候，表示如果没有这条数据，则创建一条。multi 表示，所有满足条件的都进行更新，不然默认只找到的第一条更新。
 - `db.集名称.remove({name:"lichuang"})`，删除数据，等同于：DELETE FROM 表名 WHERE name='lichuang'
