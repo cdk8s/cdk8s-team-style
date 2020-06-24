@@ -17,57 +17,37 @@
 	- 查看锚点为：`What’s new in Spring Data MongoDB` 的内容，比如：What’s new in Spring Data MongoDB 1.10，出现这样一句话：`Compatible with MongoDB Server 3.4 and the MongoDB Java Driver 3.4`
 - 目前 201712 支持 MongoDB 3.4
 
-## 如果你用 Robomongo 客户端请注意
+## 如果你用 Robomongo GUI 客户端请注意
 
 - 请查看介绍中支持哪个版本：<https://robomongo.org/download>
 - 目前 201712 支持 MongoDB 3.4
 
+## 阿里云 MongoDB 版本支持
+
+- 阿里云支持版本：
+    - 目前（202006）主要分为下面几个主版本
+    - 3.4
+    - 4.0
+    - 4.2
+    - <https://www.aliyun.com/product/mongodb>
+    - <https://help.aliyun.com/document_detail/61906.html>
+
 -------------------------------------------------------------------
 
-## Docker 下安装 MongoDB（方式一）
+## Docker 下安装 MongoDB
 
 - 官网 Docker 镜像：<https://hub.docker.com/_/mongo/>
     - 目前（202005）主要分为下面几个主版本
     - 3.6
     - 4.0
     - 4.2
-- 阿里云支持版本：<https://www.aliyun.com/product/mongodb>
-- 先创建一个宿主机以后用来存放数据的目录：`mkdir -p ~/docker/mongo/db`
-- 赋权：`chmod 777 -R ~/docker/mongo/db`
-- 首次运行镜像：`docker run --name cloud-mongo -p 27017:27017 -v ~/docker/mongo/db:/data/db -d mongo:4.0`
-- 进入容器中 mongo shell 交互界面：`docker exec -it cloud-mongo mongo`
-- 创建一个用户：
-
-```
-use adg_mongo_db
-
-db.createUser(
-    {
-        user: "adguser",
-        pwd: "adg123456",
-        roles: [ 
-            { role: "dbAdmin", db: "adg_mongo_db" },
-            { role: "readWrite", db: "adg_mongo_db" }
-        ]
-    }
-)
-```
-
-- 然后停掉容器：`docker stop cloud-mongo`
-- 然后删除容器：`docker rm cloud-mongo`
-- 重新运行镜像，这次增加需要授权才能访问的配置：`docker run -d -p 27017:27017 -v ~/docker/mongo/db:/data/db --restart always --name cloud-mongo mongo:4.0 --auth`
-- 重新启动服务：`docker restart cloud-mongo`
-- 导出：`docker exec -it cloud-mongo mongoexport -h 127.0.0.1 -u 用户名 -p 密码 -d 库名 -c 集合名 -o /data/db/mongodb.json --type json`
-- 导入：`docker exec -it cloud-mongo mongoimport -h 127.0.0.1 -u 用户名 -p 密码 -d 库名 -c 集合名 --file /data/db/mongodb.json --type json`
-
-
-
-## Docker 下安装 MongoDB（方式二）
-
 - 先创建一个宿主机以后用来存放数据的目录：`mkdir -p /data/docker/mongo/db`
 - 赋权：`chmod 777 -R /data/docker/mongo/db`
-- 运行镜像：`docker run --name cloud-mongo2 -p 37017:27017 -v /data/docker/mongo/db:/data/db -d mongo:3.4 --auth`
-- 进入容器中 mongo shell 交互界面：`docker exec -it cloud-mongo2 mongo`
+- 运行镜像 3.4：`docker run --name cloud-mongo2 -p 37017:27017 -v /data/docker/mongo/db:/data/db -d mongo:3.4 --auth`
+- 运行镜像 4.0：`docker run --name cloud-mongo2 -p 37017:27017 -v /data/docker/mongo/db:/data/db -d mongo:4.0 --auth`
+- 导出：`docker exec -it cloud-mongo mongoexport -h 127.0.0.1 -u 用户名 -p 密码 -d 库名 -c 集合名 -o /data/db/mongodb.json --type json`
+- 导入：`docker exec -it cloud-mongo mongoimport -h 127.0.0.1 -u 用户名 -p 密码 -d 库名 -c 集合名 --file /data/db/mongodb.json --type json`
+- 进入容器中 mongo shell 交互界面：`docker exec -it cloud-mongo mongo`
 - 创建一个超级用户：
 
 ```
@@ -241,6 +221,7 @@ $ne ->not equal 不等于
 ## GUI 管理工具
 
 - Robomongo：<https://robomongo.org/>
+- Navicat 也支持
 
 ## 基准测试
 
