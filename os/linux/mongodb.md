@@ -43,36 +43,32 @@
     - 4.2
 - 先创建一个宿主机以后用来存放数据的目录：`mkdir -p /data/docker/mongo/db`
 - 赋权：`chmod 777 -R /data/docker/mongo/db`
-- 运行镜像 3.4：`docker run --name cloud-mongo -p 37017:27017 -v /data/docker/mongo/db:/data/db -d mongo:3.4 --auth`
-- 运行镜像 4.0：`docker run --name cloud-mongo -p 37017:27017 -v /data/docker/mongo/db:/data/db -d mongo:4.0 --auth`
+
+docker run -d --network some-network --name some-mongo \
+    -e MONGO_INITDB_ROOT_USERNAME=mongoadmin \
+    -e MONGO_INITDB_ROOT_PASSWORD=secret \
+    mongo
+
+
+- 运行镜像 3.4：
+
+```
+docker run --name cloud-mongo \
+-p 37017:27017 \
+-v /data/docker/mongo/db:/data/db \
+-e MONGO_INITDB_ROOT_USERNAME=mongo-admin \
+-e MONGO_INITDB_ROOT_PASSWORD=123456 \
+-d mongo:3.4 \
+--auth
+```
+
 - 导出：`docker exec -it cloud-mongo mongoexport -h 127.0.0.1 -u 用户名 -p 密码 -d 库名 -c 集合名 -o /data/db/mongodb.json --type json`
 - 导入：`docker exec -it cloud-mongo mongoimport -h 127.0.0.1 -u 用户名 -p 密码 -d 库名 -c 集合名 --file /data/db/mongodb.json --type json`
 - 进入容器中 mongo shell 交互界面：`docker exec -it cloud-mongo mongo`
-- 创建一个超级用户：
-
-```
-use admin
-
-db.createUser(
-    {
-        user: "mongo-admin",
-        pwd: "123456",
-        roles: [ 
-            { role: "root", db: "admin" }
-        ]
-    }
-)
-
-db.auth("mongo-admin","123456")
-```
-
-- 使用 db.auth() 可以对数据库中的用户进行验证，如果验证成功则返回 1，否则返回 0
 - 接着创建一个普通数据库和用户：
 
 ```
-
 use my_test_db
-
 
 db.createUser(
     {
@@ -85,7 +81,7 @@ db.createUser(
     }
 )
 
-
+使用 db.auth() 可以对数据库中的用户进行验证，如果验证成功则返回 1，否则返回 0
 db.auth("mytestuser","123456")
 ```
 
