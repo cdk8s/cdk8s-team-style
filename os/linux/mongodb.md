@@ -43,13 +43,6 @@
     - 4.2
 - 先创建一个宿主机以后用来存放数据的目录：`mkdir -p /data/docker/mongo/db`
 - 赋权：`chmod 777 -R /data/docker/mongo/db`
-
-docker run -d --network some-network --name some-mongo \
-    -e MONGO_INITDB_ROOT_USERNAME=mongoadmin \
-    -e MONGO_INITDB_ROOT_PASSWORD=secret \
-    mongo
-
-
 - 运行镜像 3.4：
 
 ```
