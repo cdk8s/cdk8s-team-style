@@ -43,8 +43,8 @@
     - 4.2
 - 先创建一个宿主机以后用来存放数据的目录：`mkdir -p /data/docker/mongo/db`
 - 赋权：`chmod 777 -R /data/docker/mongo/db`
-- 运行镜像 3.4：`docker run --name cloud-mongo2 -p 37017:27017 -v /data/docker/mongo/db:/data/db -d mongo:3.4 --auth`
-- 运行镜像 4.0：`docker run --name cloud-mongo2 -p 37017:27017 -v /data/docker/mongo/db:/data/db -d mongo:4.0 --auth`
+- 运行镜像 3.4：`docker run --name cloud-mongo -p 37017:27017 -v /data/docker/mongo/db:/data/db -d mongo:3.4 --auth`
+- 运行镜像 4.0：`docker run --name cloud-mongo -p 37017:27017 -v /data/docker/mongo/db:/data/db -d mongo:4.0 --auth`
 - 导出：`docker exec -it cloud-mongo mongoexport -h 127.0.0.1 -u 用户名 -p 密码 -d 库名 -c 集合名 -o /data/db/mongodb.json --type json`
 - 导入：`docker exec -it cloud-mongo mongoimport -h 127.0.0.1 -u 用户名 -p 密码 -d 库名 -c 集合名 --file /data/db/mongodb.json --type json`
 - 进入容器中 mongo shell 交互界面：`docker exec -it cloud-mongo mongo`
