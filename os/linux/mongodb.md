@@ -47,7 +47,7 @@
 
 ```
 docker run --name cloud-mongo \
--p 37017:27017 \
+-p 27017:27017 \
 -v /data/docker/mongo/db:/data/db \
 -e MONGO_INITDB_ROOT_USERNAME=mongo-admin \
 -e MONGO_INITDB_ROOT_PASSWORD=123456 \
@@ -57,7 +57,7 @@ docker run --name cloud-mongo \
 
 - 导出：`docker exec -it cloud-mongo mongoexport -h 127.0.0.1 -u 用户名 -p 密码 -d 库名 -c 集合名 -o /data/db/mongodb.json --type json`
 - 导入：`docker exec -it cloud-mongo mongoimport -h 127.0.0.1 -u 用户名 -p 密码 -d 库名 -c 集合名 --file /data/db/mongodb.json --type json`
-- 进入容器中 mongo shell 交互界面：`docker exec -it cloud-mongo mongo`
+- 进入容器中 mongo shell 交互界面：`docker exec -it cloud-mongo mongo`，或者用 GUI 工具使用 mongo-admin 账号连上
 - 接着创建一个普通数据库和用户：
 
 ```
@@ -77,6 +77,8 @@ db.createUser(
 使用 db.auth() 可以对数据库中的用户进行验证，如果验证成功则返回 1，否则返回 0
 db.auth("mytestuser","123456")
 ```
+
+- 重新用 GUI 工具使用 mytestuser 账号连上就可以看到测试库了
 
 -------------------------------------------------------------------
 
