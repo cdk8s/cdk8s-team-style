@@ -33,6 +33,9 @@
     - 4.2
     - <https://www.aliyun.com/product/mongodb>
     - <https://help.aliyun.com/document_detail/61906.html>
+- 主要架构分为：
+    - 副本集：<https://help.aliyun.com/document_detail/54254.html>
+    - 分片集群（基于多个副本集，费用更高，更易于扩展）：<https://help.aliyun.com/document_detail/54255.html>
 
 -------------------------------------------------------------------
 
