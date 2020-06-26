@@ -461,6 +461,80 @@ db.my_collection.find(
 
 -------------------------------------------------------------------
 
+#### 查看所有索引字段
+
+```
+db.my_collection.getIndexes()
+```
+
+
+#### 创建单个索引
+
+- `1` 升序
+- `-1` 降序
+
+```
+db.my_collection.createIndex(
+    {
+        "book_name": 1
+    }
+)
+
+插入后返回格式：
+{
+    "createdCollectionAutomatically": false,
+    "numIndexesBefore": NumberInt("1"),
+    "numIndexesAfter": NumberInt("2"),
+    "ok": 1
+}
+
+
+```
+
+
+#### 创建复合索引
+
+```
+db.my_collection.createIndex(
+    {
+        "book_price": 1,
+        "book_auther": 1,
+    }
+)
+```
+
+#### 删除索引
+
+- 索引名称可以通过：`db.my_collection.getIndexes()` 获得，就是字段 `name` 的值
+
+```
+db.my_collection.dropIndex("索引名称")
+```
+
+
+-------------------------------------------------------------------
+
+#### 执行计划使用
+
+- 推荐 navicat 在执行按钮的最右侧有一个树一样的按钮就是专门做解析的，可以不用这个 explain 语法来，效果更佳好
+
+```
+db.my_collection.find(
+    {
+        $or:[
+            {
+                "book_name": "这是书名3"
+            },
+            {
+                "book_author": "这是作者名3"
+            }
+        ]
+    }
+).explain()
+```
+
+-------------------------------------------------------------------
+
 ## 常用查询命令
 
 - `show dbs`，查看已有数据库
