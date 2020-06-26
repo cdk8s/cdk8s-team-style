@@ -152,6 +152,16 @@ security:
 
 ## 常用 CURD 命令
 
+#### 集合操作
+
+```
+插入
+db.createCollection("my_collection")
+
+删除
+db.my_collection.drop()
+```
+
 #### 插入 1 条数据（如果集合不存在则自动创建）
 
 ```
@@ -173,8 +183,10 @@ db.my_collection.insert(
 
 #### 插入多条数据
 
+- 其实 `db.my_collection.insert` 也是可以插入多条，但是还是推荐 insertMany
+
 ```
-db.my_collection.insert(
+db.my_collection.insertMany(
     [
         {
             "book_name": "这是书名3",
@@ -200,21 +212,150 @@ db.my_collection.insert(
 )
 
 成功插入返回结果格式：
-BulkWriteResult({
-	"nRemoved" : 0,
-	"nInserted" : 2,
-	"nUpserted" : 0,
-	"nMatched" : 0,
-	"nModified" : 0,
-	"writeErrors" : [ ]
-})
+(Array) 2 Elements
 
 ```
+
+-------------------------------------------------------------------
+
+#### 更新文档（覆盖修改）
+
+- 修改书名为 `这是书名2` 的数据为新数据结构，旧的数据结构被完整替换
+
+```
+db.my_collection.update(
+    {
+    "book_name": "这是书名2"
+    },
+    {
+        "book_name": "这是书名22222",
+        "book_price": 22222.2,
+        "book_author": "这是作者名22222"
+    }
+)
+
+成功更新后返回格式：
+WriteResult({
+	"nMatched" : 1,
+	"nUpserted" : 0,
+	"nModified" : 1,
+	"writeConcernError" : [ ]
+})
+```
+
+
+#### 更新文档（局部修改，只修改第一条）
+
+- 默认只修改第一条匹配的数据，即使查询条件能匹配到多个数据也是修改第一条
+- 使用符号：`$set:`
+
+```
+db.my_collection.update(
+    {
+    "book_name": "这是书名22222"
+    },
+    {
+        $set:
+        {
+            "book_name": "这是书名33333",
+            "book_author": "这是作者名33333"
+        }
+    }
+)
+
+成功更新后返回格式：
+WriteResult({
+	"nMatched" : 1,
+	"nUpserted" : 0,
+	"nModified" : 1,
+	"writeConcernError" : [ ]
+})
+```
+
+#### 更新文档（局部修改，修改全部匹配到数据）
+
+- 使用符号：`multi: true`
+
+```
+db.my_collection.update(
+    {
+    "book_name": "这是书名22222"
+    },
+    {
+        $set:
+        {
+            "book_name": "这是书名33333",
+            "book_author": "这是作者名33333"
+        }
+    },
+    {
+        multi: true
+    }
+)
+```
+
+-------------------------------------------------------------------
+
+#### 删除所有文档
+
+```
+db.my_collection.remove({})
+```
+
+
+#### 删除查询条件文档
+
+```
+db.my_collection.remove(
+    {
+        "book_name": "这是书名22222"
+    }
+)
+```
+
+-------------------------------------------------------------------
 
 #### 查询集合所有数据
 
 ```
 db.my_collection.find()
+```
+
+#### 统计总数（count）
+
+```
+db.my_collection.count()
+```
+
+#### 分页查询
+
+- 查询统计数量
+
+```
+db.my_collection.count(
+    {
+        "book_name": "这是书名3"
+    }
+)
+```
+
+- 查询具体列表值（带排序）
+    - `1` 升序
+    - `-1` 降序
+
+```
+db.my_collection.find(
+    {
+        "book_name": "这是书名3"
+    }
+)
+.sort(
+    {
+        "book_price":1
+    }
+)
+.skip(0)
+.limit(10)
 ```
 
 #### 单个条件查询（根属性）
@@ -223,6 +364,23 @@ db.my_collection.find()
 db.my_collection.find(
     {
         "book_name": "这是书名3"
+    }
+)
+```
+
+#### 单个条件查询，先只显示指定字段（投影查询）
+
+- 1 是要显示，0 是不显示
+- 指定了某几个字段是 1 后，其他则默认都是 0 表示不显示。但是 _id 默认是显示的，不想显示可以设置为 0
+
+```
+db.my_collection.find(
+    {
+        "book_name": "这是书名3"
+    },
+    {
+        "book_name": 1,
+        "_id": 0
     }
 )
 ```
@@ -237,18 +395,69 @@ db.my_collection.find(
 )
 ```
 
-#### 单个条件分页查询
+#### in 查询
 
 ```
 db.my_collection.find(
     {
-        "group.customer_num": 2
+        "book_name": {
+            $in: [
+                "这是书名3",
+                "这是书名4"
+            ]
+        }
     }
-).skip(0).limit(5)
-
-等同于：select from my_collection limit 0, 5
+)
 ```
 
+#### not in 查询
+
+```
+db.my_collection.find(
+    {
+        "book_name": {
+            $nin: [
+                "这是书名3",
+                "这是书名4"
+            ]
+        }
+    }
+)
+```
+
+#### 多条件查询（and）
+
+```
+db.my_collection.find(
+    {
+        $and:[
+            {
+                "book_name": "这是书名3"
+            },
+            {
+                "book_author": "这是作者名3"
+            }
+        ]
+    }
+)
+```
+
+#### 多条件查询（or）
+
+```
+db.my_collection.find(
+    {
+        $or:[
+            {
+                "book_name": "这是书名3"
+            },
+            {
+                "book_author": "这是作者名3"
+            }
+        ]
+    }
+)
+```
 
 -------------------------------------------------------------------
 
@@ -264,13 +473,14 @@ db.my_collection.find(
 - `db.system.users.find().pretty()`，查看所有用户
 - `db.dropAllUsers()`，删除所有用户
 - `db.dropDatebase()`，删除当前这个数据库
+- `db.createCollection("my_collection")`，创建集合
 - `db.集名称.find()`，查看集中的所有数据，等同于：select * from 表名称
 - `db.集名称.findOne()`，查看集中的一条数据，等同于：select * from 表名称 limit 0,1
 - `db.集名称.find().limit(10)`，查看集中的一条数据
 - `db.集名称.find().sort({name:1})`，查询列表，根据字段name排序 #1正序 -1倒序
 - `db.集名称.find().sort({x:1}).skip(5).limit(10)`，查询列表，根据字段name排序，等同于 select from foo order by x asc limit 5, 10
 - `db.集名称.find({x:10})`，查询列表，等同于 select from foo where x = 10
-- `db.集名称.find({x: {$lt:10}})`，select from foo where x <= 10
+- `db.集名称.find({x: {$lt:10}})`，select from foo where x < 10
 - `db.集名称.find({}, {y:true})`，select y from foo
 - `db.集名称.find({"address.city":"gz"})`，搜索嵌套文档address中city值为gz的记录
 - `db.集名称.find({likes:"math"})`，搜索数组
@@ -292,11 +502,10 @@ db.my_collection.find(
 - 一些符号说明：
 
 ``` ini
-$lt ->less then 小于
-$lte ->less than and equal 不大于
-$lt ->less then 小于
 $gt ->greater then 大于
-$gte ->greater then and equal 不小于）
+$lt ->less then 小于
+$gte ->greater then and equal 大于等于
+$lte ->less than and equal 小于等于
 $ne ->not equal 不等于
 ```
 
