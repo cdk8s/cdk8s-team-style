@@ -57,7 +57,7 @@
 - [把软件图标放送到Dock栏上](http://www.jianshu.com/p/d4d9a3d80d94)
 - [如何调整 Dock 图标大小](http://www.jianshu.com/p/074a076cd2c2)
 - [中文输入法的使用](http://www.jianshu.com/p/3deb33108d36)
-- [删除默认 ABC 输入法](https://www.jianshu.com/p/0ba1292441b9)
+- [删除默认 ABC 输入法](https://www.jianshu.com/p/3c428e0675f5)
 - [如何高效地进行窗口管理](http://www.jianshu.com/p/40c42661cb36)
 - [如何截图](http://www.jianshu.com/p/b098c40e5448)
 - [设置开机自启动运行某些软件](http://www.jianshu.com/p/592ed6b2bb74)
