@@ -46,8 +46,10 @@
 
 ### 响应格式解释
 
-- 判断接口是否响应成功：isSuccess = true 就是成功
-- 响应失败的场景是根据 code 值来区分，code = 200 等同于 isSuccess = true 响应成功。但是失败有很多 code 值
+- 采用标准的 Http 状态码，但是前段判断逻辑最好还是以 `"isSuccess": true` 为判断标准
+    - 如果 HTTP 状态码返回是非 200，则一定是后台发生错误，这个错误可能是系统错误，也可能是业务层面不满足条件，但是这种就是肯定错误请求，前端阻塞弹出错误即可
+    - 如果 HTTP 状态码返回是 200，接下来要判断 `"isSuccess": true` 是 true 才是表示后台已经正确处理业务了，如果是 false 则后台肯定存在业务错误，需要前台阻塞弹出提示 message 中的信息
+- 响应业务失败的场景是根据 code 值来区分：
     - 1 系统繁忙，请稍候重试
     - 200 成功
     - 100001 非法访问
@@ -63,6 +65,17 @@
     - 100011 调用第三方接口异常
     - 200001 未认证
     - 999999 系统异常
+
+|HTTP 状态码|Spring|含义|
+|---|---|---|
+|200|请求成功|`HttpStatus.OK`|
+|301|永久重定向|`HttpStatus.MOVED_PERMANENTLY`|
+|307|临时重定向。以前的 302 在 HttpStatus 中被 `@Deprecated`|`HttpStatus.TEMPORARY_REDIRECT`|
+|400|错误的请求、请求无效|`HttpStatus.BAD_REQUEST`|
+|401|未认证|`HttpStatus.UNAUTHORIZED`|
+|403|被拒绝、禁止访问|`HttpStatus.FORBIDDEN`|
+|404|无法找到|`HttpStatus.NOT_FOUND`|
+|500|服务器内部错误|`HttpStatus.INTERNAL_SERVER_ERROR`|
 
 ### 响应失败（"isSuccess": false）
 
