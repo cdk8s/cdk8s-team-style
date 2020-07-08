@@ -55,7 +55,7 @@ http {
 - 运行容器：
 
 ```
-docker run --name loca-nginx \
+docker run --name local-nginx \
 -p 80:80 \
 -v /data/docker/nginx/logs:/var/log/nginx \
 -v /data/docker/nginx/conf/nginx.conf:/etc/nginx/nginx.conf:ro \
