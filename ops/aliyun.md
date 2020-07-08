@@ -24,7 +24,7 @@
 - [视频点播](https://help.aliyun.com/product/29932.html)
 - [视频直播](https://help.aliyun.com/document_detail/29951.html)
 - [短视频](https://promotion.aliyun.com/ntms/act/shortvideo.html)
-    
+
 ## 人工只能
 
 - [爬虫风险管理](https://www.aliyun.com/product/antibot)
@@ -135,6 +135,8 @@
 ## 日志服务 LOG
 
 - 支持 Kafka 写入
+- 支持 Java log4j2、logback 写入
+    - <https://developer.aliyun.com/article/409045>
 
 - <https://www.aliyun.com/product/sls>
 
