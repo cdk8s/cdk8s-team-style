@@ -219,7 +219,7 @@ export LESS_TERMCAP_us=$'\E[04;38;5;146m' # begin underline
     - `git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions`
     - `git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting`
     - `vim ~/.zshrc`，在 plugins 里面换行，分别添加：zsh-autosuggestions，zsh-syntax-highlighting
-- 最喜欢的主题：`ys`
+- 最喜欢的主题：`af-magic` 和 `ys`
 
 ### 关于搭配上 tmux
 
