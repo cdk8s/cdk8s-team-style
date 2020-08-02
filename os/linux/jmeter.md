@@ -10,6 +10,7 @@
 - 官网 Github 源码：<https://github.com/apache/jmeter>
 - 当前（201804）最新版本为 4.0
 - 当前（201908）最新版本为 5.1
+- 阿里云的 PTS 帮助文档挺好的，建议可以查看：<https://help.aliyun.com/product/29260.html>
 
 ## JMeter Windows 安装
 
@@ -142,6 +143,26 @@ remote_hosts=192.168.0.1:1099,192.168.0.2:1099
 - `Error%`：本次测试中出现错误的请求的数量 / 请求的总数（怎么测试出整个系统的压力了? 如果 Error% 里面开始出现大量的错误，那就说明系统开始有瓶颈了，基本这时候就是最大压力节点，也就可以得到系统最大并发数是多少了。一般错误率不高于 1%，优秀的情况是不高于 0.01%）（若出现错误就要看服务端的日志，查找定位原因）
 - `Throughput`：吞吐量——默认情况下表示每秒完成的请求数（Request per Second），当使用了 Transaction Controller 时，也可以表示类似 LoadRunner 的 Transaction per Second 数
 - `KB/Sec`：每秒从服务器端接收到的数据量，相当于 LoadRunner 中的 Throughput/Sec，主要看网络传输能力
+
+
+## Websocket 测试
+
+- 插件：JMeter WebSocket Samplers
+- 下载地址：<https://bitbucket.org/pjtr/jmeter-websocket-samplers/downloads/>
+- 插件安装方法：将下载的插件 .jar 包存放在 <JMeter安装目录>/lib/ext 路径下，然后重启 JMeter
+- 一共支持这么多类型：
+
+```
+websocket close 用于正常关闭 websocket 连接；
+websocket open connection 用于显式设置 websocket 连接；
+websocket ping-pong 用于发送 ping 和接收 pong 请求；
+websocket single read sampler 用于接收一个文本或二进制的 websocket 请求；
+websocket single write sampler 用于发送一个文本或二进制的 websocket 请求；
+websocket request-response sampler 用于执行基本的请求 - 响应请求；
+日常测试时，使用 websocket request-Response sampler 就足够了。
+```
+
+- 更多说明可以参考：<https://help.aliyun.com/document_detail/93627.html>
 
 
 ## 常见问题
