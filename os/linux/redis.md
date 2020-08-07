@@ -353,6 +353,7 @@ M: 5d0fe968559af3035d8d64ab598f2841e5f3a059 172.19.0.7:6379
     - 但是需要注意的是：key 是完全区分大小写的，比如 key=codeBlog 和 key=codeblog 是两个键值
 - 官网命令列表：<http://redis.io/commands>
 - `SET key value`，设值。eg：`SET myblog www.youmeek.com`
+- `redis-server -v`，查看服务器版本
 - `GET key`，取值
 - `SELECT 0`，切换数据库
 - `INCR key`，递增数字

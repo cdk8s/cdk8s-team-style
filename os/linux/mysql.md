@@ -76,6 +76,7 @@ default-storage-engine = InnoDB
 collation-server = utf8mb4_unicode_520_ci
 init_connect = 'SET NAMES utf8mb4'
 character-set-server = utf8mb4
+# 表名大小写敏感 0 是区分大小写，1 是不分区，全部采用小写
 lower_case_table_names = 1
 max_allowed_packet = 50M
 sql_mode=STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION
