@@ -40,3 +40,10 @@ sudo yum -y install nodejs
 - 列表源：`nrm ls`
 - 使用源：`nrm use taobao`
 - 更多使用方法：<https://segmentfault.com/a/1190000000473869>
+
+## 安装 yarn
+
+- 安装：`npm install -g yarn`
+- 验证：`yarn -v`
+
+
