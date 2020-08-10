@@ -82,6 +82,8 @@ brew update
     - 查看那些已安装的程序需要更新：`brew outdated`
 - 使用国内源
     - 默认的源实在速度有够慢的
+    - 腾讯云
+        - <https://zhuanlan.zhihu.com/p/72251385>
     - 中科大
         - <https://lug.ustc.edu.cn/wiki/mirrors/help/brew.git>
         - <https://lug.ustc.edu.cn/wiki/mirrors/help/homebrew-bottles>
