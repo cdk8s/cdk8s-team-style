@@ -299,6 +299,55 @@ server {
 
 ```
 
+## SSL 配置
+
+- 除了 crt 后缀的文件，有的是 pem 后缀的，配置一样
+- 旧版本的 nginx
+```
+# crt 和 key 文件的存放位置根据你自己存放位置进行修改
+server {
+    listen       443;
+    server_name  sso.youmeek.com;
+    ssl  on;
+    ssl_certificate     /opt/ssl/certificate.crt;
+    ssl_certificate_key /opt/ssl/private.key;
+
+    location / {
+        root   html;
+        index  index.html index.htm;
+    }
+    error_page   500 502 503 504  /50x.html;
+    location = /50x.html {
+        root   html;
+    }
+}
+```
+
+- 新版本的 nginx
+```
+# crt 和 key 文件的存放位置根据你自己存放位置进行修改
+server {
+    listen 443 ssl;
+    
+    ssl_certificate     /opt/jar/ssl/server.crt;
+    ssl_certificate_key /opt/jar/ssl/server.key;
+    
+    ssl_session_timeout 5m;
+    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+    ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:HIGH:!aNULL:!MD5:!RC4:!DHE;
+    ssl_prefer_server_ciphers on;
+
+    location / {
+        root   html;
+        index  index.html index.htm;
+    }
+    error_page   500 502 503 504  /50x.html;
+    location = /50x.html {
+        root   html;
+    }
+}
+```
+
 
 ## Nginx 全局变量
 
