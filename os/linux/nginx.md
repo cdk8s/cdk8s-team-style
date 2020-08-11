@@ -323,12 +323,14 @@ server {
 }
 ```
 
-- 新版本的 nginx
+- 新版本的 nginx，同时监听 80 和 443
 ```
 # crt 和 key 文件的存放位置根据你自己存放位置进行修改
 server {
+    listen 80;
     listen 443 ssl;
     
+    # ssl  on; #一定不要写这一行
     ssl_certificate     /opt/jar/ssl/server.crt;
     ssl_certificate_key /opt/jar/ssl/server.key;
     
