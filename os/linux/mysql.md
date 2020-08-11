@@ -60,6 +60,7 @@ default-character-set = utf8mb4
 
 # 下面内容是 docker mysql 默认的 start
 [mysqld]
+max_connections = 500
 pid-file = /var/run/mysqld/mysqld.pid
 socket = /var/run/mysqld/mysqld.sock
 datadir = /var/lib/mysql
