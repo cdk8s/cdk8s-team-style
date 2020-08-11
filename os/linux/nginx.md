@@ -330,7 +330,7 @@ server {
     listen 80;
     listen 443 ssl;
     
-    # ssl  on; #一定不要写这一行
+    # ssl  on; #一定不要写这一行，不然无法监听 80
     ssl_certificate     /opt/jar/ssl/server.crt;
     ssl_certificate_key /opt/jar/ssl/server.key;
     
