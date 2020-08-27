@@ -59,6 +59,7 @@ services:
     environment:
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
       - "cluster.name=elasticsearch"
+      - "discovery.type=single-node"
       - "network.host=0.0.0.0"
       - "http.host=0.0.0.0"
       - "xpack.security.enabled=false"
@@ -115,6 +116,7 @@ services:
     environment:
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
       - "cluster.name=elasticsearch"
+      - "discovery.type=single-node"
       - "network.host=0.0.0.0"
       - "http.host=0.0.0.0"
       - "xpack.security.enabled=false"
@@ -152,6 +154,64 @@ ik_max_word: 会将文本做最细粒度的拆分，比如会将“中华人民�
 ik_smart: 会做最粗粒度的拆分，比如会将“中华人民共和国国歌”拆分为“中华人民共和国,国歌”，适合 Phrase 查询。
 ```
 
+
+
+
+#### 7.6.2（带 ik 分词）
+
+- 先测试下镜像下载网络情况，一般会很慢：`docker pull docker.elastic.co/elasticsearch/elasticsearch:7.6.2`
+    - 如果实在下载不下来就用：`docker pull elasticsearch:7.6.2`
+- `vim ~/elasticsearch-7.6.2-docker.yml`，内容如下
+- `mkdir -p ~/docker_data/elasticsearch-7.6.2/data`
+- 启动：`docker-compose -f ~/elasticsearch-7.6.2-docker.yml -p elasticsearch_7.6.2 up -d`
+- 下载 ik 分词（版本必须和 Elasticsearch 版本对应，包括小版本号）：<https://github.com/medcl/elasticsearch-analysis-ik>
+
+```
+version: '3'
+services:
+  elasticsearch1:
+    image: elasticsearch:7.6.2
+    container_name: elasticsearch-7.6.2
+    environment:
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - "cluster.name=elasticsearch"
+      - "discovery.type=single-node"
+      - "network.host=0.0.0.0"
+      - "http.host=0.0.0.0"
+      - "xpack.security.enabled=false"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    ports:
+      - 9200:9200
+      - 9300:9300
+    volumes:
+      - ~/docker_data/elasticsearch-7.6.2/data:/usr/share/elasticsearch/data
+      - ~/docker_data/ik-7.6.2:/usr/share/elasticsearch/plugins/ik
+```
+
+- Elasticsearch Head 插件地址：<https://chrome.google.com/webstore/detail/ffmkiejjmecolpfloofpjologoblkegm>
+- 测试：
+
+
+```
+http://localhost:9200/
+_analyze?pretty   POST
+
+
+{"analyzer":"ik_smart","text":"安徽省长江流域"}
+```
+
+- ik_max_word 和 ik_smart 什么区别?
+
+```
+ik_max_word: 会将文本做最细粒度的拆分，比如会将“中华人民共和国国歌”拆分为“中华人民共和国,中华人民,中华,华人,人民共和国,人民,人,民,共和国,共和,和,国国,国歌”，会穷尽各种可能的组合，适合 Term Query；
+ik_smart: 会做最粗粒度的拆分，比如会将“中华人民共和国国歌”拆分为“中华人民共和国,国歌”，适合 Phrase 查询。
+```
 
 -------------------------------------------------------------------
 
