@@ -167,7 +167,7 @@ table_definition_cache=400
 table_open_cache=256
 ```
 
-## 修改 root 账号密码
+## 修改 root 账号密码（MySQL 5.6）
 
 - 启动 Mysql 服务器（CentOS 6）：`service mysql start`
 - 启动 Mysql 服务器（CentOS 7）：`systemctl start mysql`
@@ -188,6 +188,21 @@ table_open_cache=256
 		- 把密码改为：123456，进入 MySQL 命令后执行：`UPDATE user SET Password=PASSWORD('123456') where USER='root';FLUSH PRIVILEGES;`
 		- 然后重启 MySQL 服务（CentOS 6）：`service mysql restart`
 		- 然后重启 MySQL 服务（CentOS 7）：`systemctl restart mysql`
+
+
+## 重设 root 账号密码（MySQL 5.7）
+
+- 修改配置文件：`vim /etc/my.cnf`
+- 在 mysqld 模块下增加：`skip-grant-tables=1`
+- 重启 mysql：`systemctl restart mysql`
+- 进入 mysql：`mysql -u root mysql`
+- 重设密码：`update user set authentication_string=password('123456') where user='root';FLUSH PRIVILEGES;`
+- 重启 mysql：`systemctl restart mysql`
+- 进入 mysql：`mysql -u root mysql -p`
+    - 输入密码
+    - 重新再设置密码：`SET PASSWORD = PASSWORD('123456');`
+        - 因为不这样 mysql 会提示：You must reset your password using ALTER USER statement before executing this statement.
+
 
 ## 连接报错："Host '192.168.1.133' is not allowed to connect to this MySQL server"
 
