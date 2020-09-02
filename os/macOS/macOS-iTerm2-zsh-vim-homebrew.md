@@ -220,7 +220,7 @@ export LESS_TERMCAP_us=$'\E[04;38;5;146m' # begin underline
 
 - 刷新配置文件：`source ~/.zshrc`，重新查看 man 的命令就可以有高亮了。
 - 常用插件：
-    - `git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions`
+    - `git clone https://github.com/zsh-users/zsh-autosuggestions.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions`
     - `git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting`
     - `vim ~/.zshrc`，在 plugins 里面换行，分别添加：zsh-autosuggestions，zsh-syntax-highlighting
 - 最喜欢的主题：`af-magic` 和 `ys`
