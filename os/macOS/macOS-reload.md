@@ -1,8 +1,7 @@
 
+# macOS 在线重装
 
-# macOS 离线重装
-
-### 备份
+### 先备份
 
 - 记录已安装软件列表
 - 备份桌面文件/文件夹
@@ -17,23 +16,10 @@
 - QQ 和微信等聊天工具的记录
 - 备份 zshrc
 
-### 最新系统下载，制作 U 盘启动盘
+### 安装
 
-- 当前时间（202009）最新正式版系统为：macOS Catalina 10.15（最新预览版是 macOS Big Sur）
-- 找一台可以联网的苹果电脑，打开 Apple Store，搜索 Catalina，搜索结果第一个应该就是系统镜像，差不多 5GB 大小，然后点击下载。下载完成之后不要点安装，直接退出。
-- 插入 U 盘到 macbook，打开 "应用程序 → 实用工具 → 磁盘工具"，将U盘「抹掉」(格式化) 成「Apple 文件系统 (APFS 区分大小写)：macOS 10.13 或后续版本使用的文件系统」格式、GUID 分区图
-- 把 U 盘右键重命名为：thismyupan
-- 打开终端，输入命令：
-
-```
-sudo /Applications/Install\ macOS\ Catalina.app/Contents/Resources/createinstallmedia --volume /Volumes/thismyupan /Applications/Install\ macOS\ Catalina.app --nointeraction
-```
-
-### 开始重装
-
-- 有了启动盘后：按下电源键开机，当听到 "噹" 的一声时，按住 Option 键不放，直到出现启动菜单选项
-- 这时选择安装U盘 (黄色图标) 并回车，就可以开始安装了，在过程中你可以通过"磁盘工具"对 Mac 的磁盘式化或者重新分区等操作。
-- 选择：磁盘工具，建议格掉旧安装盘。然后我习惯会分卷宗。我一般有两个卷宗。
-- 第一个是用来安装系统，第二个是存放代码文件。
-- 选择：重新安装 macOS，继续，选择安装的卷宗。
-
+- 官网文档：<https://support.apple.com/zh-cn/HT204904>
+- 我旧 macbook 是 10.13 版本，现在要升级到 10.15，现在已经找不到 10.15 原 dmg 了，所以只能先 App Store 下载 Catalina 安装。
+- 但是这种安装会保留我旧软件，所以我只能先升级，然后选择：关机 > Command (⌘)-R 进入 "macOS 实用工具界面"，主要有功能："重新安装 macOS、磁盘工具"
+- 我先进入 "磁盘工具" 中删除我原有的系统卷宗（我原本就分了 2 个卷宗），然后重新创建一个 APFS 类型的新卷宗（不要选择 APFS 区分大小写，目前有些 Adobe 坑爹软件不支持），重新回到 "macOS 实用工具界面"，选择 "重新安装 macOS"
+- 很早以前的离线 U 盘安装现在没了，最新的系统已经很难再找到官网的纯 dmg 镜像了
