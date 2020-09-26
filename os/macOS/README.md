@@ -5,6 +5,10 @@
 
 - 尽可能统一所有细节，方便沟通、协调
 
+## 系统重装
+
+- [macOS 系统重装](macOS-reload.md)
+
 ## 基础功能使用
 
 - [macOS 系统基础功能](macOS-basic.md)
