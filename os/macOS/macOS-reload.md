@@ -26,7 +26,7 @@
 - 打开终端，输入命令：
 
 ```
-sudo /Applications/Install\ macOS\ Catalina.app/Contents/Resources/createinstallmedia --volume /Volumes/thismyupan
+sudo /Applications/Install\ macOS\ Catalina.app/Contents/Resources/createinstallmedia --volume /Volumes/thismyupan /Applications/Install\ macOS\ Catalina.app --nointeraction
 ```
 
 ### 开始重装
