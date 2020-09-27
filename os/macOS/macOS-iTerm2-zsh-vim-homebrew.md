@@ -188,10 +188,11 @@ brew update
 - 打开终端，先安装 git（已经安装的跳过该步骤），输入命令：`brew install git`
 - 打开终端，安装 wget 工具，输入命令：`brew install wget`
 - 打开终端，安装 Zsh：`brew install Zsh`
-- 打开终端，安装 oh-my-Zsh：`sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-Zsh/master/tools/install.sh -O -)"`
+- 打开终端，安装 oh-my-Zsh：`sh -c "$(wget https://gitee.com/mirrors/oh-my-zsh/raw/master/tools/install.sh -O -)"`
     - 下载完后，会提示你输入当前登录系统的用户密码，输入完成之后就会从 bash 切换到 Zsh，如果你没有输入密码直接跳过了，可以运行该命令进行手动切换：`chsh -s /bin/Zsh gitnavi(你当前系统用户名)`
     - 切换完成之后，关掉终端，重新打开终端即可
 - 如果你需要修改 oh-my-Zsh 的主题，和安装 Zsh 插件，具体可以看我过去整理的这篇文章：[Zsh 入门](https://github.com/judasn/Linux-Tutorial/blob/master/Zsh.md)
+
 
 ### Zsh 软件特色
 
@@ -222,8 +223,9 @@ export LESS_TERMCAP_us=$'\E[04;38;5;146m' # begin underline
 - 常用插件：
     - `git clone https://github.com/zsh-users/zsh-autosuggestions.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions`
     - `git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting`
-    - `vim ~/.zshrc`，在 plugins 里面换行，分别添加：zsh-autosuggestions，zsh-syntax-highlighting
+    - `vim ~/.zshrc`，在 plugins 修改配置文件为：`plugins=(git zsh-autosuggestions zsh-syntax-highlighting)`
 - 最喜欢的主题：`af-magic` 和 `ys`
+    - 修改配置文件为：`ZSH_THEME="af-magic"`
 
 ### 关于搭配上 tmux
 
