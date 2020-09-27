@@ -234,7 +234,7 @@ export LESS_TERMCAP_us=$'\E[04;38;5;146m' # begin underline
 ## vim 知识
 
 - 安装：`brew install vim`
-- 下载配置：`curl https://raw.githubusercontent.com/wklken/vim-for-server/master/vimrc > ~/.vimrc`
+- 下载配置：`curl https://gitee.com/cdk8s_org/vim-for-server/raw/master/vimrc > ~/.vimrc`
 
 -------------------------------------------------------------------
 
