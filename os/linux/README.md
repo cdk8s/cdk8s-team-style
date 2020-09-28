@@ -37,6 +37,7 @@
 - [JIRA 安装和使用](jira.md)
 - [Gitlab 安装和使用](gitlab.md)
 - [Elasticsearch 安装和使用](elasticsearch.md)
+- [Sentry 安装和使用](sentry.md)
 
 
 
