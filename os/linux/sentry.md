@@ -14,7 +14,7 @@
 
 ## Sentry 安装（Docker）
 
-- 当前时间：2020-09-28
+- 当前时间：2020-09-28 最新版本为：Sentry 20.10.0
 - 官网专门提供了一个项目：<https://github.com/getsentry/onpremise>
 
 
