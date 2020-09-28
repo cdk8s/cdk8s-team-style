@@ -53,4 +53,14 @@ docker-compose run --rm web upgrade
 docker-compose up -d
 ```
 
+## 定时删除旧数据
+
+- 避免存储数据太多，磁盘越来越大
+- 写个 shell 脚本，然后定时执行该脚本
+
+```
+#!/usr/bin/env bash
+docker exec -i sentry_onpremise_worker_1 sentry cleanup --days 30 && docker exec -i -u postgres sentry_onpremise_postgres_1 vacuumdb -U postgres -d postgres -v -f --analyze
+```
+
 
