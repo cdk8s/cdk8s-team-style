@@ -39,7 +39,7 @@ docker-compose run --rm web createuser
 ```
 
 - <http://127.0.0.1:9000>
-- 可以设置中文：`setting –> Account –> Details`
+- 可以设置中文：<http://127.0.0.1:9000/settings/account/details/>
 - 如果你自己调整配置文件，需要更新，操作步骤：
 
 ```
