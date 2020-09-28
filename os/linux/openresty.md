@@ -11,10 +11,10 @@
 
 ```
 mkdir -p /data/docker/openresty/conf.d /data/docker/openresty/logs /data/docker/openresty/cert /data/docker/openresty/html
-vim /data/docker/openresty/nginx.conf
+touch /data/docker/openresty/nginx.conf
 
 docker run --name openresty -p 80:80 -p 443:443 \
--v /data/docker/openresty/nginx.conf:/usr/local/openresty/nginx/conf/nginx.conf:ro \
+-v /data/docker/openresty/nginx.conf:/usr/local/openresty/nginx/conf/nginx.conf:rw \
 -v /data/docker/openresty/conf.d:/etc/nginx/conf.d \
 -v /data/docker/openresty/cert:/etc/nginx/cert \
 -v /data/docker/openresty/html:/etc/nginx/html \
