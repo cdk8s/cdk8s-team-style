@@ -11,6 +11,20 @@
 
 -------------------------------------------------------------------
 
+## 常用配置地址
+
+- ECS服务器管理：<https://ecs.console.aliyun.com/#/server/region/所属地区>
+- 安全组管理：<https://ecs.console.aliyun.com/#/securityGroup/region/所属地区>
+- RAM 访问控制：<https://ram.console.aliyun.com/overview>
+- SSL证书：<https://yundun.console.aliyun.com/?spm=5176.2020520154.products-recent.dcas.e96d1e43wIAa00&p=cas>
+- 域名管理：<https://dc.console.aliyun.com>
+- DNS 解析：<https://dns.console.aliyun.com/#/dns/domainList>
+- OSS bucket：<https://oss.console.aliyun.com/bucket>
+- 短信服务：<https://dysms.console.aliyun.com>
+
+
+-------------------------------------------------------------------
+
 
 ## 对象存储 OSS
 
