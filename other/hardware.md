@@ -29,7 +29,7 @@
 - 内存这两年的价格比较实在，建议是尽可能都上 32G
 - 下面都是没有考虑机械硬盘的，如果大家有大文件需要存储可以买 nas 设备，或者 `星际蜗牛` 这种矿渣，一般人足够用的。
 
-### 低配台式机-带一个显示器（总价：6940 RMB）
+### 低配台式机-带一个显示器（总价：6700 RMB）
 
 - 不建议买带 K 的 CPU，一般人用不到超频的性能，不用浪费那个钱了
 - 不推荐买显卡了，写代码用不到显卡。如果一定要买，那就选择 A 卡的：RX560/RX570/RX580
@@ -41,7 +41,7 @@
 
 > 主板：850 RMB
 
-- [技嘉（GIGABYTE）Z370 HD3 主板](https://search.jd.com/Search?enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=c0d90a09b813492cbb88dbd39455a471-p_669678130&abt=3&keyword=技嘉（GIGABYTE）Z370%20HD3%20主板)
+- [技嘉（GIGABYTE）Z370 HD3 主板（ATX）](https://search.jd.com/Search?enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=c0d90a09b813492cbb88dbd39455a471-p_669678130&abt=3&keyword=技嘉（GIGABYTE）Z370%20HD3%20主板)
 
 > 显卡：500 ~ 700 RMB
 
@@ -63,9 +63,9 @@
 
 - [振华 550W 冰山金蝶 战斗版](http://search.jd.com/Search?keyword=振华%20550W%20冰山金蝶%20战斗版&enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=5cf02562905049858da8ba867d501e09-p_669693165&abt=3)
 
-> 机箱：130 RMB
+> 机箱：100 RMB
 
-- [先马 便携式 商务 小机箱](http://search.jd.com/Search?keyword=先马%20便携式%20商务%20小机箱&enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=5cf02562905049858da8ba867d501e09-p_669693165&abt=3)
+- [鑫谷 手提 轩朗 机箱](https://search.jd.com/Search?enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=c0d90a09b813492cbb88dbd39455a471-p_669678130&abt=3&keyword=鑫谷%20手提%20轩朗%20机箱)
 
 > CPU 散热器：90 RMB
 
@@ -86,7 +86,7 @@
 
 -------------------------------------------------------------------
 
-### 中配台式机-带一个显示器（总价：8600 RMB）
+### 中配台式机-带一个显示器（总价：8300 RMB）
 
 > CPU：2499 RMB
 
@@ -94,7 +94,7 @@
 
 > 主板：1299 RMB
 
-- [技嘉（GIGABYTE）Z390 AORUS PRO WIFI](https://search.jd.com/Search?enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=c0d90a09b813492cbb88dbd39455a471-p_669678130&abt=3&keyword=技嘉（GIGABYTE）Z390%20AORUS%20PRO%20WIFI)
+- [技嘉（GIGABYTE）Z390 AORUS PRO WIFI（ATX）](https://search.jd.com/Search?enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=c0d90a09b813492cbb88dbd39455a471-p_669678130&abt=3&keyword=技嘉（GIGABYTE）Z390%20AORUS%20PRO%20WIFI)
 
 > 显卡：500 ~ 700 RMB
 
@@ -116,9 +116,9 @@
 
 - [振华 550W 冰山金蝶 战斗版](http://search.jd.com/Search?keyword=振华%20550W%20冰山金蝶%20战斗版&enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=5cf02562905049858da8ba867d501e09-p_669693165&abt=3)
 
-> 机箱：130 RMB
+> 机箱：100 RMB
 
-- [先马 便携式 商务 小机箱](http://search.jd.com/Search?keyword=先马%20便携式%20商务%20小机箱&enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=5cf02562905049858da8ba867d501e09-p_669693165&abt=3)
+- [鑫谷 手提 轩朗 机箱](https://search.jd.com/Search?enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=c0d90a09b813492cbb88dbd39455a471-p_669678130&abt=3&keyword=鑫谷%20手提%20轩朗%20机箱)
 
 > CPU 散热器：90 RMB
 
