@@ -52,12 +52,12 @@
 
 - [金士顿 DDR4 8GB 台式机内存 骇客神条](https://search.jd.com/Search?enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=c0d90a09b813492cbb88dbd39455a471-p_669678130&abt=3&keyword=金士顿%20DDR4%208GB%20台式机内存%20骇客神条)
 
-> 硬盘：550 + 250 = 800 RMB
+> 硬盘：550 + 200 = 750 RMB
 
 - 一个盘用于 macOS
 - [三星（SAMSUNG）500GB M.2接口 970 EVO 五年质保](https://search.jd.com/Search?enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=c0d90a09b813492cbb88dbd39455a471-p_669678130&abt=3&keyword=三星（SAMSUNG）500GB%20M.2接口%20970%20EVO)
 - 一个盘用于 Windows
-- [西部数据（Western Digital）250GB SSD固态硬盘 SN550 五年质保](https://search.jd.com/Search?enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=c0d90a09b813492cbb88dbd39455a471-p_669678130&abt=3&keyword=西部数据（Western%20Digital）250GB%20SSD固态硬盘%20SN550)
+- [七彩虹(Colorful) 256GB SSD固态硬盘 SATA3.0接口 SL500系列](https://search.jd.com/Search?enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=c0d90a09b813492cbb88dbd39455a471-p_669678130&abt=3&keyword=七彩虹(Colorful)%20256GB%20SSD固态硬盘%20SATA3.0接口%20SL500系列)
 
 > 电源：400 RMB
 
