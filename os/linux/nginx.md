@@ -639,6 +639,21 @@ http {
 
 ```
 
+## WebSocket 配置
+
+```
+location ^~ /sculptor-boot-backend/webSocket {
+    proxy_pass http://127.0.0.1:9876;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+    proxy_set_header X-real-ip $remote_addr;
+    proxy_set_header X-Forwarded-For $remote_addr;
+    proxy_read_timeout 600s;
+}
+```
+
+
 ----------------------------------------------------------------------
 
 ## Nginx 压力测试
