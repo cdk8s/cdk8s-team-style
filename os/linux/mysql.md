@@ -293,6 +293,19 @@ swapon /swapfile
 - explain
     - 哪些场景不走索引进行全表扫描
 
+## 其他常用 sql
+
+
+- 创建用户并授权给这个用户一个数据库权限
+
+```
+CREATE USER 'three_class_user'@'%' IDENTIFIED BY '1MTW.3RIkX9zOXRt2D7CRh';
+GRANT ALL PRIVILEGES ON three_class_db.* TO 'three_class_user'@'%';
+flush privileges;
+```
+
+
+
 -------------------------------------------------------------------
 
 ## Percona TPCC-MySQL 测试工具
