@@ -8,6 +8,7 @@
 
 - 购买 6 台 ECS，要有公网 IP 的 4C8G 服务器，安装的时候这几台机子都需要联网下载镜像，后续倒是可以考虑去掉。
 - 这里的 ECS 不能随便买，必须保证 ECS 和 SLB 是同一个地方（不用具体到可用区级别），所以要注意
+- 组合购买(SLB+EIP)：<https://package-buy.aliyun.com/?spm=5176.11182188.0.0.234c4882tmo9Pn&planId=1018110001137801&regionId=cn-shenzhen#/buy>
 
 ```
 假设这三台的局域网 IP 分别为：
