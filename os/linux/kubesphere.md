@@ -494,4 +494,9 @@ vim /etc/docker/daemon.json
 }
 ```
 
+## 持久化存储配置说明
 
+- <https://v2-1.docs.kubesphere.io/docs/zh-CN/installation/storage-configuration/>
+- 推荐 GlusterFS
+
+## 集成第三方服务（集群外数据库）
