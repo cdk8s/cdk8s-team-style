@@ -1,6 +1,16 @@
 
 
-# 集群安装
+# Kubesphere 介绍
+
+- KubeSphere 是在 Kubernetes 之上构建的以应用为中心的多租户容器平台，提供全栈的 IT 自动化运维的能力，简化企业的 DevOps 工作流。
+- 平台内置的多租户设计，让不同的团队能够在一个平台中不同的企业空间下，更安全地从云端到边缘部署云原生应用。开发者通过界面点击即可快速部署项目，平台内置丰富的云原生可观察性与 DevOps 工具集帮助运维人员定位问题和快速交付。KubeSphere 还能帮助基础设施团队在数据中心与多个云上高效地部署与运维多集群，避免单一云厂商绑定。
+- 内置常用的自动化部署环境，为应用（Java/NodeJs/Python/Go）部署提供定制化的容器运行环境
+- 基于 Jenkins 为引擎打造的 CI/CD，内置 Source-to-Image 和 Binary-to-Image 自动化打包部署工具
+
+
+# 高可用集群安装
+
+- 至少 3 台 Master 节点和 3 台 Worker 节点，或者更多的机器，但要保证是 Master 和 Worker 节点数都是奇数的，以防止 leader 选举时出现脑裂状况。
 
 ## 阿里云购买 ECS、EIP、NAT、SLB
 
@@ -31,6 +41,19 @@ systemctl stop firewalld && systemctl disable firewalld
 echo "vm.swappiness = 0" >> /etc/sysctl.conf
 swapoff -a && sysctl -w vm.swappiness=0
 
+所有服务器都要先安装一些简单工具：
+yum install -y zip unzip lrzsz git epel-release wget htop deltarpm
+
+所有服务器都要更换CentOS YUM源为阿里云yum源
+mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup
+wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo
+wget -O /etc/yum.repos.d/epel.repo http://mirrors.aliyun.com/repo/epel-7.repo
+yum clean all && yum makecache
+yum update -y
+
+所有服务器都要进行时间同步，并确认时间同步成功
+timedatectl
+timedatectl set-ntp true
 
 开始在所选安装机器上设置免密登录，我这里选择了 master1
 ssh-keygen -t rsa -b 2048 -N '' -f ~/.ssh/id_rsa
@@ -51,6 +74,48 @@ ssh -p 22 root@172.18.103.125
 ssh -p 22 root@172.18.103.126
 ```
 
+- 安装中间会自动帮我们安装 docker，但是安装后默认的源是 Docker 国外的会很慢
+- 所以我们可以考虑自己安装 Docker，改源。当前时间 2020-10 KubeSphere 3.0.0 用的是 `Docker version 19.03.13, build 4484c46d9d`
+
+```
+yum install -y yum-utils \
+    device-mapper-persistent-data \
+    lvm2
+
+yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+
+# 如果以上添加仓库速度慢可以用阿里云源地址
+# http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+
+yum install -y containerd.io docker-ce-19.03.13 docker-ce-cli-19.03.13
+
+systemctl start docker
+systemctl enable docker
+
+修改镜像源配置
+vim /etc/docker/daemon.json
+
+{
+  "log-opts": {
+    "max-size": "5m",
+    "max-file": "3"
+  },
+  "exec-opts": [
+    "native.cgroupdriver=systemd"
+  ],
+  "registry-mirrors": [
+    "https://ldhc17y9.mirror.aliyuncs.com",
+    "https://hub-mirror.c.163.com",
+    "https://mirror.baidubce.com",
+    "https://docker.mirrors.ustc.edu.cn"
+  ]
+}
+
+systemctl daemon-reload
+systemctl restart docker
+```
+
+
 - 购买 SLB 用于对外暴露外网访问
 - 访问实例管理：<https://slbnew.console.aliyun.com/slb/cn-beijing/slbs>
     - 可以看到我们的公网 IP 为：`47.112.248.107`，这个后面要用到
@@ -61,9 +126,6 @@ ssh -p 22 root@172.18.103.126
 - 选择一台 master1 节点，创建配置文件并执行
 
 ````
-先安装一些简单工具：
-yum install -y zip unzip lrzsz git epel-release wget htop deltarpm
-
 这个文件 22M 左右
 wget -c https://kubesphere.io/download/kubekey-v1.0.0-linux-amd64.tar.gz -O - | tar -xz
 
@@ -140,32 +202,6 @@ kubectl logs -n kubesphere-system $(kubectl get pod -n kubesphere-system -l app=
     - 点击 `集群管理 - 自定义资源CRD` ，在过滤条件框输入 `ClusterConfiguration`，点击 ClusterConfiguration 详情，对 `ks-installer` 编辑
 
 ## 常见问题
-
-- 如果安装中间会自动帮我们安装 docker，但是安装后默认的源是 Docker 国外的会很慢
-- 所以我们可以考虑自己安装 Docker，改源。当前时间 2020-10 KubeSphere 3.0.0 用的是 `Docker version 19.03.13, build 4484c46d9d`
-
-```
-vim /etc/docker/daemon.json
-
-{
-  "log-opts": {
-    "max-size": "5m",
-    "max-file": "3"
-  },
-  "exec-opts": [
-    "native.cgroupdriver=systemd"
-  ],
-  "registry-mirrors": [
-    "https://ldhc17y9.mirror.aliyuncs.com",
-    "https://hub-mirror.c.163.com",
-    "https://mirror.baidubce.com",
-    "https://docker.mirrors.ustc.edu.cn"
-  ]
-}
-
-sudo systemctl daemon-reload
-sudo systemctl restart docker
-```
 
 - 提示: 如果安装过程中碰到 Failed to add worker to cluster: Failed to exec command...
 
