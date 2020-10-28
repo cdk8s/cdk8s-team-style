@@ -136,18 +136,44 @@ kubectl logs -n kubesphere-system $(kubectl get pod -n kubesphere-system -l app=
 
 - 自定义开启可插拔组件
     - 点击 `集群管理 - 自定义资源CRD` ，在过滤条件框输入 `ClusterConfiguration`，点击 ClusterConfiguration 详情，对 `ks-installer` 编辑
-- 其他问题
+
+## 常见问题
+
+- 如果安装中间会自动帮我们安装 docker，但是安装后默认的源是 Docker 国外的会很慢
+- 所以我们可以考虑自己安装 Docker，改源。当前时间 2020-10 KubeSphere 3.0.0 用的是 `Docker version 19.03.13, build 4484c46d9d`
 
 ```
-提示: 如果安装过程中碰到 Failed to add worker to cluster: Failed to exec command...
+vim /etc/docker/daemon.json
+
+{
+  "log-opts": {
+    "max-size": "5m",
+    "max-file": "3"
+  },
+  "exec-opts": [
+    "native.cgroupdriver=systemd"
+  ],
+  "registry-mirrors": [
+    "https://ldhc17y9.mirror.aliyuncs.com",
+    "https://hub-mirror.c.163.com",
+    "https://mirror.baidubce.com",
+    "https://docker.mirrors.ustc.edu.cn"
+  ]
+}
+
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+```
+
+- 提示: 如果安装过程中碰到 Failed to add worker to cluster: Failed to exec command...
+
+```
 kubeadm reset
 ```
 
-
-
-
-
 -------------------------------------------------------------------
+
+
 
 
 
@@ -489,29 +515,6 @@ spec:
     enabled: false
 ```
 
-## 常见问题
-
-
-- 如果安装中间会自动帮我们安装 docker，但是安装后默认的源是国外的会很慢，我们可以停掉安装先换源
-
-```
-vim /etc/docker/daemon.json
-{
-  "log-opts": {
-    "max-size": "5m",
-    "max-file": "3"
-  },
-  "exec-opts": [
-    "native.cgroupdriver=systemd"
-  ],
-  "registry-mirrors": [
-    "https://ldhc17y9.mirror.aliyuncs.com",
-    "https://hub-mirror.c.163.com",
-    "https://mirror.baidubce.com",
-    "https://docker.mirrors.ustc.edu.cn"
-  ]
-}
-```
 
 ## 持久化存储配置说明
 
