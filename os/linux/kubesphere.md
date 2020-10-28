@@ -3,6 +3,128 @@
 
 - 关闭防火墙等限制
 
+
+## 阿里云 ECS 创建
+
+- 购买 3 台 ECS，要有公网 IP 的 4C8G 服务器，安装的时候这几台机子都需要联网下载镜像，后续倒是可以考虑去掉。
+- 用阿里云 web 界面的 `远程连接` 登录上去配置 3 台机子的 SSH 免密登录
+
+```
+假设这三台的局域网 IP 分别为：
+master：172.17.155.61
+node1：172.17.155.59
+node2：172.17.155.60
+
+所有服务器都要关闭 SELinux
+setenforce 0 && sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
+
+所有服务器都要禁用防火墙
+systemctl stop firewalld && systemctl disable firewalld
+echo "vm.swappiness = 0" >> /etc/sysctl.conf
+swapoff -a && sysctl -w vm.swappiness=0
+
+
+开始在所选安装机器上设置免密登录，我这里选择了 master
+ssh-keygen -t rsa -b 2048 -N '' -f ~/.ssh/id_rsa
+
+ssh-copy-id -i /root/.ssh/id_rsa.pub -p 22 root@172.17.155.61
+ssh-copy-id -i /root/.ssh/id_rsa.pub -p 22 root@172.17.155.59
+ssh-copy-id -i /root/.ssh/id_rsa.pub -p 22 root@172.17.155.60
+
+测试下是否可以免登陆：
+ssh -p 22 root@172.17.155.61
+ssh -p 22 root@172.17.155.59
+ssh -p 22 root@172.17.155.60
+```
+
+- 购买 SLB 用于对外暴露外网访问
+- 访问实例管理：<https://slbnew.console.aliyun.com/slb/cn-beijing/slbs>
+    - 可以看到我们的公网 IP 为：39.102.88.244，这个后面要用到
+- 点击 `添加后端服务器` 按钮，选择我们的 k8s 所有 master 节点，如果有 3 个 master 就勾选 3 个
+- 点击 `监听配置向导` 按钮，我们要监听 TCP 6443 端口（api-server），下一步，选择 `默认服务器组`，各个 master 节点的端口上配置 6443，权重 100。最后提交配置。
+- 选择一台 master 节点，创建配置文件并执行
+
+````
+wget -c https://kubesphere.io/download/kubekey-v1.0.0-linux-amd64.tar.gz -O - | tar -xz
+
+chmod +x kk
+
+./kk create config --with-kubesphere v3.0.0 --with-kubernetes v1.17.9 -f config-sample.yaml
+````
+
+- 文件内容核心修改这些内容
+
+```
+vim config-sample.yaml
+
+apiVersion: kubekey.kubesphere.io/v1alpha1
+kind: Cluster
+metadata:
+  name: config-sample
+  spec:
+    hosts:
+    - {name: master1, address: 172.17.155.61, internalAddress: 172.17.155.61, user: root, password: meek@20201028@com}
+    - {name: node1, address: 172.17.155.59, internalAddress: 172.17.155.59, user: root, password: meek@20201028@com}
+    - {name: node2, address: 172.17.155.60, internalAddress: 172.17.155.60, user: root, password: meek@20201028@com}
+    roleGroups:
+      etcd:
+      - master1
+      master:
+      - master1
+      worker:
+      - node1
+      - node2
+    controlPlaneEndpoint:
+      domain: lb.kubesphere.local
+      address: "39.102.88.244"
+      port: "6443"
+    kubernetes:
+      version: v1.17.9
+      imageRepo: kubesphere
+      clusterName: cluster.local
+      masqueradeAll: false
+      maxPods: 110
+      nodeCidrMaskSize: 24
+      proxyMode: ipvs
+    network:
+      plugin: calico
+      calico:
+        ipipMode: Always
+        vxlanMode: Never
+        vethMTU: 1440
+      kubePodsCIDR: 10.233.64.0/18
+      kubeServiceCIDR: 10.233.0.0/18
+    registry:
+      registryMirrors: []
+      insecureRegistries: []
+    addons: []
+
+```
+
+- 接下来使用配置安装
+
+```
+./kk create cluster -f config-sample.yaml
+
+# 查看 KubeSphere 安装日志  -- 直到出现控制台的访问地址和登陆账号
+kubectl logs -n kubesphere-system $(kubectl get pod -n kubesphere-system -l app=ks-install -o jsonpath='{.items[0].metadata.name}') -f
+
+出现 Welcome to KubeSphere! 表示安装成功
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## Linux 最小安装
 
 - 当前版本（202010）：3.0.0
