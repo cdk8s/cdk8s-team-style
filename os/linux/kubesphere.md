@@ -53,7 +53,9 @@ ssh -p 22 root@172.18.103.126
 - 访问实例管理：<https://slbnew.console.aliyun.com/slb/cn-beijing/slbs>
     - 可以看到我们的公网 IP 为：`47.112.248.107`，这个后面要用到
 - 点击 `添加后端服务器` 按钮，选择我们的 k8s 所有 master 节点，如果有 3 个 master 就勾选 3 个
-- 点击 `监听配置向导` 按钮，我们要监听 TCP 6443 端口（api-server），下一步，选择 `默认服务器组`，各个 master 节点的端口上配置 6443，权重 100。最后提交配置。
+- 点击 `监听配置向导` 按钮
+    - 我们要监听 TCP 6443 端口（api-server），下一步，选择 `默认服务器组`，各个 master 节点的端口上配置 6443，权重 100。最后提交配置。
+    - 我们要监听 TCP 30880 端口（对外的 web 管理界面），下一步，选择 `默认服务器组`，各个 master 节点的端口上配置 30880，权重 100。最后提交配置。
 - 选择一台 master1 节点，创建配置文件并执行
 
 ````
@@ -127,10 +129,27 @@ spec:
 kubectl logs -n kubesphere-system $(kubectl get pod -n kubesphere-system -l app=ks-install -o jsonpath='{.items[0].metadata.name}') -f
 
 出现 Welcome to KubeSphere! 表示安装成功
+
+访问：SLB IP + 30880，使用默认账号密码 (admin/P@88w0rd)
+
+```
+
+- 自定义开启可插拔组件
+    - 点击 `集群管理 - 自定义资源CRD` ，在过滤条件框输入 `ClusterConfiguration`，点击 ClusterConfiguration 详情，对 `ks-installer` 编辑
+- 其他问题
+
+```
+提示: 如果安装过程中碰到 Failed to add worker to cluster: Failed to exec command...
+kubeadm reset
 ```
 
 
+
+
+
 -------------------------------------------------------------------
+
+
 
 
 
