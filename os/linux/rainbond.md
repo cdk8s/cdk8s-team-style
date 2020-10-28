@@ -80,6 +80,14 @@ kubectl get nodes
 kubectl get pods --all-namespaces
 ```
 
+## 快速安装 Kubernetes
+
+- <https://www.rainbond.com/docs/user-operations/install/kubernetes-install/#kubernetes%E7%9A%84%E9%AB%98%E5%8F%AF%E7%94%A8%E5%AE%89%E8%A3%85>
+
+## 基于 K8s 高可用安装 Rainbond
+
+- <https://www.rainbond.com/docs/install/install-from-k8s/high-availability/>
+
 
 
 
