@@ -562,7 +562,9 @@ spec:
 ## 持久化存储配置说明
 
 - <https://v2-1.docs.kubesphere.io/docs/zh-CN/installation/storage-configuration/>
-- 推荐 GlusterFS
+- 推荐 
+    - Ceph RBD(块存储)：<https://v2-1.docs.kubesphere.io/docs/zh-CN/appendix/ceph-ks-install/>
+    - GlusterFS：<https://v2-1.docs.kubesphere.io/docs/zh-CN/appendix/glusterfs-ks-install/>
 
 ## 重启服务器后注意事项
 
