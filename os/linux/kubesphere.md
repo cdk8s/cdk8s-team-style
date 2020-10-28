@@ -13,6 +13,8 @@
 # 高可用集群安装
 
 - 至少 3 台 Master 节点和 3 台 Worker 节点，或者更多的机器，但要保证是 Master 和 Worker 节点数都是奇数的，以防止 leader 选举时出现脑裂状况。
+- 对于生产环境，我们需要考虑集群的高可用性。在多台阿里 ECS 实例快速部署一套高可用的生产环境，要满足 Kubernetes 集群服务需要做到高可用，需要保证 kube-apiserver 的 HA，我们选择阿里云负载均衡（SLB）
+
 
 ## 阿里云购买 ECS、EIP、NAT、SLB
 
