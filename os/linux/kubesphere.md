@@ -470,7 +470,28 @@ spec:
     enabled: false
 ```
 
+## 常见问题
 
 
+- 如果安装中间会自动帮我们安装 docker，但是安装后默认的源是国外的会很慢，我们可以停掉安装先换源
+
+```
+vim /etc/docker/daemon.json
+{
+  "log-opts": {
+    "max-size": "5m",
+    "max-file": "3"
+  },
+  "exec-opts": [
+    "native.cgroupdriver=systemd"
+  ],
+  "registry-mirrors": [
+    "https://ldhc17y9.mirror.aliyuncs.com",
+    "https://hub-mirror.c.163.com",
+    "https://mirror.baidubce.com",
+    "https://docker.mirrors.ustc.edu.cn"
+  ]
+}
+```
 
 
