@@ -523,4 +523,16 @@ spec:
 - <https://v2-1.docs.kubesphere.io/docs/zh-CN/installation/storage-configuration/>
 - 推荐 GlusterFS
 
+## 重启服务器后注意事项
+
+- <https://kubesphere.com.cn/forum/d/1661-k8s-kubesphere>
+
+```
+K8s 和 KubeSphere 都不存在重启一说，只有 Docker 可以重启。通常情况 K8s 和 Docker 在服务器重启后可以自愈，KubeSphere 也会自动恢复运行。
+
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+```
+
+
 ## 集成第三方服务（集群外数据库）
