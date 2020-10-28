@@ -231,6 +231,9 @@ kubectl get nodes
 
 确保都是 Running
 kubectl get pods --all-namespaces
+
+输出 pod 详细信息
+kubectl describe pod $pod_name
 ```
 
 ## 编辑集群配置文件
@@ -534,5 +537,8 @@ sudo systemctl daemon-reload
 sudo systemctl restart docker
 ```
 
+## KubeSphere v3.0.0 对接 SonarQube
+
+- <https://kubesphere.com.cn/forum/d/2044-kubesphere-v3-0-0-sonarqube>
 
 ## 集成第三方服务（集群外数据库）
