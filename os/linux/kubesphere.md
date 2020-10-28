@@ -6,14 +6,17 @@
 
 ## 阿里云 ECS 创建
 
-- 购买 3 台 ECS，要有公网 IP 的 4C8G 服务器，安装的时候这几台机子都需要联网下载镜像，后续倒是可以考虑去掉。
-- 用阿里云 web 界面的 `远程连接` 登录上去配置 3 台机子的 SSH 免密登录
+- 购买 6 台 ECS，要有公网 IP 的 4C8G 服务器，安装的时候这几台机子都需要联网下载镜像，后续倒是可以考虑去掉。
+- 这里的 ECS 不能随便买，必须保证 ECS 和 SLB 是同一个地方（不用具体到可用区级别），所以要注意
 
 ```
 假设这三台的局域网 IP 分别为：
-master：172.17.155.61
-node1：172.17.155.59
-node2：172.17.155.60
+master1：172.18.103.121
+master2：172.18.103.122
+master3：172.18.103.123
+node1：172.18.103.124
+node2：172.18.103.125
+node3：172.18.103.126
 
 所有服务器都要关闭 SELinux
 setenforce 0 && sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
@@ -24,35 +27,49 @@ echo "vm.swappiness = 0" >> /etc/sysctl.conf
 swapoff -a && sysctl -w vm.swappiness=0
 
 
-开始在所选安装机器上设置免密登录，我这里选择了 master
+开始在所选安装机器上设置免密登录，我这里选择了 master1
 ssh-keygen -t rsa -b 2048 -N '' -f ~/.ssh/id_rsa
 
-ssh-copy-id -i /root/.ssh/id_rsa.pub -p 22 root@172.17.155.61
-ssh-copy-id -i /root/.ssh/id_rsa.pub -p 22 root@172.17.155.59
-ssh-copy-id -i /root/.ssh/id_rsa.pub -p 22 root@172.17.155.60
+meek@20201028@com
+meek@20201028@com
+
+ssh-copy-id -i /root/.ssh/id_rsa.pub -p 22 root@172.18.103.121
+ssh-copy-id -i /root/.ssh/id_rsa.pub -p 22 root@172.18.103.122
+ssh-copy-id -i /root/.ssh/id_rsa.pub -p 22 root@172.18.103.123
+ssh-copy-id -i /root/.ssh/id_rsa.pub -p 22 root@172.18.103.124
+ssh-copy-id -i /root/.ssh/id_rsa.pub -p 22 root@172.18.103.125
+ssh-copy-id -i /root/.ssh/id_rsa.pub -p 22 root@172.18.103.126
 
 测试下是否可以免登陆：
-ssh -p 22 root@172.17.155.61
-ssh -p 22 root@172.17.155.59
-ssh -p 22 root@172.17.155.60
+ssh -p 22 root@172.18.103.121
+ssh -p 22 root@172.18.103.122
+ssh -p 22 root@172.18.103.123
+ssh -p 22 root@172.18.103.124
+ssh -p 22 root@172.18.103.125
+ssh -p 22 root@172.18.103.126
 ```
 
 - 购买 SLB 用于对外暴露外网访问
 - 访问实例管理：<https://slbnew.console.aliyun.com/slb/cn-beijing/slbs>
-    - 可以看到我们的公网 IP 为：39.102.88.244，这个后面要用到
+    - 可以看到我们的公网 IP 为：`47.112.248.107`，这个后面要用到
 - 点击 `添加后端服务器` 按钮，选择我们的 k8s 所有 master 节点，如果有 3 个 master 就勾选 3 个
 - 点击 `监听配置向导` 按钮，我们要监听 TCP 6443 端口（api-server），下一步，选择 `默认服务器组`，各个 master 节点的端口上配置 6443，权重 100。最后提交配置。
-- 选择一台 master 节点，创建配置文件并执行
+- 选择一台 master1 节点，创建配置文件并执行
 
 ````
+先安装一些简单工具：
+yum install -y zip unzip lrzsz git epel-release wget htop deltarpm
+
+这个文件 22M 左右
 wget -c https://kubesphere.io/download/kubekey-v1.0.0-linux-amd64.tar.gz -O - | tar -xz
 
 chmod +x kk
 
 ./kk create config --with-kubesphere v3.0.0 --with-kubernetes v1.17.9 -f config-sample.yaml
+这时候根目录会有一个 config-sample.yaml 文件
 ````
 
-- 文件内容核心修改这些内容
+- 文件其他内容我们不动，就改跟服务器配置有关的部分
 
 ```
 vim config-sample.yaml
@@ -60,48 +77,48 @@ vim config-sample.yaml
 apiVersion: kubekey.kubesphere.io/v1alpha1
 kind: Cluster
 metadata:
-  name: config-sample
-  spec:
-    hosts:
-    - {name: master1, address: 172.17.155.61, internalAddress: 172.17.155.61, user: root, password: meek@20201028@com}
-    - {name: node1, address: 172.17.155.59, internalAddress: 172.17.155.59, user: root, password: meek@20201028@com}
-    - {name: node2, address: 172.17.155.60, internalAddress: 172.17.155.60, user: root, password: meek@20201028@com}
-    roleGroups:
-      etcd:
-      - master1
-      master:
-      - master1
-      worker:
-      - node1
-      - node2
-    controlPlaneEndpoint:
-      domain: lb.kubesphere.local
-      address: "39.102.88.244"
-      port: "6443"
-    kubernetes:
-      version: v1.17.9
-      imageRepo: kubesphere
-      clusterName: cluster.local
-      masqueradeAll: false
-      maxPods: 110
-      nodeCidrMaskSize: 24
-      proxyMode: ipvs
-    network:
-      plugin: calico
-      calico:
-        ipipMode: Always
-        vxlanMode: Never
-        vethMTU: 1440
-      kubePodsCIDR: 10.233.64.0/18
-      kubeServiceCIDR: 10.233.0.0/18
-    registry:
-      registryMirrors: []
-      insecureRegistries: []
-    addons: []
+  name: sample
+spec:
+  hosts:
+  - {name: master1, address: 172.18.103.121, internalAddress: 172.18.103.121, user: root, password: meek@20201028@com}
+  - {name: master2, address: 172.18.103.122, internalAddress: 172.18.103.122, user: root, password: meek@20201028@com}
+  - {name: master3, address: 172.18.103.123, internalAddress: 172.18.103.123, user: root, password: meek@20201028@com}
+  - {name: node1, address: 172.18.103.124, internalAddress: 172.18.103.124, user: root, password: meek@20201028@com}
+  - {name: node2, address: 172.18.103.125, internalAddress: 172.18.103.125, user: root, password: meek@20201028@com}
+  - {name: node3, address: 172.18.103.126, internalAddress: 172.18.103.126, user: root, password: meek@20201028@com}
+  roleGroups:
+    etcd:
+    - master1
+    - master2
+    - master3
+    master:
+    - master1
+    - master2
+    - master3
+    worker:
+    - node1
+    - node2
+    - node3
+  controlPlaneEndpoint:
+    domain: lb.kubesphere.local
+    address: "47.112.248.107"
+    port: "6443"
+  kubernetes:
+    version: v1.17.9
+    imageRepo: kubesphere
+    clusterName: cluster.local
+  network:
+    plugin: calico
+    kubePodsCIDR: 10.233.64.0/18
+    kubeServiceCIDR: 10.233.0.0/18
+  registry:
+    registryMirrors: []
+    insecureRegistries: []
+  addons: []
 
 ```
 
-- 接下来使用配置安装
+- 接下来使用修改后的配置文件安装
 
 ```
 ./kk create cluster -f config-sample.yaml
@@ -113,15 +130,7 @@ kubectl logs -n kubesphere-system $(kubectl get pod -n kubesphere-system -l app=
 ```
 
 
-
-
-
-
-
-
-
-
-
+-------------------------------------------------------------------
 
 
 
@@ -368,6 +377,117 @@ kubectl logs -n kubesphere-system $(kubectl get pod -n kubesphere-system -l app=
 - DevOps 项目也是有自己的角色管理：<http://192.168.31.137:30880/my-workspace/clusters/default/devops/mydevopspz7kv/roles>
 - 创建一些凭证，包括 SSH 密钥、Token 等：<http://192.168.31.137:30880/my-workspace/clusters/default/devops/mydevopspz7kv/credentials>
 
+
+-------------------------------------------------------------------
+
+
+
+## 集群安装下的默认生成的配置文件完整内容仅供参考
+
+```
+apiVersion: kubekey.kubesphere.io/v1alpha1
+kind: Cluster
+metadata:
+  name: sample
+spec:
+  hosts:
+  - {name: node1, address: 172.16.0.2, internalAddress: 172.16.0.2, user: ubuntu, password: Qcloud@123}
+  - {name: node2, address: 172.16.0.3, internalAddress: 172.16.0.3, user: ubuntu, password: Qcloud@123}
+  roleGroups:
+    etcd:
+    - node1
+    master: 
+    - node1
+    worker:
+    - node1
+    - node2
+  controlPlaneEndpoint:
+    domain: lb.kubesphere.local
+    address: ""
+    port: "6443"
+  kubernetes:
+    version: v1.17.9
+    imageRepo: kubesphere
+    clusterName: cluster.local
+  network:
+    plugin: calico
+    kubePodsCIDR: 10.233.64.0/18
+    kubeServiceCIDR: 10.233.0.0/18
+  registry:
+    registryMirrors: []
+    insecureRegistries: []
+  addons: []
+
+
+---
+apiVersion: installer.kubesphere.io/v1alpha1
+kind: ClusterConfiguration
+metadata:
+  name: ks-installer
+  namespace: kubesphere-system
+  labels:
+    version: v3.0.0
+spec:
+  local_registry: ""
+  persistence:
+    storageClass: ""
+  authentication:
+    jwtSecret: ""
+  etcd:
+    monitoring: true
+    endpointIps: localhost
+    port: 2379
+    tlsEnable: true
+  common:
+    es:
+      elasticsearchDataVolumeSize: 20Gi
+      elasticsearchMasterVolumeSize: 4Gi
+      elkPrefix: logstash
+      logMaxAge: 7
+    mysqlVolumeSize: 20Gi
+    minioVolumeSize: 20Gi
+    etcdVolumeSize: 20Gi
+    openldapVolumeSize: 2Gi
+    redisVolumSize: 2Gi
+  console:
+    enableMultiLogin: false  # enable/disable multi login
+    port: 30880
+  alerting:
+    enabled: false
+  auditing:
+    enabled: false
+  devops:
+    enabled: false
+    jenkinsMemoryLim: 2Gi
+    jenkinsMemoryReq: 1500Mi
+    jenkinsVolumeSize: 8Gi
+    jenkinsJavaOpts_Xms: 512m
+    jenkinsJavaOpts_Xmx: 512m
+    jenkinsJavaOpts_MaxRAM: 2g
+  events:
+    enabled: false
+    ruler:
+      enabled: true
+      replicas: 2
+  logging:
+    enabled: false
+    logsidecarReplicas: 2
+  metrics_server:
+    enabled: true
+  monitoring:
+    prometheusMemoryRequest: 400Mi
+    prometheusVolumeSize: 20Gi
+  multicluster:
+    clusterRole: none  # host | member | none
+  networkpolicy:
+    enabled: false
+  notification:
+    enabled: false
+  openpitrix:
+    enabled: false
+  servicemesh:
+    enabled: false
+```
 
 
 
