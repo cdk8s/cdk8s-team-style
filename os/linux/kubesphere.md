@@ -35,9 +35,6 @@ swapoff -a && sysctl -w vm.swappiness=0
 开始在所选安装机器上设置免密登录，我这里选择了 master1
 ssh-keygen -t rsa -b 2048 -N '' -f ~/.ssh/id_rsa
 
-meek@20201028@com
-meek@20201028@com
-
 ssh-copy-id -i /root/.ssh/id_rsa.pub -p 22 root@172.18.103.121
 ssh-copy-id -i /root/.ssh/id_rsa.pub -p 22 root@172.18.103.122
 ssh-copy-id -i /root/.ssh/id_rsa.pub -p 22 root@172.18.103.123
