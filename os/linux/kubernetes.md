@@ -10,6 +10,8 @@
 ## 优点
 
 - 容灾，有任何 node 节点宕机，pod 容器 stop 都可以自动帮我们拉起一个新的 pod 容器来提供服务。所以我们只要保证应用无状态即可。
+- 轻松扩容
+- 
 
 
 ## 组件
@@ -62,10 +64,14 @@
 kubectl --help
 kubectl get --help
 
+查看所有类型、所有类型其下的东西
+kubectl get all -o wide
+
 查看k8s的所有node节点，确保都是 Ready
 kubectl get node
 
 获取所有命名空间列表以及其下的 pod 列表，其中 -o wide 显示展示更多详细信息
+kubectl get pods  -o wide
 kubectl get pod --all-namespaces -o wide
 kubectl get pods --all-namespaces
 
