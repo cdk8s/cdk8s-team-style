@@ -70,6 +70,7 @@
 - 官网文档：<https://kubernetes.io/zh/docs/concepts/services-networking/ingress/>
 - Ingress 是对集群中服务的外部访问进行管理的 API 对象，典型的访问方式是 HTTP。
 - Ingress 可以提供负载均衡、SSL 终结和基于名称的虚拟托管。
+- 用的最多的是 ingress-nginx，会 nginx 会更好理解它
 
 ## Label 标签，用于对象资源的查询、筛选
 
@@ -152,10 +153,17 @@ kubectl edit depolyment <pod-name> -n <namespaces-name> -o yaml
 
 - apiVersion：版本
 - Kind：操作类型有
+    - Namespace
     - Pod
     - Service
     - Deployment
+    - DaemonSet
+    - Ingress
+    - ConfigMap
     - ServiceAccount
+    - Role
+    - RoleBinding
+    - ClusterRole
     - ClusterRoleBinding
 - Metadata：元数据
 - Spec：规格信息
