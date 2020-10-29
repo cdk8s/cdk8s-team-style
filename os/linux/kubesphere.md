@@ -63,6 +63,12 @@
 - Rancher 可以集中管理部署在任何基础设施上的 Kubernetes 集群，还可以实行统一的集中式身份验证和访问控制
 - Rancher 的流水线提供了简单的 CI / CD 体验。使用它可以自动拉取代码，运行构建或脚本，发布 Docker 镜像或应用商店应用以及部署更新的软件。
 
+## kubernetes / dashboard
+
+- kubernetes 官网出品的 dashboard
+- Github 官网：<https://github.com/kubernetes/dashboard>
+- Kubernetes 仪表板是用于 Kubernetes 集群的基于 web 的通用UI。它允许用户管理集群中运行的应用程序并对它们进行故障排除，以及管理集群本身。
+
 -------------------------------------------------------------------
 
 ## 高可用集群开始安装
