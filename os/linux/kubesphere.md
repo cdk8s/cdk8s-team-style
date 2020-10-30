@@ -97,15 +97,15 @@ wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-
 wget -O /etc/yum.repos.d/epel.repo http://mirrors.aliyun.com/repo/epel-7.repo
 yum clean all && yum makecache
 yum update -y
-reboot
+
 
 所有服务器都要进行时间同步，并确认时间同步成功
-timedatectl
-timedatectl set-ntp true
+timedatectl && timedatectl set-ntp true
 
 开始在所选安装机器上设置免密登录，我这里选择了 master1
 ssh-keygen -t rsa -b 2048 -N '' -f ~/.ssh/id_rsa
 
+这里都是内网地址
 ssh-copy-id -i /root/.ssh/id_rsa.pub -p 22 root@172.18.103.121
 ssh-copy-id -i /root/.ssh/id_rsa.pub -p 22 root@172.18.103.122
 ssh-copy-id -i /root/.ssh/id_rsa.pub -p 22 root@172.18.103.123
@@ -126,9 +126,7 @@ ssh -p 22 root@172.18.103.126
 - 所以我们可以考虑自己安装 Docker，改源。当前时间 2020-10 KubeSphere 3.0.0 用的是 `Docker version 19.03.13, build 4484c46d9d`
 
 ```
-yum install -y yum-utils \
-    device-mapper-persistent-data \
-    lvm2
+yum install -y yum-utils device-mapper-persistent-data lvm2
 
 
 # 这里用阿里云源地址
@@ -268,10 +266,18 @@ kubeadm reset
 wget -c https://kubesphere.io/download/kubekey-v1.0.0-linux-amd64.tar.gz -O - | tar -xz
 chmod +x kk
 
-开始安装
+开始安装，终端会出现一个当前环境已有环境检查，比如 docker 已安装等
 ./kk create cluster --with-kubernetes v1.17.9 --with-kubesphere v3.0.0
 
-查看执行 log
+如果安装过程出现错误中断了：Failed to init kubernetes cluster: interrupted by error
+那就重新再执行下上面的脚本，重新来一次
+
+当控制台出现这一行字：
+INFO[12:51:25 CST] Installation is complete.
+Please check the result using the command:
+       kubectl logs -n kubesphere-system $(kubectl get pod -n kubesphere-system -l app=ks-install -o jsonpath='{.items[0].metadata.name}') -f
+
+我们可以来查看执行 log
 kubectl logs -n kubesphere-system $(kubectl get pod -n kubesphere-system -l app=ks-install -o jsonpath='{.items[0].metadata.name}') -f
 
 出现 Welcome to KubeSphere! 表示安装成功

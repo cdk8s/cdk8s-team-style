@@ -544,7 +544,17 @@ kB_ccwr/s：任务取消的写入磁盘的 KB。当任务截断脏的 pagecache 
 
 ## 网络监控
 
-#### 网络监控常用
+#### 网络监控常用 nload
+
+- 安装 nload（需要有 EPEL 源）：`yum install -y nload`
+	- 如果没有 EPEL 源：`yum install -y epel-release`
+- 常用命令：
+	- `nload`：默认是监控第一块网卡的流量
+	- `nload eth0`：监控 eth0
+- 界面就两个：in 和 out，所以看整体就很直观
+
+
+#### 网络监控常用 iftop
 
 - 安装 iftop（需要有 EPEL 源）：`yum install -y iftop`
 	- 如果没有 EPEL 源：`yum install -y epel-release`
