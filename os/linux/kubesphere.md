@@ -506,8 +506,8 @@ kubeadm reset
 
 #### 编辑集群配置文件
 
-- 访问：<http://192.168.31.137:30880/clusters/default/customresources/clusterconfigurations.installer.kubesphere.io/resources>
-- 点击三个点 > 编辑配置文件，默认如下
+- 点击：`自定义资源 CRD > 搜索 clusterconfigurations 后点击 clusterconfiguration 进入详情 > 点击 ks-installer 右边编辑配置文件`
+- 没修改之前是这样的：
 
 ```
 apiVersion: installer.kubesphere.io/v1alpha1
@@ -515,7 +515,7 @@ kind: ClusterConfiguration
 metadata:
   annotations:
     kubectl.kubernetes.io/last-applied-configuration: >
-      {"apiVersion":"installer.kubesphere.io/v1alpha1","kind":"ClusterConfiguration","metadata":{"annotations":{},"labels":{"version":"v3.0.0"},"name":"ks-installer","namespace":"kubesphere-system"},"spec":{"alerting":{"enabled":false},"auditing":{"enabled":false},"authentication":{"jwtSecret":""},"common":{"es":{"elasticsearchDataVolumeSize":"20Gi","elasticsearchMasterVolumeSize":"4Gi","elkPrefix":"logstash","logMaxAge":7},"etcdVolumeSize":"20Gi","minioVolumeSize":"20Gi","mysqlVolumeSize":"20Gi","openldapVolumeSize":"2Gi","redisVolumSize":"2Gi"},"console":{"enableMultiLogin":false,"port":30880},"devops":{"enabled":false,"jenkinsJavaOpts_MaxRAM":"2g","jenkinsJavaOpts_Xms":"512m","jenkinsJavaOpts_Xmx":"512m","jenkinsMemoryLim":"2Gi","jenkinsMemoryReq":"1500Mi","jenkinsVolumeSize":"8Gi"},"etcd":{"endpointIps":"192.168.31.137","monitoring":true,"port":2379,"tlsEnable":true},"events":{"enabled":false,"ruler":{"enabled":true,"replicas":2}},"logging":{"enabled":false,"logsidecarReplicas":2},"metrics_server":{"enabled":true},"monitoring":{"prometheusMemoryRequest":"400Mi","prometheusVolumeSize":"20Gi"},"multicluster":{"clusterRole":"none"},"networkpolicy":{"enabled":false},"notification":{"enabled":false},"openpitrix":{"enabled":false},"persistence":{"storageClass":""},"servicemesh":{"enabled":false}}}
+      {"apiVersion":"installer.kubesphere.io/v1alpha1","kind":"ClusterConfiguration","metadata":{"annotations":{},"labels":{"version":"v3.0.0"},"name":"ks-installer","namespace":"kubesphere-system"},"spec":{"alerting":{"enabled":false},"auditing":{"enabled":false},"authentication":{"jwtSecret":""},"common":{"es":{"elasticsearchDataVolumeSize":"20Gi","elasticsearchMasterVolumeSize":"4Gi","elkPrefix":"logstash","logMaxAge":7},"etcdVolumeSize":"20Gi","minioVolumeSize":"20Gi","mysqlVolumeSize":"20Gi","openldapVolumeSize":"2Gi","redisVolumSize":"2Gi"},"console":{"enableMultiLogin":false,"port":30880},"devops":{"enabled":false,"jenkinsJavaOpts_MaxRAM":"2g","jenkinsJavaOpts_Xms":"512m","jenkinsJavaOpts_Xmx":"512m","jenkinsMemoryLim":"2Gi","jenkinsMemoryReq":"1500Mi","jenkinsVolumeSize":"8Gi"},"etcd":{"endpointIps":"172.16.0.5","monitoring":true,"port":2379,"tlsEnable":true},"events":{"enabled":false,"ruler":{"enabled":true,"replicas":2}},"logging":{"enabled":false,"logsidecarReplicas":2},"metrics_server":{"enabled":true},"monitoring":{"prometheusMemoryRequest":"400Mi","prometheusVolumeSize":"20Gi"},"multicluster":{"clusterRole":"none"},"networkpolicy":{"enabled":false},"notification":{"enabled":false},"openpitrix":{"enabled":false},"persistence":{"storageClass":""},"servicemesh":{"enabled":false}}}
   labels:
     version: v3.0.0
   name: ks-installer
@@ -550,7 +550,7 @@ spec:
     jenkinsMemoryReq: 1500Mi
     jenkinsVolumeSize: 8Gi
   etcd:
-    endpointIps: 192.168.31.137
+    endpointIps: 172.16.0.5
     monitoring: true
     port: 2379
     tlsEnable: true
@@ -589,13 +589,14 @@ kind: ClusterConfiguration
 metadata:
   annotations:
     kubectl.kubernetes.io/last-applied-configuration: >
-      {"apiVersion":"installer.kubesphere.io/v1alpha1","kind":"ClusterConfiguration","metadata":{"annotations":{},"labels":{"version":"v3.0.0"},"name":"ks-installer","namespace":"kubesphere-system"},"spec":{"alerting":{"enabled":false},"auditing":{"enabled":false},"authentication":{"jwtSecret":""},"common":{"es":{"elasticsearchDataVolumeSize":"20Gi","elasticsearchMasterVolumeSize":"4Gi","elkPrefix":"logstash","logMaxAge":7},"etcdVolumeSize":"20Gi","minioVolumeSize":"20Gi","mysqlVolumeSize":"20Gi","openldapVolumeSize":"2Gi","redisVolumSize":"2Gi"},"console":{"enableMultiLogin":false,"port":30880},"devops":{"enabled":false,"jenkinsJavaOpts_MaxRAM":"2g","jenkinsJavaOpts_Xms":"512m","jenkinsJavaOpts_Xmx":"512m","jenkinsMemoryLim":"2Gi","jenkinsMemoryReq":"1500Mi","jenkinsVolumeSize":"8Gi"},"etcd":{"endpointIps":"192.168.31.137","monitoring":true,"port":2379,"tlsEnable":true},"events":{"enabled":false,"ruler":{"enabled":true,"replicas":2}},"logging":{"enabled":false,"logsidecarReplicas":2},"metrics_server":{"enabled":true},"monitoring":{"prometheusMemoryRequest":"400Mi","prometheusVolumeSize":"20Gi"},"multicluster":{"clusterRole":"none"},"networkpolicy":{"enabled":false},"notification":{"enabled":false},"openpitrix":{"enabled":false},"persistence":{"storageClass":""},"servicemesh":{"enabled":false}}}
+      {"apiVersion":"installer.kubesphere.io/v1alpha1","kind":"ClusterConfiguration","metadata":{"annotations":{},"labels":{"version":"v3.0.0"},"name":"ks-installer","namespace":"kubesphere-system"},"spec":{"alerting":{"enabled":false},"auditing":{"enabled":false},"authentication":{"jwtSecret":""},"common":{"es":{"elasticsearchDataVolumeSize":"20Gi","elasticsearchMasterVolumeSize":"4Gi","elkPrefix":"logstash","logMaxAge":7},"etcdVolumeSize":"20Gi","minioVolumeSize":"20Gi","mysqlVolumeSize":"20Gi","openldapVolumeSize":"2Gi","redisVolumSize":"2Gi"},"console":{"enableMultiLogin":false,"port":30880},"devops":{"enabled":false,"jenkinsJavaOpts_MaxRAM":"2g","jenkinsJavaOpts_Xms":"512m","jenkinsJavaOpts_Xmx":"512m","jenkinsMemoryLim":"2Gi","jenkinsMemoryReq":"1500Mi","jenkinsVolumeSize":"8Gi"},"etcd":{"endpointIps":"172.16.0.5","monitoring":true,"port":2379,"tlsEnable":true},"events":{"enabled":false,"ruler":{"enabled":true,"replicas":2}},"logging":{"enabled":false,"logsidecarReplicas":2},"metrics_server":{"enabled":true},"monitoring":{"prometheusMemoryRequest":"400Mi","prometheusVolumeSize":"20Gi"},"multicluster":{"clusterRole":"none"},"networkpolicy":{"enabled":false},"notification":{"enabled":false},"openpitrix":{"enabled":false},"persistence":{"storageClass":""},"servicemesh":{"enabled":false}}}
   labels:
     version: v3.0.0
   name: ks-installer
   namespace: kubesphere-system
 spec:
   alerting:
+    # 这里从 false 改为 true
     enabled: true
   auditing:
     enabled: false
@@ -616,6 +617,7 @@ spec:
     enableMultiLogin: false
     port: 30880
   devops:
+    # 这里从 false 改为 true
     enabled: true
     jenkinsJavaOpts_MaxRAM: 2g
     jenkinsJavaOpts_Xms: 512m
@@ -624,7 +626,7 @@ spec:
     jenkinsMemoryReq: 1500Mi
     jenkinsVolumeSize: 8Gi
   etcd:
-    endpointIps: 192.168.31.137
+    endpointIps: 172.16.0.5
     monitoring: true
     port: 2379
     tlsEnable: true
@@ -646,6 +648,7 @@ spec:
   networkpolicy:
     enabled: false
   notification:
+    # 这里从 false 改为 true
     enabled: true
   openpitrix:
     enabled: false
@@ -655,12 +658,12 @@ spec:
     enabled: false
 ```
 
-- 改完之后就会开始变更安装，可以查看安装过程 log，这个时间会比较久：
+- 改完之后 kubesphere 安装的守护进程就会开始变更操作，通过下面命令可以查看安装过程 log：
 
 ```
 kubectl logs -n kubesphere-system $(kubectl get pod -n kubesphere-system -l app=ks-install -o jsonpath='{.items[0].metadata.name}') -f
 
-出现 Welcome to KubeSphere! 表示安装成功
+最后出现 Welcome to KubeSphere! 表示安装成功
 ```
 
 - 访问组件管理：<http://192.168.31.137:30880/clusters/default/components>
@@ -925,10 +928,9 @@ Request ID: bef7638bacc9b6ae939fbb99207d3d2d
     - 如果要补充挂载问题可以在：`存储卷`
     - 如果有更新，会自动启动一个新容器，然后再自动删除旧容器
 
-## DevOps 项目管理
+## 搭建 DevOps 项目管理
 
-- 我这里创建一个：cdk8s-workspace 的项目空间：<http://192.168.31.137:30880/workspaces/cdk8s-workspace/overview/usage>
-- 企业空间也有自己的角色管理：<http://192.168.31.137:30880/workspaces/cdk8s-workspace/roles>
+- 默认安装是没有开启 DevOps 的，这里要先开启
 - 管理 DevoOps 项目：<http://192.168.31.137:30880/workspaces/cdk8s-workspace/devops>
 - 我这里创建一个：mydevops 项目：<http://192.168.31.137:30880/cdk8s-workspace/clusters/default/devops/mydevopspz7kv/pipelines>
 - DevOps 项目也是有自己的角色管理：<http://192.168.31.137:30880/cdk8s-workspace/clusters/default/devops/mydevopspz7kv/roles>
