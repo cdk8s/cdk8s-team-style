@@ -86,9 +86,7 @@ node3：172.18.103.126
 setenforce 0 && sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
 
 所有服务器都要禁用防火墙
-systemctl stop firewalld && systemctl disable firewalld
-echo "vm.swappiness = 0" >> /etc/sysctl.conf
-swapoff -a && sysctl -w vm.swappiness=0
+systemctl stop firewalld && systemctl disable firewalld && echo "vm.swappiness = 0" >> /etc/sysctl.conf && swapoff -a && sysctl -w vm.swappiness=0
 
 所有服务器都要先安装一些简单工具：
 yum install -y zip unzip lrzsz git epel-release wget htop deltarpm
@@ -99,6 +97,7 @@ wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-
 wget -O /etc/yum.repos.d/epel.repo http://mirrors.aliyun.com/repo/epel-7.repo
 yum clean all && yum makecache
 yum update -y
+reboot
 
 所有服务器都要进行时间同步，并确认时间同步成功
 timedatectl
@@ -131,10 +130,9 @@ yum install -y yum-utils \
     device-mapper-persistent-data \
     lvm2
 
-yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
 
-# 如果以上添加仓库速度慢可以用阿里云源地址
-# http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+# 这里用阿里云源地址
+yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
 
 yum install -y containerd.io docker-ce-19.03.13 docker-ce-cli-19.03.13
 
@@ -145,13 +143,6 @@ systemctl enable docker
 vim /etc/docker/daemon.json
 
 {
-  "log-opts": {
-    "max-size": "5m",
-    "max-file": "3"
-  },
-  "exec-opts": [
-    "native.cgroupdriver=systemd"
-  ],
   "registry-mirrors": [
     "https://ldhc17y9.mirror.aliyuncs.com",
     "https://hub-mirror.c.163.com",
@@ -270,6 +261,7 @@ kubeadm reset
 
 - 当前版本（202010）：3.0.0
 - 官网说明：<https://kubesphere.io/zh/docs/quick-start/all-in-one-on-linux/>
+- 服务器环境准备跟集群安装一样，这里省略
 
 ```
 下载脚本
@@ -492,6 +484,28 @@ kubectl logs -n kubesphere-system $(kubectl get pod -n kubesphere-system -l app=
 - 我这里创建一个：mydevops 项目：<http://192.168.31.137:30880/my-workspace/clusters/default/devops/mydevopspz7kv/pipelines>
 - DevOps 项目也是有自己的角色管理：<http://192.168.31.137:30880/my-workspace/clusters/default/devops/mydevopspz7kv/roles>
 - 创建一些凭证，包括 SSH 密钥、Token 等：<http://192.168.31.137:30880/my-workspace/clusters/default/devops/mydevopspz7kv/credentials>
+
+
+
+## 创建服务
+
+- 准备活动
+    - 在阿里云上创建一个私有 Docker 仓库
+    - 配置密钥
+- 官网指导：<https://v2-1.docs.kubesphere.io/docs/zh-CN/quick-start/ingress-demo/>
+- 创建一个无状态服务：<http://192.168.31.137:30880/my-workspace/clusters/default/projects/myproject/services>
+    - 项目管理员在 `高级设置` 中设置外网访问方式
+        - 官网指导：<https://v2-1.docs.kubesphere.io/docs/zh-CN/project-setting/project-gateway/>
+        - NodePort: 此方式网关可以通过工作节点对应的端口来访问服务。
+            - 生成的两个端口，分别是 HTTP 协议的端口和 HTTPS 协议的端口，外网可通过 EIP:NodePort 或 Hostname:NodePort 来访问服务
+        - LoadBalancer: 此方式网关可以通过统一的一个外网 IP 来访问。
+            - 由于使用 Load Balancer 需要在安装前配置与安装与云服务商对接的 cloud-controller-manage 插件，参考 安装负载均衡器插件 来安装和使用负载均衡器插件。
+                - 安装负载均衡器插件：<https://v2-1.docs.kubesphere.io/docs/zh-CN/installation/qingcloud-lb>
+    - 填写基本信息
+    - 指定容器、负载、端口
+    - 创建 TLS 证书密钥
+    - 创建应用路由
+
 
 
 -------------------------------------------------------------------
