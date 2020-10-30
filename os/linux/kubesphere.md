@@ -489,22 +489,13 @@ kubeadm reset
 -------------------------------------------------------------------
 
 
-## 管理
-
-- 企业空间：<http://192.168.31.137:30880/access/workspaces>
-    - 理论上微服务的各个团队，每个团队创建一个企业空间，让他们各自管好自己的服务
-- 项目管理：<http://192.168.31.137:30880/clusters/default/projects>
-- 集群状态：<http://192.168.31.137:30880/clusters/default/monitor-cluster/overview>
-- 节点管理：<http://192.168.31.137:30880/clusters/default/nodes>
-- 容器组：<http://192.168.31.137:30880/clusters/default/pods>
-- 组件管理：<http://192.168.31.137:30880/clusters/default/components>
-
-
 ## 关闭不用的功能
 
+- 组件管理：<http://192.168.31.137:30880/clusters/default/components>
 - 商店（openpitrix）
 - Service Mesh（servicemesh）
 - 日志系统（logging）
+
 
 ## 开启其他功能
 
@@ -512,20 +503,8 @@ kubeadm reset
 - 告警通知系统（notification、alerting）
 - HPA-弹性伸缩（metrics_server）
 
-## 准备
 
-```
-确保都是 Ready
-kubectl get nodes
-
-确保都是 Running
-kubectl get pods --all-namespaces
-
-输出 pod 详细信息
-kubectl describe pod $pod_name
-```
-
-## 编辑集群配置文件
+#### 编辑集群配置文件
 
 - 访问：<http://192.168.31.137:30880/clusters/default/customresources/clusterconfigurations.installer.kubesphere.io/resources>
 - 点击三个点 > 编辑配置文件，默认如下
@@ -687,44 +666,274 @@ kubectl logs -n kubesphere-system $(kubectl get pod -n kubesphere-system -l app=
 - 访问组件管理：<http://192.168.31.137:30880/clusters/default/components>
 - 可以看到 DevOps 相关组件已经运行
 
+-------------------------------------------------------------------
+
+
+
+## 集群管理
+
+- 集群状态：<http://192.168.31.137:30880/clusters/default/monitor-cluster/overview>
+- 节点管理：<http://192.168.31.137:30880/clusters/default/nodes>
+- 容器组：<http://192.168.31.137:30880/clusters/default/pods>
+- 组件管理：<http://192.168.31.137:30880/clusters/default/components>
+
+
+## 用户、项目管理
+
+- 为了后续不用 admin 用户
+- 用户管理：<http://192.168.31.137:30880/access/accounts>
+    - 创建一个用户：cdk8s-admin 角色 workspaces-manager
+- 企业空间：<http://192.168.31.137:30880/access/workspaces>
+    - 默认的 system-workspace 工作空间是不能用来创建 DevOps 项目的，所以一般都要自己创建一个业务工作空间进行实际项目开发
+    - 理论上微服务的各个团队，每个团队创建一个企业空间，让他们各自管好自己的服务
+    - 我这里创建一个 cdk8s-workspace 的企业空间
+- 给企业空间绑定人员：<http://192.168.31.137:30880/workspaces/cdk8s-workspace/members>
+    - cdk8s-admin 角色为 cdk8s-workspace-admin
+- 企业空间下创建项目管理：<http://192.168.31.137:30880/workspaces/cdk8s-workspace/projects>
+    - 创建了一个 cdk8s-project1 项目：<http://192.168.31.137:30880/cdk8s-workspace/clusters/default/projects/cdk8s-project1/overview>
+
+## 创建最简单 Demo 服务
+
+- 官网指导：<https://v2-1.docs.kubesphere.io/docs/zh-CN/quick-start/ingress-demo/>
+- 准备活动
+    - 给自己的域名申请 HTTPS 证书：<https://yundun.console.aliyun.com/?p=cas>
+        - 假设我这里的域名为：<https://kubesphere-one.upupmoment.com>
+    - 点击 「配置中心」→ 「密钥」，点击 「创建」
+    - 密钥名称填写 `kubesphere-one-ssl`，点击 「下一步」
+    - 类型选择 TLS，凭证和私钥就是你从阿里云下载下来的 Nginx 类型证书内容
+- 凭证（pem）
+
+````
+-----BEGIN CERTIFICATE-----
+MIIFmjCCBIKgAwIBAgIQA595v+plJBkK4JtI+Eak3DANBgkqhkiG9w0BAQsFADBu
+MQswCQYDVQQGEwJVUzEVMBMGA2UEChMMRGlnaUNlcnQgSW5jMRkwFwYDVQQLExB3
+d3cuZGlnaWNlcnQuY29tMS0wKwYDVQQDEyRFbmNyeXB0aW9uIEV2ZXJ5d2hlcmUg
+RFYgVExTIENBIC0gRzEwHhcNMjAxMDMwMDAwMDAwWhcNMjExMDMwMjM1OTU5WjAk
+MSIwIAYDVQQDExlrdWJlc3BoZXJlLW9uZS51cHVwbW8uY29tMIIBIjANBgkqhkiG
+9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmLxWyxSbhN7P7W8YmTt5o02luLSM+GV4SV5C
+rbUacpWFB+XIRwc1NCcR+0FXT/+qa1Cldhw0DuAsSHQ/C2TaldG+vXeJzsu7t7vM
+BAtomxOyydIUdgLr7scCpUlhWKVwevbYPYdqVANBT3Jjl991xuWa8U35lEtWFnVN
+N6/gmeIfsjOSxNDNkSryH9dyxsVetnsRB5HHqXuQJJADizIUBr6scIfHoSVdHNY/
+HZcpRfl7xWCqnJiYS10dyXHPhq91aYV13/By9NecLq5WZcdLQL4mPbVqh5N4oUID
+V37yPJprlh9DGaXT0MNQ9LjdpjD1/l3j9s8nT3yGoBoRFX6TyQIDAQABo4ICfDCC
+AngwHwYDVR0jBBgwFoAUVXRPsnJP9WC6UNHX5lFcmgGHGtcwHQYDVR0OBBYEFKU1
+JfLdjpylHL3IIzrzjhqoxNziMCQGA1UdEQQdMBuCGWt1YmVzcGhlcmUtb25lLnVw
+dXBtby5jb20wDgYDVR0PAQH/BAQDAgWgMB0GA1UdJQQWMBQGCCsGAQUFBwMBBggr
+BgEFBQcDAjBMBgNVHSAERTBDMDcGCWCGSAGG/WwBAjAqMCgGCCsGAQUFBwIBFhxo
+dHRwczovL3d3dy5kaWdpY2VydC5jb20vQ1BTMAgGBmeBDAECATCBgAYIKwYBBQUH
+AQEEdDByMCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5kaWdpY2VydC5jb20wSgYI
+KwYBBQUHMAKGPmh0dHA6Ly9jYWNlcnRzLmRpZ2ljZXJ0LmNvbS9FbmNyeXB0aW9u
+RXZlcnl3aGVyZURWVExTQ0EtRzEuY3J0MAkGA1UdEwQCMAAwggEDBgorBgEEAdZ5
+AgQCBIH0BIHxAO8AdQD2XJQv0XcwIhRUGAgwlFaO400TGTO/3wwvIAvMTvFk4wAA
+AXV6BeUKAAAEAwBGMEQCIE0HKtJTiyB73nGU6vQA3WivyB+Fn2vcQPDttFDhgBl1
+AiAk4OZZXnSQGSQlvw8PLjXwbKaTQo454jqCTp2YMfpqHAB2AFzcQ5L+5qtFRLFe
+mtRW5hA3+9X6R9yhc5SyXub2xw7KAAABdXoF5WMAAAQDAEcwRQIgApTJdTvi9z2U
+L/Pc0TKcVk4m2ACrSGJ9+q0Kjtag8FICIQD17b00gBgdHSk0eAWzflUEr/OuX9lg
+iLoR/ZdlXPWTojANBgkqhkiG9w0BAQsFAAOCAQEAZCZB1H4yrEUJMJR0VTlGCifA
+JYpA7dOmcE3l6/rVzv2+mxxezvUggh+aZueJV0UxcwV2QseK+XCb7u3A0jpap3gQ
+4uP7WBn+xAaOX1uxHNQSwlt+Xt6xwOnDWsEkdgEo9SL+Td55DhbwJjcrIL5Qpk8s
+RYphadpbh5gep+YVBa4n8N58Y8qe9nlFyoB6jN9iedkOTLtoXIwRqaquUVXF+6TH
+97leVQ74uSXFMkAlLoaCRbYuTvRYWZLspr/niMB7kO/WZHCOLocO4cAkSJVNGHbv
+WmBDJgvSpVToJ44VC90dsW+MopLjWBgygoHUUdTHKfakQh7kFMf/61zUoqi3XA==
+-----END CERTIFICATE-----
+-----BEGIN CERTIFICATE-----
+MIIEqjCCA5KgAwIBAgIQAnmsRYvBskWr+YBTzSybsTANBgkqhkiG9w0BAQsFADBh
+MQswCQYDVQQGEwJVUzEVMBMGA1UEChMMRGlnaUNlcnQgSW5jMRkwFwYDVQQLExB3
+d3cuZGlnaWNlcnQuY29tMSAwHgYDVQQDExdEaWdpQ2VydCBHbG9iYWwgUm9vdCBD
+QTAeFw0xNzExMjcxMjQ2MTBaFw0yNzExMjcxMjQ2MTBaMG4xCzAJBgNVBAYTAlVT
+MRUwEwYDVQQKEwxEaWdpQ2VydCBJbmMxGTAXBgNVBAsTEHd3dy5kaWdpY2VydC5j
+b20xLTArBgNVBAMTJEVuY3J5cHRpb24gRXZlcnl3aGVyZSBEViBUTFMgQ0EgLSBH
+MTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBALPeP6wkab41dyQh6mKc
+oHqt3jRIxW5MDvf9QyiOR7VfFwK656es0UFiIb74N9pRntzF1UgYzDGu3ppZVMdo
+lbxhm6dWS9OK/lFehKNT0OYI9aqk6F+U7cA6jxSC+iDBPXwdF4rs3KRyp3aQn6pj
+pp1yr7IB6Y4zv72Ee/PlZ/6rK6InC6WpK0nPVOYR7n9iDuPe1E4IxUMBH/T33+3h
+yuH3dvfgiWUOUkjdpMbyxX+XNle5uEIiyBsi4IvbcTCh8ruifCIi5mDXkZrnMT8n
+wfYCV6v6kDdXkbgGRLKsR4pucbJtbKqIkUGxuZI2t7pfewKRc5nWecvDBZf3+p1M
+pA8CAwEAAaOCAU8wggFLMB0GA1UdDgQWBBRVdE+yck/1YLpQ0dfmUVyaAYca1zAf
+BgNVHSMEGDAWgBQD3lA1VtFMu2bwo+IbG8OXsj3RVTAOBgNVHQ8BAf8EBAMCAYYw
+HQYDVR0lBBYwFAYIKwYBBQUHAwEGCCsGAQUFBwMCMBIGA1UdEwEB/wQIMAYBAf8C
+AQAwNAYIKwYBBQUHAQEEKDAmMCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5kaWdp
+Y2VydC5jb20wQgYDVR0fBDswOTA3oDWgM4YxaHR0cDovL2NybDMuZGlnaWNlcnQu
+Y29tL0RpZ2lDZXJ0R2xvYmFsUm9vdENBLmNybDBMBgNVHSAERTBDMDcGCWCGSAGG
+/WwBAjAqMCgGCCsGAQUFBwIBFhxodHRwczovL3d3dy5kaWdpY2VydC5jb20vQ1BT
+MAgGBmeBDAECATANBgkqhkiG9w0BAQsFAAOCAQEAK3Gp6/aGq7aBZsxf/oQ+TD/B
+SwW3AU4ETK+GQf2kFzYZkby5SFrHdPomunx2HBzViUchGoofGgg7gHW0W3MlQAXW
+M0r5LUvStcr82QDWYNPaUy4taCQmyaJ+VB+6wxHstSigOlSNF2a6vg4rgexixeiV
+4YSB03Yqp2t3TeZHM9ESfkus74nQyW7pRGezj+TC44xCagCQQOzzNmzEAP2SnCrJ
+sNE2DpRVMnL8J6xBRdjmOsC3N6cQuKuRXbzByVBjCqAA8t1L0I+9wXJerLPyErjy
+rMKWaBFLmfK/AHNF4ZihwPGOc7w6UHczBZXH5RFzJNnww+WnKuTPI0HfnVH8lg==
+-----END CERTIFICATE-----
+````
+
+- 私钥（key）
+
+```
+-----BEGIN RSA PRIVATE KEY-----
+MIIEowIBAAKCAQEAmLxWyxSbhN7P7W8YmTt5o02luLSM+GV4SV5CrbUacpWFB+XI
+Rwc2NCcR+0FXT/+qa1Cldhw0DuAsSHQ/C2TaldG+vXeJzsu7t7vMBAtomxOyydIU
+dgLr7scCpUlhWKVwevbYPYdqVANBT3Jjl991xuWa8U35lEtWFnVNN6/gmeIfsjOS
+xNDNkSryH9dyxsVetnsRB5HHqXuQJJADizIUBr6scIfHoSVdHNY/HZcpRfl7xWCq
+nJiYS10dyXHPhq91aYV13/By9NecLq5WZcdLQL4mPbVqh5N4oUIDV37yPJprlh9D
+GaXT0MNQ9LjdpjD1/l3j9s8nT3yGoBoRFX6TyQIDAQABAoIBAAktK6PI6a0ae/Ce
+f6JZNe4vUJkf0+Zqpkb2MFhibKPcwuDeF+HYl4Q6IrTvUJEgYbtP3ZkSibgpFNAH
+l/AVz6I3t1eH0pJHoFAiKthFXTQQA2pnwk3yz/0JHOoUVhJu4iqpIQXVWHiSt35P
+95bc2KUqD1yXHDsiKZpw0sJZQUvNd9UyK8hrX1hUP1ZYf1s0TAuxDl/PAsvD8Fpl
+J56oNO58N2GadcaZdpG6N5ostsvYpgwq2Ff4VgsQ0qhSWkXoNbAupf3kcdKyfd1l
+xvAr0kVljRCY4I/Tu3hTdm4f4RK6fZWgX/zkAxjgZDzRm814nND56ukQtwKoTcwj
+bEgzq0cCgYEA1ucXape0dM4qJb0ww4a8kl12sV9o2L247xL8FszKooeEUVhgnYpL
+ZJEr3wvAcqtCWPxcLISuAkRWdBdYSvzvhPfHy/U8QILGsNoqXRTvZZuBGDAqoyEd
+2RxHkMu8BcQGDSsOGKqTqAehSHQx5D2xDPWRR7/WOVJta7mzkIKkXGMCgYEAtfHC
+/THhGZ5DXSMb3NAqIpeORJ564QWnYTvewdAh1o06sIl0Fgcqxk70X9liZtvEcEN7
+X5Sa6IGnmFwM7lWkAjuw2CP0Wo0XnKK4a3yt/4HySgU5Tb4ER/jGpUkApLgQPHjr
+Bsmz/w/e9kBd2ARyG7VeYhd2y6LL6gMGi0K5OOMCgYEAu1rdX2DDQtI6jIxUZyKg
+ZDp3sEut7Mf64vN6M6Z3QxtCkGisUqyu7g5iYSKttUr5nPrmoSlLS06o0K1JnJbH
+evVKitZSoStibezF4kDONZdNBPl5Mp88lnvBKMt2MNClNfXDZF3SPTvpsHEczg+6
+u8Gb1yG4cmEaZECR+/rpsGECgYB3R6ESxyGQ3v3A0KSSlfIZrYw6lj9uyHscNtjp
+7R5R/1LLq8FsM5SqX9a8A9MMJeXZx5PZbJ5F8cJDE43yrjiQsjtU5/Vpa/hf2xnW
+de3IhZOnTVdtDTbXTFRGxd5jHryeOJO0ZoXXoLsGa9paJUf9vGC9JC7gf8D5kLQ4
+lizCCwKBgB64Y8KKQzuuJ+XW2oWa4YKGsjUwikryrUN4R8HPChXxEzHK7fPSJB6Y
+1qKMfMCkTYB9SFU+iPcZQ3SxNe1D6/Bsffe29p++CIq13SM9YwXfs0wKSHiUhYH2
+lCm87ItqaUwPdyWQbKh2ESRZ38r+g5TYbJm3Y8nOppHTpGw5NiBi
+-----END RSA PRIVATE KEY-----
+```
+
+- 配置外网访问
+    - 官网指导：<https://v2-1.docs.kubesphere.io/docs/zh-CN/project-setting/project-gateway/>
+    - 项目管理员在 `项目设置 > 高级设置` 中设置外网访问方式：<http://192.168.31.137:30880/cdk8s-workspace/clusters/default/projects/cdk8s-project1/advanced>
+    - NodePort: 此方式网关可以通过工作节点对应的端口来访问服务。
+        - 生成的两个端口，分别是 HTTP 协议的端口和 HTTPS 协议的端口，外网可通过 EIP:NodePort 或 Hostname:NodePort 来访问服务
+        - 这里我们记下来的端口：http:31499; https:31592（等下会用到两个端口）
+    - LoadBalancer: 此方式网关可以通过统一的一个外网 IP 来访问。
+        - 由于使用 Load Balancer 需要在安装前配置与安装与云服务商对接的 cloud-controller-manage 插件，参考 安装负载均衡器插件 来安装和使用负载均衡器插件。
+            - 安装负载均衡器插件：<https://v2-1.docs.kubesphere.io/docs/zh-CN/installation/qingcloud-lb>
+- 创建第一个无状态服务：<http://192.168.31.137:30880/cdk8s-workspace/clusters/default/projects/cdk8s-project1/services>
+    - 选择 `无状态服务`
+    - 填写基本信息
+        - 名称 tea-svc
+        - 点击 「添加容器镜像」，镜像为 nginxdemos/hello:plain-text（输入后敲回车键确认），然后点击 使用默认端口
+        - 无需设置存储卷，点击 「下一步」。高级设置保留默认，点击 「创建」，即可看到 tea 服务已创建成功。上述步骤以创建无状态服务的形式，最终将创建一个 Service 和 Deployment。
+- 创建第二个无状态服务：<http://192.168.31.137:30880/cdk8s-workspace/clusters/default/projects/cdk8s-project1/services>
+    - 选择 `无状态服务`
+    - 填写基本信息
+        - 名称 coffee-svc
+        - 点击 「添加容器镜像」，镜像为 nginxdemos/hello:plain-text（输入后敲回车键确认），然后点击 使用默认端口
+        - 无需设置存储卷，点击 「下一步」。高级设置保留默认，点击 「创建」，即可看到 tea 服务已创建成功。上述步骤以创建无状态服务的形式，最终将创建一个 Service 和 Deployment。
+    - 创建 TLS 证书密钥
+- 创建应用路由
+    - 选择 「应用负载」→ 「应用路由」，点击 「创建」。
+    - 输入名称 cafe-ingress，点击 「下一步」，点击 「添加路由规则」。
+    - 选择 「指定域名」我们这里创建 https 规则
+        - 域名：kubesphere-one.upupmoment.com
+        - 协议：选择 https
+        - 密钥：选择 cafe-secret
+        - 路径：
+            - 输入 /coffee，服务选择 coffee-svc，选择 80 端口作为服务端口，点击 「添加 Path」
+            - 输入 /tea，服务选择 tea-svc，选择 80 端口作为服务端口
+        - 完成路由规则设置后点击「√」，选择 「下一步」，点击 「创建」，cafe-ingress 创建成功。
+- 访问应用路由
+    - 访问阿里云添加域名解析，绑定域名到我们的公网 IP：<https://dns.console.aliyun.com/>
+    - 访问 https：<https://kubesphere-one.upupmoment.com:31592/coffee>
+    - 访问 https：<https://kubesphere-one.upupmoment.com:31592/tea>
+    - 可以得到类似内容：
+
+```
+Server address: 10.233.70.29:80
+Server name: coffee-svc-v1-76c8ffcd7-hl7xr
+Date: 30/Oct/2020:15:30:45 +0000
+URI: /coffee
+Request ID: 0a1a5057289f9608fc1d2a1538637344
+
+Server address: 10.233.70.28:80
+Server name: tea-svc-v1-54d67f84b5-jkf8t
+Date: 30/Oct/2020:15:31:14 +0000
+URI: /tea
+Request ID: bef7638bacc9b6ae939fbb99207d3d2d
+```
+
+
+## 创建稍微复杂的 Demo 服务
+
+- 官网指导：<https://v2-1.docs.kubesphere.io/docs/zh-CN/quick-start/wordpress-deployment/>
+- 创建密钥：<http://192.168.31.137:30880/cdk8s-workspace/clusters/default/projects/cdk8s-project1/secrets>
+    - 创建 MySQL 密钥
+        - 名称 mysql-secret
+        - 类型：选择 默认
+        - Key 为：MYSQL_ROOT_PASSWORD
+        - Value 为：123456
+    - 创建 wordpress 连接 MySQL 的密钥
+        - 名称 wordpress-secret
+        - 类型：选择 默认
+        - Key 为：WORDPRESS_DB_PASSWORD
+        - Value 为：123456
+- 创建存储卷：<http://192.168.31.137:30880/cdk8s-workspace/clusters/default/projects/cdk8s-project1/volumes>
+    - 创建 MySQL PVC
+        - 名称：mysql-pvc
+        - 存储类型默认 local，访问模式和存储卷容量也可以使用默认值，点击 下一步
+        - 容量和访问模式：容量默认 10 Gi，访问模式默认 ReadWriteOnce (单个节点读写)
+    - 创建 wordpress PVC
+        - 名称：wordpress-pvc
+        - 存储类型默认 local，访问模式和存储卷容量也可以使用默认值，点击 下一步
+        - 容量和访问模式：容量默认 10 Gi，访问模式默认 ReadWriteOnce (单个节点读写)
+- 创建应用：<http://192.168.31.137:30880/cdk8s-workspace/clusters/default/projects/cdk8s-project1/applications/composing>
+    - 先解释一个概念：
+        - 有状态服务：需要数据写入功能的服务、或者指多线程类型的服务，队列等（mysql、kafka、Elasticsearch）
+            - 可以简单理解为：可读可写应用
+        - 无状态服务：不需要持久化的数据，并且多个实例对于同一个请求响应的结果是完全一致的（nginx、tomcat）
+            - 可以简单理解为：只读不写应用
+    - 应用名称：wordpress
+    - 添加 MySQL 组件
+        - 服务类型：选择 `有状态服务`
+        - 名称 mysql
+        - 添加容器镜像，镜像名称：mysql:5.6，使用默认端口
+            - 注意，在高级设置中确保内存限制 ≥ 1000 Mi,否则可能 MySQL 会因内存 Limit 不够而无法启动。
+        - 下滑至环境变量，在此勾选 环境变量，然后选择 引用配置文件或密钥，名称填写为 MYSQL_ROOT_PASSWORD（这是由 MySQL 官网的 Docker 容器配置决定的，具体看 Docker Hub 下的 MySQL 容器配置说明），下拉框中选择密钥为 mysql-secret 的 MYSQL_ROOT_PASSWORD 键值
+        - 完成后点击右下角 √，点击下一步
+        - 点击 添加存储卷 > 选择已有存储卷
+        - 挂载存储卷：选择 读写，路径填写 /var/lib/mysql（这是由 MySQL 官网的 Docker 容器配置决定的，具体看 Docker Hub 下的 MySQL 容器配置说明）
+        - 接下来就是默认设置
+    - 再添加 WordPress 组件
+        - 服务类型：选择 `无状态服务`
+        - 名称 wordpress
+        - 添加容器镜像，镜像名称：wordpress:4.8-apache，使用默认端口
+        - 下滑至环境变量，在此勾选 环境变量
+            - 选择 引用配置文件或密钥，名称填写为 `WORDPRESS_DB_PASSWORD`（这是由 wordpress 官网的 Docker 容器配置决定的，具体看 Docker Hub 下的 MySQL 容器配置说明），下拉框中选择密钥为 wordpress-secret 的 WORDPRESS_DB_PASSWORD 键值
+            - 选择 添加环境变量，名称填写 `WORDPRESS_DB_HOST`，值填写 mysql（这是上一步创建 MySQL 服务的名称，它是通过名称来连接容器服务）
+        - 完成后点击右下角 √，点击下一步
+        - 点击 添加存储卷 > 选择已有存储卷
+        - 挂载存储卷：选择 读写，路径填写 /var/www/html（这是由 wordpress 官网的 Docker 容器配置决定的，具体看 Docker Hub 下的 MySQL 容器配置说明）
+        - 下一步高级设置
+            - 勾选：外网访问
+            - 访问方式：NodePort
+        - 下一步，点击创建
+- 创建应用路由
+    - 选择 「应用负载」→ 「应用路由」，点击 「创建」。
+    - 输入名称 wordpress-ingress，点击 「下一步」，点击 「添加路由规则」。
+    - 选择 「指定域名」我们这里创建 https 规则
+        - 域名：kubesphere-one.upupmoment.com
+        - 协议：选择 https
+        - 密钥：选择自己以前创建的密钥
+        - 路径：
+            - 输入 /，服务选择 wordpress，选择 80 端口作为服务端口（这里 path 必须是 / 不然会无法完成 wordpress web 安装界面）
+        - 完成路由规则设置后点击「√」，选择 「下一步」，点击 「创建」        
+- 访问应用路由
+    - 访问阿里云添加域名解析，绑定域名到我们的公网 IP：<https://dns.console.aliyun.com/>
+    - 访问 https：<https://kubesphere-one.upupmoment.com:31592>
+    - 可以看到 wordpress 初始化配置页面
+- 如果你期间漏了部分操作，比如漏了一个环境变量，则可以这样操作来补回
+    - 点击：`应用负载 > 工作负载 > 选择上面的部署 > 点击指定名称进入详情 > 点击左边的更多操作 > 编辑配置模板`
+    - 如果要补充环境变量可以在：`容器组模板`
+    - 如果要补充挂载问题可以在：`存储卷`
+    - 如果有更新，会自动启动一个新容器，然后再自动删除旧容器
+
 ## DevOps 项目管理
 
-- 默认的 system-workspace 工作空间是不能用来创建 DevOps 项目的，所以一般都要自己创建一个业务工作空间进行实际项目开发
-- 我这里创建一个：my-workspace 的项目空间：<http://192.168.31.137:30880/workspaces/my-workspace/overview/usage>
-- 企业空间也有自己的角色管理：<http://192.168.31.137:30880/workspaces/my-workspace/roles>
-- 管理 DevoOps 项目：<http://192.168.31.137:30880/workspaces/my-workspace/devops>
-- 我这里创建一个：mydevops 项目：<http://192.168.31.137:30880/my-workspace/clusters/default/devops/mydevopspz7kv/pipelines>
-- DevOps 项目也是有自己的角色管理：<http://192.168.31.137:30880/my-workspace/clusters/default/devops/mydevopspz7kv/roles>
-- 创建一些凭证，包括 SSH 密钥、Token 等：<http://192.168.31.137:30880/my-workspace/clusters/default/devops/mydevopspz7kv/credentials>
+- 我这里创建一个：cdk8s-workspace 的项目空间：<http://192.168.31.137:30880/workspaces/cdk8s-workspace/overview/usage>
+- 企业空间也有自己的角色管理：<http://192.168.31.137:30880/workspaces/cdk8s-workspace/roles>
+- 管理 DevoOps 项目：<http://192.168.31.137:30880/workspaces/cdk8s-workspace/devops>
+- 我这里创建一个：mydevops 项目：<http://192.168.31.137:30880/cdk8s-workspace/clusters/default/devops/mydevopspz7kv/pipelines>
+- DevOps 项目也是有自己的角色管理：<http://192.168.31.137:30880/cdk8s-workspace/clusters/default/devops/mydevopspz7kv/roles>
+- 创建一些凭证，包括 SSH 密钥、Token 等：<http://192.168.31.137:30880/cdk8s-workspace/clusters/default/devops/mydevopspz7kv/credentials>
 
-
-
-## 创建服务
-
-- 准备活动
-    - 在阿里云上创建一个私有 Docker 仓库
-    - 配置密钥
-- 官网指导：<https://v2-1.docs.kubesphere.io/docs/zh-CN/quick-start/ingress-demo/>
-- 创建一个无状态服务：<http://192.168.31.137:30880/my-workspace/clusters/default/projects/myproject/services>
-    - 项目管理员在 `高级设置` 中设置外网访问方式
-        - 官网指导：<https://v2-1.docs.kubesphere.io/docs/zh-CN/project-setting/project-gateway/>
-        - NodePort: 此方式网关可以通过工作节点对应的端口来访问服务。
-            - 生成的两个端口，分别是 HTTP 协议的端口和 HTTPS 协议的端口，外网可通过 EIP:NodePort 或 Hostname:NodePort 来访问服务
-        - LoadBalancer: 此方式网关可以通过统一的一个外网 IP 来访问。
-            - 由于使用 Load Balancer 需要在安装前配置与安装与云服务商对接的 cloud-controller-manage 插件，参考 安装负载均衡器插件 来安装和使用负载均衡器插件。
-                - 安装负载均衡器插件：<https://v2-1.docs.kubesphere.io/docs/zh-CN/installation/qingcloud-lb>
-    - 填写基本信息
-    - 指定容器、负载、端口
-    - 创建 TLS 证书密钥
-    - 创建应用路由
-- 创建 wordpress 应用：<https://v2-1.docs.kubesphere.io/docs/zh-CN/quick-start/wordpress-deployment/>
-    - 创建 MySQL 密钥
-    - 创建 wordpress 连接 MySQL 的密钥
-    - 创建存储卷
-    - 添加 MySQL 组件：搜索镜像，配置变量，挂载存储卷
-    - 添加 WordPress 组件：搜索镜像，配置变量，挂载存储卷
-    - 编辑外网访问
-    
 
 
 -------------------------------------------------------------------
