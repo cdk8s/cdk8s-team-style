@@ -658,12 +658,15 @@ spec:
     enabled: false
 ```
 
-- 改完之后 kubesphere 安装的守护进程就会开始变更操作，通过下面命令可以查看安装过程 log：
+- 改完之后 kubesphere 安装的守护进程就会开始变更操作，通过下面命令可以查看安装过程 log，安装过程需要五分钟左右：
 
 ```
 kubectl logs -n kubesphere-system $(kubectl get pod -n kubesphere-system -l app=ks-install -o jsonpath='{.items[0].metadata.name}') -f
 
 最后出现 Welcome to KubeSphere! 表示安装成功
+
+查看 pod 情况：
+kubectl get pods -A
 ```
 
 - 访问组件管理：<http://192.168.31.137:30880/clusters/default/components>
