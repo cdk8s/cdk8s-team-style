@@ -71,67 +71,67 @@
 
 -------------------------------------------------------------------
 
-## 高可用集群开始安装
+## KubeSphere 3.0.0 在阿里云、腾讯云、物理机单机 All-in-one 经验总结
+
+- **核心：** 在腾讯云上默认有一个坑，就是 hostname 是大写，会造成安装失败，所以请按照我的来
+- 当前（202010）KubeSphere 最新版本号：3.0.0
+- 官网说明：<https://kubesphere.io/zh/docs/quick-start/all-in-one-on-linux/>
+
+#### 我的服务器硬件信息说明
 
 ```
-假设这三台的局域网 IP 分别为：
-master1：172.18.103.121
-master2：172.18.103.122
-master3：172.18.103.123
-node1：172.18.103.124
-node2：172.18.103.125
-node3：172.18.103.126
+8核 16GB 5Mbps 50GB
+公网IP：81.61.121.155
+私有IP：172.16.0.5
+安全组是开放所有端口
+```
 
-所有服务器都要关闭 SELinux
+#### 我的服务器软件信息说明
+
+```
+系统：CentOS 7.8
+
+关闭 SELinux
 setenforce 0 && sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
 
-所有服务器都要禁用防火墙
+禁用防火墙
 systemctl stop firewalld && systemctl disable firewalld && echo "vm.swappiness = 0" >> /etc/sysctl.conf && swapoff -a && sysctl -w vm.swappiness=0
 
-所有服务器都要先安装一些简单工具：
+安装一些简单工具：
 yum install -y zip unzip lrzsz git epel-release wget htop deltarpm
 
-所有服务器都要更换CentOS YUM源为阿里云yum源
+服务器更换 CentOS YUM 源为阿里云
 mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup
 wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo
 wget -O /etc/yum.repos.d/epel.repo http://mirrors.aliyun.com/repo/epel-7.repo
 yum clean all && yum makecache
 yum update -y
 
-
-所有服务器都要进行时间同步，并确认时间同步成功
+时间同步
 timedatectl && timedatectl set-ntp true
+
+设置 hostname，这个最好设置一下，并且设置全部小写字母和数字，一定要小写字母
+hostnamectl set-hostname master
 
 开始在所选安装机器上设置免密登录，我这里选择了 master1
 ssh-keygen -t rsa -b 2048 -N '' -f ~/.ssh/id_rsa
 
 这里都是内网地址
-ssh-copy-id -i /root/.ssh/id_rsa.pub -p 22 root@172.18.103.121
-ssh-copy-id -i /root/.ssh/id_rsa.pub -p 22 root@172.18.103.122
-ssh-copy-id -i /root/.ssh/id_rsa.pub -p 22 root@172.18.103.123
-ssh-copy-id -i /root/.ssh/id_rsa.pub -p 22 root@172.18.103.124
-ssh-copy-id -i /root/.ssh/id_rsa.pub -p 22 root@172.18.103.125
-ssh-copy-id -i /root/.ssh/id_rsa.pub -p 22 root@172.18.103.126
+ssh-copy-id -i /root/.ssh/id_rsa.pub -p 22 root@172.16.0.5
 
 测试下是否可以免登陆：
-ssh -p 22 root@172.18.103.121
-ssh -p 22 root@172.18.103.122
-ssh -p 22 root@172.18.103.123
-ssh -p 22 root@172.18.103.124
-ssh -p 22 root@172.18.103.125
-ssh -p 22 root@172.18.103.126
+ssh -p 22 root@172.16.0.5
 ```
 
-- 安装中间会自动帮我们安装 docker，但是安装后默认的源是 Docker 国外的会很慢
-- 所以我们可以考虑自己安装 Docker，改源。当前时间 2020-10 KubeSphere 3.0.0 用的是 `Docker version 19.03.13, build 4484c46d9d`
+#### 安装 Docker
+
+- 虽然 kubekey 安装中间会自动帮我们安装 docker，但是安装后默认的源是 Docker 国外的会很慢
+- 所以我们可以考虑自己安装 Docker 并且修改源。当前时间 2020-10 KubeSphere 3.0.0 用的是 `Docker version 19.03.13, build 4484c46d9d`
+- 开始安装 Docker
 
 ```
 yum install -y yum-utils device-mapper-persistent-data lvm2
-
-
-# 这里用阿里云源地址
 yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
-
 yum install -y containerd.io docker-ce-19.03.13 docker-ce-cli-19.03.13
 
 systemctl start docker
@@ -153,6 +153,244 @@ systemctl daemon-reload
 systemctl restart docker
 ```
 
+## 安装 Kubernetes + KubeSphere
+
+```
+wget -c https://kubesphere.io/download/kubekey-v1.0.0-linux-amd64.tar.gz -O - | tar -xz
+chmod +x kk
+
+开始安装，终端会出现一个当前环境已有环境检查，比如 docker 已安装等
+./kk create cluster --with-kubernetes v1.17.9 --with-kubesphere v3.0.0
+
+如果安装过程出现错误中断了：Failed to init kubernetes cluster: interrupted by error
+那就重新再执行下上面的脚本，重新来一次
+
+当控制台出现这一行字，表示 kubesphere 开始进入守护进程方式安装后续部分了
+INFO[12:51:25 CST] Installation is complete.
+Please check the result using the command:
+kubectl logs -n kubesphere-system $(kubectl get pod -n kubesphere-system -l app=ks-install -o jsonpath='{.items[0].metadata.name}') -f
+
+这时候你可以看到你服务器已经下载了这些镜像：
+[root@master1 ~]# docker images
+REPOSITORY                           TAG                 IMAGE ID            CREATED             SIZE
+kubesphere/ks-installer              v3.0.0              893b46ffa208        6 weeks ago         692MB
+kubesphere/kube-proxy                v1.17.9             ddc09a4c2193        3 months ago        117MB
+kubesphere/kube-controller-manager   v1.17.9             c7f1dde319ee        3 months ago        161MB
+kubesphere/kube-apiserver            v1.17.9             7417868987f3        3 months ago        171MB
+kubesphere/kube-scheduler            v1.17.9             f7b1228fa995        3 months ago        94.4MB
+calico/node                          v3.15.1             1470783b1474        3 months ago        262MB
+calico/pod2daemon-flexvol            v3.15.1             a696ebcb2ac7        3 months ago        112MB
+calico/cni                           v3.15.1             2858353c1d25        3 months ago        217MB
+calico/kube-controllers              v3.15.1             8ed9dbffe350        3 months ago        53.1MB
+kubesphere/provisioner-localpv       1.10.0              6b5529f464f7        5 months ago        68.4MB
+kubesphere/node-disk-operator        0.5.0               8741fafb7b21        5 months ago        167MB
+kubesphere/node-disk-manager         0.5.0               dbbed43bcbdb        5 months ago        168MB
+kubesphere/k8s-dns-node-cache        1.15.12             5340ba194ec9        6 months ago        107MB
+coredns/coredns                      1.6.9               faac9e62c0d6        7 months ago        43.2MB
+kubesphere/etcd                      v3.3.12             28c771d7cfbf        21 months ago       40.6MB
+kubesphere/pause                     3.1                 da86e6ba6ca1        2 years ago         742kB
+
+我们可以根据命令来查看守护进程安装进度：
+kubectl logs -n kubesphere-system $(kubectl get pod -n kubesphere-system -l app=ks-install -o jsonpath='{.items[0].metadata.name}') -f
+
+当我们看到这个就表示守护进程安装成功了
+#####################################################
+###              Welcome to KubeSphere!           ###
+#####################################################
+
+Console: http://172.16.0.5:30880
+Account: admin
+Password: P@88w0rd
+
+NOTES：
+  1. After logging into the console, please check the
+     monitoring status of service components in
+     the "Cluster Management". If any service is not
+     ready, please wait patiently until all components
+     are ready.
+  2. Please modify the default password after login.
+
+#####################################################
+https://kubesphere.io             2020-10-30 17:18:00
+#####################################################
+
+
+这时候我们再来看看下载了哪些镜像：
+[root@master1 ~]# docker images
+REPOSITORY                                    TAG                 IMAGE ID            CREATED             SIZE
+kubesphere/ks-installer                       v3.0.0              893b46ffa208        6 weeks ago         692MB
+kubesphere/ks-controller-manager              v3.0.0              85bd13080839        2 months ago        82MB
+kubesphere/ks-apiserver                       v3.0.0              d9fac59cfb8c        2 months ago        120MB
+kubesphere/ks-console                         v3.0.0              d5987e1f99ac        2 months ago        95.5MB
+prom/prometheus                               v2.20.1             b205ccdd28d3        2 months ago        145MB
+kubesphere/notification-manager               v0.1.0              331a0e6ece23        3 months ago        47.5MB
+kubesphere/notification-manager-operator      v0.1.0              c441b79e9606        3 months ago        44.4MB
+kubesphere/kube-proxy                         v1.17.9             ddc09a4c2193        3 months ago        117MB
+kubesphere/kube-apiserver                     v1.17.9             7417868987f3        3 months ago        171MB
+kubesphere/kube-controller-manager            v1.17.9             c7f1dde319ee        3 months ago        161MB
+kubesphere/kube-scheduler                     v1.17.9             f7b1228fa995        3 months ago        94.4MB
+calico/node                                   v3.15.1             1470783b1474        3 months ago        262MB
+calico/pod2daemon-flexvol                     v3.15.1             a696ebcb2ac7        3 months ago        112MB
+calico/cni                                    v3.15.1             2858353c1d25        3 months ago        217MB
+calico/kube-controllers                       v3.15.1             8ed9dbffe350        3 months ago        53.1MB
+kubesphere/prometheus-config-reloader         v0.38.3             8011d6eb5bac        4 months ago        10.1MB
+kubesphere/prometheus-operator                v0.38.3             a703e647b26f        4 months ago        38.6MB
+prom/alertmanager                             v0.21.0             c876f5897d7b        4 months ago        55.5MB
+kubesphere/kube-state-metrics                 v1.9.6              092e8ed1e0b3        5 months ago        32.8MB
+kubesphere/provisioner-localpv                1.10.0              6b5529f464f7        5 months ago        68.4MB
+kubesphere/node-disk-operator                 0.5.0               8741fafb7b21        5 months ago        167MB
+kubesphere/node-disk-manager                  0.5.0               dbbed43bcbdb        5 months ago        168MB
+kubesphere/linux-utils                        1.10.0              28c1cd0be1ea        5 months ago        11MB
+osixia/openldap                               1.3.0               faac9bb59f83        5 months ago        260MB
+kubesphere/metrics-server                     v0.3.7              07c9e703ca2c        6 months ago        55.4MB
+kubesphere/k8s-dns-node-cache                 1.15.12             5340ba194ec9        6 months ago        107MB
+coredns/coredns                               1.6.9               faac9e62c0d6        7 months ago        43.2MB
+csiplugin/snapshot-controller                 v2.0.1              525889021849        9 months ago        41.4MB
+kubesphere/node-exporter                      ks-v0.18.1          cfb0175954de        11 months ago       23.7MB
+kubesphere/kubectl                            v1.0.0              7f81664a09d0        12 months ago       82.1MB
+redis                                         5.0.5-alpine        ed7d2ff5a623        14 months ago       29.3MB
+jimmidyson/configmap-reload                   v0.3.0              7ec24a279487        14 months ago       9.7MB
+kubesphere/etcd                               v3.3.12             28c771d7cfbf        21 months ago       40.6MB
+kubesphere/kube-rbac-proxy                    v0.4.1              70eeaa7791f2        21 months ago       41.3MB
+kubesphere/pause                              3.1                 da86e6ba6ca1        2 years ago         742kB
+mirrorgooglecontainers/defaultbackend-amd64   1.4                 846921f0fe0e        3 years ago         4.84MB
+
+
+等个 5 分钟再来看看有哪些 pod：
+[root@master ~]# kubectl get pods -A
+NAMESPACE                      NAME                                               READY   STATUS    RESTARTS   AGE
+kube-system                    calico-kube-controllers-59d85c5c84-qbwqb           1/1     Running   0          12m
+kube-system                    calico-node-zn84s                                  1/1     Running   0          12m
+kube-system                    coredns-74d59cc5c6-plx4c                           1/1     Running   0          12m
+kube-system                    coredns-74d59cc5c6-zct54                           1/1     Running   0          12m
+kube-system                    kube-apiserver-master                              1/1     Running   0          12m
+kube-system                    kube-controller-manager-master                     1/1     Running   0          12m
+kube-system                    kube-proxy-9672d                                   1/1     Running   0          12m
+kube-system                    kube-scheduler-master                              1/1     Running   0          12m
+kube-system                    metrics-server-5ddd98b7f9-dbc2n                    1/1     Running   0          11m
+kube-system                    nodelocaldns-6w4rr                                 1/1     Running   0          12m
+kube-system                    openebs-localpv-provisioner-84956ddb89-jkdns       1/1     Running   0          12m
+kube-system                    openebs-ndm-fcrlq                                  1/1     Running   0          12m
+kube-system                    openebs-ndm-operator-6896cbf7b8-sz2pv              1/1     Running   1          12m
+kube-system                    snapshot-controller-0                              1/1     Running   0          9m46s
+kubesphere-controls-system     default-http-backend-5d464dd566-cns9c              1/1     Running   0          9m24s
+kubesphere-controls-system     kubectl-admin-6c9bd5b454-54xhj                     1/1     Running   0          6m22s
+kubesphere-monitoring-system   alertmanager-main-0                                2/2     Running   0          7m35s
+kubesphere-monitoring-system   kube-state-metrics-5c466fc7b6-z8w2c                3/3     Running   0          8m30s
+kubesphere-monitoring-system   node-exporter-jvgws                                2/2     Running   0          8m31s
+kubesphere-monitoring-system   notification-manager-deployment-7ff95b7544-zzk6p   1/1     Running   0          4m12s
+kubesphere-monitoring-system   notification-manager-operator-5cbb58b756-pnpwr     2/2     Running   0          8m17s
+kubesphere-monitoring-system   prometheus-k8s-0                                   3/3     Running   1          7m25s
+kubesphere-monitoring-system   prometheus-operator-78c5cdbc8f-hjg7p               2/2     Running   0          8m31s
+kubesphere-system              ks-apiserver-566f7d5c96-rnk96                      1/1     Running   0          7m57s
+kubesphere-system              ks-console-fb4c655cf-nkq5q                         1/1     Running   0          9m12s
+kubesphere-system              ks-controller-manager-64459d95bb-p9jz7             1/1     Running   0          7m57s
+kubesphere-system              ks-installer-85854b8c8-cmppw                       1/1     Running   0          12m
+kubesphere-system              openldap-0                                         1/1     Running   0          9m35s
+kubesphere-system              redis-6fd6c6d6f9-96rs2                             1/1     Running   0          9m40s
+```
+
+- 访问管理界面：<http://81.61.121.155:30880>
+- 安装结束，尽情享受
+
+-------------------------------------------------------------------
+
+## 高可用集群开始安装
+
+```
+我的服务器硬件信息说明
+4核 8GB 10GB
+安全组是开放所有端口
+系统：CentOS 7.8
+
+假设这三台的局域网 IP 分别为：
+master1：172.18.103.121
+master2：172.18.103.122
+master3：172.18.103.123
+node1：172.18.103.124
+node2：172.18.103.125
+node3：172.18.103.126
+
+
+所有服务器都要关闭 SELinux
+setenforce 0 && sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
+
+所有服务器都要禁用防火墙
+systemctl stop firewalld && systemctl disable firewalld && echo "vm.swappiness = 0" >> /etc/sysctl.conf && swapoff -a && sysctl -w vm.swappiness=0
+
+所有服务器都要先安装一些简单工具：
+yum install -y zip unzip lrzsz git epel-release wget htop deltarpm
+
+所有服务器都要更换CentOS YUM源为阿里云yum源
+mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup
+wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo
+wget -O /etc/yum.repos.d/epel.repo http://mirrors.aliyun.com/repo/epel-7.repo
+yum clean all && yum makecache
+yum update -y
+
+
+所有服务器都要进行时间同步，并确认时间同步成功
+timedatectl && timedatectl set-ntp true
+
+设置 hostname，这个最好设置一下，并且设置全部小写字母和数字，一定要小写字母
+hostnamectl set-hostname master1
+hostnamectl set-hostname master2
+hostnamectl set-hostname master3
+hostnamectl set-hostname node1
+hostnamectl set-hostname node2
+hostnamectl set-hostname node3
+
+开始在所选安装机器上设置免密登录，我这里选择了 master1
+ssh-keygen -t rsa -b 2048 -N '' -f ~/.ssh/id_rsa
+
+这里都是内网地址
+ssh-copy-id -i /root/.ssh/id_rsa.pub -p 22 root@172.18.103.121
+ssh-copy-id -i /root/.ssh/id_rsa.pub -p 22 root@172.18.103.122
+ssh-copy-id -i /root/.ssh/id_rsa.pub -p 22 root@172.18.103.123
+ssh-copy-id -i /root/.ssh/id_rsa.pub -p 22 root@172.18.103.124
+ssh-copy-id -i /root/.ssh/id_rsa.pub -p 22 root@172.18.103.125
+ssh-copy-id -i /root/.ssh/id_rsa.pub -p 22 root@172.18.103.126
+
+测试下是否可以免登陆：
+ssh -p 22 root@172.18.103.121
+ssh -p 22 root@172.18.103.122
+ssh -p 22 root@172.18.103.123
+ssh -p 22 root@172.18.103.124
+ssh -p 22 root@172.18.103.125
+ssh -p 22 root@172.18.103.126
+```
+
+#### 安装 Docker
+
+- 虽然 kubekey 安装中间会自动帮我们安装 docker，但是安装后默认的源是 Docker 国外的会很慢
+- 所以我们可以考虑自己安装 Docker 并且修改源。当前时间 2020-10 KubeSphere 3.0.0 用的是 `Docker version 19.03.13, build 4484c46d9d`
+- 开始安装 Docker
+
+```
+yum install -y yum-utils device-mapper-persistent-data lvm2
+yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+yum install -y containerd.io docker-ce-19.03.13 docker-ce-cli-19.03.13
+
+systemctl start docker
+systemctl enable docker
+
+修改镜像源配置
+vim /etc/docker/daemon.json
+
+{
+  "registry-mirrors": [
+    "https://ldhc17y9.mirror.aliyuncs.com",
+    "https://hub-mirror.c.163.com",
+    "https://mirror.baidubce.com",
+    "https://docker.mirrors.ustc.edu.cn"
+  ]
+}
+
+systemctl daemon-reload
+systemctl restart docker
+```
+
+#### 安装 Kubernetes + KubeSphere
 
 - 购买 SLB 用于对外暴露外网访问
 - 访问实例管理：<https://slbnew.console.aliyun.com/slb/cn-beijing/slbs>
@@ -223,6 +461,7 @@ spec:
 ```
 
 - 接下来使用修改后的配置文件安装
+- 请确保控制台是可以一直保持活动状态，避免中间断了
 
 ```
 ./kk create cluster -f config-sample.yaml
@@ -249,39 +488,6 @@ kubeadm reset
 
 -------------------------------------------------------------------
 
-
-
-
-
-
-
-## Linux 最小安装
-
-- 当前版本（202010）：3.0.0
-- 官网说明：<https://kubesphere.io/zh/docs/quick-start/all-in-one-on-linux/>
-- 服务器环境准备跟集群安装一样，这里省略
-
-```
-下载脚本
-wget -c https://kubesphere.io/download/kubekey-v1.0.0-linux-amd64.tar.gz -O - | tar -xz
-chmod +x kk
-
-开始安装，终端会出现一个当前环境已有环境检查，比如 docker 已安装等
-./kk create cluster --with-kubernetes v1.17.9 --with-kubesphere v3.0.0
-
-如果安装过程出现错误中断了：Failed to init kubernetes cluster: interrupted by error
-那就重新再执行下上面的脚本，重新来一次
-
-当控制台出现这一行字：
-INFO[12:51:25 CST] Installation is complete.
-Please check the result using the command:
-       kubectl logs -n kubesphere-system $(kubectl get pod -n kubesphere-system -l app=ks-install -o jsonpath='{.items[0].metadata.name}') -f
-
-我们可以来查看执行 log
-kubectl logs -n kubesphere-system $(kubectl get pod -n kubesphere-system -l app=ks-install -o jsonpath='{.items[0].metadata.name}') -f
-
-出现 Welcome to KubeSphere! 表示安装成功
-```
 
 ## 管理
 
@@ -511,7 +717,14 @@ kubectl logs -n kubesphere-system $(kubectl get pod -n kubesphere-system -l app=
     - 指定容器、负载、端口
     - 创建 TLS 证书密钥
     - 创建应用路由
-
+- 创建 wordpress 应用：<https://v2-1.docs.kubesphere.io/docs/zh-CN/quick-start/wordpress-deployment/>
+    - 创建 MySQL 密钥
+    - 创建 wordpress 连接 MySQL 的密钥
+    - 创建存储卷
+    - 添加 MySQL 组件：搜索镜像，配置变量，挂载存储卷
+    - 添加 WordPress 组件：搜索镜像，配置变量，挂载存储卷
+    - 编辑外网访问
+    
 
 
 -------------------------------------------------------------------
@@ -625,6 +838,67 @@ spec:
     enabled: false
 ```
 
+
+## 安装过程会下载的镜像
+
+```
+REPOSITORY                                    TAG                            IMAGE ID            CREATED             SIZE
+kubesphere/ks-installer                       v3.0.0                         893b46ffa208        6 weeks ago         692MB
+kubesphere/ks-controller-manager              v3.0.0                         85bd13080839        2 months ago        82MB
+kubesphere/ks-apiserver                       v3.0.0                         d9fac59cfb8c        2 months ago        120MB
+kubesphere/ks-console                         v3.0.0                         d5987e1f99ac        2 months ago        95.5MB
+prom/prometheus                               v2.20.1                        b205ccdd28d3        2 months ago        145MB
+kubesphere/alert-adapter                      v3.0.0                         5387d68961f6        3 months ago        66.5MB
+kubesphere/notification-manager               v0.1.0                         331a0e6ece23        3 months ago        47.5MB
+kubesphere/notification-manager-operator      v0.1.0                         c441b79e9606        3 months ago        44.4MB
+kubesphere/notification                       flyway_v2.1.2                  b1e18b386fa8        3 months ago        157MB
+kubesphere/notification                       v2.1.2                         7a74fe46aab6        3 months ago        59.3MB
+kubesphere/alerting-dbinit                    v3.0.0                         4314e373799f        3 months ago        157MB
+kubesphere/alerting                           v2.1.2                         9e0e584f61f6        3 months ago        102MB
+kubesphere/kube-proxy                         v1.17.9                        ddc09a4c2193        3 months ago        117MB
+kubesphere/kube-controller-manager            v1.17.9                        c7f1dde319ee        3 months ago        161MB
+kubesphere/kube-apiserver                     v1.17.9                        7417868987f3        3 months ago        171MB
+kubesphere/kube-scheduler                     v1.17.9                        f7b1228fa995        3 months ago        94.4MB
+calico/node                                   v3.15.1                        1470783b1474        3 months ago        262MB
+calico/pod2daemon-flexvol                     v3.15.1                        a696ebcb2ac7        3 months ago        112MB
+calico/cni                                    v3.15.1                        2858353c1d25        3 months ago        217MB
+calico/kube-controllers                       v3.15.1                        8ed9dbffe350        3 months ago        53.1MB
+kubesphere/prometheus-config-reloader         v0.38.3                        8011d6eb5bac        4 months ago        10.1MB
+kubesphere/prometheus-operator                v0.38.3                        a703e647b26f        4 months ago        38.6MB
+prom/alertmanager                             v0.21.0                        c876f5897d7b        4 months ago        55.5MB
+kubesphere/jenkins-uc                         v3.0.0                         3fb6df961451        4 months ago        480MB
+kubesphere/kube-state-metrics                 v1.9.6                         092e8ed1e0b3        5 months ago        32.8MB
+kubesphere/provisioner-localpv                1.10.0                         6b5529f464f7        5 months ago        68.4MB
+kubesphere/node-disk-operator                 0.5.0                          8741fafb7b21        5 months ago        167MB
+kubesphere/node-disk-manager                  0.5.0                          dbbed43bcbdb        5 months ago        168MB
+kubesphere/linux-utils                        1.10.0                         28c1cd0be1ea        5 months ago        11MB
+osixia/openldap                               1.3.0                          faac9bb59f83        5 months ago        260MB
+kubesphere/metrics-server                     v0.3.7                         07c9e703ca2c        6 months ago        55.4MB
+kubesphere/k8s-dns-node-cache                 1.15.12                        5340ba194ec9        6 months ago        107MB
+coredns/coredns                               1.6.9                          faac9e62c0d6        7 months ago        43.2MB
+kubesphere/s2ioperator                        v2.1.1                         53e773611f00        8 months ago        42.1MB
+csiplugin/snapshot-controller                 v2.0.1                         525889021849        9 months ago        41.4MB
+alpine                                        3.10.4                         af341ccd2df8        9 months ago        5.56MB
+kubesphere/node-exporter                      ks-v0.18.1                     cfb0175954de        11 months ago       23.7MB
+kubesphere/kubectl                            v1.0.0                         7f81664a09d0        12 months ago       82.1MB
+redis                                         5.0.5-alpine                   ed7d2ff5a623        14 months ago       29.3MB
+jimmidyson/configmap-reload                   v0.3.0                         7ec24a279487        14 months ago       9.7MB
+minio/mc                                      RELEASE.2019-08-07T23-14-43Z   2def265e6001        14 months ago       23.1MB
+minio/minio                                   RELEASE.2019-08-07T01-59-21Z   29c267893b04        15 months ago       61.3MB
+jenkins/jenkins                               2.176.2                        b137a5753eb1        15 months ago       567MB
+kubesphere/nginx-ingress-controller           0.24.1                         98675eb54d0e        18 months ago       631MB
+nginx                                         1.14-alpine                    8a2fb25a19f5        18 months ago       16MB
+kubesphere/etcd                               v3.3.12                        28c771d7cfbf        21 months ago       40.6MB
+kubesphere/kube-rbac-proxy                    v0.4.1                         70eeaa7791f2        21 months ago       41.3MB
+mysql                                         8.0.11                         5dbe5b6313e1        2 years ago         445MB
+kubesphere/etcd                               v3.2.18                        e21fb69683f3        2 years ago         37.2MB
+nginxdemos/hello                              plain-text                     e6797a8b6cd5        2 years ago         16.8MB
+kubesphere/pause                              3.1                            da86e6ba6ca1        2 years ago         742kB
+mirrorgooglecontainers/defaultbackend-amd64   1.4                            846921f0fe0e        3 years ago         4.84MB
+```
+
+
+-------------------------------------------------------------------
 
 ## 持久化存储配置说明
 
