@@ -67,7 +67,7 @@
 
 - kubernetes 官网出品的 dashboard
 - Github 官网：<https://github.com/kubernetes/dashboard>
-- Kubernetes 仪表板是用于 Kubernetes 集群的基于 web 的通用UI。它允许用户管理集群中运行的应用程序并对它们进行故障排除，以及管理集群本身。
+- Kubernetes 仪表板是用于 Kubernetes 集群的基于 web 的通用UI。它允许用户管理集群中运行的应用程序并对它们进行故障排除，以及管理集群本身。功能相对简单。
 
 -------------------------------------------------------------------
 
