@@ -833,7 +833,7 @@ lCm87ItqaUwPdyWQbKh2ESRZ38r+g5TYbJm3Y8nOppHTpGw5NiBi
         - 协议：选择 https
         - 密钥：选择 cafe-secret
         - 路径：
-            - 输入 /coffee，服务选择 coffee-svc，选择 80 端口作为服务端口，点击 「添加 Path」
+            - 输入 /coffee，服务选择 coffee-svc，选择 80 端口作为服务端口（这个 80 是来自：应用负载 > 服务 > 服务端口，不是节点端口），点击 「添加 Path」
             - 输入 /tea，服务选择 tea-svc，选择 80 端口作为服务端口
         - 完成路由规则设置后点击「√」，选择 「下一步」，点击 「创建」，cafe-ingress 创建成功。
 - 访问应用路由
@@ -919,7 +919,7 @@ Request ID: bef7638bacc9b6ae939fbb99207d3d2d
         - 协议：选择 https
         - 密钥：选择自己以前创建的密钥
         - 路径：
-            - 输入 /，服务选择 wordpress，选择 80 端口作为服务端口（这里 path 必须是 / 不然会无法完成 wordpress web 安装界面）
+            - 输入 /，服务选择 wordpress，选择 80 端口作为服务端口（这个 80 是来自：应用负载 > 服务 > 服务端口，不是节点端口）（这里 path 必须是 / 不然会无法完成 wordpress web 安装界面）
         - 完成路由规则设置后点击「√」，选择 「下一步」，点击 「创建」        
 - 访问应用路由
     - 访问阿里云添加域名解析，绑定域名到我们的公网 IP：<https://dns.console.aliyun.com/>
@@ -931,14 +931,93 @@ Request ID: bef7638bacc9b6ae939fbb99207d3d2d
     - 如果要补充挂载问题可以在：`存储卷`
     - 如果有更新，会自动启动一个新容器，然后再自动删除旧容器
 
+-------------------------------------------------------------------
+
+
 ## 搭建 DevOps 项目管理
 
-- 默认安装是没有开启 DevOps 的，这里要先开启
-- 管理 DevoOps 项目：<http://192.168.31.137:30880/workspaces/cdk8s-workspace/devops>
-- 我这里创建一个：mydevops 项目：<http://192.168.31.137:30880/cdk8s-workspace/clusters/default/devops/mydevopspz7kv/pipelines>
-- DevOps 项目也是有自己的角色管理：<http://192.168.31.137:30880/cdk8s-workspace/clusters/default/devops/mydevopspz7kv/roles>
-- 创建一些凭证，包括 SSH 密钥、Token 等：<http://192.168.31.137:30880/cdk8s-workspace/clusters/default/devops/mydevopspz7kv/credentials>
+- 默认安装是没有开启 DevOps 的，这里要先开启方法本文上面已经说了。
+- 管理企业空间下的 DevoOps 项目：<http://192.168.31.137:30880/workspaces/cdk8s-workspace/devops>
+- 我这里创建一个：cdk8s-devops 工程：<http://192.168.31.137:30880/cdk8s-workspace/clusters/default/devops/cdk8s-devopsbn2hv/pipelines>
+- DevOps 项目也是有自己的角色管理：<http://192.168.31.137:30880/cdk8s-workspace/clusters/default/devops/cdk8s-devopsbn2hv/roles>
+- 创建一些凭证（本质就是 Jenkins 的凭证），包括 SSH 密钥、Token 等：<http://192.168.31.137:30880/cdk8s-workspace/clusters/default/devops/cdk8s-devopsbn2hv/credentials>
 
+#### 基于Spring Boot项目构建流水线
+
+- 官网指导：<https://v2-1.docs.kubesphere.io/docs/zh-CN/quick-start/devops-online/>
+- 确保已创建了 GitHub 和 DockerHub 账号
+- 创建凭证
+    - 官网指导：<https://v2-1.docs.kubesphere.io/docs/zh-CN/devops/credential>
+- 如果你的账号、密码带有 "@、$" 这类特殊字符，需要创建凭证前对其进行 urlencode 编码，可通过一些第三方网站进行转换，然后再将转换后的结果粘贴到对应的凭证信息中。 这里需要创建的是凭证（Credential），不是密钥（Secret）。
+        - <http://tool.chinaz.com/tools/urlencode.aspx>
+- 创建 DockerHub 凭证（aliyun hub 也是一样的道理，只是记得把命名空间设置为公开，不然无法 pull 下来镜像）
+    - 凭证 ID：必填，此 ID 将用于仓库中的 Jenkinsfile，此示例中可命名为 dockerhub-id
+    - 类型：选择 账户凭证
+    - 用户名：填写您个人的 DockerHub 的用户名（建议不要用邮箱，用用户名是最好，不用处理@字符）
+    - token / 密码：您个人的 DockerHub 的密码
+    - 描述信息：介绍凭证，比如此处可以备注为 DockerHub 登录凭证
+- 创建 GitHub 凭证
+    - 凭证 ID：必填，此 ID 将用于仓库中的 Jenkinsfile，此示例中可命名为 github-id
+    - 类型：选择 账户凭证
+    - 用户名：填写您个人的 Github 的用户名（建议不要用邮箱，用用户名是最好，不用处理@字符）
+    - token / 密码：您个人的 Github 的密码（注意上面说的，特殊符号记得处理）
+- 创建 kubeconfig 凭证
+    - 创建一个类型为 kubeconfig 的凭证，凭证 ID 可命名为 demo-kubeconfig，内容要按照下面的内容获取
+    - 先复制凭证类型为 kubeconfig 里面的内容到记事本，记下它 server 键值值，等下要用。
+    - 在 master 机子上：vim /root/.kube/config，复制里面的内容出来，把刚刚上面记录的 server 值替换到 config 复制出来的文本中，然后再粘贴到凭证里面去
+- Fork 参考项目至您个人的 GitHub 后，在 根目录编辑 Jenkinsfile-online。
+    - 参考项目：<https://github.com/kubesphere/devops-java-sample>
+- 修改核心参数：
+    - 注意：master分支 Jenkinsfile 中 mvn命令的参数 -o，表示开启离线模式。本示例为适应某些环境下网络的干扰，以及避免在下载依赖时耗时太长，已事先完成相关依赖的下载，默认开启离线模式。第一次使用需要去掉该参数
+
+```
+OCKER_CREDENTIAL_ID	            dockerhub-id                 填写创建凭证步骤中的 DockerHub 凭证 ID，用于登录您的 DockerHub
+GITHUB_CREDENTIAL_ID            github-id                    填写创建凭证步骤中的 GitHub 凭证 ID，用于推送 tag 到 GitHub 仓库
+KUBECONFIG_CREDENTIAL_ID        demo-kubeconfig              kubeconfig 凭证 ID，用于访问接入正在运行的 Kubernetes 集群
+REGISTRY                        docker.io                    默认为 docker.io 域名，用于镜像的推送
+
+DOCKERHUB_NAMESPACE             your-dockerhub-account       替换为您的 DockerHub 账号名 (它也可以是账户下的 Organization 名称)
+GITHUB_ACCOUNT                  your-github-account          替换为您的 GitHub 账号名，例如 https://github.com/kubesphere/则填写 kubesphere(它也可以是账户下的 Organization 名称)
+APP_NAME                        devops-java-sample           应用名称
+```
+
+- 现在回到企业空间下的工作台，在 `项目管理` 下创建两个普通项目：kubesphere-sample-dev、kubesphere-sample-prod
+- 在 `DevOps 工程` 下创建流水线工程
+    - 名称：cdk8s-pipeline
+    - 代码仓库：点击选择代码仓库，代码仓库需已存在 Jenkinsfile
+- 选择 Git，填写仓库地址，凭证
+    1、点击代码仓库，以添加 Github 仓库为例。
+    2、点击弹窗中的 获取 Token。
+    在 GitHub 的账号 `settings > Developer settings > Personal access tokens > Generate new token` 勾选 repo、user 两个选项（特别是你的账号如果是带有组织和个人必须勾选 user），点击 Generate token，GitHub 将生成一串字母和数字组成的 token 用于访问当前账户下的 GitHub repo。
+    复制生成的 token，在 KubeSphere Token 框中输入该 token 然后点击保存。
+    5、验证通过后，右侧会列出此 Token 关联用户的所有代码库，选择其中一个带有 Jenkinsfile 的仓库。比如此处选择准备好的示例仓库 devops-java-sample，点击 选择此仓库，完成后点击 下一步
+- 如果是 Gitee 需要先自己创建一个凭证，然后复制 Gitee 仓库地址（不要有 .git 后缀）
+```
+完成代码仓库相关设置后，进入高级设置页面，高级设置支持对流水线的构建记录、行为策略、定期扫描等设置的定制化，以下对用到的相关配置作简单释义。
+1、分支设置中，勾选 `丢弃旧的分支`，此处的 保留分支的天数 和 保留分支的最大个数 默认为 -1（表示将会丢弃已经被删除的分支）
+
+默认的 脚本路径 为 Jenkinsfile，请将其修改为 Jenkinsfile-online
+注：路径是 Jenkinsfile 在代码仓库的路径，表示它在示例仓库的根目录，若文件位置变动则需修改其脚本路径。
+- 勾选浅克隆（--depth=1）就行
+
+在 扫描 Repo Trigger 勾选 如果没有扫描触发，则定期扫描，扫描时间间隔可根据团队习惯设定，本示例设置为 5 minutes
+说明：定期扫描是设定一个周期让流水线周期性地扫描远程仓库，根据 行为策略 查看仓库有没有代码更新或新的 PR。
+
+Webhook 推送：
+- 官网指导：<https://v2-0.docs.kubesphere.io/docs/zh-CN/devops/auto-trigger/>
+在 GitHub SCM 中，我们提供了两种方式可以让用户配置以实现自动扫描，我们推荐用户同时配置两个设置以达到最佳的效果：触发 Jenkins 自动扫描应该以 Webhook 为主，以在 KubeSphere 设置定期扫描为辅。
+
+复制 webhook 推送下的链接地址，等下要去 Github 配置：http://81.71.118.157:30880/devops_webhook/github/
+
+1、Webhook 需要用户自行到 GitHub 项目的 Settings → Webhooks 自行进行配置，并且需要 GitHub 能够访问到您安装的 KubeSphere 控制台地址。进入 GitHub，访问需要配置 Webhook 的仓库，比如当前的示例仓库 devops-docs-sample，选择 Settings → Webhooks 进行设置。
+2、点击左侧 Webhooks，进入 Webhook 配置页面。点击 Add webhook 即可添加新的 Webhook。
+注意，Payload URL 填写为刚刚复制的流水线 Webhook 推送地址
+3、点击 Add Webhook 完成 Webhook 的添加，可以看到 Webhook 已经创建成功。
+
+流水线创建后，进入流水线详情总，点击 `运行流水线`，如果没有这个按钮就表示配置后自动开始了
+项目有几个分支，第一次运行流水线就会启动多少个活动。所以我们一般要不需要运行的分支都停止掉。
+下次哪个分支提交了代码，哪个分支就会自动构建，不会再所有分支一起构建了。
+```
 
 
 -------------------------------------------------------------------
