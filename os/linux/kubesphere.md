@@ -695,7 +695,7 @@ kubectl get pods -A
     - 创建一个用户：cdk8s-admin 角色 platform-regular
     - platform-regular 表示：它没有操作总平台的权限，但是后续它被加入到上面新建的工作空间中，我给它工作空间的 admin 权限它就可以只管理那个工作空间的事情了）
 - 给企业空间绑定人员：<http://192.168.31.137:30880/workspaces/cdk8s-workspace/members>
-    - cdk8s-admin 角色为 cdk8s-workspace-admin
+    - cdk8s-admin 角色为 cdk8s-workspace-admin（这样它就可以只管理这个工作空间，总平台就交给 admin 管理就行）
 - 企业空间下创建项目管理：<http://192.168.31.137:30880/workspaces/cdk8s-workspace/projects>
     - 创建了一个 cdk8s-project1 项目：<http://192.168.31.137:30880/cdk8s-workspace/clusters/default/projects/cdk8s-project1/overview>
 
