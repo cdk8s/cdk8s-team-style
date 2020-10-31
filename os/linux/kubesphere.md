@@ -687,12 +687,13 @@ kubectl get pods -A
 ## 用户、项目管理
 
 - 为了后续不用 admin 用户
-- 用户管理：<http://192.168.31.137:30880/access/accounts>
-    - 创建一个用户：cdk8s-admin 角色 workspaces-manager
 - 企业空间：<http://192.168.31.137:30880/access/workspaces>
     - 默认的 system-workspace 工作空间是不能用来创建 DevOps 项目的，所以一般都要自己创建一个业务工作空间进行实际项目开发
     - 理论上微服务的各个团队，每个团队创建一个企业空间，让他们各自管好自己的服务
     - 我这里创建一个 cdk8s-workspace 的企业空间
+- 用户管理：<http://192.168.31.137:30880/access/accounts>
+    - 创建一个用户：cdk8s-admin 角色 platform-regular
+    - platform-regular 表示：它没有操作总平台的权限，但是后续它被加入到上面新建的工作空间中，我给它工作空间的 admin 权限它就可以只管理那个工作空间的事情了）
 - 给企业空间绑定人员：<http://192.168.31.137:30880/workspaces/cdk8s-workspace/members>
     - cdk8s-admin 角色为 cdk8s-workspace-admin
 - 企业空间下创建项目管理：<http://192.168.31.137:30880/workspaces/cdk8s-workspace/projects>
