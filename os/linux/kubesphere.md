@@ -669,7 +669,7 @@ kubectl logs -n kubesphere-system $(kubectl get pod -n kubesphere-system -l app=
 kubectl get pods -A
 ```
 
-- 访问组件管理：<http://192.168.31.137:30880/clusters/default/components>
+- 退出后重新登录，访问组件管理：<http://192.168.31.137:30880/clusters/default/components>
 - 在最右边的 tab 中可以看到一个 DevOps 出现
 
 -------------------------------------------------------------------
