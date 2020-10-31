@@ -80,7 +80,9 @@ sudo systemctl stop docker
 - 阿里云的服务需要注册账号
 	- 新创建命名空间：<https://cr.console.aliyun.com/cn-hangzhou/instance/namespaces>
     - 设置固定凭证：<https://cr.console.aliyun.com/cn-hangzhou/instance/credentials>
-	- 镜像仓库列表（你提交的 image 都会在这里出现）：<https://cr.console.aliyun.com/cn-hangzhou/instances/repositories>
+	- 镜像仓库列表：<https://cr.console.aliyun.com/cn-hangzhou/instances/repositories>
+	    - 你提交的 image 都会在这里出现
+	    - 如果你的命名空间此时此刻是私有的，则你 push 的 image 也是私有的。当你的命名空间改为公开也不会影响已经 push 过的 image 属性，只能重新再来 push 一次。
     - 注册后请访问：<https://cr.console.aliyun.com/#/accelerator>，你会看到专属的加速地址，比如我是：`https://ldhc17y9.mirror.aliyuncs.com`，所以下面文章你看到该地址都表示是这个专属地址，请记得自己更换自己的。
     - 以及教你如何使用 Docker 加速器。如果你已经安装了最新版的 Docker 你就不需要用它的脚本进行安装了。
 - 最新版本的 Docker 是新增配置文件：`vim /etc/docker/daemon.json`，增加如下内容：
