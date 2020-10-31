@@ -1216,3 +1216,19 @@ sudo systemctl restart docker
 - <https://kubesphere.com.cn/forum/d/2044-kubesphere-v3-0-0-sonarqube>
 
 ## 集成第三方服务（集群外数据库）
+
+
+## API 接口
+
+- 查看token
+
+```
+curl -X POST \
+  http://IP:30880/kapis/iam.kubesphere.io/v1alpha2/login \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "username":"admin",
+  "password":"密码"
+}'
+
+```
