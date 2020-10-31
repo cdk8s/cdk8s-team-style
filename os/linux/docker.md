@@ -77,9 +77,10 @@ sudo systemctl stop docker
     - 灵雀云：<https://hub.alauda.cn/>
 - 推荐优先阿里云，然后是 USTC
 - 我下面的讲解也是基于阿里云加速
-- 阿里云的服务需要注册账号，**首次使用需要设置 docker 登录密码（阿里云叫做：**修改Registry登录密码**），这个以后用私人仓库会用到。**
-	- 如果忘记了，后面可以在这里修改：<https://cr.console.aliyun.com/#/imageList>
-	- 2020-10 现在阿里的新仓库管理地址：<https://cr.console.aliyun.com/cn-hangzhou/instances/repositories>
+- 阿里云的服务需要注册账号
+	- 新创建命名空间：<https://cr.console.aliyun.com/cn-hangzhou/instance/namespaces>
+    - 设置固定凭证：<https://cr.console.aliyun.com/cn-hangzhou/instance/credentials>
+	- 镜像仓库列表（你提交的 image 都会在这里出现）：<https://cr.console.aliyun.com/cn-hangzhou/instances/repositories>
     - 注册后请访问：<https://cr.console.aliyun.com/#/accelerator>，你会看到专属的加速地址，比如我是：`https://ldhc17y9.mirror.aliyuncs.com`，所以下面文章你看到该地址都表示是这个专属地址，请记得自己更换自己的。
     - 以及教你如何使用 Docker 加速器。如果你已经安装了最新版的 Docker 你就不需要用它的脚本进行安装了。
 - 最新版本的 Docker 是新增配置文件：`vim /etc/docker/daemon.json`，增加如下内容：
