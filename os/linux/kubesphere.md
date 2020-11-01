@@ -979,7 +979,7 @@ Request ID: bef7638bacc9b6ae939fbb99207d3d2d
 - 创建两个项目
     -  kubesphere-sample-dev
     -  kubesphere-sample-prod
-    - 等下会用到这两个空间名称，发布的内容会到这里来
+    - 等下会用到这两个命名空间名称，发布的内容会到这里来（KubeSphere 中的项目对应的是 Kubernetes 的 namespace）
 - Fork 参考项目至您个人的 GitHub 后，在 根目录编辑 Jenkinsfile-online。
     - 参考项目：<https://github.com/kubesphere/devops-java-sample>
 - 修改核心参数：
