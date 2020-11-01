@@ -79,7 +79,7 @@ sudo systemctl stop docker
 - 我下面的讲解也是基于阿里云加速
 - 阿里云的服务需要注册账号
 	- 新创建命名空间：<https://cr.console.aliyun.com/cn-hangzhou/instance/namespaces>
-    - 设置固定凭证：<https://cr.console.aliyun.com/cn-hangzhou/instance/credentials>
+    - 设置访问凭证（推荐用固定凭证）：<https://cr.console.aliyun.com/cn-hangzhou/instance/credentials>
 	- 镜像仓库列表：<https://cr.console.aliyun.com/cn-hangzhou/instances/repositories>
 	    - 你提交的 image 都会在这里出现
 	    - 如果你的命名空间此时此刻是私有的，则你 push 的 image 也是私有的。当你的命名空间改为公开也不会影响已经 push 过的 image 属性，只能重新再来 push 一次。
