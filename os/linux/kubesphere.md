@@ -612,7 +612,7 @@ spec:
       elasticsearchMasterVolumeSize: 4Gi
       elkPrefix: logstash
       logMaxAge: 7
-      # 如果要用外面的 es 集群，需要配置这两个。如果不配置，则默认 KubeSphere 会自己拉取 es 镜像
+      # 如果要用外面的 es 集群，需要配置这两个。如果不配置，则默认 KubeSphere 会自己拉取 es 镜像。建议一开始就自己安装 Elasticsearch，然后在这里配置好后，再启动与之相关的功能。
       # externalElasticsearchUrl: http://www.cdk8s.com
       # externalElasticsearchPort: 9200
     etcdVolumeSize: 20Gi
