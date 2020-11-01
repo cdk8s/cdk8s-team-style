@@ -138,7 +138,8 @@ kubectl delete pod,svc -l name=<label-name>
 
 查看 endpoint 列表
 kubectl get endpoints
-
+kubectl delete endpoints mysql-external-endpoint
+kubectl delete endpoints mysql-external-endpoint -n sacf-project
 
 通过bash获得 pod 中某个容器的TTY，相当于登录容器
 kubectl exec -it <pod-name> -n <namespaces-name> bash
