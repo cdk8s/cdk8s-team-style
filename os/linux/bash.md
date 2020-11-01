@@ -236,6 +236,63 @@ drwxr-xr-x. 5 root root 4096 3月 26 10:57，其中最前面的 d 表示这是�
 - 查看某个配置文件，排除掉里面以 # 开头和 ; 开头的注释内容：
     - `grep '^[^#;]' /etc/openvpn/server.conf`
 
+## 找回/恢复被删除文件
+
+- 被删除的目录或文件，不能再重新进行创建，不然就无法再找回。即使你创建了一个同路径的目录，里面啥文件也没有，也是一种覆盖
+
+```
+安装依赖
+yum -y install gcc-c++ e2fsprogs.x86_64 e2fsprogs-devel.x86_64
+
+下载工具
+wget https://nchc.dl.sourceforge.net/project/extundelete/extundelete/0.2.4/extundelete-0.2.4.tar.bz2
+
+解压
+tar jxvf extundelete-0.2.4.tar.bz2 
+
+安装
+cd  extundelete-0.2.4
+
+./configure 
+
+make && make install
+
+验证安装结果
+extundelete -v
+
+假设你被删除的目录是：/opt/my-soft/abc 目录
+这时候你要切换到原删除目录的上层目录，也就是 /opt/my-soft
+
+输入
+ls -id ./
+结果格式：139372 ./
+
+可以得到当前的 inode 值 139372
+
+看下你这个被删除目录是属于哪个分区：df -h
+一般如果没有自己动过分区，一般是：/dev/dba1
+
+开始恢复
+extundelete /dev/vda1 --inode 139372
+WARNING: EXT3_FEATURE_INCOMPAT_RECOVER is set.
+The partition should be unmounted to undelete any files without further data loss.
+If the partition is not currently mounted, this message indicates 
+it was improperly unmounted, and you should run fsck before continuing.
+If you decide to continue, extundelete may overwrite some of the deleted
+files and make recovering those files impossible.  You should unmount the
+file system and check it with fsck before using extundelete.
+Would you like to continue? (y/n) 
+
+根据提示输入：y
+可以看到你被删除的目录、文件
+
+恢复文件
+extundelete /dev/vda1 --restore-file wushan1.txt
+
+恢复文件夹
+extundelete  /dev/vda1  --restore-directory /opt/my-soft/abc
+```
+
 
 
 ## 资料
