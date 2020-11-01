@@ -964,13 +964,13 @@ Request ID: bef7638bacc9b6ae939fbb99207d3d2d
 - 创建 DockerHub 凭证（aliyun hub 也是一样的道理，只是记得把命名空间设置为公开，不然无法 pull 下来镜像）
     - 凭证 ID：必填，此 ID 将用于仓库中的 Jenkinsfile，此示例中可命名为 dockerhub-id（aliyun-hub-id）
     - 类型：选择 账户凭证
-    - 用户名：填写您个人的 DockerHub 的用户名（建议不要用邮箱，用用户名是最好，不用处理@字符）
+    - 用户名：填写您个人的 DockerHub 的用户名（建议不要用邮箱，用用户名是最好，不用处理@字符。但是经过测试，用@也是没问题的）
     - token / 密码：您个人的 DockerHub 的密码
     - 描述信息：介绍凭证，比如此处可以备注为 DockerHub 登录凭证
 - 创建 GitHub 凭证
     - 凭证 ID：必填，此 ID 将用于仓库中的 Jenkinsfile，此示例中可命名为 github-id（gitee-id）
     - 类型：选择 账户凭证
-    - 用户名：填写您个人的 Github 的用户名（建议不要用邮箱，用用户名是最好，不用处理@字符）
+    - 用户名：填写您个人的 Github 的用户名（建议不要用邮箱，用用户名是最好，不用处理@字符。这里如果有@好像会有问题）
     - token / 密码：您个人的 Github 的密码（注意上面说的，特殊符号记得处理）
 - 创建 kubeconfig 凭证
     - 创建一个类型为 kubeconfig 的凭证，凭证 ID 可命名为 demo-kubeconfig，内容要按照下面的内容获取
