@@ -581,7 +581,7 @@ spec:
     enabled: false
 ```
 
-- 我们需要改为：
+- **我们需要改为：**
 
 ```
 apiVersion: installer.kubesphere.io/v1alpha1
@@ -599,15 +599,22 @@ spec:
     # 这里从 false 改为 true
     enabled: true
   auditing:
-    enabled: false
+    # 这里从 false 改为 true，这个组件是依赖上面的 es 来存储
+    enabled: true
   authentication:
     jwtSecret: ''
   common:
     es:
+      # es 集群主节点数量，必须是奇数
+      elasticsearchMasterReplicas: 1
+      elasticsearchDataReplicas: 1
       elasticsearchDataVolumeSize: 20Gi
       elasticsearchMasterVolumeSize: 4Gi
       elkPrefix: logstash
       logMaxAge: 7
+      # 如果要用外面的 es 集群，需要配置这两个。如果不配置，则默认 KubeSphere 会自己拉取 es 镜像
+      # externalElasticsearchUrl: http://www.cdk8s.com
+      # externalElasticsearchPort: 9200
     etcdVolumeSize: 20Gi
     minioVolumeSize: 20Gi
     mysqlVolumeSize: 20Gi
@@ -631,12 +638,14 @@ spec:
     port: 2379
     tlsEnable: true
   events:
-    enabled: false
+    # 这里从 false 改为 true，这个组件是依赖上面的 es 来存储
+    enabled: true
     ruler:
       enabled: true
       replicas: 2
   logging:
-    enabled: false
+    # 这里从 false 改为 true，这个组件是依赖上面的 es 来存储
+    enabled: true
     logsidecarReplicas: 2
   metrics_server:
     enabled: true
@@ -1019,6 +1028,12 @@ Webhook 推送：
 项目有几个分支，第一次运行流水线就会启动多少个活动。所以我们一般要不需要运行的分支都停止掉。
 下次哪个分支提交了代码，哪个分支就会自动构建，不会再所有分支一起构建了。
 ```
+
+#### Jenkins 访问
+
+- 官网指导：<https://v2-1.docs.kubesphere.io/docs/zh-CN/installation/sonarqube-jenkins/>
+- 给云服务器开放 30180 端口，然后访问：公网Ip:30180
+- Jenkins 账号密码和 KubeSphere 账号密码一样（它们打通了 LDAP）
 
 
 -------------------------------------------------------------------
