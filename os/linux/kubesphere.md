@@ -962,13 +962,13 @@ Request ID: bef7638bacc9b6ae939fbb99207d3d2d
 - 如果你的账号、密码带有 "@、$" 这类特殊字符，需要创建凭证前对其进行 urlencode 编码，可通过一些第三方网站进行转换，然后再将转换后的结果粘贴到对应的凭证信息中。 这里需要创建的是凭证（Credential），不是密钥（Secret）。
         - <http://tool.chinaz.com/tools/urlencode.aspx>
 - 创建 DockerHub 凭证（aliyun hub 也是一样的道理，只是记得把命名空间设置为公开，不然无法 pull 下来镜像）
-    - 凭证 ID：必填，此 ID 将用于仓库中的 Jenkinsfile，此示例中可命名为 dockerhub-id
+    - 凭证 ID：必填，此 ID 将用于仓库中的 Jenkinsfile，此示例中可命名为 dockerhub-id（aliyun-hub-id）
     - 类型：选择 账户凭证
     - 用户名：填写您个人的 DockerHub 的用户名（建议不要用邮箱，用用户名是最好，不用处理@字符）
     - token / 密码：您个人的 DockerHub 的密码
     - 描述信息：介绍凭证，比如此处可以备注为 DockerHub 登录凭证
 - 创建 GitHub 凭证
-    - 凭证 ID：必填，此 ID 将用于仓库中的 Jenkinsfile，此示例中可命名为 github-id
+    - 凭证 ID：必填，此 ID 将用于仓库中的 Jenkinsfile，此示例中可命名为 github-id（gitee-id）
     - 类型：选择 账户凭证
     - 用户名：填写您个人的 Github 的用户名（建议不要用邮箱，用用户名是最好，不用处理@字符）
     - token / 密码：您个人的 Github 的密码（注意上面说的，特殊符号记得处理）
@@ -976,6 +976,10 @@ Request ID: bef7638bacc9b6ae939fbb99207d3d2d
     - 创建一个类型为 kubeconfig 的凭证，凭证 ID 可命名为 demo-kubeconfig，内容要按照下面的内容获取
     - 先复制凭证类型为 kubeconfig 里面的内容到记事本，记下它 server 键值值，等下要用。
     - 在 master 机子上：vim /root/.kube/config，复制里面的内容出来，把刚刚上面记录的 server 值替换到 config 复制出来的文本中，然后再粘贴到凭证里面去
+- 创建两个项目
+    -  kubesphere-sample-dev
+    -  kubesphere-sample-prod
+    - 等下会用到这两个空间名称，发布的内容会到这里来
 - Fork 参考项目至您个人的 GitHub 后，在 根目录编辑 Jenkinsfile-online。
     - 参考项目：<https://github.com/kubesphere/devops-java-sample>
 - 修改核心参数：
