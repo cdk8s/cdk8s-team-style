@@ -835,7 +835,6 @@ lCm87ItqaUwPdyWQbKh2ESRZ38r+g5TYbJm3Y8nOppHTpGw5NiBi
         - 名称 coffee-svc
         - 点击 「添加容器镜像」，镜像为 nginxdemos/hello:plain-text（输入后敲回车键确认），然后点击 使用默认端口
         - 无需设置存储卷，点击 「下一步」。高级设置保留默认，点击 「创建」，即可看到 tea 服务已创建成功。上述步骤以创建无状态服务的形式，最终将创建一个 Service 和 Deployment。
-    - 创建 TLS 证书密钥
 - 创建应用路由
     - 选择 「应用负载」→ 「应用路由」，点击 「创建」。
     - 输入名称 cafe-ingress，点击 「下一步」，点击 「添加路由规则」。
