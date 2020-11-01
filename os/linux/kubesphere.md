@@ -1206,6 +1206,192 @@ kubesphere/pause                              3.1                            da8
 mirrorgooglecontainers/defaultbackend-amd64   1.4                            846921f0fe0e        3 years ago         4.84MB
 ```
 
+## 集群环境下，启动了所有组件功能后的 pod 列表
+
+
+```
+[root@master1 ~]# kubectl get pods -A
+NAMESPACE                      NAME                                               READY   STATUS      RESTARTS   AGE
+kube-system                    calico-kube-controllers-59d85c5c84-l8pfm           1/1     Running     0          13h
+kube-system                    calico-node-6snf6                                  1/1     Running     0          13h
+kube-system                    calico-node-jq579                                  1/1     Running     0          13h
+kube-system                    calico-node-slhjn                                  1/1     Running     0          13h
+kube-system                    calico-node-tncrh                                  1/1     Running     0          13h
+kube-system                    calico-node-zdtqc                                  1/1     Running     0          13h
+kube-system                    calico-node-zg5n8                                  1/1     Running     0          13h
+kube-system                    coredns-74d59cc5c6-6wlp9                           1/1     Running     0          13h
+kube-system                    coredns-74d59cc5c6-f8vc5                           1/1     Running     0          13h
+kube-system                    kube-apiserver-master1                             1/1     Running     0          13h
+kube-system                    kube-apiserver-master2                             1/1     Running     0          13h
+kube-system                    kube-apiserver-master3                             1/1     Running     0          13h
+kube-system                    kube-controller-manager-master1                    1/1     Running     0          13h
+kube-system                    kube-controller-manager-master2                    1/1     Running     0          13h
+kube-system                    kube-controller-manager-master3                    1/1     Running     0          13h
+kube-system                    kube-proxy-9wqhc                                   1/1     Running     0          13h
+kube-system                    kube-proxy-jnw6g                                   1/1     Running     0          13h
+kube-system                    kube-proxy-mgz4d                                   1/1     Running     0          13h
+kube-system                    kube-proxy-qknp4                                   1/1     Running     0          13h
+kube-system                    kube-proxy-vv2xf                                   1/1     Running     0          13h
+kube-system                    kube-proxy-zcrgn                                   1/1     Running     0          13h
+kube-system                    kube-scheduler-master1                             1/1     Running     0          13h
+kube-system                    kube-scheduler-master2                             1/1     Running     0          13h
+kube-system                    kube-scheduler-master3                             1/1     Running     0          13h
+kube-system                    metrics-server-5ddd98b7f9-lfj97                    1/1     Running     0          13h
+kube-system                    nodelocaldns-4pfdz                                 1/1     Running     0          13h
+kube-system                    nodelocaldns-gwq7n                                 1/1     Running     0          13h
+kube-system                    nodelocaldns-j4fqf                                 1/1     Running     0          13h
+kube-system                    nodelocaldns-nh9ck                                 1/1     Running     0          13h
+kube-system                    nodelocaldns-smdvp                                 1/1     Running     0          13h
+kube-system                    nodelocaldns-t5696                                 1/1     Running     0          13h
+kube-system                    openebs-localpv-provisioner-84956ddb89-lpm9m       1/1     Running     0          13h
+kube-system                    openebs-ndm-2hvcx                                  1/1     Running     0          13h
+kube-system                    openebs-ndm-42jh6                                  1/1     Running     0          13h
+kube-system                    openebs-ndm-operator-6896cbf7b8-g5thn              1/1     Running     1          13h
+kube-system                    openebs-ndm-tl984                                  1/1     Running     0          13h
+kube-system                    snapshot-controller-0                              1/1     Running     0          13h
+kubesphere-alerting-system     alerting-client-744c794979-rbvds                   1/1     Running     0          12h
+kubesphere-alerting-system     alerting-db-ctrl-job-6b9jm                         0/1     Completed   0          4m8s
+kubesphere-alerting-system     alerting-db-init-job-scrh7                         0/1     Completed   0          4m9s
+kubesphere-alerting-system     alerting-executor-79456dd86b-ss7gl                 2/2     Running     0          12h
+kubesphere-alerting-system     alerting-manager-5dc9d6cd46-fqr48                  1/1     Running     0          12h
+kubesphere-alerting-system     alerting-watcher-dcb87b665-8m4kk                   1/1     Running     0          12h
+kubesphere-alerting-system     notification-db-ctrl-job-vbklw                     0/1     Completed   0          4m8s
+kubesphere-alerting-system     notification-db-init-job-5vhxf                     0/1     Completed   0          4m10s
+kubesphere-alerting-system     notification-deployment-748897cbdf-q6ml4           1/1     Running     4          12h
+kubesphere-controls-system     default-http-backend-5d464dd566-sgx8z              1/1     Running     0          13h
+kubesphere-controls-system     kubectl-admin-6c9bd5b454-mv6lv                     1/1     Running     0          13h
+kubesphere-devops-system       ks-jenkins-68b8949bb-8fr4b                         1/1     Running     0          12h
+kubesphere-devops-system       s2ioperator-0                                      1/1     Running     1          3m58s
+kubesphere-devops-system       uc-jenkins-update-center-8c898f44f-6762x           1/1     Running     0          12h
+kubesphere-logging-system      elasticsearch-logging-data-0                       1/1     Running     0          5m14s
+kubesphere-logging-system      elasticsearch-logging-discovery-0                  1/1     Running     0          5m14s
+kubesphere-logging-system      fluent-bit-674zv                                   1/1     Running     0          4m5s
+kubesphere-logging-system      fluent-bit-6ddr5                                   1/1     Running     0          4m5s
+kubesphere-logging-system      fluent-bit-jmw6r                                   1/1     Running     0          4m5s
+kubesphere-logging-system      fluent-bit-r845z                                   1/1     Running     0          4m5s
+kubesphere-logging-system      fluent-bit-tlkjv                                   1/1     Running     0          4m5s
+kubesphere-logging-system      fluent-bit-vxbp7                                   1/1     Running     0          4m5s
+kubesphere-logging-system      fluentbit-operator-5bf7687b88-5xqp2                1/1     Running     0          5m5s
+kubesphere-logging-system      ks-events-exporter-5cb959c74b-x7rwb                2/2     Running     0          3m34s
+kubesphere-logging-system      ks-events-operator-7d46fcccc9-pmvcs                1/1     Running     0          3m59s
+kubesphere-logging-system      ks-events-ruler-97f756879-bmzdc                    2/2     Running     0          3m34s
+kubesphere-logging-system      ks-events-ruler-97f756879-cnjxv                    2/2     Running     0          3m34s
+kubesphere-logging-system      kube-auditing-operator-7574bd6f96-jrd6s            1/1     Running     0          4m4s
+kubesphere-logging-system      kube-auditing-webhook-deploy-6dfb46bb6c-4kvc2      1/1     Running     0          3m46s
+kubesphere-logging-system      kube-auditing-webhook-deploy-6dfb46bb6c-q7cm5      1/1     Running     0          3m46s
+kubesphere-logging-system      logsidecar-injector-deploy-667c6c9579-lcvjb        2/2     Running     0          4m3s
+kubesphere-logging-system      logsidecar-injector-deploy-667c6c9579-sjwcf        2/2     Running     0          4m3s
+kubesphere-monitoring-system   alertmanager-main-0                                2/2     Running     0          13h
+kubesphere-monitoring-system   alertmanager-main-1                                2/2     Running     0          13h
+kubesphere-monitoring-system   alertmanager-main-2                                2/2     Running     0          13h
+kubesphere-monitoring-system   kube-state-metrics-5c466fc7b6-jlwcz                3/3     Running     0          13h
+kubesphere-monitoring-system   node-exporter-gfn74                                2/2     Running     0          13h
+kubesphere-monitoring-system   node-exporter-ghbjz                                2/2     Running     0          13h
+kubesphere-monitoring-system   node-exporter-jpbk4                                2/2     Running     0          13h
+kubesphere-monitoring-system   node-exporter-ldkz6                                2/2     Running     0          13h
+kubesphere-monitoring-system   node-exporter-skqqw                                2/2     Running     0          13h
+kubesphere-monitoring-system   node-exporter-wtf6q                                2/2     Running     0          13h
+kubesphere-monitoring-system   notification-manager-deployment-7ff95b7544-9gktx   1/1     Running     0          13h
+kubesphere-monitoring-system   notification-manager-deployment-7ff95b7544-k2sbr   1/1     Running     0          13h
+kubesphere-monitoring-system   notification-manager-operator-5cbb58b756-wpwfb     2/2     Running     0          13h
+kubesphere-monitoring-system   prometheus-k8s-0                                   3/3     Running     1          13h
+kubesphere-monitoring-system   prometheus-k8s-1                                   3/3     Running     1          13h
+kubesphere-monitoring-system   prometheus-operator-78c5cdbc8f-c7cpf               2/2     Running     0          13h
+kubesphere-system              etcd-85c98fb695-zmtsq                              1/1     Running     0          12h
+kubesphere-system              ks-apiserver-65b8d48c77-bbzkg                      1/1     Running     0          2m36s
+kubesphere-system              ks-apiserver-65b8d48c77-vsnqw                      1/1     Running     0          2m33s
+kubesphere-system              ks-apiserver-65b8d48c77-xrps7                      1/1     Running     0          2m34s
+kubesphere-system              ks-console-9bc9c5df8-2sxf9                         1/1     Running     0          13h
+kubesphere-system              ks-console-9bc9c5df8-l76kd                         1/1     Running     0          13h
+kubesphere-system              ks-console-9bc9c5df8-vknbj                         1/1     Running     0          13h
+kubesphere-system              ks-controller-manager-6f7b5f6d6-9hmlb              1/1     Running     0          2m34s
+kubesphere-system              ks-controller-manager-6f7b5f6d6-d872w              1/1     Running     0          2m28s
+kubesphere-system              ks-controller-manager-6f7b5f6d6-v5rfj              1/1     Running     0          2m36s
+kubesphere-system              ks-installer-85854b8c8-9d9nk                       1/1     Running     0          13h
+kubesphere-system              minio-764b67f6fb-566bh                             1/1     Running     0          12h
+kubesphere-system              mysql-67cd66d5d-5n76k                              1/1     Running     0          12h
+kubesphere-system              openldap-0                                         1/1     Running     0          13h
+kubesphere-system              openldap-1                                         1/1     Running     0          13h
+kubesphere-system              redis-ha-haproxy-ffb8d889d-htrkv                   1/1     Running     0          13h
+kubesphere-system              redis-ha-haproxy-ffb8d889d-jsx6m                   1/1     Running     0          13h
+kubesphere-system              redis-ha-haproxy-ffb8d889d-swdnm                   1/1     Running     0          13h
+kubesphere-system              redis-ha-server-0                                  2/2     Running     0          13h
+kubesphere-system              redis-ha-server-1                                  2/2     Running     0          13h
+kubesphere-system              redis-ha-server-2                                  2/2     Running     0          13h
+```
+
+## 集群环境下，启动了所有组件功能后的 master image 列表
+
+```
+[root@master1 ~]# docker images
+REPOSITORY                           TAG                 IMAGE ID            CREATED             SIZE
+kubesphere/ks-controller-manager     v3.0.0              85bd13080839        2 months ago        82MB
+kubesphere/ks-apiserver              v3.0.0              d9fac59cfb8c        2 months ago        120MB
+kubesphere/ks-console                v3.0.0              d5987e1f99ac        2 months ago        95.5MB
+kubesphere/fluent-bit                v1.4.6              e46b2f18c44a        2 months ago        71.8MB
+kubesphere/kube-proxy                v1.17.9             ddc09a4c2193        3 months ago        117MB
+kubesphere/kube-controller-manager   v1.17.9             c7f1dde319ee        3 months ago        161MB
+kubesphere/kube-apiserver            v1.17.9             7417868987f3        3 months ago        171MB
+kubesphere/kube-scheduler            v1.17.9             f7b1228fa995        3 months ago        94.4MB
+calico/node                          v3.15.1             1470783b1474        3 months ago        262MB
+calico/pod2daemon-flexvol            v3.15.1             a696ebcb2ac7        3 months ago        112MB
+calico/cni                           v3.15.1             2858353c1d25        3 months ago        217MB
+calico/kube-controllers              v3.15.1             8ed9dbffe350        3 months ago        53.1MB
+kubesphere/linux-utils               1.10.0              28c1cd0be1ea        5 months ago        11MB
+osixia/openldap                      1.3.0               faac9bb59f83        5 months ago        260MB
+kubesphere/k8s-dns-node-cache        1.15.12             5340ba194ec9        6 months ago        107MB
+coredns/coredns                      1.6.9               faac9e62c0d6        7 months ago        43.2MB
+kubesphere/node-exporter             ks-v0.18.1          cfb0175954de        11 months ago       23.7MB
+redis                                5.0.5-alpine        ed7d2ff5a623        14 months ago       29.3MB
+haproxy                              2.0.4               9009db9c8961        14 months ago       91.1MB
+kubesphere/etcd                      v3.3.12             28c771d7cfbf        21 months ago       40.6MB
+kubesphere/kube-rbac-proxy           v0.4.1              70eeaa7791f2        21 months ago       41.3MB
+kubesphere/pause                     3.1                 da86e6ba6ca1        2 years ago         742kB
+```
+
+## 集群环境下，启动了所有组件功能后的 node image 列表
+
+````
+[root@node1 ~]# docker images
+REPOSITORY                                 TAG                            IMAGE ID            CREATED             SIZE
+docker                                     19.03                          6972c414f322        10 days ago         217MB
+kubesphere/ks-controller-manager           v3.0.0                         85bd13080839        2 months ago        82MB
+kubesphere/ks-apiserver                    v3.0.0                         d9fac59cfb8c        2 months ago        120MB
+kubesphere/fluentbit-operator              v0.2.0                         6b6b86b48aa3        2 months ago        44MB
+kubesphere/kube-events-ruler               v0.1.0                         7006904470db        2 months ago        108MB
+kubesphere/kube-auditing-webhook           v0.1.0                         035825cb64ce        2 months ago        117MB
+kubesphere/fluent-bit                      v1.4.6                         e46b2f18c44a        2 months ago        71.8MB
+prom/prometheus                            v2.20.1                        b205ccdd28d3        2 months ago        145MB
+kubesphere/notification-manager-operator   v0.1.0                         c441b79e9606        3 months ago        44.4MB
+kubesphere/notification                    flyway_v2.1.2                  b1e18b386fa8        3 months ago        157MB
+kubesphere/notification                    v2.1.2                         7a74fe46aab6        3 months ago        59.3MB
+kubesphere/alerting                        v2.1.2                         9e0e584f61f6        3 months ago        102MB
+kubesphere/log-sidecar-injector            1.1                            bd5f40b9ebbf        3 months ago        51.6MB
+kubesphere/kube-proxy                      v1.17.9                        ddc09a4c2193        3 months ago        117MB
+calico/node                                v3.15.1                        1470783b1474        3 months ago        262MB
+calico/pod2daemon-flexvol                  v3.15.1                        a696ebcb2ac7        3 months ago        112MB
+calico/cni                                 v3.15.1                        2858353c1d25        3 months ago        217MB
+calico/kube-controllers                    v3.15.1                        8ed9dbffe350        3 months ago        53.1MB
+kubesphere/prometheus-config-reloader      v0.38.3                        8011d6eb5bac        4 months ago        10.1MB
+prom/alertmanager                          v0.21.0                        c876f5897d7b        4 months ago        55.5MB
+kubesphere/provisioner-localpv             1.10.0                         6b5529f464f7        5 months ago        68.4MB
+kubesphere/node-disk-manager               0.5.0                          dbbed43bcbdb        5 months ago        168MB
+kubesphere/linux-utils                     1.10.0                         28c1cd0be1ea        5 months ago        11MB
+kubesphere/metrics-server                  v0.3.7                         07c9e703ca2c        6 months ago        55.4MB
+kubesphere/k8s-dns-node-cache              1.15.12                        5340ba194ec9        6 months ago        107MB
+coredns/coredns                            1.6.9                          faac9e62c0d6        7 months ago        43.2MB
+alpine                                     3.10.4                         af341ccd2df8        9 months ago        5.56MB
+kubesphere/node-exporter                   ks-v0.18.1                     cfb0175954de        11 months ago       23.7MB
+kubesphere/kubectl                         v1.0.0                         7f81664a09d0        12 months ago       82.1MB
+kubesphere/elasticsearch-oss               6.7.0-1                        1b7edda08f75        13 months ago       702MB
+jimmidyson/configmap-reload                v0.3.0                         7ec24a279487        14 months ago       9.7MB
+minio/mc                                   RELEASE.2019-08-07T23-14-43Z   2def265e6001        15 months ago       23.1MB
+kubesphere/kube-rbac-proxy                 v0.4.1                         70eeaa7791f2        21 months ago       41.3MB
+mysql                                      8.0.11                         5dbe5b6313e1        2 years ago         445MB
+kubesphere/pause                           3.1                            da86e6ba6ca1        2 years ago         742kB
+````
+
+
 
 -------------------------------------------------------------------
 
