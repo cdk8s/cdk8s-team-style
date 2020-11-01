@@ -848,6 +848,7 @@ lCm87ItqaUwPdyWQbKh2ESRZ38r+g5TYbJm3Y8nOppHTpGw5NiBi
         - 完成路由规则设置后点击「√」，选择 「下一步」，点击 「创建」，cafe-ingress 创建成功。
 - 访问应用路由
     - 访问阿里云添加域名解析，绑定域名到我们的公网 IP：<https://dns.console.aliyun.com/>
+        - 如果是集群 EIP + SLB 的话，记得去 SLB 那里配置监听端口
     - 访问 https：<https://kubesphere-one.upupmoment.com:31592/coffee>
     - 访问 https：<https://kubesphere-one.upupmoment.com:31592/tea>
     - 可以得到类似内容：
