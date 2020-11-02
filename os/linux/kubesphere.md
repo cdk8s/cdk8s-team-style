@@ -1439,3 +1439,79 @@ curl -X POST \
 }'
 
 ```
+
+
+## 使用外部 Harbor
+
+```
+harbor 的 https 证书不是自建的，是阿里云免费一年的证书
+
+假设后面用到的所有凭证、密钥我们都叫做 harbor-id
+
+在你创建的项目空间中：配置中心 > 密钥，必须创建一个 harbor-id 的镜像类型密钥，并且必须是点击验证后是告诉你验证通过的。这是必须的。
+
+在你的 DevOps 工程中的：工程管理 > 凭证，必须创建一个 harbor-id，这样你 pipeline 过程 push 镜像才能 push 成功，这是必须的。
+```
+
+- 项目 Deployment yaml 需要配置，这是我的发布的 yaml，其中最重要的改动是最下面我有一个中文注释
+
+```
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: kubesphere
+    component: ks-sample-dev
+    tier: backend
+  name: ks-sample-dev
+  namespace: kubesphere-sample-dev
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kubesphere
+      component: ks-sample-dev
+      tier: backend
+  template:
+    metadata:
+      labels:
+        app: kubesphere
+        component: ks-sample-dev
+        tier: backend
+    spec:
+      containers:
+        - env:
+            - name: CACHE_IGNORE
+              value: js|html
+            - name: CACHE_PUBLIC_EXPIRATION
+              value: 3d
+          image: $REGISTRY/$DOCKERHUB_NAMESPACE/$APP_NAME:SNAPSHOT-$BRANCH_NAME-$BUILD_NUMBER
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            timeoutSeconds: 10
+            failureThreshold: 30
+            periodSeconds: 5
+          imagePullPolicy: Always
+          name: ks-sample
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          resources:
+            limits:
+              cpu: 300m
+              memory: 600Mi
+            requests:
+              cpu: 100m
+              memory: 100Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      # 如果用私有仓库，这里需要配置上你私有仓库配置的凭证名
+      imagePullSecrets:
+        - name: harbor-id
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+```
