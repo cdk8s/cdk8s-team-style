@@ -1446,6 +1446,49 @@ curl -X POST \
 - 如果想对外用域名进行访问，需要添加：应用路由，不然只能用公网 IP + NodePort
 - 添加应用路由的时候，应用可以是有开 NodePort 也可以没开
 
+
+## 使用外部的 MySQL 等服务
+
+- 这里的核心是 Service 和 Endpoint 要同名
+- 然后其他应用就可以用这个名字进行访问了
+
+```
+kind: Service
+apiVersion: v1
+metadata:
+  name: mysql-external
+  namespace: sacf-project
+  annotations:
+    kubesphere.io/creator: sacf-admin
+spec:
+  ports:
+    - protocol: TCP
+      port: 3306
+      targetPort: 3306
+---
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: mysql-external
+  namespace: sacf-project
+  annotations:
+    kubesphere.io/creator: sacf-admin
+subsets:
+  - addresses:
+      - ip: 10.23.1.32
+    ports:
+      - port: 3306
+```
+
+- 然后应用配置：`kubectl apply -f mysql-service-endpoint.yaml`
+- 如果要删除：
+
+```
+kubectl delete services mysql-external -n sacf-project
+kubectl delete endpoints mysql-external -n sacf-project
+```
+
+
 ## 使用外部 Harbor
 
 ```
@@ -1520,3 +1563,7 @@ spec:
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
 ```
+
+
+
+
