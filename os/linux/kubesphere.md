@@ -1564,6 +1564,14 @@ spec:
       terminationGracePeriodSeconds: 30
 ```
 
+## 如果要部署 Istio 应用
+
+- 需要先安装微服务治理的功能组件：<https://v2-1.docs.kubesphere.io/docs/zh-CN/installation/install-servicemesh/>
+- 安装过程挺长的，差不多要 5~10 分钟。安装后，admin 重新登录界面，在 Components 下面就有一个 Istio 组件了。 
+- 项目要开启服务治理还需要：`项目设置 > 高级设置 > 外网访问 > NodePort > 开启应用治理`
+- 添加示例应用：`应用负载 > 应用 > 部署示例应用 > 应用治理必须是开启的`
+
+
 
 
 
