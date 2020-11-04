@@ -976,7 +976,7 @@ Request ID: bef7638bacc9b6ae939fbb99207d3d2d
     - 创建一个类型为 kubeconfig 的凭证，凭证 ID 可命名为 demo-kubeconfig，内容要按照下面的内容获取
     - 先复制凭证类型为 kubeconfig 里面的内容到记事本，记下它 server 键值值，等下要用。
     - 在 master 机子上：vim /root/.kube/config，复制里面的内容出来，把刚刚上面记录的 server 值替换到 config 复制出来的文本中，然后再粘贴到凭证里面去
-- 创建两个项目
+- 现在回到企业空间下的工作台，在 `项目管理` 下创建两个普通项目：
     -  kubesphere-sample-dev
     -  kubesphere-sample-prod
     - 等下会用到这两个命名空间名称，发布的内容会到这里来（KubeSphere 中的项目对应的是 Kubernetes 的 namespace）
@@ -996,7 +996,6 @@ GITHUB_ACCOUNT                  your-github-account          替换为您的 Git
 APP_NAME                        devops-java-sample           应用名称
 ```
 
-- 现在回到企业空间下的工作台，在 `项目管理` 下创建两个普通项目：kubesphere-sample-dev、kubesphere-sample-prod
 - 在 `DevOps 工程` 下创建流水线工程
     - 名称：cdk8s-pipeline
     - 代码仓库：点击选择代码仓库，代码仓库需已存在 Jenkinsfile
