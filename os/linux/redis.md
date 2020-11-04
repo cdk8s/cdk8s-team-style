@@ -456,6 +456,59 @@ MSET (10 keys): 56401.58 requests per second
 - 只测试特定类型：`redis-benchmark -t set,lpush -n 100000 -q`
 
 
+## K8S YAML
+
+```
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: sculptor-boot-redis
+  namespace: sculptor-boot-backend-dev
+spec:
+  podManagementPolicy: Parallel
+  serviceName: sculptor-boot-redis
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sculptor-boot-redis
+  template:
+    metadata:
+      labels:
+        app: sculptor-boot-redis
+    spec:
+      containers:
+        - name: sculptor-boot-redis
+          image: redis:4
+          lifecycle:
+            postStart:
+              exec:
+                command: [ "/bin/sh", "-c", "redis-cli config set requirepass 123456" ]
+          ports:
+            - containerPort: 6379
+          resources:
+            limits:
+              cpu: 1
+              memory: 1Gi
+            requests:
+              cpu: 0.5
+              memory: 500Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: sculptor-boot-backend-dev
+  name: sculptor-boot-redis
+  labels:
+    app: sculptor-boot-redis
+spec:
+  ports:
+    - port: 6379
+      targetPort: 6379
+  selector:
+    app: sculptor-boot-redis
+```
+
+
 ## 资料
 
 - <http://yanshisan.blog.51cto.com/7879234/1377992>
