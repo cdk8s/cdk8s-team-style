@@ -39,7 +39,7 @@
 
 -------------------------------------------------------------------
 
-## Docker 下安装 MongoDB
+## Docker 下安装 MongoDB 3.4
 
 - 官网 Docker 镜像：<https://hub.docker.com/_/mongo/>
     - 目前（202005）主要分为下面几个主版本
@@ -62,6 +62,46 @@ docker run --name cloud-mongo \
 
 - 导出：`docker exec -it cloud-mongo mongoexport -h 127.0.0.1 -u 用户名 -p 密码 -d 库名 -c 集合名 -o /data/db/mongodb.json --type json`
 - 导入：`docker exec -it cloud-mongo mongoimport -h 127.0.0.1 -u 用户名 -p 密码 -d 库名 -c 集合名 --file /data/db/mongodb.json --type json`
+- 进入容器中 mongo shell 交互界面：`docker exec -it cloud-mongo mongo`，或者用 GUI 工具使用 mongo-admin 账号连上
+- 接着创建一个普通数据库和用户：
+
+```
+use my_test_db
+
+db.createUser(
+    {
+        user: "mytestuser",
+        pwd: "123456",
+        roles: [ 
+            { role: "dbAdmin", db: "my_test_db" },
+            { role: "readWrite", db: "my_test_db" }
+        ]
+    }
+)
+
+使用 db.auth() 可以对数据库中的用户进行验证，如果验证成功则返回 1，否则返回 0
+db.auth("mytestuser","123456")
+```
+
+- 重新用 GUI 工具使用 mytestuser 账号连上就可以看到测试库了
+
+## Docker 下安装 MongoDB 4.2
+
+
+- 先创建一个宿主机以后用来存放数据的目录：`mkdir -p /data/docker/mongo/db`
+- 赋权：`chmod 777 -R /data/docker/mongo/db`
+- 运行镜像 4.2（带有一个 admin 库的超级管理员。admin 库是权限数据库，专门负责超管，不能用于做业务库）：
+
+```
+docker run --name cloud-mongo \
+-p 27017:27017 \
+-v /data/docker/mongo/db:/data/db \
+-e MONGO_INITDB_ROOT_USERNAME=mongo-admin \
+-e MONGO_INITDB_ROOT_PASSWORD=123456 \
+-d mongo:4.2 \
+--auth
+```
+
 - 进入容器中 mongo shell 交互界面：`docker exec -it cloud-mongo mongo`，或者用 GUI 工具使用 mongo-admin 账号连上
 - 接着创建一个普通数据库和用户：
 
