@@ -93,7 +93,7 @@
 
 > 内存：8G x 4 = 250 X 4 = 1000 RMB
 
-- [金士顿 DDR4 8GB 台式机内存 骇客神条](https://search.jd.com/Search?enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=c0d90a09b813492cbb88dbd39455a471-p_669678130&abt=3&keyword=金士顿%20DDR4%208GB%20台式机内存%20骇客神条)
+- [金士顿 DDR4 3600 8GB 台式机内存 骇客神条](https://search.jd.com/Search?enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=c0d90a09b813492cbb88dbd39455a471-p_669678130&abt=3&keyword=金士顿%20DDR4%208GB%20台式机内存%20骇客神条)
 
 > 硬盘：550 + 300 + 550 = 1400 RMB
 
@@ -147,7 +147,7 @@
 
 > 内存：8G x 4 = 250 X 4 = 1000 RMB
 
-- [金士顿 DDR4 8GB 台式机内存 骇客神条](https://search.jd.com/Search?enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=c0d90a09b813492cbb88dbd39455a471-p_669678130&abt=3&keyword=金士顿%20DDR4%208GB%20台式机内存%20骇客神条)
+- [金士顿 DDR4 3600 8GB 台式机内存 骇客神条](https://search.jd.com/Search?enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=c0d90a09b813492cbb88dbd39455a471-p_669678130&abt=3&keyword=金士顿%20DDR4%208GB%20台式机内存%20骇客神条)
 
 > 硬盘：550 + 300 + 550 = 1400 RMB
 
