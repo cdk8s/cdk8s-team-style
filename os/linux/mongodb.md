@@ -57,6 +57,7 @@ docker run --name cloud-mongo \
 -e MONGO_INITDB_ROOT_USERNAME=mongo-admin \
 -e MONGO_INITDB_ROOT_PASSWORD=123456 \
 -d mongo:3.4 \
+--restart=always \
 --auth
 ```
 
