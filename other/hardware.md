@@ -25,7 +25,8 @@
 
 - **以下硬件没收任何店家的钱，不做广告**
 - 单个显示器就不推荐买显卡了。如果一定要买，那就选择 A 卡的：RX560/RX560D/RX570/RX580
-- 如果你多个显示器，那也最好买显卡。
+- 如果你多个显示器，那也最好买显卡
+- 显卡为入门款，不是用来打大型游戏的
 
 ### 低配台式机-带一个显示器（适合在校学生）（总价：5200 RMB）
 
@@ -76,15 +77,15 @@
 - [鼠标垫 5mm](http://search.jd.com/Search?keyword=鼠标垫%205mm&enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=00a190c9642a41ed823acfe81ee97572-p_669693165&abt=3)
 
 
-### 中配台式机-带一个显示器（总价：7700 RMB）
+### 中配台式机-带一个显示器（总价：8000 RMB）
 
 > CPU：1400 RMB
 
 - [英特尔（Intel）i5-9600K](https://search.jd.com/Search?enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=c0d90a09b813492cbb88dbd39455a471-p_669678130&abt=3&keyword=英特尔（Intel）i5-9600K)
 
-> 主板：850 RMB
+> 主板：1100 RMB
 
-- [技嘉（GIGABYTE）Z370 HD3 主板（ATX）](https://search.jd.com/Search?enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=c0d90a09b813492cbb88dbd39455a471-p_669678130&abt=3&keyword=技嘉（GIGABYTE）Z370%20HD3%20主板)
+- [技嘉（GIGABYTE）Z390 AORUS PRO WIFI（ATX）](https://search.jd.com/Search?enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=c0d90a09b813492cbb88dbd39455a471-p_669678130&abt=3&keyword=技嘉（GIGABYTE）Z390%20AORUS%20PRO%20WIFI)
 
 > 显卡：650 RMB
 
@@ -136,7 +137,7 @@
 
 - [英特尔（Intel）i7-9700K 8核8线程](https://search.jd.com/Search?enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=c0d90a09b813492cbb88dbd39455a471-p_669678130&abt=3&keyword=英特尔（Intel）i7-9700K)
 
-> 主板：1300 RMB
+> 主板：1100 RMB
 
 - [技嘉（GIGABYTE）Z390 AORUS PRO WIFI（ATX）](https://search.jd.com/Search?enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=c0d90a09b813492cbb88dbd39455a471-p_669678130&abt=3&keyword=技嘉（GIGABYTE）Z390%20AORUS%20PRO%20WIFI)
 
