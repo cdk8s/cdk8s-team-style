@@ -28,7 +28,7 @@
 - 如果你多个显示器，那也最好买显卡
 - 显卡为入门款，不是用来打大型游戏的
 
-### 低配台式机-带一个显示器（适合在校学生）（总价：5200 RMB）
+### 低配台式机-带一个显示器（适合在校学生）（总价：5400 RMB）
 
 > CPU：1000 RMB
 
@@ -91,7 +91,7 @@
 
 - [盈通（yeston）RX560D-4G D5大地之神](https://search.jd.com/Search?enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=c0d90a09b813492cbb88dbd39455a471-p_669678130&abt=3&keyword=%E7%9B%88%E9%80%9A%EF%BC%88yeston%EF%BC%89RX560D-4G%20D5%E5%A4%A7%E5%9C%B0%E4%B9%8B%E7%A5%9E)
 
-> 内存：8G x 4 = 250 X 4 = 1000 RMB
+> 内存：8G x 4 = 300 X 4 = 1200 RMB
 
 - [金士顿 DDR4 3600 8GB 台式机内存 骇客神条](https://search.jd.com/Search?enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=c0d90a09b813492cbb88dbd39455a471-p_669678130&abt=3&keyword=金士顿%20DDR4%208GB%20台式机内存%20骇客神条)
 
@@ -145,7 +145,7 @@
 
 - [盈通（yeston）RX560D-4G D5大地之神](https://search.jd.com/Search?enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=c0d90a09b813492cbb88dbd39455a471-p_669678130&abt=3&keyword=%E7%9B%88%E9%80%9A%EF%BC%88yeston%EF%BC%89RX560D-4G%20D5%E5%A4%A7%E5%9C%B0%E4%B9%8B%E7%A5%9E)
 
-> 内存：8G x 4 = 250 X 4 = 1000 RMB
+> 内存：8G x 4 = 300 X 4 = 1200 RMB
 
 - [金士顿 DDR4 3600 8GB 台式机内存 骇客神条](https://search.jd.com/Search?enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=c0d90a09b813492cbb88dbd39455a471-p_669678130&abt=3&keyword=金士顿%20DDR4%208GB%20台式机内存%20骇客神条)
 
