@@ -76,6 +76,7 @@
 - [双飞燕（A4TECH）KB-N8510 KB-N8510 键鼠套装](https://search.jd.com/Search?enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=c0d90a09b813492cbb88dbd39455a471-p_669678130&abt=3&keyword=%E5%8F%8C%E9%A3%9E%E7%87%95%EF%BC%88A4TECH%EF%BC%89KB-N8510%20KB-N8510%20%E9%94%AE%E9%BC%A0%E5%A5%97%E8%A3%85)
 - [鼠标垫 5mm](http://search.jd.com/Search?keyword=鼠标垫%205mm&enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=00a190c9642a41ed823acfe81ee97572-p_669693165&abt=3)
 
+-------------------------------------------------------------------
 
 ### 中配台式机-带一个显示器（总价：8000 RMB）
 
@@ -183,3 +184,63 @@
 
 - [雷柏 MT750S 无线蓝牙鼠标](http://search.jd.com/Search?keyword=雷柏%20MT750S%20无线蓝牙鼠标&enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=5cf02562905049858da8ba867d501e09-p_669693165&abt=3)
 - [鼠标垫 5mm](http://search.jd.com/Search?keyword=鼠标垫%205mm&enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=00a190c9642a41ed823acfe81ee97572-p_669693165&abt=3)
+
+-------------------------------------------------------------------
+
+### 奢侈台式机-带三个显示器（总价：40000 RMB）
+
+- 无聊意淫下，其实都这么有钱了，直接可以买 Mac Pro 了...
+- Mac Pro 的意淫：54000 + 40000 X 2 = 134000 RMB
+    - 3.5GHz 8 核 Intel Xeon W 处理器，Turbo Boost 最高可达 4.0GHz
+    - 48GB (6x8GB) DDR4 ECC 内存
+    - Radeon Pro 580X 图形处理器，配备 8GB GDDR5 显存（支持 2 台 Pro Display XDR）
+    - 1TB 固态硬盘
+    - 2 台 Pro Display XDR
+
+> CPU：3400 RMB
+
+- [英特尔（Intel）i9-9900K 8核16线程]()
+
+> 主板：1800 RMB
+
+- [技嘉（GIGABYTE）Z390 AORUS ULTRA（ATX）]()
+
+> 显卡：3400 RMB
+
+- [蓝宝石（Sapphire）RX 5700XT 8G 超白金]()
+
+> 内存：16G x 4 = 2200 X 2 = 4400 RMB
+
+- [美商海盗船(USCORSAIR) DDR4 4000 32GB(16G×2)套装]()
+
+> 硬盘：2800 X 2 + 700  = 6300 RMB
+
+- 两个盘用于 macOS
+- [三星（SAMSUNG）1TB SSD固态硬盘 M.2接口(NVMe协议) 970 PRO]()
+- 一个盘用于 Windows
+- [三星（SAMSUNG）500GB SSD固态硬盘 M.2接口(NVMe协议) 970 EVO Plus]()
+
+> 电源：750 RMB
+
+- [振华（SUPER FLOWER）额定650W LEADEX G 650 电源]()
+
+> 机箱：3000 RMB
+
+- [赤核 攀升高达 典藏版(支持30系显卡/E-ATX主板/360水冷/5V ARGB机甲灯效/6风扇位)]()
+
+> CPU 散热器：900 RMB
+
+- [赤核 攀升高达 360一体式CPU水冷散热器]()
+
+> 显示：4800 X 3 = 14400 RMB
+
+- [戴尔（DELL）U2720Q 27英寸4K超清IPS四边微边框]()
+
+> 键盘：430 RMB
+
+- [ikbc 正版授权RX-78-2高达]()
+
+> 鼠标：900 RMB
+
+- [罗技（Logitech）MX Master 3 鼠标 无线蓝牙鼠标]()
+- [鼠标垫 5mm]()
