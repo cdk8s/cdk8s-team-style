@@ -272,6 +272,7 @@ CONTAINER ID        NAME                      CPU %               MEM USAGE / LI
 - `docker inspect 容器ID`：查看容器的全面信息，用 JSON 格式输出
 - `docker inspect network名称`：查看 network 信息，用 JSON 格式输出，包含使用该网络的容器有哪些
 - `docker container update --restart=always 容器ID`：调整容器为永远启动
+- `docker container update --restart=no 容器ID`：调整容器为不永远启动
 - `docker system df`：类似于 Linux 上的 df 命令，用于查看 Docker 的磁盘使用情况
 	- Images 镜像
 	- Containers 容器
