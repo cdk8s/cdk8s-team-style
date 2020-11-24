@@ -226,6 +226,9 @@ export LESS_TERMCAP_us=$'\E[04;38;5;146m' # begin underline
     - `vim ~/.zshrc`，在 plugins 修改配置文件为：`plugins=(git zsh-autosuggestions zsh-syntax-highlighting)`
 - 最喜欢的主题：`af-magic` 和 `ys`
     - 修改配置文件为：`ZSH_THEME="af-magic"`
+- 注意
+    - 因为安装 zsh，终端的配置都变了，这时候可能最好重新安装 homebrew 会好一点，或者直接改它源
+
 
 ### 关于搭配上 tmux
 

@@ -15,6 +15,7 @@ brew link --overwrite --force node@10
 
 
 - 其他方式：官网安装包下载：<https://nodejs.org/zh-cn/>
+    - mac 不推荐用 pkg 包安装，很容易在项目中遇到各种权限问题
 
 ## Node 卸载
 
