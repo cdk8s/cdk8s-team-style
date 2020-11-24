@@ -19,7 +19,7 @@
 
 ```
 mkdir -p /data/docker/grafana/data
-chmod 777 -R /data/docker/grafana/data
+chmod -R 777 /data/docker/grafana/data
 
 docker run -d --name grafana -p 3000:3000 -v /data/docker/grafana/data:/var/lib/grafana grafana/grafana
 

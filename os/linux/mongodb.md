@@ -47,7 +47,7 @@
     - 4.0
     - 4.2
 - 先创建一个宿主机以后用来存放数据的目录：`mkdir -p /data/docker/mongo/db`
-- 赋权：`chmod 777 -R /data/docker/mongo/db`
+- 赋权：`chmod -R 777 /data/docker/mongo/db`
 - 运行镜像 3.4（带有一个 admin 库的超级管理员。admin 库是权限数据库，专门负责超管，不能用于做业务库）：
 
 ```
@@ -90,7 +90,7 @@ db.auth("mytestuser","123456")
 
 
 - 先创建一个宿主机以后用来存放数据的目录：`mkdir -p /data/docker/mongo/db`
-- 赋权：`chmod 777 -R /data/docker/mongo/db`
+- 赋权：`chmod -R 777 /data/docker/mongo/db`
 - 运行镜像 4.2（带有一个 admin 库的超级管理员。admin 库是权限数据库，专门负责超管，不能用于做业务库）：
 
 ```

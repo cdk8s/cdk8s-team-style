@@ -30,7 +30,7 @@
 - 官网：<https://hub.docker.com/_/redis/>
 - 创建一个宿主机目录用来存放 redis 配置文件：`mkdir -p ~/docker/redis/conf`
 - 创建一个宿主机以后用来存放数据的目录：`mkdir -p ~/docker/redis/db`
-- 赋权：`chmod 777 -R ~/docker/redis`
+- 赋权：`chmod -R 777 ~/docker/redis`
 - 自己编写一个配置文件 `vim ~/docker/redis/conf/redis.conf`，内容如下：
 
 - Redis 默认的配置文件内容：
@@ -259,7 +259,7 @@ hz 10
 aof-rewrite-incremental-fsync yes
 ```
 
-- 赋权：`chmod 777 -R ~/docker/redis-to-cluster/`
+- 赋权：`chmod -R 777 ~/docker/redis-to-cluster/`
 - 运行 6 个节点：
 	- `docker run -it -d --name redis-to-cluster-1 -p 5001:6379 -v ~/docker/redis-to-cluster/config/redis.conf:/usr/redis/redis.conf --net=net-redis-to-cluster --ip 172.19.0.2 redis-to-cluster:3.2.3 bash`
 	- `docker run -it -d --name redis-to-cluster-2 -p 5002:6379 -v ~/docker/redis-to-cluster/config/redis.conf:/usr/redis/redis.conf --net=net-redis-to-cluster --ip 172.19.0.3 redis-to-cluster:3.2.3 bash`
