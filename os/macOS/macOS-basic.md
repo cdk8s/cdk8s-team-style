@@ -64,10 +64,12 @@
 - [唤醒 Mac 后需要密码](http://www.jianshu.com/p/4e18ac40b258)
 - [多开 QQ](http://www.jianshu.com/p/fb57a5f8cd70)
 - [如何录制视频](http://www.jianshu.com/p/84ad2d1f111e)
+- [多屏幕、多显示器下固定 dock 栏到指定屏幕](https://www.jianshu.com/p/c4f246c0ac19)
 - [如何安装字体](http://www.jianshu.com/p/4063b825670d)
 - [如何关闭自动检查更新](http://www.jianshu.com/p/b31e938bbeb7)
 - [硬盘维护/格式化硬盘](http://www.jianshu.com/p/5c36f49e45d2)
 - [外接显示器设置](http://www.jianshu.com/p/e461b630108c)
 - [禁用客人用户](https://jingyan.baidu.com/article/b907e6279fff9946e7891cd5.html)
 - [启用/禁用root-修改root密码](http://www.jianshu.com/p/eac6d1d38755)
+- [通过终端命令修改用户密码](https://www.jianshu.com/p/0f67176d3a7a)
 
