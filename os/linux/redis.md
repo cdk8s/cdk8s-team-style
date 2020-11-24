@@ -28,10 +28,10 @@
 ## Redis 3.X 安装（Docker）
 
 - 官网：<https://hub.docker.com/_/redis/>
-- 创建一个宿主机目录用来存放 redis 配置文件：`mkdir -p /data/docker/redis/conf`
-- 创建一个宿主机以后用来存放数据的目录：`mkdir -p /data/docker/redis/db`
-- 赋权：`chmod 777 -R /data/docker/redis`
-- 自己编写一个配置文件 `vim /data/docker/redis/conf/redis.conf`，内容如下：
+- 创建一个宿主机目录用来存放 redis 配置文件：`mkdir -p ~/docker/redis/conf`
+- 创建一个宿主机以后用来存放数据的目录：`mkdir -p ~/docker/redis/db`
+- 赋权：`chmod 777 -R ~/docker/redis`
+- 自己编写一个配置文件 `vim ~/docker/redis/conf/redis.conf`，内容如下：
 
 - Redis 默认的配置文件内容：
 
@@ -102,8 +102,8 @@ aof-rewrite-incremental-fsync yes
 
 ```
 docker run -d -it -p 6379:6379 \
-    -v /data/docker/redis/conf/redis.conf:/etc/redis/redis.conf \
-    -v /data/docker/redis/db:/data \
+    -v ~/docker/redis/conf/redis.conf:/etc/redis/redis.conf \
+    -v ~/docker/redis/db:/data \
     --restart always \
     --name cloud-redis redis:3.2 \
     redis-server /etc/redis/redis.conf
@@ -199,7 +199,7 @@ rdb-save-incremental-fsync yes
 - 拉取镜像：`docker pull registry.cn-shenzhen.aliyuncs.com/youmeek/redis-to-cluster:3.2.3`
 - 重新打个 tag（旧名字太长了）：`docker tag registry.cn-shenzhen.aliyuncs.com/youmeek/redis-to-cluster:3.2.3 redis-to-cluster:3.2.3`
 - 创建网段：`docker network create --subnet=172.19.0.0/16 net-redis-to-cluster`
-- 宿主机创建配置文件：`mkdir -p /data/docker/redis-to-cluster/config && vim /data/docker/redis-to-cluster/config/redis.conf`
+- 宿主机创建配置文件：`mkdir -p ~/docker/redis-to-cluster/config && vim ~/docker/redis-to-cluster/config/redis.conf`
 
 ```
 bind 0.0.0.0
@@ -259,14 +259,14 @@ hz 10
 aof-rewrite-incremental-fsync yes
 ```
 
-- 赋权：`chmod 777 -R /data/docker/redis-to-cluster/`
+- 赋权：`chmod 777 -R ~/docker/redis-to-cluster/`
 - 运行 6 个节点：
-	- `docker run -it -d --name redis-to-cluster-1 -p 5001:6379 -v /data/docker/redis-to-cluster/config/redis.conf:/usr/redis/redis.conf --net=net-redis-to-cluster --ip 172.19.0.2 redis-to-cluster:3.2.3 bash`
-	- `docker run -it -d --name redis-to-cluster-2 -p 5002:6379 -v /data/docker/redis-to-cluster/config/redis.conf:/usr/redis/redis.conf --net=net-redis-to-cluster --ip 172.19.0.3 redis-to-cluster:3.2.3 bash`
-	- `docker run -it -d --name redis-to-cluster-3 -p 5003:6379 -v /data/docker/redis-to-cluster/config/redis.conf:/usr/redis/redis.conf --net=net-redis-to-cluster --ip 172.19.0.4 redis-to-cluster:3.2.3 bash`
-	- `docker run -it -d --name redis-to-cluster-4 -p 5004:6379 -v /data/docker/redis-to-cluster/config/redis.conf:/usr/redis/redis.conf --net=net-redis-to-cluster --ip 172.19.0.5 redis-to-cluster:3.2.3 bash`
-	- `docker run -it -d --name redis-to-cluster-5 -p 5005:6379 -v /data/docker/redis-to-cluster/config/redis.conf:/usr/redis/redis.conf --net=net-redis-to-cluster --ip 172.19.0.6 redis-to-cluster:3.2.3 bash`
-	- `docker run -it -d --name redis-to-cluster-6 -p 5006:6379 -v /data/docker/redis-to-cluster/config/redis.conf:/usr/redis/redis.conf --net=net-redis-to-cluster --ip 172.19.0.7 redis-to-cluster:3.2.3 bash`
+	- `docker run -it -d --name redis-to-cluster-1 -p 5001:6379 -v ~/docker/redis-to-cluster/config/redis.conf:/usr/redis/redis.conf --net=net-redis-to-cluster --ip 172.19.0.2 redis-to-cluster:3.2.3 bash`
+	- `docker run -it -d --name redis-to-cluster-2 -p 5002:6379 -v ~/docker/redis-to-cluster/config/redis.conf:/usr/redis/redis.conf --net=net-redis-to-cluster --ip 172.19.0.3 redis-to-cluster:3.2.3 bash`
+	- `docker run -it -d --name redis-to-cluster-3 -p 5003:6379 -v ~/docker/redis-to-cluster/config/redis.conf:/usr/redis/redis.conf --net=net-redis-to-cluster --ip 172.19.0.4 redis-to-cluster:3.2.3 bash`
+	- `docker run -it -d --name redis-to-cluster-4 -p 5004:6379 -v ~/docker/redis-to-cluster/config/redis.conf:/usr/redis/redis.conf --net=net-redis-to-cluster --ip 172.19.0.5 redis-to-cluster:3.2.3 bash`
+	- `docker run -it -d --name redis-to-cluster-5 -p 5005:6379 -v ~/docker/redis-to-cluster/config/redis.conf:/usr/redis/redis.conf --net=net-redis-to-cluster --ip 172.19.0.6 redis-to-cluster:3.2.3 bash`
+	- `docker run -it -d --name redis-to-cluster-6 -p 5006:6379 -v ~/docker/redis-to-cluster/config/redis.conf:/usr/redis/redis.conf --net=net-redis-to-cluster --ip 172.19.0.7 redis-to-cluster:3.2.3 bash`
 - 配置 redis-to-cluster-1 节点：`docker exec -it redis-to-cluster-1 bash`
 	- 启动容器的 redis：`/usr/redis/src/redis-server /usr/redis/redis.conf`
 - 其他 5 个节点一样进行启动。
