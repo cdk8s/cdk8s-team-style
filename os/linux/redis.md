@@ -28,8 +28,7 @@
 ## Redis 3.X 安装（Docker）
 
 - 官网：<https://hub.docker.com/_/redis/>
-- 创建一个宿主机目录用来存放 redis 配置文件：`mkdir -p ~/docker/redis/conf`
-- 创建一个宿主机以后用来存放数据的目录：`mkdir -p ~/docker/redis/db`
+- 创建一个宿主机目录用来存放 redis 配置文件、数据：`mkdir -p ~/docker/redis/conf ~/docker/redis/db`
 - 赋权：`chmod -R 777 ~/docker/redis`
 - 自己编写一个配置文件 `vim ~/docker/redis/conf/redis.conf`，内容如下：
 
