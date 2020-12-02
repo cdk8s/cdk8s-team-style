@@ -36,7 +36,7 @@ services:
       - 9200:9200
       - 9300:9300
     volumes:
-      - /data/docker/elasticsearch/data:/usr/share/elasticsearch/data
+      - ~/docker/elasticsearch/data:/usr/share/elasticsearch/data
 
 ```
 
@@ -102,7 +102,7 @@ ik_smart: 会做最粗粒度的拆分，比如会将“中华人民共和国国�
 #### 6.7.x（带 ik 分词）
 
 - `vim ~/elasticsearch-6.7.2-docker.yml`
-- `mkdir -p /data/docker/elasticsearch-6.7.2/data`
+- `mkdir -p ~/docker/elasticsearch-6.7.2/data`
 - 启动：`docker-compose -f ~/elasticsearch-6.7.2-docker.yml -p elasticsearch_6.7.2 up -d`
 - 如果官网镜像比较慢可以换成阿里云：`registry.cn-hangzhou.aliyuncs.com/elasticsearch/elasticsearch:6.7.2`
 - 下载 ik 分词（版本必须和 Elasticsearch 版本对应，包括小版本号）：<https://github.com/medcl/elasticsearch-analysis-ik>
@@ -131,8 +131,8 @@ services:
       - 9200:9200
       - 9300:9300
     volumes:
-      - /data/docker/elasticsearch-6.7.2/data:/usr/share/elasticsearch/data
-      - /data/docker/ik:/usr/share/elasticsearch/plugins/ik
+      - ~/docker/elasticsearch-6.7.2/data:/usr/share/elasticsearch/data
+      - ~/docker/ik:/usr/share/elasticsearch/plugins/ik
 ```
 
 - Elasticsearch Head 插件地址：<https://chrome.google.com/webstore/detail/ffmkiejjmecolpfloofpjologoblkegm>
