@@ -52,12 +52,12 @@
 
 ```
 docker run --name cloud-mongo \
+--restart=always \
 -p 27017:27017 \
 -v ~/docker/mongo/db:/data/db \
 -e MONGO_INITDB_ROOT_USERNAME=mongo-admin \
 -e MONGO_INITDB_ROOT_PASSWORD=123456 \
 -d mongo:3.4 \
---restart=always \
 --auth
 ```
 
