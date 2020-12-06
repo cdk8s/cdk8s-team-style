@@ -46,14 +46,14 @@
     - 3.6
     - 4.0
     - 4.2
-- 先创建一个宿主机以后用来存放数据的目录：`mkdir -p /data/docker/mongo/db`
-- 赋权：`chmod -R 777 /data/docker/mongo/db`
+- 先创建一个宿主机以后用来存放数据的目录：`mkdir -p ~/docker/mongo/db`
+- 赋权：`chmod -R 777 ~/docker/mongo/db`
 - 运行镜像 3.4（带有一个 admin 库的超级管理员。admin 库是权限数据库，专门负责超管，不能用于做业务库）：
 
 ```
 docker run --name cloud-mongo \
 -p 27017:27017 \
--v /data/docker/mongo/db:/data/db \
+-v ~/docker/mongo/db:/data/db \
 -e MONGO_INITDB_ROOT_USERNAME=mongo-admin \
 -e MONGO_INITDB_ROOT_PASSWORD=123456 \
 -d mongo:3.4 \
@@ -89,14 +89,14 @@ db.auth("mytestuser","123456")
 ## Docker 下安装 MongoDB 4.2
 
 
-- 先创建一个宿主机以后用来存放数据的目录：`mkdir -p /data/docker/mongo/db`
-- 赋权：`chmod -R 777 /data/docker/mongo/db`
+- 先创建一个宿主机以后用来存放数据的目录：`mkdir -p ~/docker/mongo/db`
+- 赋权：`chmod -R 777 ~/docker/mongo/db`
 - 运行镜像 4.2（带有一个 admin 库的超级管理员。admin 库是权限数据库，专门负责超管，不能用于做业务库）：
 
 ```
 docker run --name cloud-mongo \
 -p 27017:27017 \
--v /data/docker/mongo/db:/data/db \
+-v ~/docker/mongo/db:/data/db \
 -e MONGO_INITDB_ROOT_USERNAME=mongo-admin \
 -e MONGO_INITDB_ROOT_PASSWORD=123456 \
 -d mongo:4.2 \
