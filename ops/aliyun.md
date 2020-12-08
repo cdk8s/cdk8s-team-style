@@ -39,7 +39,7 @@
 - [视频直播](https://help.aliyun.com/document_detail/29951.html)
 - [短视频](https://promotion.aliyun.com/ntms/act/shortvideo.html)
 
-## 人工只能
+## 人工智能
 
 - [爬虫风险管理](https://www.aliyun.com/product/antibot)
 - [视觉智能开放平台](https://vision.aliyun.com/)
