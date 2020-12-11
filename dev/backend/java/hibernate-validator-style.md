@@ -33,7 +33,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
-@ApiModel(value = "SysUserCreateRequestParam")
 @Setter
 @Getter
 @ToString
@@ -42,33 +41,27 @@ public class SysUserCreateRequestParam implements Serializable {
 
 	private static final long serialVersionUID = -1L;
 
-	@ApiModelProperty("用户名")
 	@NotBlank(message = "用户名不能为空")
 	@Length(min = 1, max = 50, message = "用户名长度不正确")
 	private String username;
 
-	@ApiModelProperty("用户密码")
 	@NotBlank(message = "用户密码不能为空")
 	@Length(min = 1, max = 50, message = "用户密码长度不正确")
 	private String userPassword;
 
-	@ApiModelProperty("邮箱地址")
 	@NotBlank(message = "邮箱地址不能为空")
 	@Length(min = 1, max = 50, message = "邮箱地址长度不正确")
 	@Email(message = "邮箱地址格式不正确")
 	private String userEmail;
 
-	@ApiModelProperty("固话")
 	@NotBlank(message = "固话不能为空")
 	@Length(min = 1, max = 20, message = "固话长度不正确")
 	private String telephone;
 
-	@ApiModelProperty("手机号")
 	@NotBlank(message = "手机号不能为空")
 	@Length(min = 1, max = 20, message = "手机号长度不正确")
 	private String mobilePhone;
 
-	@ApiModelProperty("性别")
 	@NotNull(message = "性别不能为空")
 	@Range(min = 1, max = 4, message = "性别数值不正确")
 	private Integer genderEnum;
