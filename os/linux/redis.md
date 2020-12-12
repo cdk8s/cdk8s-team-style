@@ -351,6 +351,7 @@ M: 5d0fe968559af3035d8d64ab598f2841e5f3a059 172.19.0.7:6379
 - 命令是不区分大小写的，但是这里为了方便和后面的 key value 进行区分所以我全部写大写，你也可以用小写。
     - 但是需要注意的是：key 是完全区分大小写的，比如 key=codeBlog 和 key=codeblog 是两个键值
 - 官网命令列表：<http://redis.io/commands>
+- `redis-cli -h 127.0.0.1 -p 6379 -a 123456`
 - `SET key value`，设值。eg：`SET myblog www.youmeek.com`
 - `redis-server -v`，查看服务器版本
 - `GET key`，取值
