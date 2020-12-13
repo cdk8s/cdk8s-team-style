@@ -156,7 +156,7 @@ daacc724767640a29ddc99d159a80cf8
 This may also be found at: /root/.jenkins/secrets/initialAdminPassword
 ```
 
-- 守护进程启动：`nohup java -jar /usr/lib/jenkins/jenkins.war --httpPort=18080 > /dev/null 2>&1 &`
+- 守护进程启动：`nohup java -jar /usr/lib/jenkins/jenkins.war --httpPort=18080 > nohub-jenkins.log 2>&1 &`
 - 浏览器访问 Jenkins 首页开始配置：<http://192.168.0.105:18080/>
 - 特殊情况：
 	- 如果配置插件过程遇到这个错误：`No valid crumb was included in the request`，则多重试几次。
