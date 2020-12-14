@@ -17,7 +17,7 @@
 - 请求头需要传下面几个参数：
     - appKey
     - epochMilli：当前 UTC 时间戳，到毫秒，该时间戳值，不能与服务端时间相差超过5分钟，建议调用的时候获取客户端当前系统时间戳即可。比如格式：1597398594479
-    - shaString：对三个参数进行SHA1计算结果（计算结果字母全部为小写） SHA1(appSecret + epochMilli)
+    - shaString：对两个参数进行SHA1计算结果（计算结果字母全部为小写） SHA1(appSecret + epochMilli)
 
 
 ## 测试层面
