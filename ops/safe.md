@@ -16,9 +16,8 @@
     - appSecret（32位，字母全部为小写），比如：98c064b3ff48be31273220fa6f34be40
 - 请求头需要传下面几个参数：
     - appKey
-    - nonce：随机数（只能是数字、小写字母组成，最大长度 128 个字符），比如格式：112233abc
     - epochMilli：当前 UTC 时间戳，到毫秒，比如格式：1597398594479
-    - shaString：对三个参数进行SHA1计算结果（计算结果字母全部为小写） SHA1(appSecret + nonce + epochMilli)
+    - shaString：对三个参数进行SHA1计算结果（计算结果字母全部为小写） SHA1(appSecret + epochMilli)
 
 
 ## 测试层面
