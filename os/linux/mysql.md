@@ -14,6 +14,93 @@
 - 官网 5.6 下载：<http://dev.mysql.com/downloads/mysql/5.6.html#downloads>
 - 官网 5.7 下载：<http://dev.mysql.com/downloads/mysql/5.7.html#downloads>
 - 官网帮助中心：<http://dev.mysql.com/doc/refman/5.6/en/source-installation.html>
+- Docker 官网：<https://hub.docker.com/_/mysql/>
+
+
+## Docker 安装 MySQL 8.0.x（不带挂载）
+
+```
+docker run \
+	--name mysql \
+	--restart always \
+	-p 3316:3306 \
+	-e MYSQL_ROOT_PASSWORD=123456 \
+	-d \
+	mysql:8
+```
+
+- 默认的配置文件在
+    - `/etc/mysql/my.cnf`
+    - `/etc/mysql/conf.d`
+
+
+## Docker 安装 MySQL 8.0.x（带挂载）
+
+- 创建本地数据存储 + 配置文件目录：`mkdir -p ~/docker/mysql/datadir ~/docker/mysql/conf ~/docker/mysql/log`
+- 在宿主机上创建一个配置文件：`vim ~/docker/mysql/conf/mysql-1.cnf`，内容如下：
+
+```
+# 该编码设置是我自己配置的
+[mysql]
+default-character-set = utf8mb4
+
+# 下面内容是 docker mysql 默认的 start
+[mysqld]
+max_connections = 500
+pid-file = /var/run/mysqld/mysqld.pid
+socket = /var/run/mysqld/mysqld.sock
+datadir = /var/lib/mysql
+#log-error = /var/log/mysql/error.log
+# By default we only accept connections from localhost
+#bind-address = 127.0.0.1
+# Disabling symbolic-links is recommended to prevent assorted security risks
+symbolic-links=0
+# 上面内容是 docker mysql 默认的 end
+
+# 下面开始的内容就是我自己配置的
+log-error=/var/log/mysql/error.log
+default-storage-engine = InnoDB
+collation-server = utf8mb4_unicode_520_ci
+init_connect = 'SET NAMES utf8mb4'
+character-set-server = utf8mb4
+# 表名大小写敏感 0 是区分大小写，1 是不分区，全部采用小写
+lower_case_table_names = 1
+max_allowed_packet = 50M
+sql_mode=STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION
+
+# 避免在 dump 命令中加上密码后提示：Using a password on the command line interface can be insecure
+[mysqldump]
+user=root
+password=123456
+
+```
+
+
+- 赋权（避免挂载的时候，一些程序需要容器中的用户的特定权限使用）：`chmod -R 777 ~/docker/mysql/datadir ~/docker/mysql/log`
+- 赋权：`chown -R 0:0 ~/docker/mysql/conf`
+	- 配置文件的赋权比较特殊，如果是给 777 权限会报：[Warning] World-writable config file '/etc/mysql/conf.d/mysql-1.cnf' is ignored，所以这里要特殊对待。容器内是用 root 的 uid，所以这里与之相匹配赋权即可。
+	- 我是进入容器 bash 内，输入：`whoami && id`，看到默认用户的 uid 是 0，所以这里才 chown 0
+- 启动
+
+```
+docker run -p 3306:3306 \
+    --name cloud-mysql \
+    --restart always \
+    -v ~/docker/mysql/datadir:/var/lib/mysql \
+    -v ~/docker/mysql/log:/var/log/mysql \
+    -v ~/docker/mysql/conf:/etc/mysql/conf.d \
+    -e MYSQL_ROOT_PASSWORD=123456 \
+    -d mysql:8
+```
+
+- 连上容器：`docker exec -it cloud-mysql /bin/bash`
+	- 连上 MySQL：`mysql -u root -p`
+	- 创建表：`CREATE DATABASE wormhole DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci;`
+- docker 的 MySQL 备份和还原：
+	- 备份：`docker exec cloud-mysql /usr/bin/mysqldump -u root --password=123456 DATABASE_Name > /opt/backup.sql`
+	- 还原：`docker exec -i cloud-mysql /usr/bin/mysql -u root --password=123456 DATABASE_Name < /opt/backup.sql`
+
+-------------------------------------------------------------------
 
 
 ## Docker 安装 MySQL 5.7（不带挂载）
@@ -24,7 +111,6 @@ docker run \
 	--restart always \
 	-p 3306:3306 \
 	-e MYSQL_ROOT_PASSWORD=123456 \
-	-e MYSQL_DATABASE=youmeek_nav \
 	-d \
 	mysql:5.7
 ```
@@ -86,6 +172,7 @@ sql_mode=STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_
 [mysqldump]
 user=root
 password=123456
+
 ```
 
 - 赋权（避免挂载的时候，一些程序需要容器中的用户的特定权限使用）：`chmod -R 777 ~/docker/mysql/datadir ~/docker/mysql/log`
@@ -108,32 +195,6 @@ docker run -p 3306:3306 \
 - 连上容器：`docker exec -it cloud-mysql /bin/bash`
 	- 连上 MySQL：`mysql -u root -p`
 	- 创建表：`CREATE DATABASE wormhole DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci;`
-- 关于容器的 MySQL 配置，官网是这样说的：<https://hub.docker.com/_/mysql/>
-
->> The MySQL startup configuration is specified in the file /etc/mysql/my.cnf, and that file in turn includes any files found in the /etc/mysql/conf.d directory that end with .cnf.Settings in files in this directory will augment and/or override settings in /etc/mysql/my.cnf. If you want to use a customized MySQL configuration,you can create your alternative configuration file in a directory on the host machine and then mount that directory location as /etc/mysql/conf.d inside the mysql container.
-
-- 容器中的 my.cnf 内容如下：
-
-```
-# Copyright (c) 2016, Oracle and/or its affiliates. All rights reserved.
-#
-# This program is free software; you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation; version 2 of the License.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
-
-!includedir /etc/mysql/conf.d/
-!includedir /etc/mysql/mysql.conf.d/
-```
-
 - docker 的 MySQL 备份和还原：
 	- 备份：`docker exec cloud-mysql /usr/bin/mysqldump -u root --password=123456 DATABASE_Name > /opt/backup.sql`
 	- 还原：`docker exec -i cloud-mysql /usr/bin/mysql -u root --password=123456 DATABASE_Name < /opt/backup.sql`
