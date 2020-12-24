@@ -607,13 +607,13 @@ spec:
     es:
       # es 集群主节点数量，必须是奇数
       elasticsearchMasterReplicas: 1
-      elasticsearchDataReplicas: 1
-      elasticsearchDataVolumeSize: 20Gi
+      elasticsearchDataReplicas: 2
       elasticsearchMasterVolumeSize: 4Gi
+      elasticsearchDataVolumeSize: 30Gi
       elkPrefix: logstash
       # 数据保持天数，超过天数的旧数据会被清除
       logMaxAge: 7
-      # 如果要用外面的 es 集群，需要配置这两个。如果不配置，则默认 KubeSphere 会自己拉取 es 镜像。建议一开始就自己安装 Elasticsearch，然后在这里配置好后，再启动与之相关的功能。
+      # 如果要用外面的 es 集群，还需要再补充配置这两个。如果不配置，则默认 KubeSphere 会自己拉取 es 镜像。建议一开始就自己安装 Elasticsearch，然后在这里配置好后，再启动与之相关的功能。
       # externalElasticsearchUrl: http://www.cdk8s.com
       # externalElasticsearchPort: 9200
     etcdVolumeSize: 20Gi
