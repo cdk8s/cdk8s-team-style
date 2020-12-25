@@ -295,7 +295,9 @@ kubesphere-system              redis-6fd6c6d6f9-96rs2                           
 
 -------------------------------------------------------------------
 
-## 高可用集群开始安装
+## 高可用集群开始安装（阿里云）
+
+- 官网文档：<https://kubesphere.io/zh/docs/installing-on-linux/public-cloud/install-kubesphere-on-ali-ecs/>
 
 ```
 我的服务器硬件信息说明
@@ -402,13 +404,15 @@ systemctl restart docker
 - 选择一台 master1 节点，创建配置文件并执行
 
 ````
-这个文件 22M 左右
-wget -c https://kubesphere.io/download/kubekey-v1.0.0-linux-amd64.tar.gz -O - | tar -xz
+export KKZONE=cn
+
+curl -sfL https://get-kk.kubesphere.io | VERSION=v1.0.1 sh -
 
 chmod +x kk
 
 ./kk create config --with-kubesphere v3.0.0 --with-kubernetes v1.17.9 -f config-sample.yaml
 这时候根目录会有一个 config-sample.yaml 文件
+
 ````
 
 - 文件其他内容我们不动，就改跟服务器配置有关的部分
