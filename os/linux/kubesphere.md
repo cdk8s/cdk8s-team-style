@@ -1011,7 +1011,7 @@ APP_NAME                        devops-java-sample           应用名称
     在 GitHub 的账号 `settings > Developer settings > Personal access tokens > Generate new token` 勾选 repo、user 两个选项（特别是你的账号如果是带有组织和个人必须勾选 user），点击 Generate token，GitHub 将生成一串字母和数字组成的 token 用于访问当前账户下的 GitHub repo。
     复制生成的 token，在 KubeSphere Token 框中输入该 token 然后点击保存。
     5、验证通过后，右侧会列出此 Token 关联用户的所有代码库，选择其中一个带有 Jenkinsfile 的仓库。比如此处选择准备好的示例仓库 devops-java-sample，点击 选择此仓库，完成后点击 下一步
-- 如果是 Gitee 需要先自己创建一个凭证，然后复制 Gitee 仓库地址（不要有 .git 后缀）
+- 如果是 Gitee 需要先自己创建一个凭证，然后复制 Gitee 仓库地址（可以不用带 .git 后缀。如果有问题那就再删除 .git 后缀）
 ```
 完成代码仓库相关设置后，进入高级设置页面，高级设置支持对流水线的构建记录、行为策略、定期扫描等设置的定制化，以下对用到的相关配置作简单释义。
 1、分支设置中，勾选 `丢弃旧的分支`，此处的 保留分支的天数 和 保留分支的最大个数 默认为 -1（表示将会丢弃已经被删除的分支）
