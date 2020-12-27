@@ -1563,7 +1563,7 @@ spec:
       dnsPolicy: ClusterFirst
       # 如果用私有仓库，这里需要配置上你私有仓库配置的凭证名
       imagePullSecrets:
-        - name: aliyun-hub-id-meek
+        - name: harbor-id
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
 ```
