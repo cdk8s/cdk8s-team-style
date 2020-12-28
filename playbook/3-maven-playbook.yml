@@ -1,0 +1,147 @@
+- hosts: all
+  remote_user: root
+  vars:
+    maven_install_folder: /usr/share
+    file_name: apache-maven-3.6.3-bin.zip
+  tasks:
+    - name: copy maven
+      copy:
+        src=/opt/software/{{ file_name }}
+        dest={{ maven_install_folder }}
+
+    - name: unzip maven
+      shell:
+        chdir={{ maven_install_folder }}
+        unzip {{ file_name }}
+
+    - name: rename directory to jenkins use
+      shell: "{{ item }}"
+      with_items:
+        - mv /usr/share/apache-maven-3.6.3 /usr/share/apache-maven-3.6.1
+
+    - name: set MAVEN_HOME
+      blockinfile:
+        path: /root/.zshrc
+        marker: "#{mark} MAVEN ENV"
+        block: |
+            MAVEN_HOME={{ maven_install_folder }}/apache-maven-3.6.1
+            M3_HOME={{ maven_install_folder }}/apache-maven-3.6.1
+            M2_HOME={{ maven_install_folder }}/apache-maven-3.6.1
+            PATH=$PATH:$M3_HOME/bin
+            MAVEN_OPTS="-Xms1024m -Xmx1024m -XX:MaxPermSize=512m"
+            export M3_HOME
+            export M2_HOME
+            export MAVEN_HOME
+            export PATH
+            export MAVEN_OPTS
+
+    - name: source zshrc
+      shell: source /root/.zshrc
+
+    - name: remove zip file
+      file:
+        path: "{{ maven_install_folder }}/{{ file_name }}"
+        state: absent
+
+    - name: create local_maven_repository directory
+      file:
+        path: /opt/local_maven_repository
+        state: directory
+
+    - name: remove old settings.xml
+      file:
+        path: "{{ maven_install_folder }}/apache-maven-3.6.3/conf/settings.xml"
+        state: absent
+
+    - name: create settings.xml file
+      file:
+        path="{{ maven_install_folder }}/apache-maven-3.6.3/conf/{{ item }}"
+        state=touch
+        mode=777
+      with_items:
+        - settings.xml
+
+    - name: set settings.xml aliyun
+      blockinfile:
+        path: "{{ maven_install_folder }}/apache-maven-3.6.3/conf/settings.xml"
+        marker: ""
+        block: |
+          <?xml version="1.0" encoding="UTF-8"?>
+          <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+
+
+              <localRepository>/opt/local_maven_repository</localRepository>
+
+              <pluginGroups>
+              </pluginGroups>
+
+              <proxies>
+              </proxies>
+
+              <servers>
+              </servers>
+
+              <profiles>
+                  <profile>
+                      <id>aliyun</id>
+                      <repositories>
+                          <repository>
+                              <id>aliyun</id>
+                              <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+                              <releases>
+                                  <enabled>true</enabled>
+                              </releases>
+                              <snapshots>
+                                  <enabled>true</enabled>
+                              </snapshots>
+                          </repository>
+                      </repositories>
+                      <pluginRepositories>
+                          <pluginRepository>
+                              <id>aliyun</id>
+                              <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+                              <releases>
+                                  <enabled>true</enabled>
+                              </releases>
+                              <snapshots>
+                                  <enabled>true</enabled>
+                              </snapshots>
+                          </pluginRepository>
+                      </pluginRepositories>
+                  </profile>
+                  <profile>
+                      <id>maven</id>
+                      <repositories>
+                          <repository>
+                              <id>maven</id>
+                              <url>https://repo.maven.apache.org/maven2/</url>
+                              <releases>
+                                  <enabled>true</enabled>
+                              </releases>
+                              <snapshots>
+                                  <enabled>true</enabled>
+                              </snapshots>
+                          </repository>
+                      </repositories>
+                      <pluginRepositories>
+                          <pluginRepository>
+                              <id>maven</id>
+                              <url>https://repo.maven.apache.org/maven2/</url>
+                              <releases>
+                                  <enabled>true</enabled>
+                              </releases>
+                              <snapshots>
+                                  <enabled>true</enabled>
+                              </snapshots>
+                          </pluginRepository>
+                      </pluginRepositories>
+                  </profile>
+              </profiles>
+
+              <activeProfiles>
+                  <activeProfile>aliyun</activeProfile>
+              </activeProfiles>
+
+          </settings>

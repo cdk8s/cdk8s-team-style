@@ -126,13 +126,13 @@ ssh -p 22 root@172.16.0.5
 #### 安装 Docker
 
 - 虽然 kubekey 安装中间会自动帮我们安装 docker，但是安装后默认的源是 Docker 国外的会很慢
-- 所以我们可以考虑自己安装 Docker 并且修改源。当前时间 2020-10 KubeSphere 3.0.0 用的是 `Docker version 19.03.13, build 4484c46d9d`
-- 开始安装 Docker
+- 所以我们可以考虑自己安装 Docker 并且修改源。
+- 开始安装 Docker（要求是 19.03.x 现在还不支持 20 的版本）
 
 ```
 yum install -y yum-utils device-mapper-persistent-data lvm2
 yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
-yum install -y containerd.io docker-ce-19.03.13 docker-ce-cli-19.03.13
+yum install -y containerd.io docker-ce-19.03.14 docker-ce-cli-19.03.14
 
 systemctl start docker
 systemctl enable docker
@@ -365,13 +365,13 @@ ssh -p 22 root@172.18.103.126
 #### 安装 Docker
 
 - 虽然 kubekey 安装中间会自动帮我们安装 docker，但是安装后默认的源是 Docker 国外的会很慢
-- 所以我们可以考虑自己安装 Docker 并且修改源。当前时间 2020-10 KubeSphere 3.0.0 用的是 `Docker version 19.03.13, build 4484c46d9d`
-- 开始安装 Docker
+- 所以我们可以考虑自己安装 Docker 并且修改源。
+- 开始安装 Docker（要求是 19.03.x 现在还不支持 20 的版本）
 
 ```
 yum install -y yum-utils device-mapper-persistent-data lvm2
 yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
-yum install -y containerd.io docker-ce-19.03.13 docker-ce-cli-19.03.13
+yum install -y containerd.io docker-ce-19.03.14 docker-ce-cli-19.03.14
 
 systemctl start docker
 systemctl enable docker

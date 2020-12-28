@@ -1,0 +1,105 @@
+- hosts: all
+  remote_user: root
+  tasks:
+    - name: Disable SELinux at next reboot
+      selinux:
+        state: disabled
+
+    - name: disable firewalld
+      command: "{{ item }}"
+      with_items:
+         - systemctl stop firewalld
+         - systemctl disable firewalld
+         - echo "vm.swappiness = 0" >> /etc/sysctl.conf
+         - swapoff -a
+         - sysctl -w vm.swappiness=0
+
+    - name: timedatectl
+      command: "{{ item }}"
+      with_items:
+         - timedatectl
+         - timedatectl set-ntp true
+
+    - name: install-epel
+      command: "{{ item }}"
+      with_items:
+         - yum install -y epel-release
+
+    - name: install-basic
+      command: "{{ item }}"
+      with_items:
+         - yum install -y zip unzip lrzsz git wget htop deltarpm
+
+    - name: install zsh oh-my-zsh
+      shell: "{{ item }}"
+      with_items:
+         - yum install -y zsh
+         - wget https://gitee.com/cdk8s_org/oh-my-zsh/raw/master/tools/install.sh  -O - | sh
+         - chsh -s /bin/zsh root
+
+    - name: install zsh plugin
+      shell: "{{ item }}"
+      with_items:
+        - git clone --depth=1 https://gitee.com/cdk8s_org/zsh-autosuggestions.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+        - git clone --depth=1 https://gitee.com/cdk8s_org/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+
+    - name: replace zshrc theme
+      lineinfile:
+        path: /root/.zshrc
+        regexp: '^ZSH_THEME='
+        line: ZSH_THEME="af-magic"
+
+    - name: replace zshrc plugins
+      lineinfile:
+        path: /root/.zshrc
+        regexp: '^plugins='
+        line: plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
+
+
+    - name: install-vim
+      shell: "{{ item }}"
+      with_items:
+         - yum install -y vim
+         - curl https://gitee.com/cdk8s_org/vim-for-server/raw/master/vimrc > ~/.vimrc
+
+    - name: install-docker
+      shell: "{{ item }}"
+      with_items:
+         - yum install -y yum-utils device-mapper-persistent-data lvm2
+         - yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+         - yum makecache fast
+         - yum install -y docker-ce-19.03.14 docker-ce-cli-19.03.14 containerd.io
+         - systemctl start docker.service
+
+    - name: create /etc/docker directory
+      file:
+        path: /etc/docker
+        state: directory
+
+    - name: create daemon.json file
+      file:
+        path=/etc/docker/{{ item }}
+        state=touch
+        mode=777
+      with_items:
+        - daemon.json
+
+    - name: set docker registry mirrors
+      blockinfile:
+        path: /etc/docker/daemon.json
+        marker: ""
+        block: |
+          {
+            "registry-mirrors": [
+              "https://ldhc17y9.mirror.aliyuncs.com",
+              "https://hub-mirror.c.163.com",
+              "https://mirror.baidubce.com",
+              "https://docker.mirrors.ustc.edu.cn"
+            ]
+          }
+
+    - name: restart docekr
+      shell: "{{ item }}"
+      with_items:
+         - systemctl daemon-reload
+         - systemctl restart docker

@@ -1,0 +1,18 @@
+- hosts: all
+  remote_user: root
+  vars:
+    jenkins_node_name: "sacf-test-server"
+    jenkins_secret: "cedaf6e0fd1e24e592a389837be5b95e74825548dd029b20398d4aa4843469c8"
+  tasks:
+    - debug:
+        msg: "请参考该图片进行节点配置：https://upload-images.jianshu.io/upload_images/12159-fafe7ccd753c16b9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+
+    - name: wget agent.jar
+      shell: "{{ item }}"
+      with_items:
+        - wget http://jenkins.jeemoo.com/jnlpJars/agent.jar -O /opt/software/agent.jar
+
+    - name: run agent.jar by async
+      shell: nohup java -jar /opt/software/agent.jar -jnlpUrl http://jenkins.jeemoo.com/computer/{{ jenkins_node_name }}/slave-agent.jnlp -secret {{ jenkins_secret }} -workDir "/home/jenkins" > /dev/null 2>&1 &
+      async: 45
+      poll: 0

@@ -1,0 +1,180 @@
+- hosts: all
+  remote_user: root
+  tasks:
+    - name: install nginx
+      yum:
+        name: nginx
+
+    - name: create conf file
+      file:
+        path="/etc/nginx/conf.d/{{ item }}"
+        state=touch
+        mode=777
+      with_items:
+        - http-redirect-https.conf
+        - api.conf
+        - admin-front.conf
+        - h5-web-front.conf
+        - pc-web-front.conf
+
+    - name: set http-redirect-https.conf
+      blockinfile:
+        path: /etc/nginx/conf.d/http-redirect-https.conf
+        marker: ""
+        block: |
+          server {
+              listen 80;
+              server_name www.cdk8s.com cdk8s.com api.cdk8s.com;
+              return 301 https://$server_name$request_uri;
+          }
+
+    - name: set api.conf
+      blockinfile:
+        path: /etc/nginx/conf.d/api.conf
+        marker: ""
+        block: |
+          server {
+              charset utf-8;
+              client_max_body_size 128M;
+
+              #listen 80;
+              listen 443 ssl;
+
+              ssl_certificate     /opt/jar/ssl/server.crt;
+              ssl_certificate_key /opt/jar/ssl/server.key;
+
+              ssl_session_timeout 5m;
+              ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+              ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:HIGH:!aNULL:!MD5:!RC4:!DHE;
+              ssl_prefer_server_ciphers on;
+
+              server_name www.cdk8s.com cdk8s.com api.cdk8s.com;
+
+              location ^~ /upload {
+                  root    /home/jenkins/sculptor-boot-backend-upload-dir;
+                  autoindex on;
+                  autoindex_exact_size off;
+                  autoindex_localtime on;
+              }
+
+              location ^~ /sculptor-boot-backend/ {
+                  proxy_pass http://127.0.0.1:9091;
+                  proxy_redirect off;
+                  proxy_set_header Host $host;
+                  proxy_set_header X-Real-IP $remote_addr;
+                  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                  proxy_set_header X-Forwarded-Proto $scheme;
+              }
+
+              location ^~ /logs {
+                  root    /home/jenkins/workspace/sculptor-boot-backend;
+                  autoindex on;
+                  autoindex_exact_size off;
+                  autoindex_localtime on;
+              }
+          }
+
+    - name: set admin-front.conf
+      blockinfile:
+        path: /etc/nginx/conf.d/admin-front.conf
+        marker: ""
+        block: |
+          server {
+              charset utf-8;
+              client_max_body_size 128M;
+
+              #listen 80;
+              listen 443 ssl;
+
+              ssl_certificate     /opt/jar/ssl/server.crt;
+              ssl_certificate_key /opt/jar/ssl/server.key;
+
+              ssl_session_timeout 5m;
+              ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+              ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:HIGH:!aNULL:!MD5:!RC4:!DHE;
+              ssl_prefer_server_ciphers on;
+
+              server_name admin-front.cdk8s.com;
+
+              location ^~ /rcxt-react {
+                root    /home/jenkins/workspace/rcxt-react;
+                index   index.html;
+                try_files $uri /rcxt-react/index.html;
+              }
+          }
+
+    - name: set h5-web-front.conf
+      blockinfile:
+        path: /etc/nginx/conf.d/h5-web-front.conf
+        marker: ""
+        block: |
+          server {
+              charset utf-8;
+              client_max_body_size 128M;
+
+              #listen 80;
+              listen 443 ssl;
+
+              ssl_certificate     /opt/jar/ssl/server.crt;
+              ssl_certificate_key /opt/jar/ssl/server.key;
+
+              ssl_session_timeout 5m;
+              ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+              ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:HIGH:!aNULL:!MD5:!RC4:!DHE;
+              ssl_prefer_server_ciphers on;
+
+              server_name h5.cdk8s.com;
+
+              location / {
+                root     /home/jenkins/workspace/rcxt-web-online;
+                index    index.html index.htm;
+              }
+          }
+
+    - name: set pc-web-front.conf
+      blockinfile:
+        path: /etc/nginx/conf.d/pc-web-front.conf
+        marker: ""
+        block: |
+          server {
+              charset utf-8;
+              client_max_body_size 128M;
+
+              #listen 80;
+              listen 443 ssl;
+
+              ssl_certificate     /opt/jar/ssl/server.crt;
+              ssl_certificate_key /opt/jar/ssl/server.key;
+
+              ssl_session_timeout 5m;
+              ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+              ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:HIGH:!aNULL:!MD5:!RC4:!DHE;
+              ssl_prefer_server_ciphers on;
+
+              server_name www.cdk8s.com;
+
+              location / {
+                root     /home/jenkins/workspace/rcxt-web;
+                index    index.html index.htm;
+              }
+          }
+
+    - name: insert gzip config
+      blockinfile:
+        path: /etc/nginx/nginx.conf
+        marker: " "
+        insertafter: "^http {"
+        block: |
+          gzip on;
+          gzip_buffers 8 16k;
+          gzip_min_length 512;
+          gzip_disable "MSIE [1-6]\.(?!.*SV1)";
+          gzip_http_version 1.1;
+          gzip_types   text/plain text/css application/javascript application/x-javascript application/json application/xml;
+          client_max_body_size 20m;
+
+    - name: enable nginx
+      shell: "{{ item }}"
+      with_items:
+        - systemctl enable nginx
+        - systemctl restart nginx
