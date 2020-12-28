@@ -301,6 +301,7 @@ kubesphere-system              redis-6fd6c6d6f9-96rs2                           
 ## 高可用集群开始安装（阿里云）
 
 - 官网文档：<https://kubesphere.io/zh/docs/installing-on-linux/public-cloud/install-kubesphere-on-ali-ecs/>
+- **注意：必须在其中的一台 master 机子上安装，不能在其他跳板机或者中间机子上安装**
 
 ```
 我的服务器硬件信息说明
