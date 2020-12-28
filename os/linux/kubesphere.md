@@ -69,7 +69,7 @@
 - Github 官网：<https://github.com/kubernetes/dashboard>
 - Kubernetes 仪表板是用于 Kubernetes 集群的基于 web 的通用UI。它允许用户管理集群中运行的应用程序并对它们进行故障排除，以及管理集群本身。功能相对简单。
 
--------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------
 
 ## KubeSphere 3.0.0 在阿里云、腾讯云、物理机单机 All-in-one 经验总结
 
@@ -153,10 +153,13 @@ systemctl daemon-reload
 systemctl restart docker
 ```
 
-## 安装 Kubernetes + KubeSphere
+### 安装 Kubernetes + KubeSphere
 
 ```
-wget -c https://kubesphere.io/download/kubekey-v1.0.0-linux-amd64.tar.gz -O - | tar -xz
+export KKZONE=cn
+
+curl -sfL https://get-kk.kubesphere.io | VERSION=v1.0.1 sh -
+
 chmod +x kk
 
 开始安装，终端会出现一个当前环境已有环境检查，比如 docker 已安装等
@@ -293,7 +296,7 @@ kubesphere-system              redis-6fd6c6d6f9-96rs2                           
 - 访问管理界面：<http://81.61.121.155:30880>
 - 安装结束，尽情享受
 
--------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------
 
 ## 高可用集群开始安装（阿里云）
 
