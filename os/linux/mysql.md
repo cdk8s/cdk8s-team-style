@@ -40,25 +40,15 @@ docker run \
 - 在宿主机上创建一个配置文件：`vim ~/docker/mysql/conf/mysql-1.cnf`，内容如下：
 
 ```
-# 该编码设置是我自己配置的
 [mysql]
 default-character-set = utf8mb4
 
-# 下面内容是 docker mysql 默认的 start
 [mysqld]
 max_connections = 500
 pid-file = /var/run/mysqld/mysqld.pid
 socket = /var/run/mysqld/mysqld.sock
 datadir = /var/lib/mysql
-#log-error = /var/log/mysql/error.log
-# By default we only accept connections from localhost
-#bind-address = 127.0.0.1
-# Disabling symbolic-links is recommended to prevent assorted security risks
-symbolic-links=0
-# 上面内容是 docker mysql 默认的 end
 
-# 下面开始的内容就是我自己配置的
-log-error=/var/log/mysql/error.log
 default-storage-engine = InnoDB
 collation-server = utf8mb4_unicode_520_ci
 init_connect = 'SET NAMES utf8mb4'
@@ -67,13 +57,12 @@ character-set-server = utf8mb4
 lower_case_table_names = 1
 max_allowed_packet = 50M
 innodb_buffer_pool_size = 64M
-sql_mode=STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION
+sql_mode=STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION
 
 # 避免在 dump 命令中加上密码后提示：Using a password on the command line interface can be insecure
 [mysqldump]
 user=root
 password=123456
-
 ```
 
 
