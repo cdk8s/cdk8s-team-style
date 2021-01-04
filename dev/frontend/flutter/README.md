@@ -25,6 +25,8 @@
 - Flutter 基础
     - <https://space.bilibili.com/404904528/channel/detail?cid=123470> 
     - <https://www.bilibili.com/video/BV1pi4y1G7kb> 
+    - <https://www.bilibili.com/video/BV1dK4y1f7oF?p=1>
+    - <https://www.bilibili.com/video/BV1dK4y1f7oF?p=4>
 - Flutter 实战
     - <https://space.bilibili.com/404904528/channel/detail?cid=106755>
     - <https://www.bilibili.com/video/BV1ZK4y1s759>
