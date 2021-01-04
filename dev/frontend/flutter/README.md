@@ -98,6 +98,7 @@ export PATH
 vim ~/.zshrc
 
 export ANDROID_HOME="/Users/gitnavi/Library/Android/sdk"
+export NDK_ROOT="/Users/gitnavi/Library/Android/sdk/ndk-bundle"
 export PATH=${PATH}:${ANDROID_HOME}/emulator
 export PATH=${PATH}:${ANDROID_HOME}/tools
 export PATH=${PATH}:${ANDROID_HOME}/platform-tools
