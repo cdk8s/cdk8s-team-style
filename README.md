@@ -192,6 +192,12 @@
 
 - [购物指南-程序员-系列](https://github.com/cdk8s/cdk8s-team-style/blob/master/life/1111/2019/shopping.md)
 
+## 学习逻辑
+
+- 要解决什么问题
+- 基础技术点、核心技术点是什么（也用于面试）
+- 项目实战
+
 
 ## 联系（Contact）
 
