@@ -42,6 +42,7 @@ protected-mode yes
 
 # 免密配置（选填）
 bind 0.0.0.0
+# 当为 no 的时候支持外网访问
 protected-mode no
 
 # 其他：
@@ -202,7 +203,7 @@ rdb-save-incremental-fsync yes
 
 ```
 bind 0.0.0.0
-protected-mode yes
+protected-mode no
 port 6379
 tcp-backlog 511
 timeout 0
