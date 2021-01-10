@@ -2,6 +2,21 @@
 
 # 工作方式
 
+## 常用软件
+
+- TODO 类
+    - 滴答清单：<https://dida365.com/webapp/>
+- 笔记类
+    - 为知笔记：<https://www.wiz.cn/>
+    - 网易云笔记：<https://note.youdao.com/>
+- 原型类
+    - 墨刀：<>
+- 设计类
+    - 蓝湖：<>
+- 协作类
+    - 腾讯文档：<https://docs.qq.com/>
+    - 腾讯会议：<https://meeting.tencent.com/>
+
 
 ## 商业模式画布
 
