@@ -10,9 +10,11 @@
     - 为知笔记：<https://www.wiz.cn/>
     - 网易云笔记：<https://note.youdao.com/>
 - 原型类
-    - 墨刀：<>
+    - 墨刀：<https://modao.cc/>
 - 设计类
-    - 蓝湖：<>
+    - 蓝湖：<https://lanhuapp.com/>
+- 项目管理类
+    - 码云：<https://gitee.com/>
 - 协作类
     - 腾讯文档：<https://docs.qq.com/>
     - 腾讯会议：<https://meeting.tencent.com/>
