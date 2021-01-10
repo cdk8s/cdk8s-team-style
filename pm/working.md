@@ -5,12 +5,13 @@
 ## 常用软件
 
 - TODO 类
-    - 滴答清单：<https://dida365.com/webapp/>
+    - 滴答清单（较贵）：<https://dida365.com/webapp/>
 - 笔记类
-    - 为知笔记：<https://www.wiz.cn/>
-    - 网易云笔记：<https://note.youdao.com/>
+    - 为知笔记（便宜）：<https://www.wiz.cn/>
+    - 网易云笔记（较贵）：<https://note.youdao.com/>
 - 原型类
     - 墨刀：<https://modao.cc/>
+        - 确保原型上的编号和蓝湖页面的编号是一致的
 - 设计类
     - 蓝湖：<https://lanhuapp.com/>
 - 项目管理类
@@ -18,7 +19,7 @@
 - 协作类
     - 腾讯文档：<https://docs.qq.com/>
     - 腾讯会议：<https://meeting.tencent.com/>
-
+- **最重要的工作理念：要懂得抛异常，如果一个问题长时间解决不了就要向自己领导反馈，不要影响整体项目进度，说不定团队其他人有解决经验**
 
 ## 商业模式画布
 
