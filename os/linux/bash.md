@@ -346,6 +346,9 @@ curl -X GET 'http://192.168.0.18:9200/_cluster/health?pretty&level=shards'
 - 停止 Elasticsearch 命令：
 
 ```
+切换用户：
+su - sacf
+
 jps -l
 11825 org.elasticsearch.bootstrap.Elasticsearch
 4394 sun.tools.jps.Jps
@@ -367,7 +370,10 @@ cp -arp /opt/* /home/temp/
 rm -rf /opt/*
 
 卸载目录
-umount /dev/vdb1
+umount /mnt
+如果卸载报错：In some cases useful info about processes that use...
+则查询谁在使用该目录后直接杀死进程
+fuser -m -k /mnt/
 
 执行以下命令，把数据盘挂载到 /opt 目录。
 mount /dev/vdb1 /opt
