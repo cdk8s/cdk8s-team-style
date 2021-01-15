@@ -213,6 +213,47 @@ ik_max_word: 会将文本做最细粒度的拆分，比如会将“中华人民�
 ik_smart: 会做最粗粒度的拆分，比如会将“中华人民共和国国歌”拆分为“中华人民共和国,国歌”，适合 Phrase 查询。
 ```
 
+
+
+-------------------------------------------------------------------
+
+## 查看 Elasticsearch 健康状态
+
+```
+查看集群分布
+curl -XGET 'http://192.168.0.18:9200/_cat/nodes?v'
+ip           heap.percent ram.percent cpu load_1m load_5m load_15m node.role master name
+192.168.0.19           37          98   0    0.05    0.06     0.05 mdi       -      elasticsearch-2
+192.168.0.18           25          97   0    0.00    0.01     0.05 mdi       *      elasticsearch-1
+192.168.0.20           22          96   0    0.00    0.01     0.05 mdi       -      elasticsearch-3
+
+查看集群健康状态
+curl -X GET 'http://192.168.0.18:9200/_cluster/health?pretty'
+{
+  "cluster_name" : "sacf",
+  "status" : "green",
+  "timed_out" : false,
+  "number_of_nodes" : 3,
+  "number_of_data_nodes" : 3,
+  "active_primary_shards" : 120,
+  "active_shards" : 240,
+  "relocating_shards" : 0,
+  "initializing_shards" : 0,
+  "unassigned_shards" : 0,
+  "delayed_unassigned_shards" : 0,
+  "number_of_pending_tasks" : 0,
+  "number_of_in_flight_fetch" : 0,
+  "task_max_waiting_in_queue_millis" : 0,
+  "active_shards_percent_as_number" : 100.0
+}
+
+查看索引清单健康状态
+curl -X GET 'http://192.168.0.18:9200/_cluster/health?pretty&level=indices'
+
+查看索引的分片的状态和位置（更加详细）
+curl -X GET 'http://192.168.0.18:9200/_cluster/health?pretty&level=shards'
+```
+
 -------------------------------------------------------------------
 
 

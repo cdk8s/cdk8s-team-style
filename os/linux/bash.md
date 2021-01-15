@@ -305,7 +305,54 @@ mount /dev/vdb1 /mnt
 
 - 参考：<https://help.aliyun.com/knowledge_detail/41400.html>
 - 先对系统盘做快照，出问题，方便回滚
-- 先停止系统盘上的部署软件，比如 nginx，tomcat 等
+- 先停止系统盘上的部署软件，比如 nginx，tomcat 等，我这里主要是迁移 Elasticsearch
+- 先查看 Elasticsearch 未迁移之前的健康状态：
+
+```
+查看集群分布
+curl -XGET 'http://192.168.0.18:9200/_cat/nodes?v'
+ip           heap.percent ram.percent cpu load_1m load_5m load_15m node.role master name
+192.168.0.19           37          98   0    0.05    0.06     0.05 mdi       -      elasticsearch-2
+192.168.0.18           25          97   0    0.00    0.01     0.05 mdi       *      elasticsearch-1
+192.168.0.20           22          96   0    0.00    0.01     0.05 mdi       -      elasticsearch-3
+
+查看集群健康状态
+curl -X GET 'http://192.168.0.18:9200/_cluster/health?pretty'
+{
+  "cluster_name" : "sacf",
+  "status" : "green",
+  "timed_out" : false,
+  "number_of_nodes" : 3,
+  "number_of_data_nodes" : 3,
+  "active_primary_shards" : 120,
+  "active_shards" : 240,
+  "relocating_shards" : 0,
+  "initializing_shards" : 0,
+  "unassigned_shards" : 0,
+  "delayed_unassigned_shards" : 0,
+  "number_of_pending_tasks" : 0,
+  "number_of_in_flight_fetch" : 0,
+  "task_max_waiting_in_queue_millis" : 0,
+  "active_shards_percent_as_number" : 100.0
+}
+
+查看索引清单健康状态
+curl -X GET 'http://192.168.0.18:9200/_cluster/health?pretty&level=indices'
+
+查看索引的分片的状态和位置（更加详细）
+curl -X GET 'http://192.168.0.18:9200/_cluster/health?pretty&level=shards'
+```
+
+- 停止 Elasticsearch 命令：
+
+```
+jps -l
+11825 org.elasticsearch.bootstrap.Elasticsearch
+4394 sun.tools.jps.Jps
+
+kill 11825
+```
+
 - 对数据盘进行分区，具体方法参考本文上面资料。
 - 假设我们要把 /opt 进行迁移
 ```
@@ -329,8 +376,14 @@ mount /dev/vdb1 /opt
 然后用 df -h 查看新的磁盘分布情况
 
 重新启动软件
+切换用户：
+su - sacf
+
+后台运行：
+cd /opt/elasticsearch-6.7.2 ; ./bin/elasticsearch -d -p 自定义pid值
 
 发现没问题后删除临时备份
+su - root
 rm -rf /home/temp/
 
 ```
