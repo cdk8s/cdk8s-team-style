@@ -227,7 +227,7 @@ Sector size (logical/physical): 512 bytes / 512 bytes
 I/O size (minimum/optimal): 512 bytes / 512 bytes
 ```
 
-- 这里有 /dev/vda1 和 /dev/vdb
+- 这里有 /dev/vda 和 /dev/vdb
 - 如果发现没找到，则参考这篇文章进行挂载：[挂载数据盘](https://help.aliyun.com/document_detail/25446.html)
 - 接着运行以下命令分区数据盘：
 ```
