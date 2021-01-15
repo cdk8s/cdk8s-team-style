@@ -16,7 +16,7 @@
     - 创口大一定要去医疗机构看下。创口小，先保证自己手是干净的，然后用生理盐水清洗伤口处位置，用碘伏/酒精清洗伤口周边皮肤，用棉棒按压伤口附近止血，尽量抬高受伤的位置，让血液不易流到伤口处，最后等止血后的伤口位置自然干燥。
     - 如果你在工地或是其他比较脏乱的地方，还需要准备一个消毒纱布进行预防这样的环境污染伤口。
     - 不提倡创可贴，这东西还没医用绷带好用，用不好还会影响受伤部位愈合，不好结巴，易感染，我是吃过这个亏。如果出门在外预防外界粉尘也可以急用，但是要更换勤快。
-    - [生理盐水（生理氯化钠溶液）](http://www.111.com.cn/search/search.action?keyWord=%25E7%2594%259F%25E7%2590%2586%25E6%25B0%25AF%25E5%258C%2596%25E9%2592%25A0%25E6%25BA%25B6%25E6%25B6%25B2)
+    - [生理盐水（生理氯化钠溶液）](http://search.jd.com/Search?keyword=生理盐水&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=ed475761c7ff48948f646ab390162fcb-p_276666007&abt=3)
     - [碘伏（不是碘酊噢，这两个不一样）](http://search.jd.com/Search?keyword=碘伏&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=45fa1f1b448b451e98b424ce61742851-p_276666007&abt=3)
     - [医用绷带](http://search.jd.com/Search?keyword=医用绷带&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=2759ec164c49482f80783ae433fa84db-p_276666007&abt=3)
     - [无菌纱布](http://search.jd.com/Search?keyword=无菌纱布&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=7ad418bded154cc09e993983fdd67bac-p_276666007&abt=3)
@@ -25,7 +25,7 @@
 - 烫伤/烧伤
     - 如果烫伤的位置没有把皮肤损坏，那可以对着自来水降温（或是凉水，切记不是冰水），但是如果烫伤已经破皮，不要用自来水降温。用自来水降温可以持续 5 ~ 10 分钟左右。
     - 如果有水泡生成，水泡很小 而且处于不易被摩擦的部位就不用挑破了泡液很快会被身体吸收，如果水泡太大或者处于关节等容易磨破的地方最好还是挑破，但是不要破坏皮肤，完整的皮肤有保护功能可以抗感染，挑破的时候最好用一次性注射针头从水泡的下端戳一个小口 让泡液缓缓挤出，再用消毒棉签擦干水泡周围流出的液体。然后用生理盐水清洗，用碘伏消毒，最后擦干在伤口周围涂上烧伤膏，用绷带包扎。
-    - [生理盐水（生理氯化钠溶液）](http://www.111.com.cn/search/search.action?keyWord=%25E7%2594%259F%25E7%2590%2586%25E6%25B0%25AF%25E5%258C%2596%25E9%2592%25A0%25E6%25BA%25B6%25E6%25B6%25B2)
+    - [生理盐水（生理氯化钠溶液）](http://search.jd.com/Search?keyword=生理盐水&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=ed475761c7ff48948f646ab390162fcb-p_276666007&abt=3)
     - [碘伏（不是碘酊噢，这两个不一样）](http://search.jd.com/Search?keyword=碘伏&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=45fa1f1b448b451e98b424ce61742851-p_276666007&abt=3)
     - [注射针头](http://search.jd.com/Search?keyword=注射针头&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=ed475761c7ff48948f646ab390162fcb-p_276666007&abt=3)
     - [美宝湿润烧伤膏](http://search.jd.com/Search?keyword=美宝湿润烧伤膏&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=ed475761c7ff48948f646ab390162fcb-p_276666007&abt=3)
@@ -88,8 +88,10 @@
     - [曼秀雷敦薄荷膏](http://search.jd.com/Search?keyword=曼秀雷敦薄荷膏&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=b4ea498056f747268fa09b4b2743a0de-p_276666007&abt=3)，**用于由伤风感冒所致的鼻塞，昆虫叮咬及皮肤开裂等症的对症治疗。**
 - 皮肤瘙痒
 	- 皮肤药有很多是含有激素的，不能大面积使用和长时间使用，请认真看说明书
+	    - 一般名字上带有以下字眼的是有激素的：松、奈德、他索
     - [金达克宁 酮康唑乳膏](http://search.jd.com/Search?keyword=金达克宁%20酮康唑乳膏&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=9a567ed6b8024ce89684b98e27406510-p_276666007&abt=3)，**用于手癣、足癣、体癣、股癣、花斑糠疹（俗称花斑癣、汗斑）及皮肤念珠菌病。**
-    - [999皮炎平 复方醋酸地塞米松乳膏](http://search.jd.com/Search?keyword=复方醋酸地塞米松乳膏&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=dafc9d4b25894be99d8575b43fe62d6c-p_276666007&abt=3)，**适应症为用于局限性搔痒症、神经性皮炎、接触性皮炎、脂溢性皮炎以及慢性湿疹。**
+    - [皮炎平 糠酸莫米松乳膏](http://search.jd.com/Search?keyword=复方醋酸地塞米松乳膏&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=dafc9d4b25894be99d8575b43fe62d6c-p_276666007&abt=3)，**适应症为用于局限性搔痒症、神经性皮炎、接触性皮炎、脂溢性皮炎以及慢性湿疹。**
+    - [莫匹罗星软膏](http://search.jd.com/Search?keyword=莫匹罗星软膏&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=dafc9d4b25894be99d8575b43fe62d6c-p_276666007&abt=3)，**适应症为用于局限性搔痒症、神经性皮炎、接触性皮炎、脂溢性皮炎以及慢性湿疹。**
 - 驱虫
     - [史克肠虫清 阿苯达唑片](http://search.jd.com/Search?keyword=史克肠虫清&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=51c0d1a6da3348e38ba52ae79b2055ea-p_276666007&abt=3)，一般成年人半年左右吃一次
 - 保健品
