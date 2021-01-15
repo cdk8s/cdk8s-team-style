@@ -364,7 +364,7 @@ mkdir /home/temp
 cp -arp /opt/* /home/temp/
 
 删除旧文件
-rm -rf /opt
+rm -rf /opt/*
 
 卸载目录
 umount /dev/vdb1
