@@ -359,7 +359,8 @@ kill 11825
 先把文件转移到数据库盘上
 cp -arp /opt/* /mnt/
 
-为了稳妥起见，可以再备份一次，创建一个临时目录 mkdir /home/temp
+为了稳妥起见，可以再备份一次，创建一个临时目录
+mkdir /home/temp
 cp -arp /opt/* /home/temp/
 
 删除旧文件
