@@ -84,6 +84,10 @@ drwxr-xr-x. 5 root root 4096 3月 26 10:57，其中最前面的 d 表示这是�
 	- `cp -r 源文件夹 目标文件夹`，复制文件夹
 	- `cp -r -v 源文件夹 目标文件夹`，复制文件夹(显示详细信息，一般用于文件夹很大，需要查看复制进度的时候)
 	- `cp /usr/share/easy-rsa/2.0/keys/{ca.crt,server.{crt,key},dh2048.pem,ta.key} /etc/openvpn/keys/`，复制同目录下花括号中的文件
+	- `cp -arp /opt/* /mnt/` 复制文件、文件夹，以及它们的属性（最全面的复制）
+        - -a：此选项通常在复制目录时使用，它保留链接、文件属性，并复制目录下的所有内容
+        - -p：除复制文件的内容外，还把修改时间和访问权限也复制到新文件中。
+        - -r：若给出的源文件是一个目录文件，此时将复制该目录下所有的子目录和文件。
 - `tar cpf - . | tar xpf - -C /opt`，复制当前所有文件到 /opt 目录下，一般如果文件夹文件多的情况下用这个更好，用 cp 比较容易出问题
 - `mv 文件 目标文件夹`，移动文件到目标文件夹
 	- `mv 文件`，不指定目录重命名后的名字，用来重命名文件
@@ -198,6 +202,129 @@ drwxr-xr-x. 5 root root 4096 3月 26 10:57，其中最前面的 d 表示这是�
 - `umount /newDir/`，卸载挂载，用目录名
 	- 如果这样卸载不了可以使用：`umount -l /newDir/`
 - `umount /dev/sdb5`，卸载挂载，用分区名
+
+-------------------------------------------------------------------
+
+## ECS 数据盘分区
+
+- 参考：<https://help.aliyun.com/document_detail/25426.html>
+- 先看已经挂载在服务器上的磁盘有多少：`fdisk -l`
+
+```
+Disk /dev/vda: 42.9 GB, 42949672960 bytes, 83886080 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk label type: dos
+Disk identifier: 0x000c0010
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/vda1   *        2048    83886046    41941999+  83  Linux
+
+Disk /dev/vdb: 21.5 GB, 21474836480 bytes, 41943040 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+```
+
+- 这里有 /dev/vda1 和 /dev/vdb
+- 如果发现没找到，则参考这篇文章进行挂载：[挂载数据盘](https://help.aliyun.com/document_detail/25446.html)
+- 接着运行以下命令分区数据盘：
+```
+fdisk -u /dev/vdb
+
+根据提示输入 n 创建一个新分区
+
+接着根据提示输入 p 选择分区类型为主分区
+
+接着输入分区编号：1
+
+接着输入可用的扇区编号，这里直接回车采用默认值，或者自己输入 2048
+
+接着输入最后一个扇区编号，这里直接回车采用默认值
+
+最后输入 w 开始分区，并退出
+
+整个流程如下：
+Command (m for help): n
+Partition type:
+   p   primary (0 primary, 0 extended, 4 free)
+   e   extended
+Select (default p): p
+
+Partition number (1-4, default 1): 1
+
+First sector (2048-41943039, default 2048): 2048
+
+Last sector, +sectors or +size{K,M,G} (2048-41943039, default 41943039):
+Using default value 41943039
+Partition 1 of type Linux and of size 20 GiB is set
+
+Command (m for help): w
+The partition table has been altered!
+
+Calling ioctl() to re-read partition table.
+Syncing disks.
+```
+
+- 接着我们查看新分区情况：`fdisk -lu /dev/vdb`
+
+```
+Disk /dev/vdb: 21.5 GB, 21474836480 bytes, 41943040 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk label type: dos
+Disk identifier: 0x3d24a4a9
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/vdb1            2048    41943039    20970496   83  Linux
+```
+
+- 接着为分区创建文件系统，CentOS 7 我们一般选择 ext4 文件系统：`mkfs -t ext4 /dev/vdb1`
+- 接着配置 /etc/fstab 文件并挂载分区，让开启自动挂载分区
+
+```
+先备份
+cp /etc/fstab /etc/fstab-20210115.bak
+
+然后我们假设最终要挂载的一个新路径是：/mnt
+这里我们用root用户可以直接使用以下命令修改配置文件，本质就是获取到 vdb1 的 UUID 自动补充成一个字符串写入到文件最底部
+echo `blkid /dev/vdb1 | awk '{print $2}' | sed 's/\"//g'` /mnt ext4 defaults 0 0 >> /etc/fstab
+
+然后挂载分区：
+mount /dev/vdb1 /mnt
+
+最后检查 /mnt 盘是不是变大了：df -h
+```
+
+
+-------------------------------------------------------------------
+
+## ECS 系统盘数据迁移到数据盘
+
+- 参考：<https://help.aliyun.com/knowledge_detail/41400.html>
+- 先对系统盘做快照，出问题，方便回滚
+- 先停止系统盘上的部署软件，比如 nginx，tomcat 等
+- 对数据盘进行分区，具体方法参考本文上面资料。
+- 假设我们要把 /opt 进行迁移
+```
+先把文件转移到数据库盘上
+cp -arp /opt/* /mnt/
+
+卸载目录
+umount /mnt/
+
+执行以下命令，把数据盘挂载到 /opt 目录。
+mount /dev/vdb1 /opt
+
+然后修改 /etc/fstab，把上文填写的 /mnt 改为 /opt
+
+然后用 df -h 查看新的磁盘分布情况
+```
+
+
+-------------------------------------------------------------------
 
 
 ## wget 下载文件

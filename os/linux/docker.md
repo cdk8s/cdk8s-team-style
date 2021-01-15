@@ -559,8 +559,47 @@ Build Cache                                                 0B                  
 - Dockerfile 代码更新频繁，自然 docker build 构建同名镜像也频繁的很，产生了众多名为 none 的无用镜像
 
 ```
-docker rmi $(docker images -f "dangling=true" -q)
+清除无用的镜像，包含 none 的镜像
+docker image prune
+
+清除没有容器使用的镜像，如果你有些容器只是临时关闭，建议不要选择这个命令
+docker image prune -a
+
+可以用于清理磁盘，删除关闭的容器、无用的数据卷和网络，以及dangling镜像(即无tag的镜像)。
+docker system prune
+
+清理得更加彻底，可以将没有容器使用Docker镜像都删掉。注意，这两个命令会把你暂时关闭的容器，以及暂时没有用到的Docker镜像都删掉了…所以使用之前一定要想清楚.。我没用过，因为会清理 没有开启的 Docker
+docker system prune -a
 ```
+
+## 迁移 Docker 软件根目录
+
+```
+默认 docker 的根目录是：/var/lib/docker
+查看该目录已使用多少空间：du -hs /var/lib/docker/
+
+开始迁移
+先停止服务：systemctl stop docker
+创建最终迁移目录：mkdir -p /mnt/dockerlib
+迁移/var/lib/docker目录下的文件到新创建的目录：cp -arp /var/lib/docker/* /mnt/dockerlib/
+
+vim /etc/docker/daemon.json 添加如下参数
+{
+  "graph": "/mnt/dockerlib"
+}
+
+重启 docker
+systemctl daemon-reload && systemctl restart docker
+
+然后查看信息：docker info
+显示：
+Docker Root Dir: /mnt/dockerlib
+
+
+删除旧目录：
+rm -rf /var/lib/docker
+```
+
 
 ## Docker daemon.json 可配置参数
 
