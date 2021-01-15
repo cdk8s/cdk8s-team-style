@@ -354,6 +354,8 @@ jps -l
 4394 sun.tools.jps.Jps
 
 kill 11825
+
+然后 exit 切换到 root 用户
 ```
 
 - 对数据盘进行分区，具体方法参考本文上面资料。
@@ -378,7 +380,7 @@ fuser -m -k /mnt/
 执行以下命令，把数据盘挂载到 /opt 目录。
 mount /dev/vdb1 /opt
 
-然后修改 /etc/fstab，把上文填写的 /mnt 改为 /opt
+然后修改 vim /etc/fstab，把上文填写的 /mnt 改为 /opt
 
 然后用 df -h 查看新的磁盘分布情况
 
