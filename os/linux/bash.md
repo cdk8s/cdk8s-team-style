@@ -312,8 +312,14 @@ mount /dev/vdb1 /mnt
 先把文件转移到数据库盘上
 cp -arp /opt/* /mnt/
 
+为了稳妥起见，可以再备份一次，创建一个临时目录 mkdir /home/temp
+cp -arp /opt/* /home/temp/
+
+删除旧文件
+rm -rf /opt
+
 卸载目录
-umount /mnt/
+umount /dev/vdb1
 
 执行以下命令，把数据盘挂载到 /opt 目录。
 mount /dev/vdb1 /opt
@@ -321,6 +327,12 @@ mount /dev/vdb1 /opt
 然后修改 /etc/fstab，把上文填写的 /mnt 改为 /opt
 
 然后用 df -h 查看新的磁盘分布情况
+
+重新启动软件
+
+发现没问题后删除临时备份
+rm -rf /home/temp/
+
 ```
 
 
