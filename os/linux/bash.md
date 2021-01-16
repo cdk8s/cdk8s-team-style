@@ -89,12 +89,15 @@ drwxr-xr-x. 5 root root 4096 3月 26 10:57，其中最前面的 d 表示这是�
         - -p：除复制文件的内容外，还把修改时间和访问权限也复制到新文件中。
         - -r：若给出的源文件是一个目录文件，此时将复制该目录下所有的子目录和文件。
 - `rsync`，远程传输文件
-	- `rsync -a source destination`，传输文件夹
-        - -a：归档模式，表示递归传输并保持文件属性，包括递归目录、文件元信息。等同于"-rtopgDl"。
-        - 如果目标目录不存在则会自动创建目录
-        - 最终效果会变成：`destination/source`
-    - `rsync -a source/ destination`，传输文件夹
-        - 效果会变成：`destination 就是代表 source 目录`
+    - 本地传输
+        - `rsync -a source destination`，传输文件夹
+            - -a：归档模式，表示递归传输并保持文件属性，包括递归目录、文件元信息。等同于"-rtopgDl"。
+            - 如果目标目录不存在则会自动创建目录
+            - 最终效果会变成：`destination/source`
+        - `rsync -a source/ destination`，传输文件夹
+            - 效果会变成：`destination 就是代表 source 目录`
+    - 远程传输（默认使用 SSH 进行远程登录和数据传输）
+        - `rsync -a source/ username@remote_host:destination`，传输文件夹
 - `tar cpf - . | tar xpf - -C /opt`，复制当前所有文件到 /opt 目录下，一般如果文件夹文件多的情况下用这个更好，用 cp 比较容易出问题
 - `mv 文件 目标文件夹`，移动文件到目标文件夹
 	- `mv 文件`，不指定目录重命名后的名字，用来重命名文件
