@@ -580,12 +580,12 @@ docker system prune -a
 
 开始迁移
 先停止服务：systemctl stop docker
-创建最终迁移目录：mkdir -p /mnt/dockerlib
-迁移/var/lib/docker目录下的文件到新创建的目录：cp -arp /var/lib/docker/* /mnt/dockerlib/
+创建最终迁移目录：mkdir -p /opt/dockerlib
+迁移/var/lib/docker目录下的文件到新创建的目录：cp -arp /var/lib/docker/* /opt/dockerlib/
 
 vim /etc/docker/daemon.json 添加如下参数
 {
-  "graph": "/mnt/dockerlib"
+  "graph": "/opt/dockerlib"
 }
 
 重启 docker
@@ -593,7 +593,7 @@ systemctl daemon-reload && systemctl restart docker
 
 然后查看信息：docker info
 显示：
-Docker Root Dir: /mnt/dockerlib
+Docker Root Dir: /opt/dockerlib
 
 
 删除旧目录：

@@ -96,7 +96,7 @@ drwxr-xr-x. 5 root root 4096 3月 26 10:57，其中最前面的 d 表示这是�
             - 最终效果会变成：`destination/source`
         - `rsync -a source/ destination`，传输文件夹
             - 效果会变成：`destination 就是代表 source 目录`
-    - 远程传输（默认使用 SSH 进行远程登录和数据传输）
+    - 远程传输（默认使用 SSH 进行远程登录和数据传输，已经已经做了免密是不需要输入认证信息的）
         - `rsync -a source/ username@remote_host:destination`，传输文件夹
 - `tar cpf - . | tar xpf - -C /opt`，复制当前所有文件到 /opt 目录下，一般如果文件夹文件多的情况下用这个更好，用 cp 比较容易出问题
 - `mv 文件 目标文件夹`，移动文件到目标文件夹
