@@ -581,6 +581,14 @@ docker system prune -a
 开始迁移
 先停止服务：systemctl stop docker
 创建最终迁移目录：mkdir -p /opt/dockerlib
+
+如果这里还假设这里有一个数据库盘是挂载在 /mnt 下，我们要移到 /opt 目录下
+cp -arp /opt/* /mnt/
+rm -rf /opt/*
+umount /mnt
+mount /dev/vdb1 /opt
+然后修改 vim /etc/fstab，把上文填写的 /mnt 改为 /opt
+
 迁移/var/lib/docker目录下的文件到新创建的目录：cp -arp /var/lib/docker/* /opt/dockerlib/
 
 vim /etc/docker/daemon.json 添加如下参数
