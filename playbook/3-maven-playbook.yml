@@ -14,19 +14,14 @@
         chdir={{ maven_install_folder }}
         unzip {{ file_name }}
 
-    - name: rename directory to jenkins use
-      shell: "{{ item }}"
-      with_items:
-        - mv /usr/share/apache-maven-3.6.3 /usr/share/apache-maven-3.6.1
-
     - name: set MAVEN_HOME
       blockinfile:
         path: /root/.zshrc
         marker: "#{mark} MAVEN ENV"
         block: |
-            MAVEN_HOME={{ maven_install_folder }}/apache-maven-3.6.1
-            M3_HOME={{ maven_install_folder }}/apache-maven-3.6.1
-            M2_HOME={{ maven_install_folder }}/apache-maven-3.6.1
+            MAVEN_HOME={{ maven_install_folder }}/apache-maven-3.6.3
+            M3_HOME={{ maven_install_folder }}/apache-maven-3.6.3
+            M2_HOME={{ maven_install_folder }}/apache-maven-3.6.3
             PATH=$PATH:$M3_HOME/bin
             MAVEN_OPTS="-Xms1024m -Xmx1024m -XX:MaxPermSize=512m"
             export M3_HOME
