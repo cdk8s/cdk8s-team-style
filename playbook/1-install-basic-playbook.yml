@@ -59,11 +59,11 @@
     - name: install-docker
       shell: "{{ item }}"
       with_items:
-         - yum install -y yum-utils device-mapper-persistent-data lvm2
-         - yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
-         - yum makecache fast
-         - yum install -y docker-ce docker-ce-cli containerd.io
-         - systemctl start docker.service
+        - yum install -y yum-utils device-mapper-persistent-data lvm2
+        - yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+        - yum makecache fast
+        - yum install -y docker-ce-19.03.14 docker-ce-cli-19.03.14 containerd.io
+        - systemctl start docker.service
 
     - name: create /etc/docker directory
       file:
@@ -101,6 +101,6 @@
     - name: install-docker-compose
       shell: "{{ item }}"
       with_items:
-         - curl -L https://get.daocloud.io/docker/compose/releases/download/1.27.4/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+         - curl -L https://get.daocloud.io/docker/compose/releases/download/1.28.0/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
          - chmod +x /usr/local/bin/docker-compose
          - docker-compose --version
