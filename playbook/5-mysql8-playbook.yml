@@ -23,7 +23,7 @@
       async_status: jid={{ mysql_install_result.ansible_job_id }}
       register: job_mysql_install_result
       until: job_mysql_install_result.finished
-      retries: 550
+      retries: 600
 
     - name: remove old /etc/my.cnf
       file:
