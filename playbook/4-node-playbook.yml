@@ -1,19 +1,19 @@
 - hosts: all
   remote_user: root
   tasks:
-    - name: remove the nodejs 
+    - name: remove the nodejs
       yum:
         name: nodejs
         state: absent
 
-    - name: remove the npm 
+    - name: remove the npm
       yum:
         name: npm
         state: absent
 
     - name: curl node
-      shell: "curl --silent --location https://rpm.nodesource.com/setup_12.x | sudo bash -"
-      
+      shell: "curl --silent --location https://rpm.nodesource.com/setup_14.x | sudo bash -"
+
     - name: install node
       command: "{{ item }}"
       with_items:
@@ -21,7 +21,7 @@
 
     - name: curl yarn
       shell: "curl --silent --location https://dl.yarnpkg.com/rpm/yarn.repo | sudo tee /etc/yum.repos.d/yarn.repo"
-          
+
     - name: install yarn
       command: "{{ item }}"
       with_items:
