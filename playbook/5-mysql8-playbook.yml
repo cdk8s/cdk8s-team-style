@@ -1,0 +1,87 @@
+- hosts: all
+  remote_user: root
+  tasks:
+    - name: remove the mariadb
+      yum:
+        name: mariadb
+        state: absent
+
+    - name: install mysql 1 tip file from https://dev.mysql.com/downloads/repo/yum/
+      shell: "{{ item }}"
+      with_items:
+        - wget http://dev.mysql.com/get/Downloads/mysql80-community-release-el7-3.noarch.rpm
+        - yum localinstall -y mysql80-community-release-el7-3.noarch.rpm
+
+    - name : install mysql 2
+      yum:
+        name: mysql-community-server
+      async : 1000
+      poll : 0
+      register: mysql_install_result
+
+    - name: 'check install result'
+      async_status: jid={{ mysql_install_result.ansible_job_id }}
+      register: job_mysql_install_result
+      until: job_mysql_install_result.finished
+      retries: 550
+
+    - name: remove old /etc/my.cnf
+      file:
+        path: "/etc/my.cnf"
+        state: absent
+
+    - name: create my.cnf file
+      file:
+        path="/etc/{{ item }}"
+        state=touch
+      with_items:
+        - my.cnf
+
+    - name: set my.cnf
+      blockinfile:
+        path: /etc/my.cnf
+        marker: ""
+        block: |
+          [mysql]
+          default-character-set = utf8mb4
+          [mysqld]
+          max_connections = 500
+          innodb_buffer_pool_size = 528M
+          join_buffer_size = 528M
+          sort_buffer_size = 10M
+          read_rnd_buffer_size = 10M
+          max_allowed_packet = 50M
+          default-storage-engine = InnoDB
+          collation-server = utf8mb4_unicode_520_ci
+          init_connect = 'SET NAMES utf8mb4'
+          character-set-server = utf8mb4
+          lower_case_table_names = 1
+          default_authentication_plugin = mysql_native_password
+          datadir=/var/lib/mysql
+          socket=/var/lib/mysql/mysql.sock
+          log-error=/var/log/mysqld.log
+          pid-file=/var/run/mysqld/mysqld.pid
+          sql_mode=STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION
+
+    - name : init mysql
+      shell: "{{ item }}"
+      with_items:
+        - systemctl start mysqld.service
+        - systemctl enable mysqld.service
+        - cat /var/log/mysqld.log | grep password
+    - debug:
+        msg: "读取默认生成的密码：cat /var/log/mysqld.log | grep password"
+    - debug:
+        msg: "进入客户端：mysql -uroot -p 输入生成的密码"
+    - debug:
+        msg: "修改密码并永不过期（必须是大小写字母+特殊符号+数字）：ALTER USER 'root'@'localhost' IDENTIFIED WITH 'mysql_native_password' BY 'Meek.123456' PASSWORD EXPIRE NEVER;"
+    - debug:
+        msg: "创建用户：CREATE USER 'myuser'@'%' IDENTIFIED WITH 'mysql_native_password' BY 'MyPwd.123456';"
+    - debug:
+        msg: "修改密码并永不过期：ALTER USER 'myuser'@'%' IDENTIFIED WITH 'mysql_native_password' BY 'MyPwd.123456' PASSWORD EXPIRE NEVER;"
+    - debug:
+        msg: "分配所有数据库权限：GRANT ALL PRIVILEGES ON *.* TO 'myuser'@'%' WITH GRANT OPTION;"
+    - debug:
+        msg: "分配单个数据库权限：GRANT ALL PRIVILEGES ON myDbName1.* TO 'myuser'@'%' WITH GRANT OPTION;"
+    - debug:
+        msg: "刷新配置：FLUSH PRIVILEGES;"
