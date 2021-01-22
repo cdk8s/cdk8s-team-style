@@ -14,10 +14,18 @@
     - name: curl node
       shell: "curl --silent --location https://rpm.nodesource.com/setup_14.x | sudo bash -"
 
-    - name: install node
-      command: "{{ item }}"
-      with_items:
-         - yum -y install nodejs
+    - name : install node
+      yum:
+        name: nodejs
+      async : 1000
+      poll : 0
+      register: node_install_result
+
+    - name: 'check install result'
+      async_status: jid={{ node_install_result.ansible_job_id }}
+      register: job_node_install_result
+      until: job_node_install_result.finished
+      retries: 600
 
     - name: curl yarn
       shell: "curl --silent --location https://dl.yarnpkg.com/rpm/yarn.repo | sudo tee /etc/yum.repos.d/yarn.repo"
