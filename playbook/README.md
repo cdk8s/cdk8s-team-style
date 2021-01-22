@@ -48,7 +48,7 @@ ansible-playbook /opt/playbook/1-install-k8s-basic-playbook.yml
 ansible-playbook /opt/playbook/2-jdk8-playbook.yml
 ansible-playbook /opt/playbook/3-maven-playbook.yml
 ansible-playbook /opt/playbook/4-node-playbook.yml
-ansible-playbook /opt/playbook/5-mysql-playbook.yml
+ansible-playbook /opt/playbook/5-mysql8-playbook.yml
 ansible-playbook /opt/playbook/6-redis-playbook.yml
 ansible-playbook /opt/playbook/7-jenkins-playbook.yml
 ansible-playbook /opt/playbook/8-openresty-playbook.yml

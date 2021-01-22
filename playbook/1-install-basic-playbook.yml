@@ -56,7 +56,7 @@
          - yum install -y vim
          - curl https://gitee.com/cdk8s_org/vim-for-server/raw/master/vimrc > ~/.vimrc
 
-    - name: install-docker
+    - name: install-docker tip not install docker 20+
       shell: "{{ item }}"
       with_items:
         - yum install -y yum-utils device-mapper-persistent-data lvm2
@@ -98,9 +98,9 @@
          - systemctl daemon-reload
          - systemctl restart docker
 
-    - name: install-docker-compose
+    - name: install-docker-compose tip not install 1.28.0+
       shell: "{{ item }}"
       with_items:
-         - curl -L https://get.daocloud.io/docker/compose/releases/download/1.28.0/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+         - curl -L https://get.daocloud.io/docker/compose/releases/download/1.27.0/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
          - chmod +x /usr/local/bin/docker-compose
          - docker-compose --version
