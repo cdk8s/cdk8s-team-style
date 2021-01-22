@@ -25,10 +25,10 @@
       until: job_mysql_install_result.finished
       retries: 600
 
-    - name: remove old /etc/my.cnf
-      file:
-        path: "/etc/my.cnf"
-        state: absent
+    - name: rename conf file
+      shell: "{{ item }}"
+      with_items:
+        - mv /etc/my.cnf /etc/my.cnf.back
 
     - name: create my.cnf file
       file:
