@@ -813,3 +813,12 @@ int 类型的字段能存储的数据上限还是 2147483647(有符号型) 和 4
 
 - ENUM，SET，BIT
 
+## 软件小技巧
+
+- 我们在开发阶段通过 Navicat 界面修改了表结构、更新了数据等操作，Navicat 都是有记录变更 SQL 的，我们可以复制这个 SQL，方便了后续更新线上的时候自己编写 SQL
+- 无法看到下图可以点击我：[Navicat-历史记录的使用.gif](https://upload-images.jianshu.io/upload_images/12159-30e0a8c1967083d7.gif?imageMogr2/auto-orient/strip)
+
+![Navicat-历史记录的使用.gif](https://s3.ax1x.com/2021/01/23/s7pmtS.gif)
+
+
+
