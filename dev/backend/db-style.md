@@ -22,11 +22,21 @@
 - 库名：最多 32 个字符
 
 ```mysql
-DROP DATABASE IF EXISTS `oauth_sso`;
+DROP DATABASE IF EXISTS `oauth_sso_db`;
 
-CREATE DATABASE IF NOT EXISTS `oauth_sso` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci;
+CREATE DATABASE IF NOT EXISTS `oauth_sso_db` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci;
 
-USE `oauth_sso`;
+USE `oauth_sso_db`;
+```
+
+### 创建库与之对应的用户
+
+```mysql
+CREATE USER 'my_user_name'@'%' IDENTIFIED BY '123456';
+
+GRANT ALL PRIVILEGES ON oauth_sso_db.* TO 'my_user_name'@'%';
+
+flush privileges;
 ```
 
 ### 创建数据表原则（CREATE TABLE）
