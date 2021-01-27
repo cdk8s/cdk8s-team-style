@@ -206,6 +206,8 @@ private BigDecimal greatOrEqualThan;
 @Range(min = 1, max = 100, message = "排序范围只能在 1 ~ 100 的正整数之间，值越小，排序越靠前")
 @Email(message = "邮箱地址格式不正确")
 @Pattern(regexp="(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{5,10}",message="密码必须是5~10位数字和字母的组合")
+@Pattern(regexp = "^[1][3,4,5,6,7,8,9][0-9]{9}$", message = "手机号格式有误")
+@Pattern(regexp = "^[\\u4E00-\\u9FA5A-Za-z0-9\\*]*$", message = "用户名必须是文字、字母和数字")
 ```
 
 
