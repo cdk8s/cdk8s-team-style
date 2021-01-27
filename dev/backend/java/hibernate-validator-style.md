@@ -210,8 +210,6 @@ private BigDecimal greatOrEqualThan;
 @Email(message = "邮箱地址格式不正确")
 @Pattern(regexp = "^[1][3,4,5,6,7,8,9][0-9]{9}$", message = "手机号格式有误")
 
-@Pattern(regexp = "^[1-3][0-9]{12}$", message = "时间戳格式不正确")
-@Pattern(regexp = "^[1-9][0-9]{17,18}$", message = "ID 格式不正确")
 ```
 
 
