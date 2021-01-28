@@ -1,38 +1,36 @@
 - hosts: all
   remote_user: root
   vars:
-    project_name_to_backend_api: "sculptor-boot-backend"
-    project_name_to_www_frontend: "zhenguigu-www"
-    project_name_to_admin_frontend: "rcxt-react"
-    project_name_to_wap_frontend: "rcxt-h5"
+    project_backend_path: "/opt/workspace/backend"
+    project_frontend_path: "/opt/workspace/frontend"
+    project_name_to_backend_api: "{{ project_backend_path }}/youmeek-java"
+    project_name_to_www_frontend: "{{ project_frontend_path }}/youmeek-web"
 
     location_to_backend_api: "/sculptor-boot-backend/"
     port_to_backend_api: "9091"
+    file_upload_path: "/opt/workspace/sculptor-boot-backend-upload-dir"
 
-    domain_to_www_frontend: "www.zhenguigu.com"
-    domain_to_backend_api: "lulutong-api.zhenguigu.com"
-    domain_to_admin_frontend: "lulutong-admin-frontend.zhenguigu.com"
-    domain_to_wap_frontend: "lulutong-wap.zhenguigu.com"
+    domain_to_www_frontend: "web.youmeek.com"
+    domain_to_backend_api: "api.youmeek.com"
 
-    ssl_pem_path_to_backend_api: "4565876_lulutong-api.zhenguigu.com.pem"
-    ssl_key_path_to_backend_api: "4565876_lulutong-api.zhenguigu.com.key"
-    ssl_pem_path_to_www_frontend: "4563886_www.zhenguigu.com.pem"
-    ssl_key_path_to_www_frontend: "4563886_www.zhenguigu.com.key"
-    ssl_pem_path_to_admin_frontend: "4565880_lulutong-admin-frontend.zhenguigu.com.pem"
-    ssl_key_path_to_admin_frontend: "4565880_lulutong-admin-frontend.zhenguigu.com.key"
-    ssl_pem_path_to_wap_frontend: "4565878_lulutong-wap.zhenguigu.com.pem"
-    ssl_key_path_to_wap_frontend: "4565878_lulutong-wap.zhenguigu.com.key"
+    cert_file_path: "/opt/workspace/cert"
+    ssl_pem_path_to_backend_api: "{{ cert_file_path }}/5131204_api.youmeek.com.pem"
+    ssl_key_path_to_backend_api: "{{ cert_file_path }}/5131204_api.youmeek.com.key"
+    ssl_pem_path_to_www_frontend: "{{ cert_file_path }}/5131230_web.youmeek.com.pem"
+    ssl_key_path_to_www_frontend: "{{ cert_file_path }}/5131230_web.youmeek.com.key"
   tasks:
     - name: create directory
       file:
         path: "{{ item }}"
         state: directory
       with_items:
-        - /home/jenkins/sculptor-boot-backend-upload-dir
+        - "{{ file_upload_path }}"
+        - "{{ cert_file_path }}"
+        - "{{ project_backend_path }}"
+        - "{{ project_frontend_path }}"
         - /data/docker/openresty/conf
         - /data/docker/openresty/conf.d
         - /data/docker/openresty/logs
-        - /data/docker/openresty/cert
         - /data/docker/openresty/html
 
     - name: create nginx.conf
@@ -77,7 +75,7 @@
     - name: docker run
       shell: "{{ item }}"
       with_items:
-        - docker run --name openresty -p 80:80 -p 443:443 -v /home/jenkins/sculptor-boot-backend-upload-dir:/usr/local/upload -v /home/jenkins/workspace:/usr/local/workspace -v /data/docker/openresty/conf/nginx.conf:/usr/local/openresty/nginx/conf/nginx.conf -v /data/docker/openresty/logs:/usr/local/openresty/nginx/logs -v /data/docker/openresty/html:/usr/local/openresty/nginx/html -v /data/docker/openresty/conf.d:/etc/nginx/conf.d -v /data/docker/openresty/cert:/etc/nginx/cert -d openresty/openresty
+        - docker run --name openresty -p 80:80 -p 443:443 -v {{ file_upload_path }}:{{ file_upload_path }} -v /opt/workspace/frontend:/opt/workspace/frontend -v /data/docker/openresty/conf/nginx.conf:/usr/local/openresty/nginx/conf/nginx.conf -v /data/docker/openresty/logs:/usr/local/openresty/nginx/logs -v /data/docker/openresty/html:/usr/local/openresty/nginx/html -v /data/docker/openresty/conf.d:/etc/nginx/conf.d -v {{ cert_file_path }}:{{ cert_file_path }} -d openresty/openresty
 
     - name: create other conf file
       file:
@@ -87,9 +85,6 @@
         - http-redirect-https.conf
         - backend-api.conf
         - www-frontend.conf
-        - admin-frontend.conf
-        - wap-frontend.conf
-
 
     - name: set http-redirect-https.conf
       blockinfile:
@@ -98,7 +93,7 @@
         block: |
           server {
               listen 80;
-              server_name {{ domain_to_www_frontend }} {{ domain_to_backend_api }} {{ domain_to_admin_frontend }} {{ domain_to_wap_frontend }};
+              server_name {{ domain_to_www_frontend }} {{ domain_to_backend_api }};
               return 301 https://$server_name$request_uri;
           }
 
@@ -114,8 +109,8 @@
               #listen 80;
               listen 443 ssl;
 
-              ssl_certificate     /etc/nginx/cert/{{ ssl_pem_path_to_backend_api }};
-              ssl_certificate_key /etc/nginx/cert/{{ ssl_key_path_to_backend_api }};
+              ssl_certificate     {{ ssl_pem_path_to_backend_api }};
+              ssl_certificate_key {{ ssl_key_path_to_backend_api }};
 
               ssl_session_timeout 5m;
               ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
@@ -145,7 +140,7 @@
               }
 
               location ^~ /logs {
-                  root    /usr/local/workspace/{{ project_name_to_backend_api }};
+                  root    {{ project_name_to_backend_api }};
                   autoindex on;
                   autoindex_exact_size off;
                   autoindex_localtime on;
@@ -164,8 +159,8 @@
               #listen 80;
               listen 443 ssl;
 
-              ssl_certificate     /etc/nginx/cert/{{ ssl_pem_path_to_www_frontend }};
-              ssl_certificate_key /etc/nginx/cert/{{ ssl_key_path_to_www_frontend }};
+              ssl_certificate     {{ ssl_pem_path_to_www_frontend }};
+              ssl_certificate_key {{ ssl_key_path_to_www_frontend }};
 
               ssl_session_timeout 5m;
               ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
@@ -175,68 +170,11 @@
               server_name {{ domain_to_www_frontend }};
 
               location / {
-                root    /usr/local/workspace/{{ project_name_to_www_frontend }};
+                root    {{ project_name_to_www_frontend }};
                 index  index.html;
               }
           }
 
-    - name: set admin-frontend.conf
-      blockinfile:
-        path: /data/docker/openresty/conf.d/admin-frontend.conf
-        marker: ""
-        block: |
-          server {
-              charset utf-8;
-              client_max_body_size 128M;
-
-              #listen 80;
-              listen 443 ssl;
-
-              ssl_certificate     /etc/nginx/cert/{{ ssl_pem_path_to_admin_frontend }};
-              ssl_certificate_key /etc/nginx/cert/{{ ssl_key_path_to_admin_frontend }};
-
-              ssl_session_timeout 5m;
-              ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
-              ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:HIGH:!aNULL:!MD5:!RC4:!DHE;
-              ssl_prefer_server_ciphers on;
-
-              server_name {{ domain_to_admin_frontend }};
-
-              location / {
-                root    /usr/local/workspace/{{ project_name_to_admin_frontend }};
-                index  index.html;
-                try_files $uri $uri/ /index.html; # 如果是 history 模式还需要配置这个
-              }
-          }
-
-    - name: set wap-frontend.conf
-      blockinfile:
-        path: /data/docker/openresty/conf.d/wap-frontend.conf
-        marker: ""
-        block: |
-          server {
-              charset utf-8;
-              client_max_body_size 128M;
-
-              #listen 80;
-              listen 443 ssl;
-
-              ssl_certificate     /etc/nginx/cert/{{ ssl_pem_path_to_wap_frontend }};
-              ssl_certificate_key /etc/nginx/cert/{{ ssl_key_path_to_wap_frontend }};
-
-              ssl_session_timeout 5m;
-              ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
-              ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:HIGH:!aNULL:!MD5:!RC4:!DHE;
-              ssl_prefer_server_ciphers on;
-
-              server_name {{ domain_to_wap_frontend }};
-
-              location / {
-                root     /usr/local/workspace/{{ project_name_to_wap_frontend }};
-                index    index.html;
-                try_files $uri $uri/ /index.html; # 如果是 history 模式还需要配置这个
-              }
-          }
 
     - name: enable openresty
       shell: "{{ item }}"
