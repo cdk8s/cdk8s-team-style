@@ -87,6 +87,7 @@ docker run -p 3306:3306 \
 	- 连上 MySQL：`mysql -u root -p`
 	- 创建表：`CREATE DATABASE wormhole DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci;`
 - docker 的 MySQL 备份和还原：
+    - opt 是宿主机的目录，不是 docker 容器里面的目录
 	- 备份：`docker exec cloud-mysql /usr/bin/mysqldump -u root --password=123456 DATABASE_Name > /opt/backup.sql`
 	- 还原：`docker exec -i cloud-mysql /usr/bin/mysql -u root --password=123456 DATABASE_Name < /opt/backup.sql`
 
