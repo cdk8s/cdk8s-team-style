@@ -74,7 +74,7 @@
     - debug:
         msg: "进入客户端：mysql -uroot -p 输入生成的密码"
     - debug:
-        msg: "修改密码并永不过期（必须是大小写字母+特殊符号+数字）：ALTER USER 'root'@'localhost' IDENTIFIED WITH 'mysql_native_password' BY 'Meek123456' PASSWORD EXPIRE NEVER;"
+        msg: "修改密码并永不过期（必须是大小写字母+特殊符号+数字）：ALTER USER 'root'@'localhost' IDENTIFIED WITH 'mysql_native_password' BY 'Meek_123456' PASSWORD EXPIRE NEVER;"
     - debug:
         msg: "创建用户：CREATE USER 'myuser'@'%' IDENTIFIED WITH 'mysql_native_password' BY 'MyPwd123456';"
     - debug:
