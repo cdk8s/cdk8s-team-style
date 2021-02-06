@@ -76,9 +76,9 @@
     - debug:
         msg: "修改密码并永不过期（必须是大小写字母+特殊符号+数字）：ALTER USER 'root'@'localhost' IDENTIFIED WITH 'mysql_native_password' BY 'Meek_123456' PASSWORD EXPIRE NEVER;"
     - debug:
-        msg: "创建用户：CREATE USER 'myuser'@'%' IDENTIFIED WITH 'mysql_native_password' BY 'MyPwd123456';"
+        msg: "创建用户：CREATE USER 'myuser'@'%' IDENTIFIED WITH 'mysql_native_password' BY 'MyPwd_123456';"
     - debug:
-        msg: "修改密码并永不过期：ALTER USER 'myuser'@'%' IDENTIFIED WITH 'mysql_native_password' BY 'MyPwd123456' PASSWORD EXPIRE NEVER;"
+        msg: "修改密码并永不过期：ALTER USER 'myuser'@'%' IDENTIFIED WITH 'mysql_native_password' BY 'MyPwd_123456' PASSWORD EXPIRE NEVER;"
     - debug:
         msg: "分配所有数据库权限：GRANT ALL PRIVILEGES ON *.* TO 'myuser'@'%' WITH GRANT OPTION;"
     - debug:
