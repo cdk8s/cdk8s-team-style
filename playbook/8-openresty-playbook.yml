@@ -122,7 +122,7 @@
               ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:HIGH:!aNULL:!MD5:!RC4:!DHE;
               ssl_prefer_server_ciphers on;
 
-              server_name {{ domain_to_backend_api }};
+              server_name {{ domain_to_backend_api }} 127.0.0.1 localhost;
 
               location ^~ /upload {
                   root    /usr/local/upload;
