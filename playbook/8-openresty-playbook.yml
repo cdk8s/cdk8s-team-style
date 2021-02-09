@@ -93,7 +93,12 @@
         block: |
           server {
               listen 80;
-              server_name {{ domain_to_www_frontend }} {{ domain_to_backend_api }};
+              server_name {{ domain_to_www_frontend }};
+              return 301 https://$server_name$request_uri;
+          }
+          server {
+              listen 80;
+              server_name {{ domain_to_backend_api }};
               return 301 https://$server_name$request_uri;
           }
 
