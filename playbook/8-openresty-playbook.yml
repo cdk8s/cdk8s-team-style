@@ -9,6 +9,7 @@
     location_to_backend_api: "/sculptor-boot-backend/"
     port_to_backend_api: "9091"
     file_upload_path: "/opt/workspace/sculptor-boot-backend-upload-dir"
+    nginx_conf_path: "/usr/local/openresty/nginx/conf.d"
 
     domain_to_www_frontend: "web.youmeek.com"
     domain_to_backend_api: "api.youmeek.com"
@@ -28,14 +29,29 @@
         - "{{ cert_file_path }}"
         - "{{ project_backend_path }}"
         - "{{ project_frontend_path }}"
-        - /data/docker/openresty/conf
-        - /data/docker/openresty/conf.d
-        - /data/docker/openresty/logs
-        - /data/docker/openresty/html
+        - "{{ nginx_conf_path }}"
+
+    - name: install openresty
+      shell: "{{ item }}"
+      with_items:
+        - yum install yum-utils
+        - yum-config-manager --add-repo https://openresty.org/package/centos/openresty.repo
+        - yum install -y openresty
+
+    - name: set PATH
+      blockinfile:
+        path: /root/.zshrc
+        marker: "#{mark} openresty ENV"
+        block: |
+          export PATH=${PATH}:/usr/local/openresty/bin
+          export PATH=${PATH}:/usr/local/openresty/nginx/sbin
+
+    - name: source zshrc
+      shell: source /root/.zshrc
 
     - name: create nginx.conf
       copy:
-        dest: "/data/docker/openresty/conf/nginx.conf"
+        dest: "/usr/local/openresty/nginx/conf/nginx.conf"
         content: |
           worker_processes  1;
 
@@ -43,15 +59,11 @@
               worker_connections  1024;
           }
 
+
           http {
               include       mime.types;
               default_type  application/octet-stream;
 
-              client_body_temp_path /var/run/openresty/nginx-client-body;
-              proxy_temp_path       /var/run/openresty/nginx-proxy;
-              fastcgi_temp_path     /var/run/openresty/nginx-fastcgi;
-              uwsgi_temp_path       /var/run/openresty/nginx-uwsgi;
-              scgi_temp_path        /var/run/openresty/nginx-scgi;
 
               sendfile        on;
 
@@ -69,17 +81,12 @@
               limit_conn_zone $binary_remote_addr zone=perIpLimit:10m;
               limit_conn_zone $server_name zone=perServerLimit:10m;
 
-              include /etc/nginx/conf.d/*.conf;
+              include /usr/local/openresty/nginx/conf.d/*.conf;
           }
-
-    - name: docker run
-      shell: "{{ item }}"
-      with_items:
-        - docker run --name openresty -p 80:80 -p 443:443 -v {{ file_upload_path }}:{{ file_upload_path }} -v /opt/workspace/frontend:/opt/workspace/frontend -v /data/docker/openresty/conf/nginx.conf:/usr/local/openresty/nginx/conf/nginx.conf -v /data/docker/openresty/logs:/usr/local/openresty/nginx/logs -v /data/docker/openresty/html:/usr/local/openresty/nginx/html -v /data/docker/openresty/conf.d:/etc/nginx/conf.d -v {{ cert_file_path }}:{{ cert_file_path }} -d openresty/openresty
 
     - name: create other conf file
       file:
-        path="/data/docker/openresty/conf.d/{{ item }}"
+        path="{{ nginx_conf_path }}/{{ item }}"
         state=touch
       with_items:
         - http-redirect-https.conf
@@ -88,7 +95,7 @@
 
     - name: set http-redirect-https.conf
       blockinfile:
-        path: /data/docker/openresty/conf.d/http-redirect-https.conf
+        path: {{ nginx_conf_path }}/http-redirect-https.conf
         marker: ""
         block: |
           server {
@@ -104,7 +111,7 @@
 
     - name: set backend-api.conf
       blockinfile:
-        path: /data/docker/openresty/conf.d/backend-api.conf
+        path: {{ nginx_conf_path }}/backend-api.conf
         marker: ""
         block: |
           server {
@@ -154,7 +161,7 @@
 
     - name: set www-frontend.conf
       blockinfile:
-        path: /data/docker/openresty/conf.d/www-frontend.conf
+        path: {{ nginx_conf_path }}/www-frontend.conf
         marker: ""
         block: |
           server {
@@ -181,7 +188,7 @@
           }
 
 
-    - name: enable openresty
+    - name: reload openresty
       shell: "{{ item }}"
       with_items:
-        - docker restart openresty
+        - nginx -s reload
