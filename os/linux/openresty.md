@@ -7,20 +7,76 @@
 - ip：`http://192.168.1.121`
 - docker version：`17.12.1-ce, build 7390fc6`
 
-## Docker 快速部署
+## CentOS 包安装
 
 ```
-mkdir -p /data/docker/openresty/conf.d /data/docker/openresty/logs /data/docker/openresty/cert /data/docker/openresty/html
-touch /data/docker/openresty/nginx.conf
+sudo yum install yum-utils
+sudo yum-config-manager --add-repo https://openresty.org/package/centos/openresty.repo
+sudo yum install -y openresty
 
-docker run --name openresty -p 80:80 -p 443:443 \
--v /data/docker/openresty/nginx.conf:/usr/local/openresty/nginx/conf/nginx.conf:rw \
--v /data/docker/openresty/conf.d:/etc/nginx/conf.d \
--v /data/docker/openresty/cert:/etc/nginx/cert \
--v /data/docker/openresty/html:/etc/nginx/html \
--v /data/docker/openresty/logs:/usr/local/openresty/nginx/logs  \
--d openresty/openresty
+默认安装在：
+/usr/local/openresty
 ```
+
+## 配置
+
+```
+新增环境变量：
+vim ~/.zshrc
+
+export PATH=${PATH}:/usr/local/openresty/bin
+export PATH=${PATH}:/usr/local/openresty/nginx/sbin
+
+source ~/.zshrc
+
+创建配置文件：
+nginx -c /usr/local/openresty/nginx/conf/nginx.conf
+
+刷新配置文件：
+nginx -s reload
+
+mkdir /usr/local/openresty/nginx/conf.d
+
+```
+
+## 推荐的 nginx.conf 配置内容
+
+
+```
+worker_processes  1;
+
+events {
+    worker_connections  1024;
+}
+
+
+http {
+    include       mime.types;
+    default_type  application/octet-stream;
+
+
+    sendfile        on;
+
+    keepalive_timeout  65;
+
+    gzip on;
+    gzip_buffers 8 16k;
+    gzip_min_length 512;
+    gzip_disable "MSIE [1-6]\.(?!.*SV1)";
+    gzip_http_version 1.1;
+    gzip_types   text/plain text/css application/javascript application/x-javascript application/json application/xml;
+    client_max_body_size 20m;
+
+    limit_req_zone $binary_remote_addr zone=contentRateLimit:10m rate=10r/s;
+    limit_conn_zone $binary_remote_addr zone=perIpLimit:10m;
+    limit_conn_zone $server_name zone=perServerLimit:10m;
+
+    include /usr/local/openresty/nginx/conf.d/*.conf;
+
+}
+```
+
+
 
 ## 限流配置
 
