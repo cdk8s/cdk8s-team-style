@@ -72,4 +72,5 @@
 - [禁用客人用户](https://jingyan.baidu.com/article/b907e6279fff9946e7891cd5.html)
 - [启用/禁用root-修改root密码](http://www.jianshu.com/p/eac6d1d38755)
 - [通过终端命令修改用户密码](https://www.jianshu.com/p/0f67176d3a7a)
+- [MacOS 10.15.x 无法添加屏幕录制权限解决办法](https://www.jianshu.com/p/46331a299576)
 
