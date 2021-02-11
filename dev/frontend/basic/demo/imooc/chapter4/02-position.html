@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        div{
+            background:red;
+            width:100px;
+            height:100px;
+        }
+        .p2{
+            position: relative;
+            left:10px;
+            top:-10px;
+            background:blue;
+        }
+        .p3{
+            position: absolute;
+            left:80px;
+            top:30px;
+            background: green;
+        }
+        .p4{
+            position: fixed;
+            left:0;
+            bottom:10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="p1">
+        position:static
+    </div>
+    <div class="p2">
+        position:relative
+    </div>
+    <div class="p3">
+        position:absolute
+        <div class="p3-3" style="position:absolute;width:50px;height:50px;background:yellow"></div>
+    </div>
+    <div class="p4">
+        position:fixed;
+    </div>
+    <div class="p5">
+        p5
+    </div>
+</body>
+</html>

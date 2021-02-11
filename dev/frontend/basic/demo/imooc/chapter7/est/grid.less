@@ -1,0 +1,92 @@
+//
+// Grid
+// -----------------------------------------------------------------------------
+//
+// ### Usage:
+// Flexible grid layout inspired by Jeet.
+// Use `.make-row()` to create rows and use `.make-column()` to create columns.
+//
+
+@import "variables.less";
+@import "util.less";
+
+.make-row() {
+    .clearfix();
+}
+
+.make-column(...) {
+    display: block;
+    float: left;
+}
+.make-column(@ratio, @gutter: @default-column-gutter, @offset: 0)
+    when (ispercentage(@gutter)), (unit(@gutter) = 0) and (isnumber(@offset)) {
+    @gutter-value: unit(@gutter);
+    @width-and-gutter: ~`(function () { var ratios = @{ratio}; var gutter = @{gutter-value}; if (Object.prototype.toString.apply(ratios) !== '[object Array]') { ratios = [ratios]; } var width = 100; for (var i = ratios.length - 1; i >= 0; i--) { var ratio = ratios[i]; gutter = gutter / width * 100; width = 100 * ratio + ('@{column-justify-content}' === 'space-between' ? -1 : 1) * (1 - ratio) * gutter; } return width + ' ' + gutter; })()`;
+    @w: ~`Number('@{width-and-gutter}'.split(' ')[0])`;
+    @g: ~`Number('@{width-and-gutter}'.split(' ')[1])`;
+    @o: ~`(function () { var ratios = @{offset}; var gutter = @{g}; if (Object.prototype.toString.apply(ratios) !== '[object Array]') { ratios = [ratios]; } var width = 100; for (var i = ratios.length - 1; i >= 0; i--) { var ratio = ratios[i]; gutter = gutter / width * 100; width = 100 * ratio + ('@{column-justify-content}' === 'space-between' ? -1 : 1) * (1 - ratio) * gutter; } return width; })()`;
+    width: unit(@w, %);
+    margin-left: unit(@o + @g * 2, %);
+
+    &:first-child {
+        margin-left: unit(@o + @g, %);
+    }
+
+    // .uncycle() when not (@uncycle = 0) {
+    //     @u: ~`@{uncycle} === 1 ? '' : @{uncycle}`;
+    //     @u-rule: ~"@{u}n+1";
+    //     &:nth-of-type(@{u-rule}) {
+    //         clear: none;
+    //         margin-left: unit(@o + @g * 2, %);
+    //     }
+    // }
+    // .uncycle();
+
+    // .cycle() when not (@cycle = 0) {
+    //     @c: ~`@{cycle} === 1 ? '' : @{cycle}`;
+    //     @c-rule: ~"@{c}n+1";
+    //     &:nth-of-type(@{c-rule}) {
+    //         clear: left;
+    //         margin-left: unit(@o + @g, %);
+    //     }
+    // }
+    // .cycle();
+}
+.make-column(@ratio, @gutter, @total, @offset: 0) when not (ispercentage(@gutter)) {
+    .calc() when (@column-justify-content = space-around) {
+        @w: @total * @ratio + @gutter - @ratio * @gutter;
+        @o: @total * @offset + @gutter - @offset * @gutter;
+    }
+    .calc() when (default()) {
+        @w: @total * @ratio - @gutter + @ratio * @gutter;
+        @o: @total * @offset - @gutter + @offset * @gutter;
+    }
+    .calc();
+    width: @w;
+    @unit: get-unit(@gutter);
+    margin-left: @o + @gutter * 2;
+
+    &:first-child {
+        margin-left: @o + @gutter;
+    }
+
+    // .uncycle() when not (@uncycle = 0) {
+    //     @u: ~`@{uncycle} === 1 ? '' : @{uncycle}`;
+    //     @u-rule: ~"@{u}n+1";
+    //     &:nth-of-type(@{u-rule}) {
+    //         clear: none;
+    //         margin-left: @o + @gutter * 2;
+    //     }
+    // }
+    // .uncycle();
+
+    // .cycle() when not (@cycle = 0) {
+    //     @c: ~`@{cycle} === 1 ? '' : @{cycle}`;
+    //     @c-rule: ~"@{c}n+1";
+    //     &:nth-of-type(@{c-rule}) {
+    //         clear: left;
+    //         margin-left: @o + @gutter;
+    //     }
+    // }
+    // .cycle();
+}

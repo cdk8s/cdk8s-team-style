@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .container{
+            background:red;
+            width:400px;
+            margin:20px;
+        }
+        .p1{
+            background:green;
+            float:left;
+            width:200px;
+            height:50px;
+        }
+        .container2::after{
+            content: 'aaa';
+            clear:both;
+            display: block;
+            visibility: hidden;
+            height:0;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <span class="p1">
+            float
+        </span>
+        <div class="p2">
+            很长的文字很长的文字很长的文字很长的文字很长的文字很长的文字很长的文字很长的文字很长的文字很长的文字很长的文字很长的文字很长的文字很长的文字很长的文字很长的文字很长的文字很长的文字很长的文字很长的文字很长的文字很长的文字很长的文字很长的文字很长的文字很长的文字很长的文字很长的文字很长的文字很长的文字很长的文字很长的文字
+        </div>
+    </div>
+
+    <div class="container container2">
+        <span>写几个字</span>
+        <span class="p1">
+            float
+        </span>
+        <span class="p1">
+            float
+        </span>
+    </div>
+    <div class="container" style="height:200px;background:blue;">
+    </div>
+</body>
+</html>

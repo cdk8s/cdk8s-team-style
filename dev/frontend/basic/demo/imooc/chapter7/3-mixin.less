@@ -1,0 +1,42 @@
+
+@fontSize: 12px;
+@bgColor: red;
+
+.box{
+    color:green;
+}
+
+.box1{
+    .box();
+    line-height: 2em;
+}
+.box2{
+    .box();
+    line-height: 3em;
+}
+
+.block(@fontSize){
+    font-size: @fontSize;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+
+body{
+    padding:0;
+    margin:0;
+}
+
+.wrapper{
+    background:lighten(@bgColor, 40%);
+
+    .nav{
+        .block(@fontSize);
+    }
+    .content{
+        .block(@fontSize + 2px);
+        &:hover{
+            background:red;
+        }
+    }
+}

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Demo</title>
+</head>
+<body>
+<section>
+    <h1>链接</h1>
+    <a href="http://www.qq.com">腾讯网</a>
+    <a href="http://www.taobao.com" target="_blank">淘宝网</a>
+</section>
+<section>
+    <h1>表格</h1>
+    <table border="1">
+        <thead>
+        <tr>
+            <th>表头1</th>
+            <th>表头2</th>
+            <th>表头3</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>数据1</td>
+            <td>数据2</td>
+            <td>数据3</td>
+        </tr>
+        <tr>
+            <td colspan="2">数据1</td>
+            <td>数据3</td>
+        </tr>
+        <tr>
+            <td rowspan="2">数据1</td>
+            <td>数据2</td>
+            <td>数据3</td>
+        </tr>
+        <tr>
+            <td>数据2</td>
+            <td>数据3</td>
+        </tr>
+        </tbody>
+    </table>
+</section>
+<section>
+    <h1>表单</h1>
+    <form method="GET" action="http://www.qq.com">
+        <p>
+            <select name="select1">
+                <option value="1">一</option>
+                <option value="2" selected>二</option>
+            </select>
+        </p>
+        <p>
+            <input type="text" name="text1"/>
+        </p>
+        <p>
+            <input type="password" name="password"/>
+        </p>
+        <p>
+            <input type="radio" name="radio1" id="radio1-1"/>
+            <label>选项一</label>
+            <input type="radio" name="radio1" id="radio1-2"/>
+            <label for="radio1-2">选项二</label>
+        </p>
+        <p>
+            <button type="button">普通按钮</button>
+            <button type="submit">提交按钮一</button>
+            <input type="submit" value="提交按钮二"/>
+            <button type="reset">重置按钮</button>
+        </p>
+    </form>
+</section>
+</body>
+</html>

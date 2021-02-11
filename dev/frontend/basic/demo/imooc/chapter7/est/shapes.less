@@ -1,0 +1,152 @@
+//
+// Shapes
+// -----------------------------------------------------------------------------
+//
+// ### Usage:
+// 提供常见形状的生成。
+
+@import "variables.less";
+@import "util.less";
+
+.triangle(@direction, @size, @color, @origin: corner) {
+    position: absolute;
+    .size(0);
+    @horizontal: ~`(function() { var match = '@{direction}'.match(/\b(?:right|left)\b/); return match ? match[0] : false; })()`;
+    @vertical: ~`(function() { var match = '@{direction}'.match(/\b(?:top|bottom)\b/); return match ? match[0] : false; })()`;
+
+    // diagonal
+    .output() when not (@horizontal = false) and not (@vertical = false) {
+        border: @size / 2 solid @color;
+
+        .border(top) {
+            border-bottom-color: transparent;
+        }
+        .border(bottom) {
+            border-top-color: transparent;
+        }
+        .border(right) {
+            border-left-color: transparent;
+        }
+        .border(left) {
+            border-right-color: transparent;
+        }
+        .border(top) when (@support-ie-version < 7) {
+            _border-bottom-style: dashed;
+        }
+        .border(bottom) when (@support-ie-version < 7) {
+            _border-top-style: dashed;
+        }
+        .border(right) when (@support-ie-version < 7) {
+            _border-left-style: dashed;
+        }
+        .border(left) when (@support-ie-version < 7) {
+            _border-right-style: dashed;
+        }
+        .border(@vertical);
+        .border(@horizontal);
+
+        .margin(corner) when (@vertical = bottom) {
+            margin-top: -@size;
+        }
+        .margin(corner) when (@horizontal = right) {
+            margin-left: -@size;
+        }
+        .margin(side) {
+            margin-top: -@size / 2;
+        }
+        .margin(side) {
+            margin-left: -@size / 2;
+        }
+        .margin(@origin);
+    }
+
+    // horizontal or vertical
+    .output() when (@horizontal = false), (@vertical = false) {
+        @border-width: @size / sqrt(2);
+        border: @border-width solid transparent;
+
+        .border-style() when (@support-ie-version < 7) {
+            _border-style: dashed;
+        }
+        .border-style();
+
+        .border(top) {
+            border-bottom-color: @color;
+        }
+        .border(right) {
+            border-left-color: @color;
+        }
+        .border(bottom) {
+            border-top-color: @color;
+        }
+        .border(left) {
+            border-right-color: @color;
+        }
+        .border(top) when (@support-ie-version < 7) {
+            _border-bottom-style: solid;
+        }
+        .border(right) when (@support-ie-version < 7) {
+            _border-left-style: solid;
+        }
+        .border(bottom) when (@support-ie-version < 7) {
+            _border-top-style: solid;
+        }
+        .border(left) when (@support-ie-version < 7) {
+            _border-right-style: solid;
+        }
+        .border(@direction);
+
+        .margin(corner) {
+            margin-left: -@border-width;
+        }
+        .margin(corner) {
+            margin-top: -@border-width;
+        }
+        .margin(side) when not (@vertical = false) {
+            margin-left: -@border-width;
+        }
+        .margin(side) when (@horizontal = left) {
+            margin-left: -@border-width * 2;
+        }
+        .margin(side) when not (@horizontal = false) {
+            margin-top: -@border-width;
+        }
+        .margin(side) when (@vertical = top) {
+            margin-top: -@border-width * 2;
+        }
+        .margin(@origin);
+    }
+
+    .output() when (@support-ie-version < 7) {
+        _font-size: 0;
+        _line-height: 0;
+    }
+
+    .output();
+}
+
+.circle(@size, @bg: false) {
+    .output() when (ispixel(@size)) {
+        .size(@size);
+        // for better compatibility
+        .border-radius(ceil(@size / 2));
+    }
+    .output() when (ispercentage(@size)) {
+        width: @size;
+        padding-top: @size;
+        .border-radius(50%);
+    }
+    .output() when (@size = 0) {
+        .size(0);
+    }
+
+    // minimize affected properties
+    .output() when (iscolor(@bg)) {
+        background-color: @bg;
+    }
+    .output() when not (@bg = false) and not (iscolor(@bg)) {
+        background: @bg;
+    }
+
+    .output();
+}

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>responsive</title>
+    <style>
+        .container{
+            margin:0 auto;
+            max-width:800px;
+            display: flex;
+            border:1px solid black;
+        }
+        .left{
+            display: flex;
+            width: 200px;
+            background:red;
+            margin:5px;
+        }
+        @media (max-width: 640px){
+            .left{
+                display: none;
+            }
+        }
+        .right{
+            display: flex;
+            flex: 1;
+            background:blue;
+            margin:5px;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left">
+            这里是一些不重要的内容，比如友情链接、广告
+        </div>
+        <div class="right">
+            这里是一些重要的内容，比如一篇文章，文章是整个页面的核心内容。这里是一些重要的内容，比如一篇文章，文章是整个页面的核心内容。这里是一些重要的内容，比如一篇文章，文章是整个页面的核心内容。这里是一些重要的内容，比如一篇文章，文章是整个页面的核心内容。这里是一些重要的内容，比如一篇文章，文章是整个页面的核心内容。这里是一些重要的内容，比如一篇文章，文章是整个页面的核心内容。这里是一些重要的内容，比如一篇文章，文章是整个页面的核心内容。这里是一些重要的内容，比如一篇文章，文章是整个页面的核心内容。这里是一些重要的内容，比如一篇文章，文章是整个页面的核心内容。这里是一些重要的内容，比如一篇文章，文章是整个页面的核心内容。
+        </div>
+    </div>
+</body>
+</html>

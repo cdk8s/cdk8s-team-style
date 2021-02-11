@@ -1,0 +1,473 @@
+//
+// Typography
+// -----------------------------------------------------------------------------
+//
+// ### Usage:
+// 提供文本相关的mixin样式。
+
+@import "variables.less";
+@import "util.less";
+
+
+//
+// .base-font-family
+//
+// IE7-下，匹配到第一个字体后不会根据字符继续在family列表中进行fallback
+
+.font-family(base) {
+    font-family: @default-base-font-family;
+}
+.font-family(base) when (@support-ie-version < 8)
+    and not (@default-base-font-family = @default-old-ie-base-font-family) {
+    *font-family: @default-old-ie-base-font-family;
+}
+.font-family(heading) {
+    font-family: @default-heading-font-family;
+}
+.font-family(heading) when (@support-ie-version < 8)
+    and not (@default-heading-font-family = @default-old-ie-heading-font-family) {
+    *font-family: @default-old-ie-heading-font-family;
+}
+.font-family(code) {
+    font-family: @default-code-font-family;
+}
+.font-family(code) when (@support-ie-version < 8)
+    and not (@default-code-font-family = @default-old-ie-code-font-family) {
+    *font-family: @default-old-ie-code-font-family;
+}
+
+
+//
+// .ellipsis
+//
+// Known issue:
+// 指定参数（行数）的功能只支持WebKit。
+
+.ellipsis(...) {
+    overflow: hidden;
+}
+.ellipsis() {
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.ellipsis(@line-number) {
+    display: -webkit-box;
+    -webkit-line-clamp: @line-number;
+    -webkit-box-orient: vertical;
+}
+
+
+
+
+//
+// force-wrap
+//
+// 阻止长字符串（例如url或无意义连续英文字符）打破布局
+
+.force-wrap() {
+    white-space: pre;           // CSS 2.0
+    white-space: pre-wrap;      // CSS 2.1
+    white-space: pre-line;      // CSS 3.0
+    white-space: -pre-wrap;     // Opera 4-6
+    white-space: -o-pre-wrap;   // Opera 7
+    white-space: -moz-pre-wrap; // Mozilla
+    white-space: -hp-pre-wrap;  // HP Printers
+    word-wrap: break-word;      // IE 5+
+}
+
+
+
+//
+// .hide-text
+//
+// 隐藏文字
+// http://jsfiddle.net/necolas/drHaR/2/
+// https://github.com/twitter/bootstrap/issues/2362
+// https://github.com/h5bp/html5-boilerplate/commit/aa0396eae757c9e03dda4e463fb0d4db5a5f82d7#commitcomment-1052728
+// http://www.zeldman.com/2012/03/01/replacing-the-9999px-hack-new-image-replacement/
+.hide-text() when not (@support-ie-version < 8) {
+    white-space: nowrap;
+    text-indent: 100%;
+    overflow: hidden;
+}
+.hide-text() when (@support-ie-version < 8) {
+    .ie-hide-text();
+}
+// ie6, ie7
+.ie-hide-text() {
+    text-indent: -9999px;
+    overflow: hidden;
+    text-align: left;
+}
+
+
+
+//
+// .invisible
+//
+// 用于隐藏那些增加可访问性的文字，注意与hide-text的区别是，他隐藏整个元素
+
+.invisible() {
+    position: absolute !important;
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+    clip: rect(1px, 1px, 1px, 1px);
+}
+.invisible() when (@support-ie-version < 8) {
+    *clip: rect(1px 1px 1px 1px);
+}
+
+
+
+//
+// .img-replace
+// .ir
+//
+// 用图片替换文字，通常用作icon的样式
+
+.img-replace(@img-url, @img-x: 0, @img-y: 0) {
+    @url: ~"@{img-url}";
+    @encoded-url: escape(@url);
+    @decoded: ~`decodeURIComponent("@{encoded-url}").replace(/['"]/g, '')`;
+    @is-url-exp: ~`/^url\([^()]+\)$/i.test("@{decoded}") ? 'true' : 'false'`;
+    .hide-text();
+    .background(@is-url-exp) when not (@is-url-exp) {
+        background: url(@decoded) no-repeat @img-x @img-y;
+    }
+    .background(@is-url-exp) when (@is-url-exp) {
+        background: @decoded no-repeat @img-x @img-y;
+    }
+    .background(@is-url-exp);
+}
+.ir(@img-url, @img-x: 0, @img-y: 0) {
+    .img-replace(@img-url, @img-x, @img-y);
+}
+
+
+
+
+//
+// .font-size-rem(14)
+// .font-size-em(14)
+// .font-size-em(14, 18)
+// .font-size-rem(14px)
+// .font-size-em(14px)
+// .font-size-em(14px, 18px)
+//
+// 用于辅助计算字体的em和rem值
+// https://github.com/clearleft/clearless/blob/master/mixins/typography.less
+
+.font-size-rem(@px-size) {
+    @rem-size: unit(@px-size / @default-font-size);
+    @px-size-no-unit: unit(@px-size);
+    font-size: ~"@{px-size-no-unit}px";
+    font-size: ~"@{rem-size}rem";
+}
+
+.font-size-em(@target-px-size, @context-px-size: @default-font-size) {
+    font-size: (unit(@target-px-size) / unit(@context-px-size)) * 1em;
+}
+
+
+
+
+//
+// .font-face
+//
+// @font-face的快捷书写方式
+// https://github.com/clearleft/clearless/blob/master/mixins/typography.less
+
+.font-face(@family-name, @font-path, @font-weight: normal, @font-style: normal, @include-svg: false) {
+    @url: ~"@{font-path}";
+    @encoded-url: escape(@url);
+    @decoded: ~`decodeURIComponent("@{encoded-url}").replace(/['"]/g, '')`;
+    @is-url-exp: ~`/^url\([^()]+\)$/i.test("@{decoded}") ? 'true' : 'false'`;
+    @font-face {
+        font-family: @family-name;
+        .src(@is-url-exp) when not (@is-url-exp) {
+            src: url(~"@{url}.eot");
+            .more(@include-svg) when not (@include-svg) {
+                src: url(~"@{url}.eot?#iefix") format("embedded-opentype"),
+                     url(~"@{url}.woff") format("woff"),
+                     url(~"@{url}.ttf") format("truetype");
+            }
+            .more(@include-svg) when (@include-svg) {
+                src: url(~"@{url}.eot?#iefix") format("embedded-opentype"),
+                     url(~"@{url}.woff") format("woff"),
+                     url(~"@{url}.ttf") format("truetype"),
+                     url(~"@{url}.svg#@{family-name}") format("svg");
+            }
+            .more(@include-svg);
+        }
+        .src(@is-url-exp) when (@is-url-exp) {
+            @path: ~`/^url\(([^()]+?)\)$/i.exec("@{decoded}")[1]`;
+            src: ~'url(@{path}.eot)';
+            .more(@include-svg) when not (@include-svg) {
+                src: ~"url(@{path}.eot?#iefix)" format("embedded-opentype"),
+                     ~"url(@{path}.woff)" format("woff"),
+                     ~"url(@{path}.ttf)" format("truetype");
+            }
+            .more(@include-svg) when (@include-svg) {
+                src: ~"url(@{path}.eot?#iefix)" format("embedded-opentype"),
+                     ~"url(@{path}.woff)" format("woff"),
+                     ~"url(@{path}.ttf)" format("truetype"),
+                     ~"url(@{path}.svg#@{family-name})" format("svg");
+            }
+            .more(@include-svg);
+        }
+        .src(@is-url-exp);
+        font-weight: @font-weight;
+        font-style: @font-style;
+    }
+}
+
+
+//
+// .hover-link
+//
+// 实现链接默认无下划线，hover后有下划线的样式
+
+.hover-link() {
+    text-decoration: none;
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+
+
+
+//
+// .unstyled-link
+//
+// 将链接变成默认的文字样式
+
+.unstyled-link() {
+    color: inherit;
+    text-decoration: inherit;
+    cursor: inherit;
+    &:active, &:focus {
+        outline: none;
+    }
+}
+
+
+
+//
+// .rhythm()
+// .rhythm(14px, 2);        // font-size 必须是px单位
+// .rhythm(14px, 180%);
+// .rhythm(14px, 1.8em);
+// .rhythm(14px, 28px);
+//
+// 按照“垂直的旋律”来排版文字，适合中文阅读
+// 一般用于多段文字（文章）的显示
+// 基础高度(px) = 行高 / 2;
+//
+// 辅助的mixin:
+//      设置行高为 n*2*基础高度
+//      .rhythm-line-height();      // 1*2 = 2
+//      .rhythm-line-height(1);     // 1*2 = 2
+//      .rhythm-line-height(2);     // 2*2 = 4
+//      设置margin为 n*基础高度
+//      .rhythm-margin();           // 上下margin都为 1*基础高度
+//      .rhythm-margin(1);          // 上下margin都为 1*基础高度
+//      .rhythm-margin-top();       // 上margin都为 1*基础高度
+//      .rhythm-margin-top(2);      // 上margin都为 2*基础高度
+//      .rhythm-margin-bottom();    // 下margin都为 1*基础高度
+//      .rhythm-margin-bottom(2);   // 下margin都为 2*基础高度
+//      设置padding为 n*基础高度
+//      .rhythm-padding();          // 上下padding都为 1*基础高度
+//      .rhythm-padding(2);         // 上下padding都为 2*基础高度
+//      .rhythm-padding-top();      // 上padding都为 1*基础高度
+//      .rhythm-padding-top(2);     // 上padding都为 2*基础高度
+//      .rhythm-padding-bottom();   // 下padding都为 1*基础高度
+//      .rhythm-padding-bottom(2);  // 下padding都为 2*基础高度
+//      设置padding同时设置border
+//      .rhythm-padding(2, 1px solid #CCC);         // 上下padding都为 2*基础高度-1 , 上下border宽度为 1
+//      .rhythm-padding-top(2, 4px solid #CCC);     // 上padding都为 2*基础高度-4 , 上border宽度为 4
+//      .rhythm-padding-bottom(2, 4px solid #CCC);  // 下padding都为 2*基础高度-4 , 下border宽度为 4
+//      .rhythm-padding(2, 1px);                    // 第二个值只写一部分，但是一定要先写宽度
+
+.rhythm(@font-size: 14px, @line-height: 1.8) {
+    font-size: @font-size;
+    line-height: @line-height;
+
+    // TODO isnumber 函数也可以通过 `1px` 这样的输入
+    .rhythm-line() when (isnumber(@line-height)) {
+        @line: @font-size * @line-height / 2;
+    }
+    .rhythm-line() when (ispixel(@line-height)) {
+        @line: @line-height / 2;
+    }
+    .rhythm-line() when (ispercentage(@line-height)) {
+        @line: ((unit(@line-height) / 100) * @font-size) / 2;
+    }
+    .rhythm-line() when (isem(@line-height)) {
+        @line: (unit(@line-height) * @font-size) / 2;
+    }
+
+    .rhythm-line();
+    .rhythm-line-height(@lines: 1) {
+        line-height: @line * 2 * @lines;
+    }
+
+    .rhythm-margin(@lines: 1) {
+        margin-top: (@line * @lines);
+        margin-bottom: (@line * @lines);
+    }
+    .rhythm-margin-top(@lines: 1) {
+        margin-top: (@line * @lines);
+    }
+    .rhythm-margin-bottom(@lines: 1) {
+        margin-bottom: (@line * @lines);
+    }
+
+    .rhythm-padding(@lines: 1, @border: false) when not (@border = false) {
+        @border-width: ~`parseInt('@{border}'.match(/(\d+)(?:px)?/)[1], 10)`;
+        padding-top: (@line * @lines - @border-width);
+        padding-bottom: (@line * @lines - @border-width);
+        border-top: @border;
+        border-bottom: @border;
+    }
+    .rhythm-padding(@lines: 1, @border: false) when (@border = false) {
+        padding-top: (@line * @lines);
+        padding-bottom: (@line * @lines);
+    }
+    .rhythm-padding-top(@lines: 1, @border: false) when not (@border = false) {
+        @border-width: ~`parseInt('@{border}'.match(/(\d+)(?:px)?/)[1], 10)`;
+        padding-top: (@line * @lines - @border-width);
+        border-top: @border;
+    }
+    .rhythm-padding-top(@lines: 1, @border: false) when (@border = false) {
+        padding-top: (@line * @lines);
+    }
+    .rhythm-padding-bottom(@lines: 1, @border: false) when not (@border = false) {
+        @border-width: ~`parseInt('@{border}'.match(/(\d+)(?:px)?/)[1], 10)`;
+        padding-bottom: (@line * @lines - @border-width);
+        border-bottom: @border;
+    }
+    .rhythm-padding-bottom(@lines: 1, @border: false) when (@border = false) {
+        padding-bottom: (@line * @lines);
+    }
+
+    h1, h2, h3, h4, h5, h6,
+    div, p, section, header, footer, article,
+    ul, ol, pre, table, figure {
+        .rhythm-line-height();
+        .rhythm-margin();
+        padding: 0;
+    }
+
+
+    h1 {
+        .rhythm-line-height(2);
+    }
+    h1 {
+        font-size: @font-size * 2;
+    }
+    h2 {
+        font-size: @font-size * 1.5;
+    }
+    h3 {
+        font-size: @font-size * 1.2;
+    }
+    h4, h5, h6 {
+        font-size: @font-size;
+    }
+}
+
+
+
+
+
+//
+// .drop-cap(2)
+// .drop-cap(32px)
+// .drop-cap(2em)
+// .drop-cap(200%)
+// .drop-cap(2, 3)
+// .drop-cap(2, 3, 10px)
+//
+// .drop-cap-inline(2)
+// .drop-cap-inline(32px)
+// .drop-cap-inline(2em)
+// .drop-cap-inline(200%)
+// .drop-cap-inline(32px, 3)
+// .drop-cap-inline(2, 3, 10px)
+//
+// 文字下沉
+// .drop-cap用于段落元素首字下沉，.drop-cap-inline用于行内元素整个下沉
+
+.drop-cap-inline(...) when (@support-ie-version < 7) {
+    _display: inline;
+}
+.drop-cap-inline(@context-line-height) {
+    @lines: 2;
+    @margin-right: (1em / 2);
+    .drop-cap-inline(@context-line-height, @lines, @margin-right);
+}
+.drop-cap-inline(@context-line-height, @lines) {
+    @margin-right: (1em / @lines);
+    .drop-cap-inline(@context-line-height, @lines, @margin-right);
+}
+.drop-cap-inline(@context-line-height, @lines, @margin-right) {
+    float: left;
+    margin-right: @margin-right;
+    font-size: unit(@lines) * 1em;
+}
+// TODO isnumber 函数也可以通过 `1px` 这样的输入
+.drop-cap-inline(@context-line-height, @lines, @margin-right) when (isnumber(@context-line-height)) {
+    line-height: @context-line-height;
+}
+.drop-cap-inline(@context-line-height, @lines, @margin-right) when (ispercentage(@context-line-height)), (isem(@context-line-height)) {
+    line-height: @context-line-height;
+}
+.drop-cap-inline(@context-line-height, @lines, @margin-right) when (ispixel(@context-line-height)) {
+    line-height: @context-line-height * @lines;
+}
+
+.drop-cap(@line-height) {
+    @lines: 2;
+    @margin-right: (1em / 2);
+    .drop-cap(@line-height, @lines, @margin-right);
+}
+.drop-cap(@line-height, @lines) {
+    @margin-right: (1em / @lines);
+    .drop-cap(@line-height, @lines, @margin-right);
+}
+.drop-cap(@line-height, @lines, @margin-right) {
+    overflow: hidden;       // 不能使用after和before伪元素清除浮动
+    line-height: @line-height;
+    &:first-letter {
+        .drop-cap-inline(@line-height, @lines, @margin-right);
+    }
+}
+.drop-cap(@line-height, @lines, @margin-right) when (@support-ie-version < 7) {
+    _zoom: 1;
+}
+
+
+//
+// .centered-line(@height, @is-input)
+//
+// 单行文本的垂直居中
+// .centered-line(30px)
+// .centered-line(30px, true)
+
+.centered-line(@height) {
+    .centered-line(@height, false);
+}
+.centered-line(@height, @is-input) when not (@is-input) {
+    height: @height;
+    line-height: @height;
+}
+.centered-line(@height, true) when not (@support-ie-version < 9) {
+    height: @height;
+}
+.centered-line(@height, true) when (@support-ie-version < 9) {
+    height: @height;
+    line-height: ~"@{height}\0"; // IE6-8
+}

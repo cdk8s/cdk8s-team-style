@@ -1,0 +1,367 @@
+//
+// Layout
+// -----------------------------------------------------------------------------
+//
+// ### Usage:
+// Basic page layout paradigms.
+//
+
+@import "variables.less";
+@import "compatibility.less";
+@import "util.less";
+
+//
+// ## fixed header with specified height
+//
+// ### Example:
+//
+// #page {
+//     .est-layout-fixed-header(90px);
+// }
+
+.est-layout-fixed-header(@height, @header-selector: ~".est-header", @body-selector: ~".est-body") {
+    & > @{header-selector} {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: @header-z-index;
+        height: @height;
+    }
+
+    & > @{body-selector} {
+        margin-top: @height;
+        .clearfix(); // prevents margin collapse
+    }
+}
+
+//
+// ## fixed footer with specified height
+//
+// ### Example:
+//
+// #page {
+//     .est-layout-fixed-footer(90px);
+// }
+
+.est-layout-fixed-footer(@height, @body-selector: ~".est-body", @footer-selector: ~".est-footer") {
+    & > @{body-selector} {
+        margin-bottom: @height;
+        .clearfix();
+    }
+
+    & > @{footer-selector} {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        z-index: @footer-z-index;
+        height: @height;
+    }
+}
+
+//
+// ## Sticky footer with specified height
+// Footer sticks to bottom of viewport when content is shorter than viewport height.
+// When content is higher than viewport height, shows below the content.
+//
+// Note: Works with `html, body { height: 100%; }`.
+// Doesn't work when `.est-layout-fixed-header()` or `.est-layout-fixed-footer()` is applied.
+//
+// ### Example:
+//
+// #page {
+//     .est-layout-sticky-footer(90px);
+// }
+
+.est-layout-sticky-footer(@height, @body-selector: ~".est-body", @footer-selector: ~".est-footer", @footer-placeholder-selector: ~".est-footer-placeholder") {
+    & > @{body-selector} {
+        min-height: 100%;
+        margin-bottom: -@height;
+        .clearfix();
+
+        .set-placeholder() when (@support-ie-version >= 8) {
+            &:after {
+                content: "";
+                display: block;
+                height: @height;
+            }
+        }
+        .set-placeholder() when (@support-ie-version < 8) {
+            @{footer-placeholder-selector} {
+                display: block;
+                height: @height;
+            }
+        }
+        .set-placeholder();
+    }
+
+    & > @{footer-selector} {
+        height: @height;
+    }
+}
+
+
+//
+// ## Centered layout with specified width
+//
+// ### Example:
+//
+// #page {
+//     .est-layout-page();
+// }
+//
+// ### Known issue:
+// Under IE's quirks mode, the parent element's `text-align` should be set to `center` and be reset to `left` on current element.
+
+.est-layout-page(@page-width) {
+    width: @page-width;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+//
+// ## Sidebar with specified width
+// One optional sidebar with given width on each side and the main section take all of the rest width.
+//
+// ### Example:
+//
+// // Left sidebar
+// #page1 {
+//     .est-layout-sidebar(left, 220px);
+// }
+//
+// // Right sidebar
+// #page2 {
+//     .est-layout-sidebar(right, 220px);
+// }
+//
+// // Left sidebar being 220px wide and right sidebar being 180px wide
+// #page3 {
+//     .est-layout-sidebar(220px, 180px);
+// }
+
+.est-layout-sidebar(left, @sidebar-width, @main-selector: ~".est-main", @sidebar-selector: ~".est-sidebar") {
+    position: relative;
+
+    & > @{main-selector} {
+        overflow: hidden;
+        margin-left: @sidebar-width;
+    }
+
+    & > @{sidebar-selector} {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: @sidebar-width;
+    }
+}
+.est-layout-sidebar(right, @sidebar-width, @main-selector: ~".est-main", @sidebar-selector: ~".est-sidebar") {
+    position: relative;
+
+    & > @{main-selector} {
+        overflow: hidden;
+        margin-right: @sidebar-width;
+    }
+
+    & > @{sidebar-selector} {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: @sidebar-width;
+    }
+}
+.est-layout-sidebar(@sidebar-primary-width, @sidebar-secondary-width, @main-selector: ~".est-main",
+    @primary-selector: ~".est-sidebar-primary", @secondary-selector: ~".est-sidebar-secondary")
+    when (isnumber(@sidebar-primary-width)) and (isnumber(@sidebar-secondary-width)) {
+    position: relative;
+
+    & > @{main-selector} {
+        overflow: hidden;
+        margin-right: @sidebar-secondary-width;
+        margin-left: @sidebar-primary-width;
+    }
+
+    & > @{primary-selector} {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: @sidebar-primary-width;
+    }
+
+    & > @{secondary-selector} {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: @sidebar-secondary-width;
+    }
+}
+
+
+//
+// ## Popup layout
+// Can align a popup element with unknown size to the top/right/bottom/left side or center of an absolutely positioned element.
+//
+// ### Example:
+// // Horizontally left, vertically centered, with a modal layer of 50% opacity
+// .overlay-1 {
+//   .est-layout-popup(left, 50);
+// }
+//
+// // Totally centered with fully transparent modal layer
+// .overlay-2 {
+//   .est-layout-popup(center);
+// }
+
+.est-layout-popup(@position, @overlay-opacity: 0, @popup-selector: ~".est-popup", @valign-ghost-selector: ~".est-valign-ghost") {
+    position: fixed;
+    z-index: @modal-z-index;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    letter-spacing: -0.5em;
+}
+.est-layout-popup(@position, @overlay-opacity: 0, @popup-selector: ~".est-popup", @valign-ghost-selector: ~".est-valign-ghost")
+    when (@position = left), (@position = center), (@position = right) {
+    text-align: @position;
+
+    .set-valign-ghost() when (@support-ie-version < 8) {
+        @{valign-ghost-selector} {
+            display: inline-block;
+            height: 100%;
+            vertical-align: middle;
+        }
+    }
+    .set-valign-ghost() when (@support-ie-version >= 8) {
+        &:before {
+            content: "";
+            display: inline-block;
+            height: 100%;
+            vertical-align: middle;
+        }
+    }
+    .set-valign-ghost();
+
+    & > @{popup-selector} {
+        display: inline-block;
+        vertical-align: middle;
+    }
+}
+.est-layout-popup(@position, @overlay-opacity: 0, @popup-selector: ~".est-popup", @valign-ghost-selector: ~".est-valign-ghost")
+    when (@position = top), (@position = bottom) {
+    text-align: center;
+
+    .set-valign-ghost() when (@support-ie-version < 8) {
+        @{valign-ghost-selector} {
+            display: inline-block;
+            height: 100%;
+            vertical-align: @position;
+        }
+    }
+    .set-valign-ghost() when (@support-ie-version >= 8) {
+        &:before {
+            content: "";
+            display: inline-block;
+            height: 100%;
+            vertical-align: @position;
+        }
+    }
+    .set-valign-ghost();
+
+    & > @{popup-selector} {
+        display: inline-block;
+        vertical-align: @position;
+    }
+}
+.est-layout-popup(@position, @overlay-opacity: 0, @popup-selector: ~".est-popup", ...) when (@overlay-opacity = 0) {
+    pointer-events: none;
+
+    & > @{popup-selector} {
+        pointer-events: all;
+    }
+}
+.est-layout-popup(@position, @overlay-opacity, ...) when (@overlay-opacity > 0) {
+    .rgba-background(#000, @overlay-opacity);
+}
+
+//
+// # Horizontal lists
+//
+// Turn lists into horizontal layout for menus or so
+// Should apply to the wrapper outside a list
+
+.est-layout-horizontal-list(@gap, @direction: left) when (@direction = left) {
+    .clearfix();
+    overflow: hidden;
+    ul,
+    ol {
+        list-style: none;
+        float: left;
+        margin-left: -@gap;
+        li {
+            float: left;
+            margin-left: @gap;
+        }
+    }
+}
+.est-layout-horizontal-list(@gap, @direction: left) when (@direction = left) and (@support-ie-version < 7) {
+    ul,
+    ol,
+    li {
+        _display: inline;
+    }
+}
+.est-layout-horizontal-list(@gap, @direction: left) when (@direction = right) {
+    .clearfix();
+    overflow: hidden;
+    ul,
+    ol {
+        list-style: none;
+        float: right;
+        margin-right: -@gap;
+        li {
+            float: left;
+            margin-right: @gap;
+        }
+    }
+}
+.est-layout-horizontal-list(@gap, @direction: left) when (@direction = right) and (@support-ie-version < 7) {
+    ul,
+    ol,
+    li {
+        _display: inline;
+    }
+}
+
+
+//
+// ## Fixed ratio layout
+// Ensure fixed aspect ratio for videos/flashs/images/iframes with fluid width
+//
+// Can have a fixed additional height (for video controls or so)
+// Should apply to the wrapper outside the content (`object`/`embed`/`iframe`/`img` or the given selector)
+//
+// http://css-tricks.com/NetMag/FluidWidthVideo/Article-FluidWidthVideo.php
+//
+// Known issue:
+// Due to [less.js#1421](https://github.com/less/less.js/issues/1421), `@target-selector` cannot contain `&` or `,`.
+
+.est-layout-fluid-fixed-ratio(@width, @height, @extraHeight: 0, @target-selector: ~".est-fixed-ratio") {
+    position: relative;
+    padding-bottom: ((unit(@height) / unit(@width)) * 100%);
+    padding-top: @extraHeight;
+    height: 0;
+
+    object,
+    embed,
+    iframe,
+    img,
+    @{target-selector} {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+}

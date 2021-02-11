@@ -1,0 +1,108 @@
+//
+// Clockhand
+// -----------------------------------------------------------------------------
+//
+// ### Usage:
+// Helpers for writing properties in clockhand manner.
+
+.clockhand(@values, @prefix: ~"", @suffix: ~"", @collapse: false) {
+    @l: length(@values);
+    @pre: ~`'@{prefix}' ? '@{prefix}-' : ''`;
+    @suf: ~`'@{suffix}' ? '-@{suffix}' : ''`;
+
+    .map(1) {
+        @top: extract(@values, 1);
+        @right: @top;
+        @bottom: @top;
+        @left: @top;
+    }
+    .map(2) {
+        @top: extract(@values, 1);
+        @right: extract(@values, 2);
+        @bottom: @top;
+        @left: @right;
+    }
+    .map(3) {
+        @top: extract(@values, 1);
+        @right: extract(@values, 2);
+        @bottom: extract(@values, 3);
+        @left: @right;
+    }
+    .map(4) {
+        @top: extract(@values, 1);
+        @right: extract(@values, 2);
+        @bottom: extract(@values, 3);
+        @left: extract(@values, 4);
+    }
+    .map(@l);
+
+    .reduce() when (@collapse) and not (@top = _) and not (@right = _)
+        and not (@bottom = _) and not (@left = _) {
+        .output() {
+            @shorthand: @top;
+        }
+        .output() when not (@right = @top) {
+            @shorthand: @top @right;
+        }
+        .output() when not (@bottom = @top) {
+            @shorthand: @top @right @bottom;
+        }
+        .output() when not (@left = @right) {
+            @shorthand: @top @right @bottom @left;
+        }
+        .output();
+        @{prefix}@{suf}: @shorthand;
+    }
+    .reduce() when (default()) {
+        .output() when not (@top = _) {
+            @{pre}top@{suf}: @top;
+        }
+        .output() when not (@right = _) {
+            @{pre}right@{suf}: @right;
+        }
+        .output() when not (@bottom = _) {
+            @{pre}bottom@{suf}: @bottom;
+        }
+        .output() when not (@left = _) {
+            @{pre}left@{suf}: @left;
+        }
+        .output();
+    }
+
+    .reduce();
+}
+
+.absolute(...) {
+    position: absolute;
+    .clockhand(@arguments);
+}
+
+.fixed(...) {
+    position: fixed;
+    .clockhand(@arguments);
+}
+
+.relative(...) {
+    position: relative;
+    .clockhand(@arguments);
+}
+
+.padding(...) {
+    .clockhand(@arguments, padding, ~"", true);
+}
+
+.margin(...) {
+    .clockhand(@arguments, margin, ~"", true);
+}
+
+.border-color(...) {
+    .clockhand(@arguments, border, color, true);
+}
+
+.border-style(...) {
+    .clockhand(@arguments, border, style, true);
+}
+
+.border-width(...) {
+    .clockhand(@arguments, border, width, true);
+}

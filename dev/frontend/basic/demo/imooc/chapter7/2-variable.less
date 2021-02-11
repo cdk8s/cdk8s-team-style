@@ -1,0 +1,22 @@
+
+@fontSize: 12px;
+@bgColor: red;
+
+body{
+    padding:0;
+    margin:0;
+}
+
+.wrapper{
+    background:lighten(@bgColor, 40%);
+
+    .nav{
+        font-size: @fontSize;
+    }
+    .content{
+        font-size: @fontSize + 2px;
+        &:hover{
+            background:@bgColor;
+        }
+    }
+}

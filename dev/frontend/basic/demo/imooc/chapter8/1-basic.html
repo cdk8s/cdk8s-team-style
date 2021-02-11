@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+    <title>Bootstrap</title>
+    <style>
+        #result{
+            display: none;
+        }
+        .title{
+            margin-top: 50px;
+            margin-bottom: 50px;
+        }
+        .operate button{
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <h2 class="title col-6 offset-3">注册</h1>
+    <form id="myForm" class="col-6 offset-3">
+        <div class="form-group row">
+            <label class="col-2 col-form-label">姓名</label>
+            <div class="col-10">
+                <input class="form-control" name="name" type="text" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-2 col-form-label">密码</label>
+            <div class="col-10">
+                <input class="form-control" name="password" type="password" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-2 col-form-label">电话</label>
+            <div class="col-10">
+                <input class="form-control" name="cellphone" type="text" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-2 col-form-label">地址</label>
+            <div class="col-10">
+                <input class="form-control" name="address" type="text" />
+            </div>
+        </div>
+        <div id="result" class="alert alert-danger">
+            
+        </div>
+        <div class="operate form-group row">
+            <button class="btn btn-primary" type="submit">提交</button>
+        </div>
+    </form>
+    <script>
+        var form = document.querySelector('#myForm');
+        var result = document.querySelector('#result');
+        form.addEventListener('submit', function(e){
+            if(!document.querySelector('[name=password]').value){
+                result.style.display = 'block';
+                result.innerHTML = '密码为空';
+            }else{
+                result.style.display = 'none';
+            }
+            e.preventDefault();
+        });
+    </script>
+</body>
+</html>

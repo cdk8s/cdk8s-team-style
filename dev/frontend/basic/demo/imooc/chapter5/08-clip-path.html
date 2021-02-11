@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .container{
+            width: 400px;
+            height: 300px;
+            border: 1px solid red;
+            background:url(./panda.jpg);
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
+            padding:10px;
+            /* clip-path: inset(100px 50px); */
+            /* clip-path: circle(50px at 100px 100px); */
+            /* clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%, 10% 10%, 40px 10px); */
+            clip-path: url(#clipPath);
+            /* background-size: cover; */
+            transition:clip-path .4s;
+        }
+        .container:hover{
+            /* clip-path: circle(80px at 100px 100px); */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        你好，我是熊猫
+    </div>
+    <svg>
+        <defs>
+            <clipPath id="clipPath">
+                <!-- <circle cx="60" cy="60" r="50" fill="#34538b" /> -->
+                <polygon stroke="#979797" points="0.4921875 81.2070313 92.640625 81.2070313 121.601562 0.21875 153.648437 81.2070313 247.390625 80.7734375 173.394531 140.496094 200.308594 227.09375 121.601562 172.71875 53.4960937 227.09375 80.859375 140.496094"></polygon>
+            </clipPath>
+        </defs>
+    </svg>
+</body>
+</html>

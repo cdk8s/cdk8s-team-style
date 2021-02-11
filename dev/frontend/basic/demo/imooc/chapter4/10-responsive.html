@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>responsive</title>
+    <style>
+        html{
+            font-size: 20px;
+        }
+        .container{
+            margin:0 auto;
+            max-width:800px;
+            border:1px solid black;
+        }
+        .intro{
+            display: inline-block;
+            width:9rem;
+            height:9rem;
+            line-height: 9rem;
+            text-align: center;
+            border-radius: 4.5rem;
+            border:1px solid red;
+            margin:.3rem;
+        }
+        @media (max-width: 375px){
+            html{
+                font-size:24px;
+            }
+        }
+        @media (max-width: 320px){
+            html{
+                font-size:20px;
+            }
+        }
+        @media (max-width: 640px){
+            .intro{
+                margin:.3rem auto;
+                display: block;
+            }
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="intro">
+            介绍1
+        </div>
+        <div class="intro">
+            介绍2
+        </div>
+        <div class="intro">
+            介绍3
+        </div>
+        <div class="intro">
+            介绍4
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .left{
+            background:red;
+        }
+        .right{
+            background:blue;
+        }
+        table{
+            width:800px;
+            height:200px;
+            border-collapse: collapse;
+        }
+        .table{
+            margin-top:20px;
+            display: table;
+            width:800px;
+            height:200px;
+        }
+        .table-row{
+            display: table-row;
+        }
+        .table-cell{
+            vertical-align: center;
+            display: table-cell;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <tr>
+            <td class="left">左</td>
+            <td class="right">右</td>
+        </tr>
+    </table>
+    <div class="table">
+        <div class="table-row">
+            <div class="left table-cell">
+                左
+            </div>
+            <div class="right table-cell">
+                右
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body{
+            background: #333;
+        }
+        @keyframes near{
+            from {
+                transform: translateZ(-100px);
+            }
+            to {
+                transform: translateZ(100px);
+            }
+        }
+        @keyframes turnLeft{
+            from {
+                transform: rotateY(0deg);
+            }
+            to {
+                transform: rotateY(90deg);
+            }
+        }
+        @keyframes turnRight{
+            from {
+                transform: translateX(100px) rotateY(0deg);
+            }
+            to {
+                transform: translateX(100px) rotateY(-90deg);
+            }
+        }
+        .container{
+            margin:50px;
+            padding: 10px;
+            /* border: 1px solid red; */
+            width: 200px;
+            height: 200px;
+            position: relative;
+            perspective: 500px;
+        }
+        .doorContainer{
+            width: 200px;
+            height: 200px;
+            transform: translateZ(-100px);
+            transform-style: preserve-3d;
+            animation: near 3s linear forwards;
+            position: absolute;
+            background:rgba(255,255,255,.3);
+        }
+
+        .container .door {
+            width: 100px;
+            height: 200px;
+            position: absolute;
+            z-index:1;
+            line-height: 200px;
+            font-size:50px;
+            text-align: center;
+        }
+        .left{
+            transform-origin: 0% 50%;
+            transform: rotateY(0deg);
+            background:rgba(255,0,0,.3);
+            animation: 1.5s turnLeft 1.5s linear forwards;
+        }
+        .right{
+            transform-origin: 100% 50%;
+            transform: translateX(100px) rotateY(0deg);
+            background:rgba(0,255,0,.3);
+            animation: 1.5s turnRight 1.5s linear forwards;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="doorContainer">
+            <div class="door left">1</div>
+            <div class="door right">2</div>
+        </div>
+    </div>
+</body>
+</html>

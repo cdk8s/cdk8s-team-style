@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .container{
+            width: 100px;
+            height: 100px;
+            background: red;
+            animation: run 1s linear;
+            /* animation-direction: reverse; */
+            /* animation-fill-mode: forwards; */
+            animation-iteration-count: infinite;
+            /* animation-play-state: paused; */
+        }
+        @keyframes run{
+            0%{
+                width: 100px;
+            }
+            50%{
+                width: 800px;
+            }
+            100%{
+                width: 100px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+    </div>
+</body>
+</html>

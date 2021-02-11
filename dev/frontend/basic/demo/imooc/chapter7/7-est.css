@@ -1,0 +1,182 @@
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  outline: 0;
+  font-weight: inherit;
+  font-style: inherit;
+  font-family: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+body {
+  line-height: 1;
+}
+ol,
+ul {
+  list-style: none;
+}
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+  vertical-align: middle;
+}
+caption,
+th,
+td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+a img {
+  border: none;
+}
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section,
+summary,
+main {
+  display: block;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  outline: 0;
+  font-weight: inherit;
+  font-style: inherit;
+  font-family: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+audio,
+canvas,
+video {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
+audio:not([controls]),
+[hidden] {
+  display: none;
+}
+.box {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  opacity: 0.6;
+  filter: alpha(opacity=60);
+  height: 100px;
+  background: green;
+  margin: 10px;
+}
+.left {
+  float: left;
+  *zoom: 1;
+}
+.left:before,
+.left:after {
+  display: table;
+  content: "";
+}
+.left:after {
+  clear: both;
+}
+.row {
+  *zoom: 1;
+}
+.row:before,
+.row:after {
+  display: table;
+  content: "";
+}
+.row:after {
+  clear: both;
+}
+.row .col {
+  display: block;
+  float: left;
+  width: 22.75%;
+  margin-left: 3%;
+  background: red;
+  height: 100px;
+}
+.row .col:first-child {
+  margin-left: 0%;
+}
+.my-triangle {
+  margin: 100px;
+}
+.my-triangle::after {
+  content: ' ';
+  position: absolute;
+  width: 0;
+  height: 0;
+  border: 50px solid red;
+  border-bottom-color: transparent;
+  border-right-color: transparent;
+  margin-top: -50px;
+  margin-left: -50px;
+}

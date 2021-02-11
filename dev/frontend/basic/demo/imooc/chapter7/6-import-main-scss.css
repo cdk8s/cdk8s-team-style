@@ -1,0 +1,19 @@
+.module1 .box {
+  font-size: 16px;
+  color: blue;
+}
+
+.module1 .tips {
+  font-size: 14px;
+  color: #ccccff;
+}
+
+.module2 .box {
+  font-size: 18px;
+  color: blue;
+}
+
+.module2 .tips {
+  font-size: 16px;
+  color: #6666ff;
+}

@@ -1,0 +1,38 @@
+@import "est/all";
+
+@support-ie-version: 7;
+@use-autoprefixer: false;
+
+.global-reset();
+
+.box{
+    .inline-block();
+    .opacity(60);
+    height: 100px;
+    background: green;
+    margin:10px;
+}
+.left{
+    float:left;
+    .clearfix();
+}
+
+
+.row{
+    .make-row();
+    .col{
+        .make-column(1/4);
+        background:red;
+        height: 100px;
+    }
+}
+.my-triangle{
+    margin:100px;
+    // width:100px;
+    // height:200px;
+    // border: 1px solid red;
+}
+.my-triangle::after{
+    content: ' ';
+    .triangle(top left, 100px, red, side);
+}

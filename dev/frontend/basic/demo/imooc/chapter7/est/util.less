@@ -1,0 +1,368 @@
+//
+// Util
+// -----------------------------------------------------------------------------
+//
+// ### Usage:
+// Common utilities.
+//
+// ### Example:
+// .some-floats-inside {
+//     .clearfix();
+// };
+
+@import "variables.less";
+
+// clearfix via http://h5bp.com/q
+.clearfix() {
+    &:before,
+    &:after {
+        display: table;
+        content: "";
+    }
+    &:after {
+        clear: both;
+    }
+}
+.clearfix() when (@support-ie-version < 8) {
+    *zoom: 1;
+}
+
+// size settings
+.size(@size) {
+    width: @size;
+    height: @size;
+}
+.size(@wdith, @height) {
+    width: @wdith;
+    height: @height;
+}
+
+
+//
+// .no-bullet
+// .no-bullets
+//
+// "Unstyle" lists, `.no-bullet()` for `<li>`s and `.no-bullets()` for `<ul>` & `<ol>`
+// [deprecated]
+
+.no-bullet() {
+    list-style-image: none;
+    list-style-type: none;
+    margin-left: 0;
+}
+
+.no-bullets() {
+    list-style: none;
+    li {
+        .no-bullet();
+    }
+}
+
+
+
+//
+// .margin-em
+// .margin-top-em
+// .margin-bottom-em
+// .margin-left-em
+// .margin-right-em
+// .padding-em
+// .padding-top-em
+// .padding-bottom-em
+// .padding-left-em
+// .padding-right-em
+//
+// Helps calculating `margin` and `padding` in `em`.
+
+.margin-em(@px-size, @context-px-size: @default-font-size) {
+    @l: length(@px-size);
+    .map(1) {
+        @top: unit(extract(@px-size, 1));
+        @right: @top;
+        @bottom: @top;
+        @left: @top;
+    }
+    .map(2) {
+        @top: unit(extract(@px-size, 1));
+        @right: unit(extract(@px-size, 2));
+        @bottom: @top;
+        @left: @right;
+    }
+    .map(3) {
+        @top: unit(extract(@px-size, 1));
+        @right: unit(extract(@px-size, 2));
+        @bottom: unit(extract(@px-size, 3));
+        @left: @right;
+    }
+    .map(4) {
+        @top: unit(extract(@px-size, 1));
+        @right: unit(extract(@px-size, 2));
+        @bottom: unit(extract(@px-size, 3));
+        @left: unit(extract(@px-size, 4));
+    }
+    .map(@l);
+
+    .reduce() {
+        @margin: unit(@top / @context-px-size, em);
+    }
+    .reduce() when not (@right = @top) {
+        @margin: unit(@top / @context-px-size, em) unit(@right / @context-px-size, em);
+    }
+    .reduce() when not (@bottom = @top) {
+        @margin: unit(@top / @context-px-size, em) unit(@right / @context-px-size, em) unit(@bottom / @context-px-size, em);
+    }
+    .reduce() when not (@left = @right) {
+        @margin: unit(@top / @context-px-size, em) unit(@right / @context-px-size, em) unit(@bottom / @context-px-size, em) unit(@left / @context-px-size, em);
+    }
+    .reduce();
+
+    margin: @margin;
+}
+
+.margin-top-em(@px-size, @context-px-size: @default-font-size) {
+    margin-top: (unit(@px-size) / unit(@context-px-size)) * 1em;
+}
+
+.margin-bottom-em(@px-size, @context-px-size: @default-font-size) {
+    margin-bottom: (unit(@px-size) / unit(@context-px-size)) * 1em;
+}
+
+.margin-left-em(@px-size, @context-px-size: @default-font-size) {
+    margin-left: (unit(@px-size) / unit(@context-px-size)) * 1em;
+}
+
+.margin-right-em(@px-size, @context-px-size: @default-font-size) {
+    margin-right: (unit(@px-size) / unit(@context-px-size)) * 1em;
+}
+
+.padding-em(@px-size, @context-px-size: @default-font-size) {
+    @l: length(@px-size);
+    .map(1) {
+        @top: unit(extract(@px-size, 1));
+        @right: @top;
+        @bottom: @top;
+        @left: @top;
+    }
+    .map(2) {
+        @top: unit(extract(@px-size, 1));
+        @right: unit(extract(@px-size, 2));
+        @bottom: @top;
+        @left: @right;
+    }
+    .map(3) {
+        @top: unit(extract(@px-size, 1));
+        @right: unit(extract(@px-size, 2));
+        @bottom: unit(extract(@px-size, 3));
+        @left: @right;
+    }
+    .map(4) {
+        @top: unit(extract(@px-size, 1));
+        @right: unit(extract(@px-size, 2));
+        @bottom: unit(extract(@px-size, 3));
+        @left: unit(extract(@px-size, 4));
+    }
+    .map(@l);
+
+    .reduce() {
+        @padding: unit(@top / @context-px-size, em);
+    }
+    .reduce() when not (@right = @top) {
+        @padding: unit(@top / @context-px-size, em) unit(@right / @context-px-size, em);
+    }
+    .reduce() when not (@bottom = @top) {
+        @padding: unit(@top / @context-px-size, em) unit(@right / @context-px-size, em) unit(@bottom / @context-px-size, em);
+    }
+    .reduce() when not (@left = @right) {
+        @padding: unit(@top / @context-px-size, em) unit(@right / @context-px-size, em) unit(@bottom / @context-px-size, em) unit(@left / @context-px-size, em);
+    }
+    .reduce();
+
+    padding: @padding;
+}
+
+.padding-top-em(@px-size, @context-px-size: @default-font-size) {
+    padding-top: (unit(@px-size) / unit(@context-px-size)) * 1em;
+}
+
+.padding-bottom-em(@px-size, @context-px-size: @default-font-size) {
+    padding-bottom: (unit(@px-size) / unit(@context-px-size)) * 1em;
+}
+
+.padding-left-em(@px-size, @context-px-size: @default-font-size) {
+    padding-left: (unit(@px-size) / unit(@context-px-size)) * 1em;
+}
+
+.padding-right-em(@px-size, @context-px-size: @default-font-size) {
+    padding-right: (unit(@px-size) / unit(@context-px-size)) * 1em;
+}
+
+
+//
+// .margin-rem
+// .margin-top-rem
+// .margin-bottom-rem
+// .margin-left-rem
+// .margin-right-rem
+// .padding-rem
+// .padding-top-rem
+// .padding-bottom-rem
+// .padding-left-rem
+// .padding-right-rem
+//
+// Helps calculating `margin` and `padding` in `rem`.
+
+.margin-rem(@px-size) {
+    @l: length(@px-size);
+    .map(1) {
+        @top: unit(extract(@px-size, 1));
+        @right: @top;
+        @bottom: @top;
+        @left: @top;
+    }
+    .map(2) {
+        @top: unit(extract(@px-size, 1));
+        @right: unit(extract(@px-size, 2));
+        @bottom: @top;
+        @left: @right;
+    }
+    .map(3) {
+        @top: unit(extract(@px-size, 1));
+        @right: unit(extract(@px-size, 2));
+        @bottom: unit(extract(@px-size, 3));
+        @left: @right;
+    }
+    .map(4) {
+        @top: unit(extract(@px-size, 1));
+        @right: unit(extract(@px-size, 2));
+        @bottom: unit(extract(@px-size, 3));
+        @left: unit(extract(@px-size, 4));
+    }
+    .map(@l);
+
+    .reduce() {
+        @px: unit(@top, px);
+        @rem: unit(@top / @default-font-size, rem);
+    }
+    .reduce() when not (@right = @top) {
+        @px: unit(@top, px) unit(@right, px);
+        @rem: unit(@top / @default-font-size, rem) unit(@right / @default-font-size, rem);
+    }
+    .reduce() when not (@bottom = @top) {
+        @px: unit(@top, px) unit(@right, px) unit(@bottom, px);
+        @rem: unit(@top / @default-font-size, rem) unit(@right / @default-font-size, rem) unit(@bottom / @default-font-size, rem);
+    }
+    .reduce() when not (@left = @right) {
+        @px: unit(@top, px) unit(@right, px) unit(@bottom, px) unit(@left, px);
+        @rem: unit(@top / @default-font-size, rem) unit(@right / @default-font-size, rem) unit(@bottom / @default-font-size, rem) unit(@left / @default-font-size, rem);
+    }
+    .reduce();
+
+    margin: @px;
+    margin: @rem;
+}
+
+.margin-top-rem(@px-size) {
+    @rem-size: unit(@px-size) / unit(@default-font-size);
+    @px-size-no-unit: unit(@px-size);
+    margin-top: unit(@px-size-no-unit, px);
+    margin-top: unit(@rem-size, rem);
+}
+
+.margin-bottom-rem(@px-size) {
+    @rem-size: unit(@px-size) / unit(@default-font-size);
+    @px-size-no-unit: unit(@px-size);
+    margin-bottom: unit(@px-size-no-unit, px);
+    margin-bottom: unit(@rem-size, rem);
+}
+
+.margin-left-rem(@px-size) {
+    @rem-size: unit(@px-size) / unit(@default-font-size);
+    @px-size-no-unit: unit(@px-size);
+    margin-left: unit(@px-size-no-unit, px);
+    margin-left: unit(@rem-size, rem);
+}
+
+.margin-right-rem(@px-size) {
+    @rem-size: unit(@px-size) / unit(@default-font-size);
+    @px-size-no-unit: unit(@px-size);
+    margin-right: unit(@px-size-no-unit, px);
+    margin-right: unit(@rem-size, rem);
+}
+
+.padding-rem(@px-size) {
+    @l: length(@px-size);
+    .map(1) {
+        @top: unit(extract(@px-size, 1));
+        @right: @top;
+        @bottom: @top;
+        @left: @top;
+    }
+    .map(2) {
+        @top: unit(extract(@px-size, 1));
+        @right: unit(extract(@px-size, 2));
+        @bottom: @top;
+        @left: @right;
+    }
+    .map(3) {
+        @top: unit(extract(@px-size, 1));
+        @right: unit(extract(@px-size, 2));
+        @bottom: unit(extract(@px-size, 3));
+        @left: @right;
+    }
+    .map(4) {
+        @top: unit(extract(@px-size, 1));
+        @right: unit(extract(@px-size, 2));
+        @bottom: unit(extract(@px-size, 3));
+        @left: unit(extract(@px-size, 4));
+    }
+    .map(@l);
+
+    .reduce() {
+        @px: unit(@top, px);
+        @rem: unit(@top / @default-font-size, rem);
+    }
+    .reduce() when not (@right = @top) {
+        @px: unit(@top, px) unit(@right, px);
+        @rem: unit(@top / @default-font-size, rem) unit(@right / @default-font-size, rem);
+    }
+    .reduce() when not (@bottom = @top) {
+        @px: unit(@top, px) unit(@right, px) unit(@bottom, px);
+        @rem: unit(@top / @default-font-size, rem) unit(@right / @default-font-size, rem) unit(@bottom / @default-font-size, rem);
+    }
+    .reduce() when not (@left = @right) {
+        @px: unit(@top, px) unit(@right, px) unit(@bottom, px) unit(@left, px);
+        @rem: unit(@top / @default-font-size, rem) unit(@right / @default-font-size, rem) unit(@bottom / @default-font-size, rem) unit(@left / @default-font-size, rem);
+    }
+    .reduce();
+
+    padding: @px;
+    padding: @rem;
+}
+
+.padding-top-rem(@px-size) {
+    @rem-size: unit(@px-size) / unit(@default-font-size);
+    @px-size-no-unit: unit(@px-size);
+    padding-top: unit(@px-size-no-unit, px);
+    padding-top: unit(@rem-size, rem);
+}
+
+.padding-bottom-rem(@px-size) {
+    @rem-size: unit(@px-size) / unit(@default-font-size);
+    @px-size-no-unit: unit(@px-size);
+    padding-bottom: unit(@px-size-no-unit, px);
+    padding-bottom: unit(@rem-size, rem);
+}
+
+.padding-left-rem(@px-size) {
+    @rem-size: unit(@px-size) / unit(@default-font-size);
+    @px-size-no-unit: unit(@px-size);
+    padding-left: unit(@px-size-no-unit, px);
+    padding-left: unit(@rem-size, rem);
+}
+
+.padding-right-rem(@px-size) {
+    @rem-size: unit(@px-size) / unit(@default-font-size);
+    @px-size-no-unit: unit(@px-size);
+    padding-right: unit(@px-size-no-unit, px);
+    padding-right: unit(@rem-size, rem);
+}

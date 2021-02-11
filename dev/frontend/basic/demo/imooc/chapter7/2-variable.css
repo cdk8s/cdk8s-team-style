@@ -1,0 +1,16 @@
+body {
+  padding: 0;
+  margin: 0;
+}
+.wrapper {
+  background: #4dff4d;
+}
+.wrapper .nav {
+  font-size: 16px;
+}
+.wrapper .content {
+  font-size: 18px;
+}
+.wrapper .content:hover {
+  background: green;
+}

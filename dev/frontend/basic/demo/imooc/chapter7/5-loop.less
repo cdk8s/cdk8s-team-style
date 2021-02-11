@@ -1,0 +1,8 @@
+.gen-col(@n) when (@n > 0){
+    .gen-col(@n - 1);
+    .col-@{n}{
+        width: 1000px/12*@n;
+    }
+}
+
+.gen-col(12);

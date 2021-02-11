@@ -1,0 +1,24 @@
+body {
+  padding: 0;
+  margin: 0;
+}
+
+.wrapper {
+  background: #ffcccc;
+}
+
+.wrapper .nav {
+  font-size: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.wrapper .content {
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.wrapper .content:hover {
+  background: red;
+}
