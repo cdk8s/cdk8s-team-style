@@ -4,6 +4,34 @@
 
 -------------------------------------------------------------------
 
+
+#### 盒子模型
+
+- 影响盒子大小
+    - width
+    - height
+    - padding
+    - border
+- 不影响盒子大小
+    - margin
+- display
+    - display: block;
+    - display: inline;
+    - display: inline-block;
+- position
+    - position: static;
+    - position: relative; 相对
+    - position: absolute; 绝对，但是是相对于最近的父级的 absolute 或 relative，如果父级都不是这个定位，就相对 body
+    - position: fixed; 绝对，
+    - z-index 折叠顺序，只有 relative、absolute、fixed 有效
+- float 浮动元素（国内很常用，因为兼容低端浏览器好），它的浮动块对其他元素不会影响，但是对里面的文字有影响，不会漂浮在文字上。
+- flexbox 真正意义上新时代的布局
+- 响应式
+    - 设计考虑：哪些可以隐藏、折行、自适应空间
+    - rem / viewport / @media（media queries）
+
+-------------------------------------------------------------------
+
 #### 元素默认样式和定制化
 
 - HTML 标签很多都是自带样式的，有的喜欢高度定制化，就需要去掉默认样式自己再写
@@ -109,17 +137,6 @@
     - none
     - inline
     - block
-
-
-#### 盒子模型
-
-- 影响盒子大小
-    - width
-    - height
-    - padding
-    - border
-- 不影响盒子大小
-    - margin
 
 #### 动画
 
