@@ -17,7 +17,7 @@
 安装基础依赖工具
 yum group install -y 'Development Tools'
 
-yum install zlib-devel bzip2-devel openssl-devel ncurese-devel readline-devel sqlite-devel
+yum install zlib-devel bzip2-devel openssl-devel ncurese-devel readline-devel sqlite-devel libffi-devel
 
 wget https://www.python.org/ftp/python/3.9.2/Python-3.9.2.tgz
 
@@ -42,6 +42,11 @@ ln -s /usr/local/python3/bin/pip3 /usr/bin/pip
 验证：
 python -V
 pip -V
+
+如果 pip 版本过低，可以这样升级：
+python -m pip install -U pip
+
+
 ```
 
 - 修改 yum 设置
