@@ -1,5 +1,63 @@
 # CentOS 常用设置
 
+## 镜像源
+
+- 下载对应版本repo文件, 放入 /etc/yum.repos.d/ (操作前请做好相应备份)
+- <http://mirrors.163.com/.help/centos.html>
+- <https://developer.aliyun.com/mirror/centos>
+- `yum install -y epel-release`
+
+## 升级 Python
+
+- 下载最新版本：<https://www.python.org/downloads/>
+    - 当前 2021-02 最新版本为：3.9.2，点击进去选择：Gzipped source tarball 进行下载
+- 编译安装
+
+```
+安装基础依赖工具
+yum group install -y 'Development Tools'
+
+yum install zlib-devel bzip2-devel openssl-devel ncurese-devel readline-devel sqlite-devel
+
+wget https://www.python.org/ftp/python/3.9.2/Python-3.9.2.tgz
+
+tar zxvf Python-3.9.2.tgz
+cd Python-3.9.2
+./configure  --prefix=/usr/local/python3
+make && make install
+```
+
+- 更换系统默认的Python版本
+
+```
+查看当前 python 版本：
+python -V 得到 2.7.5
+
+mv /usr/bin/python /usr/bin/python2.7.5
+
+ln -s /usr/local/python3/bin/python3.9 /usr/bin/python
+
+ln -s /usr/local/python3/bin/pip3 /usr/bin/pip
+
+验证：
+python -V
+pip -V
+```
+
+- 修改 yum 设置
+
+```
+因 yum 的功能依赖于 Python2.x，我们现在改了默认 python 的版本会造成 yum 无法使用，所以要调整下：
+vim /usr/bin/yum
+
+把第一行原本为：
+#!/usr/bin/python
+改为
+#!/usr/bin/python2.7.5
+
+```
+
+
 
 ## 安装常用工具
 
