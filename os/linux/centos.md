@@ -60,6 +60,9 @@ vim /usr/bin/yum
 改为
 #!/usr/bin/python2.7.5
 
+还有一个文件也需要这么改：
+vim /usr/libexec/urlgrabber-ext-down
+
 ```
 
 
