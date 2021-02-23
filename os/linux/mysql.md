@@ -220,6 +220,34 @@ table_definition_cache=400
 table_open_cache=256
 ```
 
+## 修改 root 账号密码（MySQL 8）
+
+```
+vim /etc/my.cnf
+在 [mysqld] 下面新增一行配置，让MySQL进入免密状态：
+skip-grant-tables
+
+然后重启服务：
+systemctl restart mysqld
+
+进入MySQL命令行：
+mysql -u root -p
+
+清除下 root 密码为空字符串：
+use mysql;
+UPDATE user SET authentication_string='' WHERE user='root';
+
+退出 MySQL，删除之前在 /etc/my.cnf 文件中配置的 skip-grant-tables，然后重启 MySql 服务。
+systemctl restart mysqld
+
+然后重新进入MySQL命令行：
+mysql -u root -p
+
+ALTER USER 'root'@'localhost' IDENTIFIED WITH 'mysql_native_password' BY 'MyPwd_123456' PASSWORD EXPIRE NEVER;
+```
+
+
+
 ## 修改 root 账号密码（MySQL 5.6）
 
 - 启动 Mysql 服务器（CentOS 6）：`service mysql start`
