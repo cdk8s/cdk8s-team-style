@@ -72,16 +72,31 @@
 
 - 字体
     - color
+        - 十六进制（#ffffff）
+        - rgb
+        - rgba
     - font-size
     - font-family：字体名称用双引号包裹，如果是字体族是不能用双引号包裹，直接写就行
         - 字体族
             - serif 衬线字体
             - sans-serif 非衬线字体
             - monospace 等宽字体
+            - cursive
+            - fantasy
     - font-weight：粗体
-    - font-style：itatic 可以设置斜体
+        - 由于受大部分字体限制，几百的数值显示出来的粗体差异不大
+        - normal 等同于 400，bold 等同于 700 的值
+    - font-style：
+        - normal 正常
+        - italic 斜体
+        - oblique 倾斜（和 italic 看起来差别不大）
+    - text-align 设置元素内文本的水平对齐方式（只对块元素有效）
+        - left
+        - right
+        - center
+        - justify 两端对齐
+    - vertical-align 设置元素内容的垂直方式（只对行元素有效，比较少用）
     - text-decoration：下划线
-    - text-align
     - text-indent
     - cursor 手型指针
 - 行高：
