@@ -21,7 +21,10 @@
 - DNS 解析：<https://dns.console.aliyun.com/#/dns/domainList>
 - OSS bucket：<https://oss.console.aliyun.com/bucket>
 - 短信服务：<https://dysms.console.aliyun.com>
-
+- NAT网关：<https://vpc.console.aliyun.com/nat>
+- 负载均衡：<https://slb.console.aliyun.com/slb/overview>
+- VPN网关：<https://vpc.console.aliyun.com/vpn>
+- 弹性公网IP：<https://vpc.console.aliyun.com/eip>
 
 -------------------------------------------------------------------
 
