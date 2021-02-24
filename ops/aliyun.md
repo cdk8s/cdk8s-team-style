@@ -25,6 +25,7 @@
 - 负载均衡：<https://slb.console.aliyun.com/slb/overview>
 - VPN网关：<https://vpc.console.aliyun.com/vpn>
 - 弹性公网IP：<https://vpc.console.aliyun.com/eip>
+- CDN：<>
 
 -------------------------------------------------------------------
 
