@@ -214,9 +214,132 @@
 #### 动画
 
 
+#### flex
+
+- 配图资料：
+    - <https://juejin.cn/post/6844903474774147086>
+    - <https://www.zhangxinxu.com/wordpress/2018/10/display-flex-css3-css/>
+    - <>
+    - <>
+    - <>
+- 整体知识点
+    - 在Flex布局中，flex子元素的设置float，clear以及vertical-align属性都是没有用的。
+    - 有 main axis（主轴）、cross axis（交叉轴）的概念，并且这个很重要，是核心、基础
+    - 当主轴是水平布局的时候，交叉轴就是垂直布局
+    - 当主轴是垂直布局的时候，交叉轴就是水平布局
+    - 所以，主轴不是说就一定是水平布局的，这是核心点
+
+-------------------------------------------------------------------
 
 
+- 父容器
+- 给 div 这类块状元素元素设置 display:flex 或者给 span 这类内联元素设置 display:inline-flex
 
+```
+flex-direction 决定主轴的方向，是水平布局，还是垂直布局
+flex-direction: row（水平，常用） | row-reverse | column（垂直，常用） | column-reverse;
+
+flex-wrap 用来控制主轴子项整体单行显示还是换行显示。默认不换行，会平分所有的子元素的宽度，所以如果子元素有设置宽度也是没用的。
+flex-wrap: nowrap（常用） | wrap（常用） | wrap-reverse;
+
+flex-flow：flex-direction 和 flex-wrap 的简写形式
+flex-flow：row wrap;
+
+justify-content 决定在主轴上的对齐方式
+justify-content: flex-start（默认，常用） | flex-end | center（常用） | space-between（常用） | space-around | space-evenly（常用）;
+
+align-items 用于控制交叉轴方向（当是单行的时候）
+align-items: stretch | flex-start | flex-end | center | baseline;
+
+align-content 用于控制交叉轴方向（当有换行的时候）
+align-content: stretch | flex-start | flex-end | center | space-between | space-around | space-evenly;
+
+
+```
+-------------------------------------------------------------------
+
+
+- 子元素（子项）
+
+```
+前置知识：
+指定某个具体元素可以用 id 选择器，还可以用伪类加上下标的方式，下标从1开始：.mySpan:nth-child(2)，还可以用表达式，常见的伪类还有：
+tr:nth-child(2n+1)
+表示HTML表格中的奇数行。
+tr:nth-child(odd)
+表示HTML表格中的奇数行。
+tr:nth-child(2n)
+表示HTML表格中的偶数行。
+tr:nth-child(even)
+表示HTML表格中的偶数行。
+span:nth-child(0n+1)
+表示子元素中第一个且为span的元素，与:first-child 选择器作用相同。
+span:nth-child(1)
+表示父元素中子元素为第一的并且名字为span的标签被选中
+span:nth-child(-n+3)
+匹配前三个子元素中的span元素。
+
+
+flex-grow 规定在空间允许的情况下，子元素如何按照比例分配可用剩余空间。如果所有的子元素的属性都设定为1，则父元素中的剩余空间会等分给所有子元素。如果其中某个子元素的flex-grow设定为2，则在分配剩余空间时该子元素将获得其他元素二倍的空间（至少会尽力获得）
+默认值为0，意味着即使有剩余空间，各子元素也不会放大。
+
+flex-shrink 如果空间不足就缩小，flex-shrink默认值为1， 当所有子元素都为默认值时，则空间不足时子元素会同比例缩小。如果其中某个子元素的flex-shrink值为0，则空间不足时该子元素并不会缩小。如果其中某个子元素的flex-shrink值为2时，则空间不足时该子元素会以二倍速度缩小。
+
+flex-basis 定义了在计算剩余空间之前子元素默认的大小，默认值auto，如果设置为0, 则子元素内容周围的空隙不会根据flex-grow按比例分配，如果设置为auto，则子元素周围额外的空袭会根据flex-grow按照比例分配
+
+flex：flex-grow, flex-shrink, flex-basis的缩写
+
+align-self 控制单独某一个flex子项的垂直对齐方式
+
+order 设置order改变某一个flex子项的排序位置，数值越小越靠前，默认值为0
+
+```
+
+-------------------------------------------------------------------
+
+- 常用代码
+
+```
+水平、垂直居中
+.myDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center
+}
+
+
+-------------------------------------------------------------------
+
+
+```
+
+- 不同宽度的时候采用不同的样式
+
+```
+/* 大屏 */
+.navigation {
+  display: flex;
+  flex-flow: row wrap;
+  /* 这里设置对齐主轴方向的末端 */
+  justify-content: flex-end;
+}
+
+/* 中屏 */
+@media all and (max-width: 800px) {
+  .navigation {
+    /* 当在中屏上，设置居中，并设置剩余空间环绕在子元素左右 */
+    justify-content: space-around;
+  }
+}
+
+/* 小屏 */
+@media all and (max-width: 500px) {
+  .navigation {
+    /* 在小屏上，我们不在使用行作为主轴，而以列为主轴 */
+    flex-direction: column;
+  }
+}
+```
 
 
 
