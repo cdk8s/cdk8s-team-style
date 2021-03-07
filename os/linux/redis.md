@@ -188,6 +188,16 @@ aof-rewrite-incremental-fsync yes
 rdb-save-incremental-fsync yes
 ```
 
+- 启动镜像：
+
+```
+docker run -d -it -p 6379:6379 \
+    -v ~/docker/redis/conf/redis.conf:/etc/redis/redis.conf \
+    -v ~/docker/redis/db:/data \
+    --restart always \
+    --name cloud-redis redis:5 \
+    redis-server /etc/redis/redis.conf
+```
 
 ## RedisCluster 集群（Docker 方式）
 
