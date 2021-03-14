@@ -389,6 +389,55 @@ flush privileges;
 
 -------------------------------------------------------------------
 
+## MySQL8 打开慢查询（与 5.7 版本配置有一点点不一样）
+
+- 参考：<https://blog.csdn.net/phker/article/details/83146676>
+
+```
+Show variables like '%slow_query%'; -- 可以用这个查询所有的变量
+
+//第一步
+set global log_output='TABLE'; -- 开启慢日志,纪录到 mysql.slow_log 表
+set global long_query_time=2; -- 设置超过2秒的查询为慢查询
+set global slow_query_log='ON';-- 打开慢日志记录
+
+//第二步 运行一下比较慢的功能,执行下面的语句
+select convert(sql_text using utf8) sql_text from mysql.slow_log -- 查询慢sql的 日志
+
+//第三步 记得关上日志
+set global slow_query_log='OFF'; -- 如果不用了记得关上日志
+```
+
+- 删除历史记录
+
+```
+SET GLOBAL slow_query_log = 'OFF';
+
+ALTER TABLE mysql.slow_log RENAME mysql.slow_log_drop;
+
+ CREATE TABLE `mysql`.`slow_log` (
+  `start_time` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
+  `user_host` mediumtext NOT NULL,
+  `query_time` time(6) NOT NULL,
+  `lock_time` time(6) NOT NULL,
+  `rows_sent` int(11) NOT NULL,
+  `rows_examined` int(11) NOT NULL,
+  `db` varchar(512) NOT NULL,
+  `last_insert_id` int(11) NOT NULL,
+  `insert_id` int(11) NOT NULL,
+  `server_id` int(10) unsigned NOT NULL,
+  `sql_text` mediumblob NOT NULL,
+  `thread_id` bigint(21) unsigned NOT NULL
+) ENGINE=CSV DEFAULT CHARSET=utf8 COMMENT='Slow log';
+
+SET GLOBAL slow_query_log = 'ON';
+
+DROP TABLE mysql.slow_log_drop; 
+```
+
+
+-------------------------------------------------------------------
+
 ## Percona TPCC-MySQL 测试工具
 
 - 可以较好地模拟真实测试结果数据

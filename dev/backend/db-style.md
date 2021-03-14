@@ -471,75 +471,6 @@ show session variables;
 - show variables 优先显示会话级变量的值，如果这个值不存在，则显示全局级变量的值，当然你也可以加上 GLOBAL 或 SESSION 关键字区别;
 - global 是整个 MySQL 程序层面的参数，重启 MySQL 依旧存在
 - session 是会话级别，如果有修改，则在当前的连接中是有效的，重启 MySQL 后，或者断开连接后就失效。
-- 查看慢日志的参数
-
-```
-show variables like '%slow_query_log%';
-
-打开：
-set global slow_query_log='ON';
-
-关闭：
-set global slow_query_log='OFF';
-```
-
-
-- 查看通用日志的参数
-
-```
-show variables like '%general_log%';
-
-打开：
-set global general_log='ON';
-
-关闭：
-set global general_log='OFF';
-```
-
-- 现在我们就可以监控 MySQL 看有什么 sql 语句在执行：`tail -300f /usr/local/mysql/data/youmeekdeiMac.log`
-- 查看好要关闭可以设置：
-
-```
-set global general_log='OFF';
-```
-
-
-### 死锁故障排除
-
-- 查询 innodb 状态（输出内容很多）：
-
-```
-show engine innodb status;
-```
-
-- 查询哪些表在被使用，是否有锁表：`show open tables where in_use > 0;`
-- 锁性能状态：`show status like 'innodb_row_lock_%';`
-    - innodb_row_lock_current_waits：当前等待锁的数量
-    - innodb_row_lock_time：系统启动到现在、锁定的总时间长度
-    - innodb_row_lock_time_avg：每次平均锁定的时间
-    - innodb_row_lock_time_max：最长一次锁定时间
-    - innodb_row_lock_waits：系统启动到现在、总共锁定次数
-- 帮我们分析表，并提出建议：`select * from my_db_table procedure analyse();`
-
-
-### 并发问题排除
-
-```
-show processlist;
-
-如果要统计，可以把结果输出到一个文件，然后再：grep State: processlist.txt | sort | uniq -c | sort -rn
-
-结束某个请求：
-kill 122; 
-```
-
-```
-查看哪些请求被锁住了：
-先选择：information_schema 数据库
-SELECT * FROM information_schema.innodb_locks;
-SELECT * FROM information_schema.innodb_lock_waits;
-SELECT * FROM information_schema.innodb_trx;
-```
 
 -------------------------------------------------------------------
 
@@ -578,6 +509,8 @@ public void a_batchCreate() {
 
 
 - 使用 EXPLAIN 进行 SQL 语句分析：`EXPLAIN SELECT * FROM sys_user;`，效果如下：
+    - 因为 EXPLAIN 只是把简单的结果显示出来，对于过程中的一些细节不显示，所以我们可以再执行一下 `SHOW WARNINGS;` 可以显示更多警告，包含显示为什么不使用索引的原因
+    - SHOW WARNINGS 可以显示上一个命令的警告信息，SHOW ERRORS 可以显示上一个命令的错误信息
 
 ```
 id|select_type|table   |partitions|type|possible_keys|key|key_len|ref|rows|filtered|Extra|
@@ -821,3 +754,136 @@ int 类型的字段能存储的数据上限还是 2147483647(有符号型) 和 4
 <a href="https://imgchr.com/i/s7pmtS"><img src="https://s3.ax1x.com/2021/01/23/s7pmtS.md.gif" alt="s7pmtS.gif" border="0" /></a>
 
 
+
+-------------------------------------------------------------------
+
+
+### 死锁故障排除
+
+- 查询 innodb 状态（输出内容很多）：
+
+```
+show engine innodb status;
+```
+
+- 查询哪些表在被使用，是否有锁表：`show open tables where in_use > 0;`
+- 锁性能状态：`show status like 'innodb_row_lock_%';`
+    - innodb_row_lock_current_waits：当前等待锁的数量
+    - innodb_row_lock_time：系统启动到现在、锁定的总时间长度
+    - innodb_row_lock_time_avg：每次平均锁定的时间
+    - innodb_row_lock_time_max：最长一次锁定时间
+    - innodb_row_lock_waits：系统启动到现在、总共锁定次数
+- 帮我们分析表，并提出建议：`select * from my_db_table procedure analyse();`
+
+
+### 并发问题排除好（也是锁问题）
+
+- 查询连接
+
+```
+show processlist;
+show full processlist;
+
+大多链接的 state 其实是 Sleep 的，这种的其实是空闲状态，没有太多查看价值，我们可以查询非空闲状态的
+# 查询非 Sleep 状态的链接，按消耗时间字段倒序展示（不包含 Sleep）
+select id, db, user, host, command, time, state, info
+from information_schema.processlist
+where command != 'Sleep'
+order by time desc;
+
+常用字段说明
+id - 线程ID，可以用：kill id; 杀死一个线程，很有用
+db - 数据库
+user - 用户
+host - 连库的主机IP
+command - 当前执行的命令，比如最常见的：Sleep，Query，Connect 等
+time - 消耗时间，单位秒，很有用
+state - 执行状态，比如：Sending data，Sorting for group，Creating tmp table，Locked等等，很有用，其他状态可以看看本文最后的参考文章
+info - 执行的SQL语句，很有用
+
+按客户端 IP 分组，看哪个客户端的链接数最多（不包含 Sleep）
+select client_ip,count(client_ip) as client_num 
+from (select substring_index(host,':' ,1) as client_ip from information_schema.processlist where command != 'Sleep') as connect_info 
+group by client_ip order by client_num desc;
+
+
+结束某个请求：
+kill 122; 
+
+也可以批量kill：
+-- 查询执行时间超过2分钟的线程，然后拼接成 kill 语句
+select concat('kill ', id, ';')
+from information_schema.processlist
+where command != 'Sleep'
+and time > 2*60
+order by time desc;
+
+```
+
+- 查询锁
+
+```
+查看哪些请求被锁住了：
+先选择：information_schema 数据库
+SELECT * FROM information_schema.innodb_locks;
+SELECT * FROM information_schema.innodb_lock_waits;
+SELECT * FROM information_schema.innodb_trx;
+```
+
+```
+查询等待锁的语句
+SELECT * FROM performance_schema.events_statements_history WHERE thread_id IN(
+SELECT b.`THREAD_ID` FROM sys.`innodb_lock_waits` AS a , performance_schema.threads AS b
+WHERE a.waiting_pid = b.`PROCESSLIST_ID`)
+ORDER BY timer_start ASC;
+
+查询持有锁的语句
+SELECT * FROM performance_schema.events_statements_history WHERE thread_id IN(
+SELECT b.`THREAD_ID` FROM sys.`innodb_lock_waits` AS a , performance_schema.threads AS b
+WHERE a.`blocking_pid` = b.`PROCESSLIST_ID`)
+ORDER BY timer_start ASC;
+```
+
+
+-------------------------------------------------------------------
+
+## 优化场景
+
+#### CPU 高的场景
+
+- 打开慢查询变量，然后统计一段时间，先看下是否有大量慢 SQL。过多的慢查询会导致排队的查询多，CPU 消耗高
+- 如果有慢 SQL，则拿出来 explain，看下执行计划是什么样子的
+- 有过多的锁
+- 硬件资源不满足业务发展，有大量 SQL 正在执行，需要消耗大量的 CPU 计算
+
+#### 磁盘 IOPS 高的场景（可以通过 iostat、vmstat 等工具观察一下）
+
+- 慢 SQL 过多
+- 正在改索引、修改字段、优化表操作等
+- 大分页数 SQL 不合理
+- 子查询 SQL 不合理（比如 in 查询）
+- 查询结果字段太多
+- 表空间过大
+- 索引过多
+
+#### 连接数高的场景
+
+- 慢 SQL 过多
+- 有过多的锁
+
+#### 内存高的场景
+
+- 创建不合适的索引，比如不会被匹配到，或者平时压根不用
+- 数据大，并且还直接查询所有数据出来，没有进行分页
+
+
+
+-------------------------------------------------------------------
+
+## 资料
+
+- <https://www.ancii.com/axbbe36un/>
+- <>
+- <>
+- <>
+- <>
