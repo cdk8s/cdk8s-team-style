@@ -49,6 +49,11 @@
         regexp: '^plugins='
         line: plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 
+    - name: replace zshrc update
+      lineinfile:
+        path: /root/.zshrc
+        regexp: '^# DISABLE_AUTO_UPDATE'
+        line: DISABLE_AUTO_UPDATE="true"
 
     - name: install-vim
       shell: "{{ item }}"
