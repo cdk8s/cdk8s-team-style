@@ -27,24 +27,27 @@ cd Python-3.9.2
 make && make install
 ```
 
-- 更换系统默认的Python版本
+- 更换系统默认的Python版本（）
 
 ```
 查看当前 python 版本：
 python -V 得到 2.7.5
 
+如果不更改默认，则不需要 mv，只要保留最下面的 python3 相关的软链接即可
 mv /usr/bin/python /usr/bin/python2.7.5
-
-ln -s /usr/local/python3/bin/python3.9 /usr/bin/python
-
+ln -s /usr/bin/python/bin/python3.9 /usr/bin/python
 ln -s /usr/local/python3/bin/pip3 /usr/bin/pip
 
+如果不更改默认，就只要这两个
+ln -s /usr/local/python3/bin/python3.9 /usr/bin/python3
+ln -s /usr/local/python3/bin/pip3 /usr/bin/pip3
+
 验证：
-python -V
-pip -V
+python3 -V
+pip3 -V
 
 如果 pip 版本过低，可以这样升级：
-python -m pip install -U pip
+python3 -m pip install -U pip
 
 
 ```
