@@ -17,6 +17,12 @@
 - 官网说明：<https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html>
 - CentOS：`sudo yum install -y ansible`
 	- 查看版本：`ansible --version`
+- 注意：默认用的是 python2 的环境。如果你是 python3：
+```
+pip3 install ansible
+
+/usr/local/python3/bin/ansible --version
+```
 
 -------------------------------------------------------------------
 
