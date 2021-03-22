@@ -22,6 +22,7 @@
 pip3 install ansible
 
 /usr/local/python3/bin/ansible --version
+/usr/local/python3/bin/ansible-playbook --version
 ```
 
 -------------------------------------------------------------------
