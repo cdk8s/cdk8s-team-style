@@ -28,7 +28,7 @@
 - 如果你多个显示器，那也最好买显卡
 - 显卡为入门款，不是用来打大型游戏的
 
-### 低配台式机-带一个显示器（适合在校学生）（总价：5400 RMB）
+### 低配台式机-带一个显示器（适合在校学生）（总价：5700 RMB）
 
 > CPU：1000 RMB
 
@@ -63,18 +63,19 @@
 
 - [先马（SAMA）商英（黑） 便携式商务电脑小机箱 USB3.0/支持M-ATX主](https://search.jd.com/Search?enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=c0d90a09b813492cbb88dbd39455a471-p_669678130&abt=3&keyword=%E5%85%88%E9%A9%AC%EF%BC%88SAMA%EF%BC%89%E5%95%86%E8%8B%B1%EF%BC%88%E9%BB%91%EF%BC%89%20%E4%BE%BF%E6%90%BA%E5%BC%8F%E5%95%86%E5%8A%A1%E7%94%B5%E8%84%91%E5%B0%8F%E6%9C%BA%E7%AE%B1%20USB3.0/%E6%94%AF%E6%8C%81M-ATX%E4%B8%BB)
 
-> CPU 散热器：80 RMB
+> CPU 散热器：170 RMB
 
-- [ID-COOLING IS-30 下吹CPU散热器 四热管](http://search.jd.com/Search?keyword=ID-COOLING%20IS-30%20下吹CPU散热器%20四热管&enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=5cf02562905049858da8ba867d501e09-p_669693165&abt=3)
+- [利民（Thermalright）AXP-90I 4热管](https://search.jd.com/Search?enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=c0d90a09b813492cbb88dbd39455a471-p_669678130&abt=3&keyword=%E5%88%A9%E6%B0%91%EF%BC%88Thermalright%EF%BC%89AXP-90I%204%E7%83%AD%E7%AE%A1)
 
 > 显示：550 RMB
 
 - [SANC电脑显示器 24英寸IPS全高清75Hz 低蓝光 广视角 窄边框可壁挂](https://search.jd.com/Search?enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=c0d90a09b813492cbb88dbd39455a471-p_669678130&abt=3&keyword=SANC%E7%94%B5%E8%84%91%E6%98%BE%E7%A4%BA%E5%99%A8%2024%E8%8B%B1%E5%AF%B8IPS%E5%85%A8%E9%AB%98%E6%B8%8575Hz%20%E4%BD%8E%E8%93%9D%E5%85%89%20%E5%B9%BF%E8%A7%86%E8%A7%92%20%E7%AA%84%E8%BE%B9%E6%A1%86%E5%8F%AF%E5%A3%81%E6%8C%82)
 
-> 键盘 + 鼠标：90 RMB
+> 键盘 + 鼠标：190 RMB
 
 - [双飞燕（A4TECH）KB-N8510 KB-N8510 键鼠套装](https://search.jd.com/Search?enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=c0d90a09b813492cbb88dbd39455a471-p_669678130&abt=3&keyword=%E5%8F%8C%E9%A3%9E%E7%87%95%EF%BC%88A4TECH%EF%BC%89KB-N8510%20KB-N8510%20%E9%94%AE%E9%BC%A0%E5%A5%97%E8%A3%85)
 - [鼠标垫 5mm](http://search.jd.com/Search?keyword=鼠标垫%205mm&enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=00a190c9642a41ed823acfe81ee97572-p_669693165&abt=3)
+- [BUBM 鼠标手托](http://search.jd.com/Search?enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=c0d90a09b813492cbb88dbd39455a471-p_669678130&abt=3&keyword=BUBM%20%E9%BC%A0%E6%A0%87%E6%89%8B%E6%89%98)
 
 -------------------------------------------------------------------
 
@@ -113,9 +114,9 @@
 
 - [鑫谷 手提 轩朗 机箱](https://search.jd.com/Search?enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=c0d90a09b813492cbb88dbd39455a471-p_669678130&abt=3&keyword=鑫谷%20手提%20轩朗%20机箱)
 
-> CPU 散热器：170 RMB
+> CPU 散热器：300 RMB
 
-- [利民（Thermalright）AXP-90I 4热管](https://search.jd.com/Search?enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=c0d90a09b813492cbb88dbd39455a471-p_669678130&abt=3&keyword=%E5%88%A9%E6%B0%91%EF%BC%88Thermalright%EF%BC%89AXP-90I%204%E7%83%AD%E7%AE%A1)
+- [利民（Thermalright）AXP-90I纯铜版](https://search.jd.com/Search?enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=c0d90a09b813492cbb88dbd39455a471-p_669678130&abt=3&keyword=%E5%88%A9%E6%B0%91%EF%BC%88Thermalright%EF%BC%89AXP-90I%E7%BA%AF%E9%93%9C%E7%89%88)
 
 > 显示：1200 RMB
 
@@ -125,10 +126,11 @@
 
 - [ikbc 正版授权RX-78-2高达](https://search.jd.com/Search?enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=c0d90a09b813492cbb88dbd39455a471-p_669678130&abt=3&keyword=ikbc%20正版授权RX-78-2高达)
 
-> 鼠标：150 RMB
+> 鼠标：250 RMB
 
 - [雷柏 MT750S 无线蓝牙鼠标](http://search.jd.com/Search?keyword=雷柏%20MT750S%20无线蓝牙鼠标&enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=5cf02562905049858da8ba867d501e09-p_669693165&abt=3)
 - [鼠标垫 5mm](http://search.jd.com/Search?keyword=鼠标垫%205mm&enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=00a190c9642a41ed823acfe81ee97572-p_669693165&abt=3)
+- [BUBM 鼠标手托](http://search.jd.com/Search?enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=c0d90a09b813492cbb88dbd39455a471-p_669678130&abt=3&keyword=BUBM%20%E9%BC%A0%E6%A0%87%E6%89%8B%E6%89%98)
 
 -------------------------------------------------------------------
 
@@ -180,10 +182,11 @@
 
 - [ikbc 正版授权RX-78-2高达](https://search.jd.com/Search?enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=c0d90a09b813492cbb88dbd39455a471-p_669678130&abt=3&keyword=ikbc%20正版授权RX-78-2高达)
 
-> 鼠标：150 RMB
+> 鼠标：250 RMB
 
 - [雷柏 MT750S 无线蓝牙鼠标](http://search.jd.com/Search?keyword=雷柏%20MT750S%20无线蓝牙鼠标&enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=5cf02562905049858da8ba867d501e09-p_669693165&abt=3)
 - [鼠标垫 5mm](http://search.jd.com/Search?keyword=鼠标垫%205mm&enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=00a190c9642a41ed823acfe81ee97572-p_669693165&abt=3)
+- [BUBM 鼠标手托](http://search.jd.com/Search?enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=c0d90a09b813492cbb88dbd39455a471-p_669678130&abt=3&keyword=BUBM%20%E9%BC%A0%E6%A0%87%E6%89%8B%E6%89%98)
 
 -------------------------------------------------------------------
 
@@ -240,7 +243,8 @@
 
 - [ikbc 正版授权RX-78-2高达](https://search.jd.com/Search?enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=c0d90a09b813492cbb88dbd39455a471-p_669678130&abt=3&keyword=ikbc%20正版授权RX-78-2高达)
 
-> 鼠标：900 RMB
+> 鼠标：1000 RMB
 
 - [罗技（Logitech）MX Master 3 鼠标 无线蓝牙鼠标](https://search.jd.com/Search?enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=c0d90a09b813492cbb88dbd39455a471-p_669678130&abt=3&keyword=%E7%BD%97%E6%8A%80%EF%BC%88Logitech%EF%BC%89MX%20Master%203%20%E9%BC%A0%E6%A0%87%20%E6%97%A0%E7%BA%BF%E8%93%9D%E7%89%99%E9%BC%A0%E6%A0%87)
 - [鼠标垫 5mm](https://search.jd.com/Search?enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=c0d90a09b813492cbb88dbd39455a471-p_669678130&abt=3&keyword=%E9%BC%A0%E6%A0%87%E5%9E%AB%205mm)
+- [BUBM 鼠标手托](http://search.jd.com/Search?enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=c0d90a09b813492cbb88dbd39455a471-p_669678130&abt=3&keyword=BUBM%20%E9%BC%A0%E6%A0%87%E6%89%8B%E6%89%98)
