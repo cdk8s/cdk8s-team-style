@@ -65,3 +65,20 @@
       with_items:
          - systemctl enable mysqld.service
          - systemctl restart mysqld.service
+         - cat /var/log/mysqld.log | grep password
+    - debug:
+        msg: "读取默认生成的密码：cat /var/log/mysqld.log | grep password"
+    - debug:
+        msg: "进入客户端：mysql -uroot -p 输入生成的密码"
+    - debug:
+        msg: "修改密码并永不过期（必须是大小写字母+特殊符号+数字）：ALTER USER 'root'@'localhost' IDENTIFIED WITH 'mysql_native_password' BY 'Meek_123456' PASSWORD EXPIRE NEVER;"
+    - debug:
+        msg: "创建用户：CREATE USER 'myuser'@'%' IDENTIFIED WITH 'mysql_native_password' BY 'MyPwd_123456';"
+    - debug:
+        msg: "修改密码并永不过期：ALTER USER 'myuser'@'%' IDENTIFIED WITH 'mysql_native_password' BY 'MyPwd_123456' PASSWORD EXPIRE NEVER;"
+    - debug:
+        msg: "分配所有数据库权限：GRANT ALL PRIVILEGES ON *.* TO 'myuser'@'%' WITH GRANT OPTION;"
+    - debug:
+        msg: "分配单个数据库权限：GRANT ALL PRIVILEGES ON myDbName1.* TO 'myuser'@'%' WITH GRANT OPTION;"
+    - debug:
+        msg: "刷新配置：FLUSH PRIVILEGES;"

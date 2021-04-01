@@ -10,9 +10,9 @@
     - name: wget agent.jar
       shell: "{{ item }}"
       with_items:
-        - wget http://jenkins.jeemoo.com/jnlpJars/agent.jar -O /opt/software/agent.jar
+        - wget http://jenkins.jeemee.com/jnlpJars/agent.jar -O /opt/software/agent.jar
 
     - name: run agent.jar by async
-      shell: nohup java -jar /opt/software/agent.jar -jnlpUrl http://jenkins.jeemoo.com/computer/{{ jenkins_node_name }}/slave-agent.jnlp -secret {{ jenkins_secret }} -workDir "/home/jenkins" > /dev/null 2>&1 &
+      shell: nohup java -jar /opt/software/agent.jar -jnlpUrl http://jenkins.jeemee.com/computer/{{ jenkins_node_name }}/slave-agent.jnlp -secret {{ jenkins_secret }} -workDir "/home/jenkins" > /dev/null 2>&1 &
       async: 45
       poll: 0
