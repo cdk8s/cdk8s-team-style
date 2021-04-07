@@ -103,6 +103,35 @@
               }
           }
 
+    - name: set admin-front2.conf
+      blockinfile:
+        path: /etc/nginx/conf.d/admin-front2.conf
+        marker: ""
+        block: |
+          server {
+              charset utf-8;
+              client_max_body_size 128M;
+
+              #listen 80;
+              listen 443 ssl;
+
+              ssl_certificate     /opt/jar/ssl/server.crt;
+              ssl_certificate_key /opt/jar/ssl/server.key;
+
+              ssl_session_timeout 5m;
+              ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+              ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:HIGH:!aNULL:!MD5:!RC4:!DHE;
+              ssl_prefer_server_ciphers on;
+
+              server_name admin-front2.cdk8s.com;
+
+              location / {
+                root        /home/jenkins/workspace/nni-vue/dist;
+                index       index.html index.php;
+                try_files $uri $uri/ /index.html;
+              }
+          }
+
     - name: set h5-web-front.conf
       blockinfile:
         path: /etc/nginx/conf.d/h5-web-front.conf
