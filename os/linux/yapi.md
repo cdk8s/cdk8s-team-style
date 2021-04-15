@@ -17,17 +17,6 @@
 - <https://github.com/fjc0k/docker-YApi>
 - 特别注意点，记得把 YAPI_CLOSE_REGISTER=true 改为 false，不然无法让别人注册
 
-## Docker 快速部署-方案2
-
-- 一个好心人的维护：<https://github.com/branchzero/yapi-docker>
-- 使用方法：
-	- work path：`mkdir -p /opt/git-data`
-	- clone：`cd /opt/git-data && git clone https://github.com/branchzero/yapi-docker.git`
-	- permission：`chmod -R 777 /opt/git-data`
-	- run command：`cd /opt/git-data/yapi-docker && docker-compose up -d`
-	- open chrome：`http://192.168.1.121:3000`
-- 初始化管理员账号名：`admin@admin.com`，密码：`ymfe.org`
-
 ## YApi 介绍
 
 - 官网：<https://yapi.ymfe.org/index.html>
