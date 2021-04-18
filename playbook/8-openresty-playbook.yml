@@ -191,5 +191,6 @@
     - name: reload openresty
       shell: "{{ item }}"
       with_items:
+        - systemctl enable openresty
         - systemctl restart openresty
         - nginx -s reload
