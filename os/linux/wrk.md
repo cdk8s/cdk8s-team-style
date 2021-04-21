@@ -51,9 +51,9 @@ Transfer/sec:      0.99MB
 ```
 form 表单请求类型
 wrk.method = "POST"  
-wrk.body   = "hms_user_id=222222&routing_key=ad.sys_user.add"  
 wrk.headers["Content-Type"] = "application/x-www-form-urlencoded"
 wrk.headers["User-Agent"] = "Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1 Edg/90.0.4430.72"
+wrk.body = "hms_user_id=222222&routing_key=ad.sys_user.add"  
 ```
 
 ```
@@ -61,8 +61,8 @@ json 请求类型
 wrk.method = "POST"
 wrk.headers["Content-Type"] = "application/json;charset=UTF-8"
 wrk.headers["userId"] = "123"
-wrk.body = '{"userId": "10001","coinType": "GT","type": "2","amount": "5.1"}'
 wrk.headers["User-Agent"] = "Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1 Edg/90.0.4430.72"
+wrk.body = '{"userId": "10001","coinType": "GT","type": "2","amount": "5.1"}'
 ```
 
 ```
