@@ -183,6 +183,9 @@
               server_name www.cdk8s.com;
 
               location / {
+                if ($http_user_agent ~* '(Mobile|Android|webOS|iPhone|iPod|BlackBerry|Windows Phone|Nokia)') {
+                    rewrite ^/(.*)$ http://h5.cdk8s.com;
+                }
                 root     /home/jenkins/workspace/rcxt-web;
                 index    index.html index.htm;
               }
