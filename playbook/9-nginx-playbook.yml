@@ -154,6 +154,11 @@
 
               server_name h5.cdk8s.com;
 
+              # 如果不是移动端浏览器则跳转到 pc 域名
+              if ($http_user_agent !~* '(Mobile|Android|webOS|iPhone|iPod|BlackBerry|Windows Phone|Nokia)') {
+                  rewrite ^/(.*)$ http://www.cdk8s.com;
+              }
+
               location / {
                 root     /home/jenkins/workspace/rcxt-web-online;
                 index    index.html index.htm;
@@ -182,10 +187,12 @@
 
               server_name www.cdk8s.com;
 
+              # 如果是移动端浏览器则跳转到 h5 域名
+              if ($http_user_agent ~* '(Mobile|Android|webOS|iPhone|iPod|BlackBerry|Windows Phone|Nokia)') {
+                  rewrite ^/(.*)$ http://h5.cdk8s.com;
+              }
+
               location / {
-                if ($http_user_agent ~* '(Mobile|Android|webOS|iPhone|iPod|BlackBerry|Windows Phone|Nokia)') {
-                    rewrite ^/(.*)$ http://h5.cdk8s.com;
-                }
                 root     /home/jenkins/workspace/rcxt-web;
                 index    index.html index.htm;
               }

@@ -877,6 +877,35 @@ URI: /tea
 Request ID: bef7638bacc9b6ae939fbb99207d3d2d
 ```
 
+- 根据经验，建议给后台 api 应用路由添加以下注解，解决大文件上传、连接超时等问题：
+
+```
+kind: Ingress
+apiVersion: extensions/v1beta1
+metadata:
+  name: cdk8s-api-ingress
+  namespace: cdk8s
+  annotations:
+    kubesphere.io/creator: cdk8s
+    # 客户端文件上传限制大小
+    nginx.ingress.kubernetes.io/proxy-body-size: 200m
+    # 连接超时时间，默认为5s
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: '900'
+    # 连接成功后，等待后端服务器处理请求业务的时间，默认为60s
+    nginx.ingress.kubernetes.io/proxy-read-timeout: '900'
+    # 后端服务器数据回传时间，在规定时间之内后端服务器必须回传完所有的数据，默认为60s
+    nginx.ingress.kubernetes.io/proxy-send-timeout: '900'
+spec:
+  rules:
+    - host: api.cdk8s.com
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: api-service
+              servicePort: 8888
+```
+
 
 ## 创建稍微复杂的 Demo 服务
 
