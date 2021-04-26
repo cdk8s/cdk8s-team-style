@@ -26,7 +26,8 @@ YAPI_CLOSE_REGISTER 改为 false
 启动服务
 docker-compose up -d
 
-给服务器开放端口
+给服务器开放 40001 端口
+访问地址：http://106.51.106.10:40001/
 ```
 
 ## YApi 介绍
