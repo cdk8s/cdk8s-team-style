@@ -13,9 +13,21 @@
 
 ## Docker 快速部署-方案1
 
-- 推荐
-- <https://github.com/fjc0k/docker-YApi>
-- 特别注意点，记得把 YAPI_CLOSE_REGISTER=true 改为 false，不然无法让别人注册
+- 推荐 <https://github.com/fjc0k/docker-YApi>
+
+```
+git clone --depth=1 https://github.com/fjc0k/docker-YApi.git
+
+修改 docker-compose.yml
+YAPI_ADMIN_ACCOUNT 为你的管理员邮箱
+YAPI_ADMIN_PASSWORD 为你的管理员密码
+YAPI_CLOSE_REGISTER 改为 false
+
+启动服务
+docker-compose up -d
+
+给服务器开放端口
+```
 
 ## YApi 介绍
 
