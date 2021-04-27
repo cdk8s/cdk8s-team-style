@@ -1728,3 +1728,63 @@ pipeline {
 
 ```
 
+-------------------------------------------------------------------
+
+## 添加新节点
+
+#### 准备环节
+
+- 假设新服务器的 ip 为 192.168.0.111
+- 进入 192.168.0.12 服务器，在 /root 目录下确保有 config-sample.yaml 文件、kk 程序
+- **必须确保 192.168.0.12 能通过密钥直接无秘 ssh 到 192.168.0.111**
+
+#### 添加节点
+
+- 编辑配置文件：config-sample.yaml
+- 在原有基础上添加新的服务器 ip 地址，新的 hostname，以及对应的 ssh 信息
+
+```bash
+spec:
+  hosts:
+    - {name: master1, address: 192.168.0.12, internalAddress: 192.168.0.12, user: root, password: 123456}
+    - {name: master2, address: 192.168.0.13, internalAddress: 192.168.0.13, user: root, password: 123456}
+    - {name: master3, address: 192.168.0.14, internalAddress: 192.168.0.14, user: root, password: 123456}
+    - {name: node1, address: 192.168.0.15, internalAddress: 192.168.0.15, user: root, password: 123456}
+    - {name: node2, address: 192.168.0.16, internalAddress: 192.168.0.16, user: root, password: 123456}
+    - {name: node3, address: 192.168.0.17, internalAddress: 192.168.0.17, user: root, password: 123456}
+    - {name: node4, address: 192.168.0.111, internalAddress: 192.168.0.111, user: root, password: 123456}
+  roleGroups:
+    etcd:
+      - master1
+      - master2
+      - master3
+    master:
+      - master1
+      - master2
+      - master3
+    worker:
+      - node1
+      - node2
+      - node3
+      - node4
+```
+
+- 执行以下命令：
+
+```bash
+./kk add nodes -f config-sample.yaml
+```
+
+- 安装完成后，您将能够在 KubeSphere 的控制台上查看新节点及其信息。在**集群管理**页面，选择左侧菜单**节点管理**下的**集群节点**
+- 或者执行命令 `kubectl get node` 以检查更改。
+
+```bash
+NAME      STATUS   ROLES              AGE    VERSION
+master1   Ready    master             122d   v1.17.9
+master2   Ready    master             122d   v1.17.9
+master3   Ready    master             122d   v1.17.9
+node1     Ready    master             122d   v1.17.9
+node2     Ready    master             122d   v1.17.9
+node3     Ready    master             122d   v1.17.9
+node4     Ready    master             122d   v1.17.9
+```
