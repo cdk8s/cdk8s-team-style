@@ -1732,6 +1732,8 @@ pipeline {
 
 ## 添加新节点
 
+- 官网文档：<https://kubesphere.com.cn/docs/installing-on-linux/cluster-operation/add-new-nodes/>
+
 #### 准备环节
 
 - 假设新服务器的 ip 为 192.168.0.111
