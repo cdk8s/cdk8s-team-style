@@ -1730,9 +1730,10 @@ pipeline {
 
 -------------------------------------------------------------------
 
-## 添加新节点
+## 添加、删除新节点
 
 - 官网文档：<https://kubesphere.com.cn/docs/installing-on-linux/cluster-operation/add-new-nodes/>
+- 我们这里就以新增为例，删除比较简单具体看官网
 
 #### 准备环节
 
