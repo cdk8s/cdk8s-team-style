@@ -122,6 +122,7 @@ drwxr-xr-x. 5 root root 4096 3月 26 10:57，其中最前面的 d 表示这是�
 	- `find / -name "*tower*" -exec rm {} \;`，找到文件并删除
 	- `find / -name "*tower*" -exec mv {} /opt \;`，找到文件并移到 opt 目录
 	- `find . -name "*" |xargs grep "youmeek"`，递归查找当前文件夹下所有文件内容中包含 youmeek 的文件
+	- `find . -name "node_modules" |xargs rm -rf`，递归查找当前文件夹下所有 node_modules 文件夹进行删除
 	- `find . -size 0 | xargs rm -f &`，删除当前目录下文件大小为0的文件
 	- `du -hm --max-depth=2 | sort -nr | head -12`，找出系统中占用容量最大的前 12 个目录
 - `cat /etc/resolv.conf`，查看 DNS 设置
