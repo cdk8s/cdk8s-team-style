@@ -67,7 +67,7 @@ password=123456
 
 
 - 赋权（避免挂载的时候，一些程序需要容器中的用户的特定权限使用）：`chmod -R 777 ~/docker/mysql8/datadir ~/docker/mysql8/log`
-- 赋权：`chown -R 0:0 ~/docker/mysql8/conf`
+- 赋权：`sudo chown -R 0:0 ~/docker/mysql8/conf`
 	- 配置文件的赋权比较特殊，如果是给 777 权限会报：[Warning] World-writable config file '/etc/mysql/conf.d/mysql-1.cnf' is ignored，所以这里要特殊对待。容器内是用 root 的 uid，所以这里与之相匹配赋权即可。
 	- 我是进入容器 bash 内，输入：`whoami && id`，看到默认用户的 uid 是 0，所以这里才 chown 0
 - 启动
@@ -168,7 +168,7 @@ password=123456
 ```
 
 - 赋权（避免挂载的时候，一些程序需要容器中的用户的特定权限使用）：`chmod -R 777 ~/docker/mysql57/datadir ~/docker/mysql57/log`
-- 赋权：`chown -R 0:0 ~/docker/mysql57/conf`
+- 赋权：`sudo chown -R 0:0 ~/docker/mysql57/conf`
 	- 配置文件的赋权比较特殊，如果是给 777 权限会报：[Warning] World-writable config file '/etc/mysql/conf.d/mysql-1.cnf' is ignored，所以这里要特殊对待。容器内是用 root 的 uid，所以这里与之相匹配赋权即可。
 	- 我是进入容器 bash 内，输入：`whoami && id`，看到默认用户的 uid 是 0，所以这里才 chown 0
 - 启动
