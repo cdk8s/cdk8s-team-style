@@ -52,6 +52,7 @@ sudo rm -rf /Library/Java/JavaVirtualMachines/jdk1.8.0_112.jdk
 - 关于 IntelliJ IDEA Mac 下安装/配置等相关，请看我写的这个系列，里面有详细说明：[IntelliJ IDEA 简体中文专题教程](https://github.com/judasn/IntelliJ-IDEA-Tutorial)
 - 在 IntelliJ IDEA 有几个特别的地方我单独拿出来讲讲吧：
 	- 如果启动 Tomcat 的时候报：`Permission denied`，你则可以：打开终端，进入 Tomcat\bin 目录，然后执行：`chmod 777 *.sh`
+    - 需要注意的是：mac 1024 以下端口号默认不能被普通用户访问，想要用 80 端口，需要 IntelliJ IDEA 程序用 sudo 启动：sudo /Applications/IntelliJ\ IDEA.app/Contents/MacOS/idea（不推荐这样做）
 	- 如果启动 Tomcat 之后，控制台乱码了，并且你确认你在 IntelliJ IDEA 的 Preferences 中设置的控制台字体是支持中文的，那你可以尝试下在 Tomcat VM 参数上加上：`-Dfile.encoding=UTF-8`
 	- Git 的路径配置：`Preferences -- Version Control -- Git -- Path to Git executable` 的值是：`/usr/local/git/bin/git`
     - 那你的 IntelliJ IDEA 终端路径可以改成 zsh 的，配置方法在 `Preferences -- Tools -- Terminal -- Shell path` 的值改为是：`/bin/zsh`
