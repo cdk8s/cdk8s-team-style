@@ -1,6 +1,19 @@
 
 # macOS 下 Java + Docker 开发环境
 
+## 修改 hosts
+
+- 先查询自己的 hostname，然后替换我的 meekdeiMac-Pro.local
+
+```
+127.0.0.1   localhost
+127.0.0.1   meekdeiMac-Pro.local
+::1         localhost
+::1 meekdeiMac-Pro.local
+255.255.255.255	broadcasthost
+```
+
+
 ## Git
 
 - 官网下载：<http://git-scm.com/download/mac>
