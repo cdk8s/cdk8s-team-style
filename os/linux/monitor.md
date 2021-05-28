@@ -825,7 +825,19 @@ access_log  /home/wwwlogs/hicrew.log special_main;
 	- 定时任务大量的任务并发
 	- 消息、请求堆积后恢复时的瞬时流量引起
 	- 持久化任务引起
-	- 更多可以看这篇：[线上异常排查总结](https://blog.csdn.net/freeiceflame/article/details/78006812)
+	- 更多可以看下面文章：
+        - 重点关注：
+              - 死锁，Deadlock（重点关注）
+              - 等待资源，Waiting on condition（重点关注）
+              - 等待获取监视器，Waiting on monitor entry（重点关注）
+              - 阻塞，Blocked（重点关注）
+        - [线上异常排查总结](https://blog.csdn.net/freeiceflame/article/details/78006812)
+        - [JVM 问题排查](https://www.jianshu.com/p/4598a4c0fea3)
+        - [jstack生成的Thread Dump日志线程状态](https://www.javatang.com/archives/2017/10/25/36441958.html)
+        - [使用MAT的Histogram和Dominator Tree定位溢出源](https://www.javatang.com/archives/2017/11/08/11582145.html)
+        - [常见的Thread Dump日志案例分析](https://www.javatang.com/archives/2017/10/26/08572060.html)
+        - [jstack和线程dump分析](https://blog.csdn.net/liyantianmin/article/details/53219057)
+        - [调试排错 - Java线程Dump分析](https://www.pdai.tech/md/java/jvm/java-jvm-thread-dump.html)
 - 系统层面
 	- 查看负载、CPU、内存、上线时间、高资源进程 PID：`htop`
 	- 查看磁盘使用情况：`df -h`
@@ -856,7 +868,12 @@ access_log  /home/wwwlogs/hicrew.log special_main;
 		- 根据高 CPU 的进程 PID，查看其线程 CPU 使用情况：`top -Hp PID`，找到占用 CPU 资源高的线程 PID
 	- 保存堆栈情况：`jstack -l PID >> /opt/jstack-tomcat1-PID-20180917.log`
 		- 把占用 CPU 资源高的线程十进制的 PID 转换成 16 进制：`printf "%x\n" PID`，比如：`printf "%x\n" 12401` 得到结果是：`3071`
+        - 在线 10 进制转 16 进制工具：<https://tool.oschina.net/hexconvert/>
 		- 在刚刚输出的那个 log 文件中搜索：`3071`，可以找到：`nid=0x3071`
+        - 拿到该 log 文件可以上传到一些在线分析网站上进行分析（本质都是 fastThread 资源）：
+            - <https://www.fastthread.io/>
+            - <https://gceasy.io/>
+            - <https://heaphero.io/>
 	- 使用 `jstat -gc PID 10000 10`，查看gc情况（截图）
 	- 使用 `jstat -gccause PID`：额外输出上次GC原因（截图）
 	- 使用 `jstat -gccause PID 10000 10`：额外输出上次GC原因，收集 10 次，每隔 10 秒
@@ -864,6 +881,13 @@ access_log  /home/wwwlogs/hicrew.log special_main;
 		- 使用 jhat 或者可视化工具（Eclipse Memory Analyzer 、IBM HeapAnalyzer）分析堆情况。
 	- 结合代码解决内存溢出或泄露问题。
 	- 给 VM 增加 dump 触发参数：`-XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/opt/tomcat-1.hprof`
+- Windows Server 下的分析过程
+    - 下载 Process Explorer：<https://docs.microsoft.com/en-us/sysinternals/downloads/process-explorer>
+    - 确保服务器已有 jdk 的 bin 工具，而不是只有 jre
+    - 打包下载（密码: ss11）：<https://pan.baidu.com/s/1Z-pyFS0NrrywIabVptQDAA>
+    - 使用命名 `jstack -l 3456 > c:/3456.log` 把进程id为 3456 堆栈信息保存下来
+    - 使用 Process Explorer 查看 3456 的哪些线程 id 占用 cpu 高，纪录下来，并转换成十六进制值 
+    - 在刚刚输出的那个 log 文件中搜索查询十六进制的线程 id 看下具体发生了什么
 
 #### 一次 JVM 引起的 CPU 高排查
 
