@@ -649,6 +649,7 @@ location ^~ /sculptor-boot-backend/webSocket {
     proxy_set_header Connection "upgrade";
     proxy_set_header X-real-ip $remote_addr;
     proxy_set_header X-Forwarded-For $remote_addr;
+    proxy_set_header X-Forwarded-Proto $scheme;
     proxy_read_timeout 600s;
 }
 ```
