@@ -61,8 +61,11 @@
     - [口服补液盐](http://search.jd.com/Search?keyword=口服补液盐&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=21c29aa136444540a02a8f89777aeb6a-p_276666007&abt=3)，**用于治疗儿童、成年消化不良和秋季腹泻引起的轻度及中度脱水**
 - 腹泻
     - [蒙脱石散](http://search.jd.com/Search?keyword=蒙脱石散&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=e5dd4eabf5db41b8a67d56f695f844c4-p_276666007&abt=3)，**成人及儿童急、慢性腹泻。**
+    - [洛哌丁胺](http://search.jd.com/Search?enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=c0d90a09b813492cbb88dbd39455a471-p_669678130&abt=3&keyword=%E6%B4%9B%E5%93%8C%E4%B8%81%E8%83%BA)
     - [口服补液盐](http://search.jd.com/Search?keyword=口服补液盐&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=21c29aa136444540a02a8f89777aeb6a-p_276666007&abt=3)，**用于治疗儿童、成年消化不良和秋季腹泻引起的轻度及中度脱水**
 	- [喇叭牌正露丸](http://search.jd.com/Search?keyword=喇叭牌正露丸&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=be4dc6a768dc44179644aca8812990c7-p_276666007&abt=3)
+- 肠道不适
+    - [匹维溴铵](http://search.jd.com/Search?enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=c0d90a09b813492cbb88dbd39455a471-p_669678130&abt=3&keyword=%E5%8C%B9%E7%BB%B4%E6%BA%B4%E9%93%B5)
 - 腹痛/恶心/呕吐
     - [吗丁啉](http://search.jd.com/Search?keyword=吗丁啉&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=91dc20de5e724e008dcf603a1757343a-p_276666007&abt=3)，**适应症为用于消化不良，腹胀、嗳气、恶心、呕吐、腹部胀痛**
 - 胃痛胃胀
@@ -78,10 +81,11 @@
     - [维生素C](http://search.jd.com/Search?keyword=维生素C&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=cbab6c2e75674e86819d91542c8561c3-p_276666007&abt=3)
 - 过敏
     - 过敏很多类型，具体请根据自身情况进行选择药物。
+    - [氯雷他定](http://search.jd.com/Search?enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=c0d90a09b813492cbb88dbd39455a471-p_669678130&abt=3&keyword=%E6%B0%AF%E9%9B%B7%E4%BB%96%E5%AE%9A)
+    - [依巴斯汀](http://search.jd.com/Search?enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=c0d90a09b813492cbb88dbd39455a471-p_669678130&abt=3&keyword=%E4%BE%9D%E5%B7%B4%E6%96%AF%E6%B1%80)
     - [复方甘草酸苷片](http://search.jd.com/Search?keyword=复方甘草酸苷片&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=94f6367229514b3ea8c5a43af21fde4d-p_276666007&abt=3)
     - [皿治林 咪唑斯汀缓释片](http://search.jd.com/Search?keyword=皿治林%20咪唑斯汀缓释片&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=94f6367229514b3ea8c5a43af21fde4d-p_276666007&abt=3)
     - [丁酸氢化可的松乳膏](http://search.jd.com/Search?keyword=丁酸氢化可的松乳膏&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=94f6367229514b3ea8c5a43af21fde4d-p_276666007&abt=3)
-    - [大宝](http://search.jd.com/Search?keyword=大宝&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=fc9d605bd3d54deb8419ba7e1a3d4e1a-p_276666007&abt=3)
 - [晕车/晕船/晕机]()
     - [风油精](http://search.jd.com/Search?keyword=风油精&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=6bb225914b8e41e99580ad113751c387-p_276666007&abt=3)
     - [苯巴比妥东莨菪碱片](http://search.jd.com/Search?keyword=苯巴比妥东莨菪碱片&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=ae0a3972ba3f4b8282d0c9f0f7f9965b-p_276666007&abt=3)，**适应症为用于防治乘车、船和飞机引起的眩晕、恶心和呕吐等晕动病症状**
@@ -98,6 +102,8 @@
     - 保健品一般走的都是特定需求。每个人的体质不一样，对应的保健品也各不相同，我比较挑食，所有有些元素我需要用这类要来补充。
     - 不建议一下子吃太多这里药品，在一个时间段吃 1~2 种就差不多了，要有针对性。
     - 对应功能你可以点击进去详细查看，建议通读，了解下保健品市场。
+    - 最好买带有 OTC 标识的，而不是保健食品标识。两者国家的质检是不一样的。
+    - [斯利安 叶酸片](http://search.jd.com/Search?enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=c0d90a09b813492cbb88dbd39455a471-p_669678130&abt=3&keyword=%E6%96%AF%E5%88%A9%E5%AE%89%20%E5%8F%B6%E9%85%B8%E7%89%87)
     - [男性 维生素综合片](http://search.jd.com/Search?keyword=男性%20维生素综合片&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=dafc9d4b25894be99d8575b43fe62d6c-p_276666007&abt=3)
     - [女性 维生素综合片](http://search.jd.com/Search?keyword=女性%20维生素综合片&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=dafc9d4b25894be99d8575b43fe62d6c-p_276666007&abt=3)
     - [家庭装 维生素综合片](http://search.jd.com/Search?keyword=家庭装%20维生素综合片&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=dafc9d4b25894be99d8575b43fe62d6c-p_276666007&abt=3)
