@@ -362,6 +362,14 @@ swapon /swapfile
 	- 添加这句在文件最后一行：`/swapfile swap swap defauluts 0 0`
 - 重启机子：`reboot`
 
+## 查看 MySQL 安装目录
+
+```
+whereis mysql
+或
+which mysql
+```
+
 ## SQL 优化
 
 - 表设计
