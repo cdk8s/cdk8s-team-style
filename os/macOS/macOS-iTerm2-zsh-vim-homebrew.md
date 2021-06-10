@@ -50,11 +50,11 @@ BREW_REPO = "https://mirrors.ustc.edu.cn/brew.git".freeze
 git clone git://mirrors.ustc.edu.cn/homebrew-core.git/ /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core --depth=1
 
 换源：
-cd "$(brew --repo)" 
+cd "$(brew --repo)"
 git remote set-url origin https://mirrors.ustc.edu.cn/brew.git
 
 
-cd "$(brew --repo)/Library/Taps/homebrew/homebrew-core" 
+cd "$(brew --repo)/Library/Taps/homebrew/homebrew-core"
 git remote set-url origin https://mirrors.ustc.edu.cn/homebrew-core.git
 
 brew update
