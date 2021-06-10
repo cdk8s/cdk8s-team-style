@@ -75,7 +75,6 @@ brew update
     - 更新指定软件包：`brew upgrade 软件包名称`
     - 搜索是否存在对应的软件包：`brew search 软件包名称`
     - 查看对应软件包的信息：`brew info 软件包名称`
-    - 更新 Homebrew 在服务器端上的包目录：`brew update`
     - 清理旧版本的包缓存时：`brew cleanup`
     - 查看你安装过的包列表：`brew list`
     - 更新 Homebrew 在服务器端上的包目录：`brew update`
