@@ -423,7 +423,10 @@ Average:        0     24841      8.80      0.00 10423576 4968428  30.54  java
 - `df -m`：以磁盘容量单位 M 为数值结果查看磁盘使用情况
 - `du -sh /opt/tomcat6`：查看tomcat6这个文件夹大小 (h的意思human-readable用人类可读性较好方式显示，系统会自动调节单位，显示合适大小的单位)
 - `du /opt --max-depth=1 -h`：查看指定录入下包括子目录的各个文件大小情况
-
+- `du -hm --max-depth=2 | sort -nr | head -12`，找出系统中占用容量最大的前 12 个目录
+- `du -a /opt | sort -n -r | head -n 10`，找出 /opt 中最大的 10 个文件
+- `find / -type f -print0 | xargs -0 du -h | sort -rh | head -n 10`，找出 /opt 中最大的 10 个文件
+- `find /opt -type f -size +800M  -print0 | xargs -0 du -h | sort -nr`，找出 /opt 目录下大于 800 M 的文件
 
 #### 命令：iostat（判断 I/0 瓶颈）
 
