@@ -714,6 +714,7 @@ lo       65536   453650      0      0 0        453650      0      0      0 LRU
 	- `ping www.GitNavi.com`
 - telnet 测试端口的连通性（验证服务的可用性）
 	- `yum install -y telnet`
+      - mac：`brew update && brew install telnet`
 	- `telnet 116.196.110.68 3306`
 	- `telnet www.youmeek.com 80`
 - tracert（跟踪路由）查看网络请求节点访问情况，用于确定 IP 数据报访问目标所采取的路径。
