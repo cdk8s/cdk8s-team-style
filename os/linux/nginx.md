@@ -928,12 +928,18 @@ location ~ .*$ {
 
 ### root 和 alias
 
+- root 实际访问文件路径会拼接URL中的路径
+- alias 实际访问文件路径不会拼接URL中的路径
+
 ```
 https://api.abc.com/hstupload/uploadVideo/20210611/20210611173956277.mp4
 location ^~ /hstupload {
     root    /opt/hst_file_upload;
+    # 开启索引功能
     autoindex on;
+    # 关闭计算文件确切大小（单位bytes），只显示大概大小（单位kb、mb、gb）
     autoindex_exact_size off;
+    # 显示本机时间而非 GMT 时间
     autoindex_localtime on;
 }
 用 root 则要求实际目录是这样的：/opt/hst_file_upload/hstupload/uploadVideo/20210611/20210611173956277.mp4
