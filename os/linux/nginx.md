@@ -922,7 +922,33 @@ location ~ .*\.(gif|jpg|jpeg|png|bmp|swf|ico|woff|woff2|ttf|eot|txt)$ {
 location ~ .*$ {
 
 }
+
+
 ```
+
+### root 和 alias
+
+```
+https://api.abc.com/hstupload/uploadVideo/20210611/20210611173956277.mp4
+location ^~ /hstupload {
+    root    /opt/hst_file_upload;
+    autoindex on;
+    autoindex_exact_size off;
+    autoindex_localtime on;
+}
+用 root 则要求实际目录是这样的：/opt/hst_file_upload/hstupload/uploadVideo/20210611/20210611173956277.mp4
+
+
+https://api.abc.com/hstupload/uploadVideo/20210611/20210611173956277.mp4
+location ^~ /hstupload {
+    alias    /opt/hst_file_upload;
+    autoindex on;
+    autoindex_exact_size off;
+    autoindex_localtime on;
+}
+用 alias 则要求实际目录是这样的：/opt/hst_file_upload/uploadVideo/20210611/20210611173956277.mp4
+```
+
 
 ### 链接 aa 下，查询参数包含 bb
 
