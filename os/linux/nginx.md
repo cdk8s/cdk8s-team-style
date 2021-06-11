@@ -923,6 +923,28 @@ location ~ .*$ {
 
 }
 
+没有 context-path
+location / {
+  proxy_pass http://127.0.0.1:9091;
+  proxy_redirect off;
+  proxy_set_header Host $host;
+  proxy_set_header X-Real-IP $remote_addr;
+  proxy_set_header X-Forwarded-Host $host;
+  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+  proxy_set_header X-Forwarded-Proto $scheme;
+}
+
+有 context-path
+location ^~ /sculptor-boot-backend/ {
+  proxy_pass http://127.0.0.1:9091;
+  proxy_redirect off;
+  proxy_set_header Host $host;
+  proxy_set_header X-Real-IP $remote_addr;
+  proxy_set_header X-Forwarded-Host $host;
+  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+  proxy_set_header X-Forwarded-Proto $scheme;
+}
+
 
 ```
 
