@@ -91,6 +91,7 @@ brew update
 
 ```
 brew install node@14
+brew install opensll@1.1
 brew install vim
 brew install git
 brew install zsh
