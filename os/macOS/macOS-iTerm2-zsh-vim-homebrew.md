@@ -27,7 +27,7 @@
 
 - 先安装 Xcode command line tools：
     - 打开终端，输入：`xcode-select --install `，如果提示已经安装过了那就不用管了。
-- 国内源安装推荐文：
+- **国内源安装推荐文：**
     - <https://gitee.com/cunkai/HomebrewCN>
     - 安装完后退出整个软件，然后重新打开再通过 brew 安装其他软件
 - 打开终端，复制该命令：`ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`
@@ -62,11 +62,11 @@ brew update
 安装测试：brew install proxychains-ng
 ```
 
-
 - 测试
     - 打开终端，复制该命令：`brew doctor`
         - 如果输出：`Your system is ready to brew.`，则表示安装成功。
 - 卸载
+    - 先查看你安装过的包列表：`brew list`
     - 打开终端，复制该命令：`ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)"`
     - 删除目录：`sudo rm -rf /usr/local/Homebrew`
 - Homebrew 基本使用
@@ -80,9 +80,6 @@ brew update
     - 更新 Homebrew 在服务器端上的包目录：`brew update`
     - 查看那些已安装的程序需要更新：`brew outdated`
 - 使用国内源
-    - 默认的源实在速度有够慢的
-    - 腾讯云
-        - <https://zhuanlan.zhihu.com/p/72251385>
     - 中科大
         - <https://lug.ustc.edu.cn/wiki/mirrors/help/brew.git>
         - <https://lug.ustc.edu.cn/wiki/mirrors/help/homebrew-bottles>
@@ -90,7 +87,24 @@ brew update
         - <https://mirror.tuna.tsinghua.edu.cn/help/homebrew/>
         - <https://mirror.tuna.tsinghua.edu.cn/help/homebrew-bottles/>
 
+- 常用安装软件
 
+```
+brew install node@14
+brew install vim
+brew install git
+brew install zsh
+brew install htop
+brew install wrk
+brew install telnet
+brew install curl
+brew install wget
+brew install yarn
+brew install ruby
+brew install python@3.9
+```
+
+- 官网软件列表（按下载倒序排名）：<https://formulae.brew.sh/api/analytics/install-on-request/90d.json >
 
 -------------------------------------------------------------------
 

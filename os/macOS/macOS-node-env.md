@@ -5,12 +5,17 @@
 
 - **Homebrew 方式（推荐，因为避免权限问题）**：`brew install node`
     - 如果你不想要最新版本的 node 可以先查询已有哪些版本：`brew search node`
-    - 目前稳定版本是 10，要安装 10 可以这样做：
+    - 目前稳定版本是 14，要安装 14 可以这样做：
 
 ```
-brew install node@10
+brew install node@14
 
-brew link --overwrite --force node@10
+根据安装后的提示配置环境变量：
+export PATH="/usr/local/opt/node@14/bin:$PATH"
+export LDFLAGS="-L/usr/local/opt/node@14/lib"
+export CPPFLAGS="-I/usr/local/opt/node@14/include"
+
+brew link --overwrite --force node@14
 ```
 
 
