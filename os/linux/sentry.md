@@ -29,14 +29,13 @@ cd onpremise
 并且 docker 是启动状态
 并且 docker 镜像源是国内地址，不然下载镜像就更慢了
 
-开始安装，下载镜像比较多，所以过程挺长的，预计要十分钟左右
+开始安装，下载镜像比较多，所以过程挺长的，预计要 20 分钟左右，总下载镜像大小为 3.16GB
 本身带了 redis，nginx，pgsql 等
-安装过程会提示你创建用户
-./install.sh
-
 安装过程的日志存储在：sentry_install_log-当前系统时间.txt
+>> 终端安装过程会提示你创建用户
+安装命令：./install.sh
 
-docker-compose up -d
+启动：docker-compose up -d
 
 如果安装过程你没有创建用户，可以再通过下面命令行创建账号
 docker-compose run --rm web createuser
