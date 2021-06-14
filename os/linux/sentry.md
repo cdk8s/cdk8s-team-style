@@ -43,7 +43,7 @@ docker-compose run --rm web createuser
 默认暴露的端口是9000
 ```
 
-- 可以看到启动了很多容器：
+- 可以看到启动了很多容器：（2020-09-28 版本）
 
 ```
 CONTAINER ID        IMAGE                                  COMMAND                  CREATED             STATUS              PORTS                          NAMES
@@ -73,7 +73,41 @@ f628295620b7        yandex/clickhouse-server:20.3.9.70     "/entrypoint.sh"     
 a7fcebcc4663        confluentinc/cp-zookeeper:5.5.0        "/etc/confluent/dock…"   23 minutes ago      Up 14 minutes       2181/tcp, 2888/tcp, 3888/tcp   sentry_onpremise_zookeeper_1
 ```
 
+- 2021-06-14 安装的版本：
 
+```
+
+CONTAINER ID        IMAGE                                  COMMAND                  CREATED             STATUS                   PORTS                          NAMES
+87de34674c04        nginx:1.16                             "nginx -g 'daemon of…"   2 minutes ago       Up 2 minutes             0.0.0.0:9000->80/tcp           sentry_onpremise_nginx_1
+e7c8e36b001c        getsentry/relay:nightly                "/bin/bash /docker-e…"   2 minutes ago       Up 2 minutes             3000/tcp                       sentry_onpremise_relay_1
+fecad7d40836        getsentry/sentry:nightly               "/etc/sentry/entrypo…"   2 minutes ago       Up 2 minutes             9000/tcp                       sentry_onpremise_ingest-consumer_1
+710eefc3e172        getsentry/sentry:nightly               "/etc/sentry/entrypo…"   2 minutes ago       Up 2 minutes             9000/tcp                       sentry_onpremise_subscription-consumer-transactions_1
+14c357a9643f        getsentry/sentry:nightly               "/etc/sentry/entrypo…"   2 minutes ago       Up 2 minutes             9000/tcp                       sentry_onpremise_subscription-consumer-events_1
+6be0f24d5b5c        getsentry/sentry:nightly               "/etc/sentry/entrypo…"   2 minutes ago       Up 2 minutes             9000/tcp                       sentry_onpremise_worker_1
+4acf8889b8c1        getsentry/sentry:nightly               "/etc/sentry/entrypo…"   2 minutes ago       Up 2 minutes             9000/tcp                       sentry_onpremise_web_1
+2c1c24f39df9        getsentry/sentry:nightly               "/etc/sentry/entrypo…"   2 minutes ago       Up 2 minutes             9000/tcp                       sentry_onpremise_post-process-forwarder_1
+160a03816357        getsentry/sentry:nightly               "/etc/sentry/entrypo…"   2 minutes ago       Up 2 minutes             9000/tcp                       sentry_onpremise_cron_1
+4c57d9d2ef30        sentry-cleanup-onpremise-local         "/entrypoint.sh '0 0…"   2 minutes ago       Up 2 minutes             9000/tcp                       sentry_onpremise_sentry-cleanup_1
+75a6926fcba6        snuba-cleanup-onpremise-local          "/entrypoint.sh '*/5…"   2 minutes ago       Up 2 minutes             1218/tcp                       sentry_onpremise_snuba-cleanup_1
+887078631bf4        snuba-cleanup-onpremise-local          "/entrypoint.sh '*/5…"   2 minutes ago       Up 2 minutes             1218/tcp                       sentry_onpremise_snuba-transactions-cleanup_1
+666624ce19e6        symbolicator-cleanup-onpremise-local   "/entrypoint.sh '55 …"   2 minutes ago       Up 2 minutes             3021/tcp                       sentry_onpremise_symbolicator-cleanup_1
+834ca260d86b        getsentry/snuba:nightly                "./docker_entrypoint…"   5 minutes ago       Up 2 minutes             1218/tcp                       sentry_onpremise_snuba-transactions-consumer_1
+9d65f947c218        getsentry/snuba:nightly                "./docker_entrypoint…"   5 minutes ago       Up 2 minutes             1218/tcp                       sentry_onpremise_snuba-outcomes-consumer_1
+05e7d64b6dcc        getsentry/snuba:nightly                "./docker_entrypoint…"   5 minutes ago       Up 2 minutes             1218/tcp                       sentry_onpremise_snuba-subscription-consumer-transactions_1
+b5914744f159        getsentry/snuba:nightly                "./docker_entrypoint…"   5 minutes ago       Up 2 minutes             1218/tcp                       sentry_onpremise_snuba-replacer_1
+3d8b202ee1c7        getsentry/snuba:nightly                "./docker_entrypoint…"   5 minutes ago       Up 2 minutes             1218/tcp                       sentry_onpremise_snuba-consumer_1
+171450e8ad34        getsentry/snuba:nightly                "./docker_entrypoint…"   5 minutes ago       Up 2 minutes             1218/tcp                       sentry_onpremise_snuba-subscription-consumer-events_1
+54007e80ceac        getsentry/snuba:nightly                "./docker_entrypoint…"   5 minutes ago       Up 2 minutes             1218/tcp                       sentry_onpremise_snuba-sessions-consumer_1
+608f511d4f17        getsentry/snuba:nightly                "./docker_entrypoint…"   5 minutes ago       Up 2 minutes             1218/tcp                       sentry_onpremise_snuba-api_1
+f7663aa5df65        postgres:9.6                           "/opt/sentry/postgre…"   5 minutes ago       Up 2 minutes (healthy)   5432/tcp                       sentry_onpremise_postgres_1
+c21437ad122d        memcached:1.5-alpine                   "docker-entrypoint.s…"   5 minutes ago       Up 2 minutes (healthy)   11211/tcp                      sentry_onpremise_memcached_1
+666f2532d40d        getsentry/symbolicator:nightly         "/bin/bash /docker-e…"   5 minutes ago       Up 2 minutes             3021/tcp                       sentry_onpremise_symbolicator_1
+a4cd60a6ec7a        tianon/exim4                           "docker-entrypoint.s…"   5 minutes ago       Up 2 minutes             25/tcp                         sentry_onpremise_smtp_1
+1abd7f6ab707        confluentinc/cp-kafka:5.5.0            "/etc/confluent/dock…"   5 minutes ago       Up 2 minutes (healthy)   9092/tcp                       sentry_onpremise_kafka_1
+130b616a33e9        confluentinc/cp-zookeeper:5.5.0        "/etc/confluent/dock…"   5 minutes ago       Up 2 minutes (healthy)   2181/tcp, 2888/tcp, 3888/tcp   sentry_onpremise_zookeeper_1
+5cf72b95d1fb        yandex/clickhouse-server:20.3.9.70     "/entrypoint.sh"         5 minutes ago       Up 2 minutes             8123/tcp, 9000/tcp, 9009/tcp   sentry_onpremise_clickhouse_1
+b0ac03911f33        redis:5.0-alpine                       "docker-entrypoint.s…"   5 minutes ago       Up 2 minutes (healthy)   6379/tcp                       sentry_onpremise_redis_1
+```
 
 
 - <http://127.0.0.1:9000>
