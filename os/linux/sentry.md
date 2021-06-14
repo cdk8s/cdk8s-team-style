@@ -32,7 +32,7 @@ cd onpremise
 开始安装，下载镜像比较多，所以过程挺长的，预计要 20 分钟左右，总下载镜像大小为 3.16GB
 本身带了 redis，nginx，pgsql 等
 安装过程的日志存储在：sentry_install_log-当前系统时间.txt
->> 终端安装过程会提示你创建用户
+>> 终端安装过程会提示你创建用户，稍后要用这个账号登录
 安装命令：./install.sh
 
 启动：docker-compose up -d
