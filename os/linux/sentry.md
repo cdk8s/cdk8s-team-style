@@ -135,4 +135,8 @@ docker-compose up -d
 docker exec -i sentry_onpremise_worker_1 sentry cleanup --days 30 && docker exec -i -u postgres sentry_onpremise_postgres_1 vacuumdb -U postgres -d postgres -v -f --analyze
 ```
 
+## 结合项目使用
+
+- 创建项目：<http://8.134.92.38:9000/organizations/sentry/projects/new/>
+- 然后根据引导选择不同项目类型，下一步会给你提供配置属性，直接复制即可
 
