@@ -4,7 +4,7 @@
 
 - CentOS 7 64位
 - 禁用防火墙、selinux、swap
-- 需要部署的组件很多，至少需要：4C8G
+- 需要部署的组件很多，至少需要：4C8G，推荐 16G 内存不然真实环境是不够的
 
 ## Sentry 基本介绍
 
@@ -15,7 +15,9 @@
 ## Sentry 安装（Docker）
 
 - 当前时间：2020-09-28 最新版本为：Sentry 20.10.0
-- 官网专门提供了一个项目：<https://github.com/getsentry/onpremise>
+- 官网专门提供了一个项目：
+    - <https://github.com/getsentry/onpremise>
+    - <https://develop.sentry.dev/self-hosted/>
 
 
 ```
@@ -23,7 +25,11 @@ git clone --depth=1 https://github.com/getsentry/onpremise.git
 
 cd onpremise
 
-开始安装，下载镜像比较多，所以过程挺长的
+确保有 docker、docker-compose 环境，
+并且 docker 是启动状态
+并且 docker 镜像源是国内地址，不然下载镜像就更慢了
+
+开始安装，下载镜像比较多，所以过程挺长的，预计要十分钟左右
 本身带了 redis，nginx，pgsql 等
 安装过程会提示你创建用户
 ./install.sh

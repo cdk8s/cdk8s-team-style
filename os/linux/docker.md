@@ -89,7 +89,17 @@ sudo systemctl stop docker
  
 ``` bash
 {
-  "registry-mirrors": ["https://ldhc17y9.mirror.aliyuncs.com"]
+    "registry-mirrors": [
+      "https://ldhc17y9.mirror.aliyuncs.com",
+      "https://hub-mirror.c.163.com",
+      "https://mirror.baidubce.com",
+      "https://docker.mirrors.ustc.edu.cn"
+    ],
+	"log-driver": "json-file",
+	"log-opts": {
+		"max-size": "10m",
+	    "max-file": "5"
+	}
 }
 ```
  
@@ -545,7 +555,12 @@ Build Cache                                                 0B                  
  
 ``` bash
 {
-	"registry-mirrors": ["https://ldhc17y9.mirror.aliyuncs.com"],
+    "registry-mirrors": [
+      "https://ldhc17y9.mirror.aliyuncs.com",
+      "https://hub-mirror.c.163.com",
+      "https://mirror.baidubce.com",
+      "https://docker.mirrors.ustc.edu.cn"
+    ],
 	"log-driver": "json-file",
 	"log-opts": {
 		"max-size": "10m",
