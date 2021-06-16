@@ -443,6 +443,27 @@ SET GLOBAL slow_query_log = 'ON';
 DROP TABLE mysql.slow_log_drop; 
 ```
 
+## MySQL 8.0 的卸载
+
+```
+whereis mysql
+mysql: /usr/bin/mysql /usr/lib64/mysql /usr/share/man/man1/mysql.1.gz
+
+rpm -qa |grep -i mysql
+mysql-community-common-8.0.23-1.el7.x86_64
+mysql-community-client-plugins-8.0.23-1.el7.x86_64
+mysql-community-client-8.0.23-1.el7.x86_64
+mysql-community-server-8.0.23-1.el7.x86_64
+mysql80-community-release-el7-3.noarch
+mysql-community-libs-8.0.23-1.el7.x86_64
+mysql-community-libs-compat-8.0.23-1.el7.x86_64
+
+删除以上查询的到，以及下面一些未查询到的：
+rm -rf /var/lib/mysql
+rm -rf /var/lib/mysql-files
+rm /etc/my.cnf
+```
+
 
 -------------------------------------------------------------------
 
