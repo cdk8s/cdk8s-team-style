@@ -945,6 +945,25 @@ location ^~ /sculptor-boot-backend/ {
   proxy_set_header X-Forwarded-Proto $scheme;
 }
 
+在响应状态码成功时，add_header 指令才生效
+server {
+    listen  8088;
+    location /abc {
+        root /opt/upload;
+        add_header Cache-Control no-cache;
+        add_header 'Access-Control-Allow-Origin' '*' always;
+    }
+}
+
+方便测试，直接响应指定状态码和内容
+server {
+    listen  8088;
+    location /abc {
+        return 200 '"OK"';
+    }
+}
+
+
 
 ```
 
