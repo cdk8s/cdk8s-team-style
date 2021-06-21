@@ -804,6 +804,23 @@ Out of memory: Kill process 19452 (java) score 264 or sacrifice child
 
 ---------------------------------------------------------------------
 
+## 通过PID查看进程完整信息、所在位置
+
+- 先通过 top 找到你想要的程序 PID，比如 7022，然后执行：
+- `ll /proc/7022`，可以得到一些信息，其中下面几个是最核心的
+
+```
+exe 符号连接就是执行程序的绝对路径（核心）
+cwd 符号链接的是进程运行目录；
+cmdline 就是程序运行时输入的命令行命令；
+environ 记录了进程运行时的环境变量；
+fd 目录下是进程打开或使用的文件的符号连接。
+```
+
+
+
+---------------------------------------------------------------------
+
 ## 服务器故障排查顺序
 
 #### 请求时好时坏
@@ -979,6 +996,7 @@ S0     S1     E      O      M     CCS    YGC     YGCT    FGC    FGCT     GCT
 - <https://www.jianshu.com/p/3667157d63bb>
 - <https://www.cnblogs.com/yjd_hycf_space/p/7755633.html>
 - <http://silverd.cn/2016/05/27/nginx-access-log.html>
+- <https://blog.csdn.net/Great_Smile/article/details/50114133>
 
 
 
