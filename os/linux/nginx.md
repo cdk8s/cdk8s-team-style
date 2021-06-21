@@ -945,7 +945,8 @@ location ^~ /sculptor-boot-backend/ {
   proxy_set_header X-Forwarded-Proto $scheme;
 }
 
-在响应状态码成功时，add_header 指令才生效
+只有当 `响应状态码` 等于 200, 201, 204, 206, 301, 302, 303, 304, 307, 或 308 时生效
+如果指定了 always 参数，头信息将无视状态码，在所有响应中强制返回
 server {
     listen  8088;
     location /abc {
