@@ -110,9 +110,64 @@ docker run --name local-nginx \
 
 -------------------------------------------------------------------
 
-## Nginx 源码编译安装（带监控模块）
+## Nginx 1.21.0 源码编译安装（离线安装）（带监控模块）
+
+```
+下载：
+gcc-c++-4.8.5-44.el7.x86_64.rpm
+keyutils-libs-devel-1.5.8-3.el7.x86_64.rpm
+krb5-devel-1.15.1-50.el7.x86_64.rpm
+libcom_err-devel-1.42.9-19.el7.x86_64.rpm
+libkadm5-1.15.1-50.el7.x86_64.rpm
+libselinux-devel-2.5-15.el7.x86_64.rpm
+libsepol-devel-2.5-10.el7.x86_64.rpm
+libstdc++-devel-4.8.5-44.el7.x86_64.rpm
+libverto-devel-0.2.5-4.el7.x86_64.rpm
+openssl-devel-1.0.2k-21.el7_9.x86_64.rpm
+pcre-devel-8.32-17.el7.x86_64.rpm
+zlib-devel-1.2.7-19.el7_9.x86_64.rpm
+
+安装所有依赖：
+rpm -ivh *.rpm
+
+
+下载：
+wget https://nginx.org/download/nginx-1.21.0.tar.gz
+
+tar -zxvf nginx-1.21.0.tar.gz
+
+mkdir -p /usr/local/nginx /var/log/nginx /var/temp/nginx /var/lock/nginx
+
+cd nginx-1.21.0
+
+./configure \
+--prefix=/usr/local/nginx \
+--pid-path=/var/local/nginx/nginx.pid \
+--lock-path=/var/lock/nginx/nginx.lock \
+--error-log-path=/var/log/nginx/error.log \
+--http-log-path=/var/log/nginx/access.log \
+--with-http_gzip_static_module \
+--http-client-body-temp-path=/var/temp/nginx/client \
+--http-proxy-temp-path=/var/temp/nginx/proxy \
+--http-fastcgi-temp-path=/var/temp/nginx/fastcgi \
+--http-uwsgi-temp-path=/var/temp/nginx/uwsgi \
+--with-http_ssl_module \
+--with-http_stub_status_module \
+--http-scgi-temp-path=/var/temp/nginx/scgi
+
+
+make
+make install
+
+启动：/usr/local/nginx/sbin/nginx
+```
+
+
+
+## Nginx 1.8 源码编译安装（离线安装）（带监控模块）
 
 - 官网下载最新稳定版本 **1.8.1**，大小：814K
+- 官网下载地址：<https://nginx.org/en/download.html>
 - 官网安装说明：<https://www.nginx.com/resources/wiki/start/topics/tutorials/install/>
 - 源码编译配置参数说明：
     - <https://www.nginx.com/resources/wiki/start/topics/tutorials/installoptions/>
@@ -145,8 +200,7 @@ docker run --name local-nginx \
 
 - 编译：`make`
 - 安装：`make install`
-- 启动 Nginx
-	- 先检查是否在 /usr/local 目录下生成了 Nginx 等相关文件：`cd /usr/local/nginx;ll`，正常的效果应该是显示这样的：
+- 先检查是否在 /usr/local 目录下生成了 Nginx 等相关文件：`cd /usr/local/nginx;ll`，正常的效果应该是显示这样的：
 
 ``` nginx
 drwxr-xr-x. 2 root root 4096 3月  22 16:21 conf
@@ -154,6 +208,7 @@ drwxr-xr-x. 2 root root 4096 3月  22 16:21 html
 drwxr-xr-x. 2 root root 4096 3月  22 16:21 sbin
 ```
 
+- 启动：`/usr/local/nginx/sbin/nginx`
 - 如果要检查刚刚编译的哪些模块，可以：`nginx -V`
 
 ```
