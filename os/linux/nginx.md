@@ -160,6 +160,8 @@ make
 make install
 
 启动：/usr/local/nginx/sbin/nginx
+刷新 Nginx 配置后重启：/usr/local/nginx/sbin/nginx -s reload
+停止 Nginx：/usr/local/nginx/sbin/nginx -s stop
 ```
 
 
