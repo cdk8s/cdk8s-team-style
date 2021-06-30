@@ -26,6 +26,7 @@
 - **重点**：先准备好你的 nginx.conf 文件，存放在宿主机的：`vim ~/docker/nginx/conf/nginx.conf` 目录下，等下需要映射。
 
 ```
+user root owner;
 worker_processes      1;
 
 events {
@@ -42,7 +43,7 @@ http {
 
   server {
     listen            80;
-    server_name       localhost 127.0.0.1 192.168.31.207 mytestabcdef.com;
+    server_name       192.168.31.207 mytestabcdef.com;
 
     location / {
       root            /usr/share/nginx/html;
@@ -52,10 +53,12 @@ http {
 }
 ```
 
+- 给目录赋权：`chmod -R 755 ~/docker/nginx`
 - 官网镜像：<https://hub.docker.com/_/nginx/>
 - 下载镜像：`docker pull nginx:1.12.2`
   - 2021-06 最新版本为 1.21
 - 运行容器：
+    - 注意：如果是 macOS 系统，无法使用 80、443 端口，需要映射成其他端口
 
 ```
 docker run --name local-nginx \
