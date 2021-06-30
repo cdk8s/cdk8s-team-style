@@ -26,39 +26,70 @@
 - **重点**：先准备好你的 nginx.conf 文件，存放在宿主机的：`vim ~/docker/nginx/conf/nginx.conf` 目录下，等下需要映射。
 
 ```
-user root owner;
-worker_processes      1;
+user  nginx;
+worker_processes  auto;
+
+error_log  /var/log/nginx/error.log notice;
+pid        /var/run/nginx.pid;
+
 
 events {
-  worker_connections  1024;
+    worker_connections  1024;
 }
 
+
 http {
-  include             mime.types;
-  default_type        application/octet-stream;
+    include       /etc/nginx/mime.types;
+    default_type  application/octet-stream;
 
-  sendfile on;
+    log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                      '$status $body_bytes_sent "$http_referer" '
+                      '"$http_user_agent" "$http_x_forwarded_for"';
 
-  keepalive_timeout   65;
+    access_log  /var/log/nginx/access.log  main;
 
-  server {
-    listen            80;
-    server_name       192.168.31.207 mytestabcdef.com;
-
-    location / {
-      root            /usr/share/nginx/html;
-      index           index.html index.htm;
+    sendfile        on;
+    keepalive_timeout  65;
+    gzip  on;
+    include /etc/nginx/conf.d/*.conf;
+    
+    server {
+        listen            80;
+        server_name       192.168.31.207 mytestabcdef.com;
+    
+        location / {
+          root            /usr/share/nginx/html;
+          index           index.html index.htm;
+        }
     }
-  }
 }
 ```
 
-- 给目录赋权：`chmod -R 755 ~/docker/nginx`
+- 创建一个 html 页面（macOS 需要创建这个，不然映射后默认的容器 /usr/share/nginx/html 无权限读取里面内容）
+
+```
+vim ~/docker/nginx/html/index.html
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>这是首页</title>
+</head>
+<body>
+<h1>这是 nginx 首页</h1>
+</body>
+</html>
+```
+
+
+- 给目录赋权：`chmod -R 777 ~/docker/nginx`
 - 官网镜像：<https://hub.docker.com/_/nginx/>
 - 下载镜像：`docker pull nginx:1.12.2`
   - 2021-06 最新版本为 1.21
-- 运行容器：
-    - 注意：如果是 macOS 系统，无法使用 80、443 端口，需要映射成其他端口
+- 运行容器：（macOS 下也支持 80、443 端口）
 
 ```
 docker run --name local-nginx \
