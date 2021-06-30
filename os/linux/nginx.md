@@ -1,5 +1,5 @@
 
-# Nginx 安装和使用
+# Nginx 使用
 
 ## 环境
 
@@ -18,10 +18,12 @@
     - 次要：<http://nginx.org/en/docs/>
 - Nginx 模块地址：<https://www.nginx.com/resources/wiki/modules/>
 
+-------------------------------------------------------------------
+
 ## Nginx 安装（Docker）
 
-- 预设好目录，在宿主机上创建下面目录：`mkdir -p /data/docker/nginx/logs /data/docker/nginx/conf /data/docker/nginx/html`
-- **重点**：先准备好你的 nginx.conf 文件，存放在宿主机的：`vim /data/docker/nginx/conf/nginx.conf` 目录下，等下需要映射。
+- 预设好目录，在宿主机上创建下面目录：`mkdir -p ~/docker/nginx/logs ~/docker/nginx/conf ~/docker/nginx/html`
+- **重点**：先准备好你的 nginx.conf 文件，存放在宿主机的：`vim ~/docker/nginx/conf/nginx.conf` 目录下，等下需要映射。
 
 ```
 worker_processes      1;
@@ -40,7 +42,7 @@ http {
 
   server {
     listen            80;
-    server_name       localhost 127.0.0.1 193.112.221.203 youmeek.com;
+    server_name       localhost 127.0.0.1 192.168.31.207 mytestabcdef.com;
 
     location / {
       root            /usr/share/nginx/html;
@@ -52,20 +54,22 @@ http {
 
 - 官网镜像：<https://hub.docker.com/_/nginx/>
 - 下载镜像：`docker pull nginx:1.12.2`
+  - 2021-06 最新版本为 1.21
 - 运行容器：
 
 ```
 docker run --name local-nginx \
 -p 80:80 \
--v /data/docker/nginx/logs:/var/log/nginx \
--v /data/docker/nginx/conf/nginx.conf:/etc/nginx/nginx.conf:ro \
--v /data/docker/nginx/html:/usr/share/nginx/html \
--d nginx:1.12.2
+-p 443:443 \
+-v ~/docker/nginx/logs:/var/log/nginx \
+-v ~/docker/nginx/conf/nginx.conf:/etc/nginx/nginx.conf:ro \
+-v ~/docker/nginx/html:/usr/share/nginx/html \
+-d nginx:1.21
 ```
 
-- 重新加载配置（目前测试无效，只能重启服务）：`docker exec -it youmeek-nginx nginx -s reload`
-- 停止服务：`docker exec -it youmeek-nginx nginx -s stop` 或者：`docker stop youmeek-nginx`
-- 重新启动服务：`docker restart youmeek-nginx`
+- 重新加载配置（目前测试无效，只能重启服务）：`docker exec -it local-nginx nginx -s reload`
+- 停止服务：`docker exec -it local-nginx nginx -s stop` 或者：`docker stop local-nginx`
+- 重新启动服务：`docker restart local-nginx`
 
 
 -------------------------------------------------------------------
@@ -361,7 +365,7 @@ server {
 - 除了 crt 后缀的文件，有的是 pem 后缀的，配置一样
 - 旧版本的 nginx
 ```
-# crt 和 key 文件的存放位置根据你自己存放位置进行修改
+# crt（或pem格式） 和 key 文件的存放位置根据你自己存放位置进行修改
 server {
     listen       443;
     server_name  sso.youmeek.com;
