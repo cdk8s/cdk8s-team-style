@@ -162,12 +162,12 @@ PLAY RECAP *********************************************************************
     # 按行的方式写入
     - name: Set JAVA_HOME 1
       lineinfile: 
-        dest=/etc/profile
+        dest=/root/.bashrc
         line="JAVA_HOME={{ java_install_folder }}/jdk1.8.0_181"
     # 按块的方式写入，#{mark} 会被自动替换成：begin 和 end 字符来包裹整块内容（我这里自己定义了词语）
     - name: Set JAVA_HOME 2
       blockinfile: 
-        path: /etc/profile
+        path: /root/.bashrc
         marker: "#{mark} JDK ENV"
         marker_begin: "开始"
         marker_end: "结束"
@@ -305,7 +305,7 @@ PLAY RECAP *********************************************************************
       
     - name: set JAVA_HOME
       blockinfile: 
-        path: /etc/profile
+        path: /root/.bashrc
         marker: "#{mark} JDK ENV"
         block: |
           JAVA_HOME={{ java_install_folder }}/jdk1.8.0_181
@@ -318,7 +318,7 @@ PLAY RECAP *********************************************************************
           export CLASSPATH
     
     - name: source profile
-      shell: source /etc/profile
+      shell: source /root/.bashrc
 ```
 
 
@@ -350,7 +350,7 @@ PLAY RECAP *********************************************************************
 
     - name: set HADOOP_HOME
       blockinfile: 
-        path: /etc/profile
+        path: /root/.bashrc
         marker: "#{mark} HADOOP ENV"
         block: |
           HADOOP_HOME=/usr/local/hadoop
@@ -359,7 +359,7 @@ PLAY RECAP *********************************************************************
           export PATH
     
     - name: source profile
-      shell: source /etc/profile
+      shell: source /root/.bashrc
 ```
 
 

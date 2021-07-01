@@ -6,8 +6,8 @@
 ## 总结
 
 - iTerm2 比 Mac 默认的 Terminal 终端好用，配合 Zsh 确实更加得体
-- **牢记：** 装了 zsh 之后，修改终端配置就变成了：`vim ~/.zshrc`，而不是：`vim ~/.bash_profile`，所以以后看到别人的文章中需要：`vim ~/.bash_profile`，那你自己要变通思想过来。
-- 同时更新修改后的配置文件也从：`source ~/.bash_profile`，变成了：`source ~/.zshrc`，当然还有其他取取巧方式，这里不谈。
+- **牢记：** 装了 zsh 之后，修改终端配置就变成了：`vim ~/.zshrc`，而不是：`vim ~/.bashrc`，所以以后看到别人的文章中需要：`vim ~/.bashrc`，那你自己要变通思想过来。
+- 同时更新修改后的配置文件也从：`source ~/.bashrc`，变成了：`source ~/.zshrc`，当然还有其他取取巧方式，这里不谈。
 
 
 
@@ -264,7 +264,7 @@ export LESS_TERMCAP_us=$'\E[04;38;5;146m' # begin underline
 - 测试：`proxychains4 curl www.google.com`，如果你能正常下载到 Google 页面，则表示成功了。以后只要在命令前面加个：proxychains4，即可。
 - 修改终端配置，让命令更加简洁：
     - 如果你是 zsh 终端，配置修改：`vim ~/.zshrc`，添加一行：`alias proxy='proxychains4'`
-    - 如果你是 bash 终端，配置修改：`vim ~/.bash_profile`，添加一行：`alias proxy='proxychains4'`
+    - 如果你是 bash 终端，配置修改：`vim ~/.bashrc`，添加一行：`alias proxy='proxychains4'`
     - 修改之后，以后要用 proxychains4 执行穿墙命令的话，那就可以这样写：`proxy curl www.google.com`
 
 

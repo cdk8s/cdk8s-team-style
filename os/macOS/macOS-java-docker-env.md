@@ -32,7 +32,7 @@
 - 我这边不管是 Windows、Mac、Linux，只要开发环境，JAVA_HOME 我都是 JDK8，同时还装有 JDK6、JDK7，在使用 IntelliJ IDEA 的时候，我可以同时使用三个版本的 JDK。
 - JDK 的环境变量是要添加的，我这边可以贴一下。
 - 在本系列前面的章节中我已经说明了，我这边是 Zsh 环境，所以我需要编辑这个配置文件：`vim ~/.zshrc`
-- 如果你是 bash，你需要编辑的是这个：`vim ~/.bash_profile`
+- 如果你是 bash，你需要编辑的是这个：`vim ~/.bashrc`
 - 修改后之后刷新配置文件我是：`source ~/.zshrc`
 
 ``` bash
