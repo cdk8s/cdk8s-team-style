@@ -54,9 +54,23 @@ timedatectl set-timezone Asia/Shanghai
 timedatectl && timedatectl set-ntp true
 
 安装基础软件：zip unzip lrzsz htop deltarpm（在 ju**1 账号云盘中 centos7.9-base-tool.zip）
-sudo rpm -ivh *.rpm
+解压后安装：sudo yum localinstall -y *.rpm
 
+安装 vim 软件（在 ju**1 账号云盘中 centos7.9-vim.zip）
+解压后安装：sudo yum localinstall -y *.rpm
 
+安装 ansible（在 ju**1 账号云盘中 centos7.9-ansible.zip）
+解压后安装：sudo yum localinstall -y *.rpm
+
+配置 ssh 证书免密
+ssh-keygen -t rsa -b 2048 -N '' -f ~/.ssh/id_rsa
+cat /root/.ssh/id_rsa.pub >> /root/.ssh/authorized_keys
+
+编辑 Ansible 配置文件：vim /etc/ansible/hosts
+在配置文件最底部添加如下内容
+[local]
+192.168.31.237
+测试：ansible all -a 'ps'
 
 
 ```
