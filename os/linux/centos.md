@@ -36,6 +36,31 @@
 
 - <https://github.com/judasn/Linux-Tutorial/blob/master/markdown-file/CentOS-7-Install.md>
 
+```
+安装完后需要做如下准备
+设置 hostname，这个最好设置一下，并且设置全部小写字母和数字，一定要小写字母
+hostnamectl set-hostname master1
+
+关闭 SELinux
+setenforce 0 && sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
+
+禁用防火墙
+systemctl stop firewalld && systemctl disable firewalld && echo "vm.swappiness = 0" >> /etc/sysctl.conf && swapoff -a && sysctl -w vm.swappiness=0
+
+设置时区
+timedatectl set-timezone Asia/Shanghai
+
+时间同步
+timedatectl && timedatectl set-ntp true
+
+安装基础软件：zip unzip lrzsz htop deltarpm（在 ju**1 账号云盘中 centos7.9-base-tool.zip）
+sudo rpm -ivh *.rpm
+
+
+
+
+```
+
 
 ## 镜像源
 
