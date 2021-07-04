@@ -415,7 +415,32 @@ Average:        0     24841      8.80      0.00 10423576 4968428  30.54  java
 
 ---------------------------------------------------------------------
 
-## 硬盘监控
+## 硬盘监控/磁盘监控
+
+
+#### 磁盘使用情况
+
+- 优点：
+- 统计的目录以仪表盘更加清晰地展示
+- 可以以磁盘占用大小或者文件名称排序
+
+
+```
+安装（需要 epel-release）：
+yum install -y ncdu
+
+扫描指定目录：
+ncdu /opt
+
+扫描结果出来后，按如下快捷键进行操作：
+?: 提示帮助
+n：按文件名进行排序
+s：按文件大小进行排序
+r：重新统计当前文件夹大小
+g：用#或百分比显示各文件/目录的大小所占的百分比
+i：显示当前文件/目录信息
+```
+
 
 #### 硬盘容量相关查看
 
@@ -566,7 +591,31 @@ Byte是字节数，bit是位数，在计算机中每八位为一字节，也就�
 来源：https://blog.csdn.net/junjieguo/article/details/6458982
 ```
 
+#### iproute2
 
+- iproute2是linux下管理控制TCP/IP网络和流量控制的新一代工具包，旨在替代老派的工具链net-tools，即大家比较熟悉的ifconfig，arp，route，netstat等命令。
+- CentOS 7 之后已经内置了
+
+```
+路由表：ip route
+网络接口统计信息：ip -s link
+组播：ip maddr
+网络接口地址和链路：ip addr /ip link
+ARP：ip neigh
+隧道：ip tunnel
+```
+
+#### 网络监控 nethogs
+
+- nethogs 的特点是可以在终端中看到各个进程的带宽占用情况
+
+```
+安装（需要 epel-release）：
+yum install -y nethogs
+
+每隔 3 秒刷新一次数据
+nethogs -d 3
+```
 
 
 #### 网络监控常用 iftop

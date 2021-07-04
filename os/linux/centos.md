@@ -53,7 +53,7 @@ timedatectl set-timezone Asia/Shanghai
 时间同步
 timedatectl && timedatectl set-ntp true
 
-安装基础软件：zip unzip lrzsz htop deltarpm（在 ju**1 账号云盘中 centos7.9-base-tool.zip）
+安装基础软件：zip unzip lrzsz htop ncdu nethogs deltarpm（在 ju**1 账号云盘中 centos7.9-base-tool.zip）
 解压后安装：sudo yum localinstall -y *.rpm
 
 安装 vim 软件（在 ju**1 账号云盘中 centos7.9-vim.zip）
