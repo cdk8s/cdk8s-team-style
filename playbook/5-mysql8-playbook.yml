@@ -18,7 +18,7 @@
 
     - name: set repo file
       blockinfile:
-        path: /etc/my.cnf
+        path: /etc/yum.repos.d/mysql-community.repo
         marker: ""
         block: |
           [mysql-connectors-community]
