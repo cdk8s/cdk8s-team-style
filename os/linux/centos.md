@@ -39,7 +39,7 @@
 ```
 安装完后需要做如下准备
 设置 hostname，这个最好设置一下，并且设置全部小写字母和数字，一定要小写字母
-hostnamectl set-hostname master1
+hostnamectl set-hostname header1
 
 关闭 SELinux
 setenforce 0 && sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
