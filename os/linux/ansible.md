@@ -372,11 +372,38 @@ PLAY RECAP *********************************************************************
 ## 基础命令
 
 ```
+打印信息
+- debug:
+    msg: "这里使用清华源：https://mirrors.tuna.tsinghua.edu.cn/help/mysql/"
+
+
+yum 卸载
+- name: remove the nodejs
+  yum:
+    name: nodejs
+    state: absent
+
+
+yum 安装并监控执行结果
+- name : install node
+  yum:
+    name: nodejs
+  async : 1000
+  poll : 0
+  register: node_install_result
+- name: 'check install result'
+  async_status: jid={{ node_install_result.ansible_job_id }}
+  register: job_node_install_result
+  until: job_node_install_result.finished
+  retries: 600
+
+
 执行 shell 命令，不带参数
 - name: install-epel
   shell: "{{ item }}"
   with_items:
      - yum install -y epel-release
+
 
 执行 shell 命令，带参数，指定目录下
 - name: install-nginx
@@ -387,6 +414,59 @@ PLAY RECAP *********************************************************************
      - yum localinstall -y *.rpm
 
 
+创建目录
+- name: create directory
+  file:
+    path: /etc/docker
+    state: directory
+
+
+创建文件
+- name: create json file
+  file:
+    path=/etc/docker/{{ item }}
+    state=touch
+    mode=777
+  with_items:
+    - daemon.json
+
+
+复制文件到指定目录
+- name: copy jdk
+  copy:
+    src=/opt/software/jdk-8u261-linux-x64.tar.gz
+    dest=/usr/local
+
+
+删除文件
+- name: remove tar.gz file
+  file:
+    path: /opt/software/jdk-8u261-linux-x64.tar.gz
+    state: absent
+
+
+替换某一行
+- name: replace zshrc update
+  lineinfile:
+    path: /root/.zshrc
+    regexp: '^# DISABLE_AUTO_UPDATE'
+    line: DISABLE_AUTO_UPDATE="true"
+
+
+在文件尾部追加内容
+- name: set config
+  blockinfile:
+    path: /etc/docker/daemon.json
+    marker: ""
+    block: |
+      {
+        "registry-mirrors": [
+          "https://ldhc17y9.mirror.aliyuncs.com",
+          "https://hub-mirror.c.163.com",
+          "https://mirror.baidubce.com",
+          "https://docker.mirrors.ustc.edu.cn"
+        ]
+      }
 ```
 
 

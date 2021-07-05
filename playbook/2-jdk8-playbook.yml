@@ -33,5 +33,5 @@
 
     - name: remove tar.gz file
       file:
-        state: absent
         path: "{{ java_install_folder }}/{{ file_name }}"
+        state: absent
