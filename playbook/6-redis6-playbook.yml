@@ -2,12 +2,12 @@
   remote_user: root
   tasks:
     - name: install remi
-      command: "{{ item }}"
+      shell: "{{ item }}"
       with_items:
         - yum install -y http://rpms.remirepo.net/enterprise/remi-release-7.rpm
 
     - name: install redis
-      command: "{{ item }}"
+      shell: "{{ item }}"
       with_items:
         - yum --enablerepo=remi install redis -y
 

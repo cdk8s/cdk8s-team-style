@@ -1,1011 +1,359 @@
-# Jenkins 安装和配置
 
-## Jenkins 介绍
 
-- 官网：<http://jenkins-ci.org/>
-- 官网插件库：<https://plugins.jenkins.io/>
-- 官网下载：<https://jenkins.io/download/>
-- 官网帮助中心：<https://wiki.jenkins-ci.org/display/JENKINS/Use+Jenkins>
 
-## Docker 下安装 Jenkins
+## 离线数仓
 
-- 配置：至少需要 2G 内存
-- 先禁用 selinux
-	- 编辑配置文件：`vim /etc/selinux/config`
-	- 把 `SELINUX=enforcing` 改为 `SELINUX=disabled`
-	- 重启服务器
-- 官网下载中有介绍其版本标识：<https://jenkins.io/download/>
-	- 我们就选用：Long-term Support (LTS)
-- 官网关于 Docker 部署也有专门文档：<https://github.com/jenkinsci/docker/blob/master/README.md>
-- 先创建一个宿主机以后用来存放数据的目录：`mkdir -p /data/jenkins/jenkins_home && chmod -R 777 /data/jenkins/jenkins_home`
-- 安装镜像（813MB，有点大）：`docker pull jenkins/jenkins:lts`
-- 查看下载下来的镜像：`docker images`
-- 首次运行镜像：`docker run --name jenkins-master -p 8123:18080 -p 50000:50000 -v /etc/localtime:/etc/localtime -v /data/jenkins/jenkins_home:/var/jenkins_home -e JAVA_OPTS="-Duser.timezone=Asia/Shanghai" -d --restart always jenkins/jenkins:lts`
-	- 这里的 8080 端口是 jenkins 运行程序的端口，必须要有映射的。50000 端口是非必须映射的，但是如果你要用 Jenkins 分布式构建这个就必须开放
-- 如果报下面的错误：
+- 每天处理前一天数据，也就是一批一批处理数据，也叫做批处理
+- 前端用户行为埋点数据采集
+- 后端埋点采集
+- MySQL 业务数据采集
+- ETL
+- 即时查询（补充对于那些没有被 spark 预先设计好调度统计的查询场景）
+- 数据可视化（BI可视化：Metabase、Superset）
+- 集群监控
+- 元数据管理（也就是记录他们是如何一步一步递进的：ods > dwd > dws > dwt > ads ）
+- 质量监控（监控计算出来结果的质量）
+
+## 测试环境
+
+- 最小配置
+- header1：4C8G
+- worker1：2C4G
+- worker2：2C4G
+
+## Hadoop、Yarn 架构
 
 ```
-touch: cannot touch '/var/jenkins_home/copy_reference_file.log': Permission denied
-Can not write to /var/jenkins_home/copy_reference_file.log. Wrong volume permissions?
+NameNode and ResourceManager 主节点
+DataNode and NodeManager 工作节点
+
+
+YARN (Yet Another Resource Negotiator)。YARN的核心思想是将资源管理和Job的调度/监控进行分离
+
+YARN的核心组件可以分为两大部分：
+
+全局组件
+
+Resource Manager（RM）: 作为全局统一的资源管理、调度、分配。Resource Manager由Scheduler（调度器：本质上是一种策略）和Applicatio Manager（应用程序管理器，ASM：负责管理Client用户提交的应用）组成。Scheduler根据节点的容量、队列情况，为Application分配资源；Application Manager接受用户提交的请求，在节点中启动Application Master，并监控Application Master的状态、进行必要的重启。
+Node Manager（NM）: 在每一个节点上都有一个Node Manager作为代理监控节点的资源使用情况（cpu, memory, disk, network）并向Resource Manager上报节点状态。
+Per-applicaiton组件
+
+Application Master（AM）: 负责数据处理job的执行调度。Application Master与Resource Manager进行沟通，获取资源进行计算。得到资源后，与节点上的Node Manager进行沟通，在分配的Container汇总执行任务，并监控任务执行的情况。（每当 Client 提交一个 Application 时候，就会新建一个 ApplicationMaster 。由这个 ApplicationMaster 去与 ResourceManager 申请容器资源，获得资源后会将要运行的程序发送到容器上启动，然后进行分布式计算。）
+Container: 资源的一种抽象方式，它封装了某个节点上的多维度资源，如内存、CPU、磁盘、网络等，当Application Master向Resource Manager申请资源时，Resource Manager为Application Master返回的资源便是Container。
 ```
 
-- 解决办法：`chown -R 1000:1000 /data/jenkins/jenkins_home`，具体原因：[点击查看](http://www.cnblogs.com/jackluo/p/5783116.html)
-	- 问题的本质就是，jenkins 镜像中的系统用户是：jenkins，当你进入容器 bash 内，输入：`whoami && id`，你就可以看到他的 uid 是 1000，所以这里才 chown 1000
-- 查看容器运行情况：`docker ps`
-- 进入容器中 Jenkins shell 交互界面：`docker exec -it bd290d5eb0d /bin/bash`
+## hadoop 相关配置文件的参数解释
 
-## 首次使用 Jenkins / Jenkins 插件推荐
+- <https://hadoop.apache.org/docs/r3.1.3/>
+- 打开官网看左侧菜单的最底部，有一个 Configuration，其中包含如下文件的配置说明：
 
-- 我这里就不截图了，有需要截图可以看这博文，差不多就是这样的：[点击我o(∩_∩)o ](https://blog.csdn.net/boling_cavalry/article/details/78942408)
-- 首次进入 Jenkins 的 Web UI 界面是一个解锁页面 Unlock Jenkins，需要让你输入：Administrator password
-	- 这个密码放在：`/var/jenkins_home/secrets/initialAdminPassword`，你需要先：`docker exec -it ci_jenkins_1 /bin/bash`
-		- 然后：`cat /data/jenkins/jenkins_home/secrets/initialAdminPassword`
-		- 也有可能是这个目录：`cat /var/jenkins_home/secrets/initialAdminPassword`
-- 然后再接下来就是插件的安装，我推荐直接用它推荐给我们的插件直接安装，稍后再安装自己需要定制的。
-- 插件安装完会进入：Create First Admin User 页面，填写一个用户信息即可。
-- 我的这里的代码仓库是：Gitlab
-- 推荐插件
-	- Publish Over SSH（具体名字要看下）
-	- Dashbroad View
-	- Folders View
-	- OWASP Markup Formatter Plugin
-	- Build Name Setter Plugin
-	- build timeout plugin
-	- Credentials Binding Plugin
-	- Embeddable Build Status Plugin
-	- Pipeline
-	- Build Pipeline Plugin
-	- Docker Pipeline Plugin
-	- Git plugin
-	- GitLab Plugin
-	- SSH Slaves plugin
-	- Maven Integration plugin
-	- Matrix Authorization Strategy Plugin
-	- PAM Authentication plugin
-	- LDAP Plugin
-	- Role-based Authorization Strategy
-	- Email Extension Plugin
-	- Email Extension Template Plugin
-	- Mailer Plugin
-	- NotifyQQ（[QQ 消息通知](https://github.com/ameizi/NotifyQQ)）
-	- 钉钉通知（[钉钉 消息通知](https://wiki.jenkins.io/display/JENKINS/Dingding+Notification+Plugin)）
-	- 360 FireLine：代码规范检查，已经集成了阿里巴巴的代码规约（P3C）检查
-    - AnsiColor（可选）：这个插件可以让Jenkins的控制台输出的log带有颜色
-	- oauth（具体名字要看下）
-	- Build Failure Analyzer 分析构建错误日志并在构建页面显示错误
-	- SSH plugin 支持通过SSH执行脚本
-	- Pre SCM BuildStep Plugin 在拉代码之前插入一些步骤
-	- GitHub API Plugin Github API插件
-	- GitHub Pull Request Builder Github Pull Request时自动构建
-	- GitHub plugin Github与Jenkins集成
-	- GIT client plugin Git客户端插件
-	- Maven Integration plugin：用于构建 Maven 项目
-	- Gradle Plugin：用于构建 Gradle 项目
-	- Gitlab Plugin：可能会直接安装不成功，如果不成功根据报错的详细信息可以看到 hpi 文件的下载地址，挂代理下载下来，然后离线安装即可
-	- Gitlab Hook：用于触发 GitLab 的一些 WebHooks 来构建项目
-	- Gitlab Authentication 这个插件提供了使用GitLab进行用户认证和授权的方案
-	- Docker Commons Plugin
-	- Docker plugin
-	- Kubernetes
-	- Pre SCM BuildStep Plugin 在拉代码之前插入一些步骤
-	- GitHub Pull Request Builder Github Pull Request时自动构建
-	- GitHub API Plugin Github API插件
-	- NodeJS Plugin
+```
+core-default.xml
+hdfs-default.xml
+hdfs-rbf-default.xml
+mapred-default.xml
+yarn-default.xml
+Deprecated Properties
+
+```
 
 
-## Docker 的 Jenkins 与 Docker 结合使用
+## hdfs 多目录存储
 
-- 运行镜像命令：`docker run --name jenkins-master -p 8123:18080 -p 50000:50000 -v /etc/localtime:/etc/localtime -v /data/jenkins/jenkins_home:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock -e JAVA_OPTS="-Duser.timezone=Asia/Shanghai" -d --restart always jenkins/jenkins:lts`
-	- 比上面多了一步：`-v /var/run/docker.sock:/var/run/docker.sock`
-- 这样，在 jenkins 里面写 shell 脚本调用 docker 程序，就可以直接调用宿主机的 docker 了。
+```
+HDFS的DataNode节点保存数据的路径由dfs.datanode.data.dir参数决定，其默认值为file://${hadoop.tmp.dir}/dfs/data，若服务器有多个磁盘，必须对该参数进行修改。如服务器磁盘如上图所示，则该参数应修改为如下的值。
+所以参数 ${hadoop.tmp.dir} 侧面上也可以说明决定了 namenode、datanode 的存储路径
+<property>
+    <name>dfs.datanode.data.dir</name>
+<value>file:///hd2/dfs/data2,file:///hd3/dfs/data3,file:///hd4/dfs/data4</value>
+</property>
+其中：/hd2，/hd3，/hd4 开头都是挂载的其他磁盘路径地址
+注意：而且这个配置不能同步到所有服务器，因为每个节点的多目录配置可以不一致。单独配置即可。
+```
 
+## 集群数据均衡
+
+```
+1）不同节点间数据均衡（数据是发生真实转移，要保证内网网络顺畅，没有调度任务运行的空闲时间）
+开启数据均衡命令：
+start-balancer.sh -threshold 10
+对于参数10，代表的是集群中各个节点的磁盘空间利用率相差不超过10%，比如一个节点硬盘用了50%，另外一个节点用了70%，就是相差20%，超过了10%就会进行调整
+中途停止数据均衡命令，下次可以继续执行上次命令
+stop-balancer.sh
+2）磁盘间数据均衡，支持跨节点（hadoop3之后新特性）
+（1）生成均衡计划（只有一块磁盘，就不会生成计划）
+hdfs diskbalancer -plan hadoop103（节点服务器的hostname）
+（2）执行均衡计划
+hdfs diskbalancer -execute hadoop103.plan.json
+（3）查看当前均衡任务的执行情况
+hdfs diskbalancer -query hadoop103
+（4）取消均衡任务
+hdfs diskbalancer -cancel hadoop103.plan.json
+```
+
+
+
+ 
 -------------------------------------------------------------------
 
-## Jenkins 安装（YUM）
+## 离线数据数仓
 
-- **需要 JDK8 环境**
-- 当前最新版本：`2.138.1-1.1`（201810）
-- 官网安装说明 RedHat Linux RPM packages：<https://pkg.jenkins.io/redhat-stable/>
-- 官网在线安装（72M），该安装方式会自己生成一个 jenkins 用户组和用户：
+### 数仓分类
 
-```
-sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
-sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+- 行为数仓
+- 业务数仓
 
-sudo yum install -y jenkins
+### 表分类
 
-如果网络过慢则放后台运行，或者直接下载 rpm 包
-nohup yum install -y jenkins > /dev/null 2>&1 &
-```
+- 实体表：具体业务表
+    - 每日全量同步
+- 维度表：码表，枚举表，状态表，分类表，城市编号等
+    - 每日全量同步
+- 事务型事实表：一旦发生就不会改变，比如交易流水表、操作日志、出入库记录
+    - 每日增量同步
+- 周期型事实表：随着业务变化不断生成的数据，比如订单状态，请假审批状态，贷款申请流程
+    - 每日新增及变化量
 
-- 查看安装后的情况：`rpm -ql jenkins`
+### 用户行为埋点数据（日志采集）
 
-```
-/etc/init.d/jenkins
-/etc/logrotate.d/jenkins
-/etc/sysconfig/jenkins
-/usr/lib/jenkins
-/usr/lib/jenkins/jenkins.war
-/usr/sbin/rcjenkins
-/var/cache/jenkins
-/var/lib/jenkins
-/var/log/jenkins
-```
+- <https://github.com/wenthomas/my-bigdata-study/tree/master/my-log-collector>
+- 容量评估
+    - 每天日活跃用户100万，每人一天平均100条：100万*100条 = 10000万条 = 1 亿条
+    - 每条日志 1KB 左右.每天 1 亿条：100000000 / 1024 / 1024 = 约 100GB
+    - 数仓ODS层采用LZO+parquet存储：100G 压缩为 10G 左右
+    - 数仓DWD层采用LZO + parquet存储：10G 左右
+    - 数仓DWS层轻度聚合存储（为了快速运算，不压缩）： 50G 左右
+    - 数仓ADS层数据星很小：忽略不计
+    - 保存3副本： 70G*3=210G
+    - 半年内不矿容服务器来算： 210G*180天 = 约 37T
+    - 预留20%〜30%Buf=37T/0.7=53T
+- 埋点数据格式
+    - 每隔一段时间批量发送
+    - 来源（单个）：APP、PC、小程序
+    - 公共字段（单个）
+        - AppKey
+        - 设备标识
+        - 用户标识
+        - 程序版本号
+        - 操作系统
+        - 操作系统版本
+        - 系统语言
+        - 渠道号
+        - APP 系统版本
+        - 国家
+        - 省份
+        - 城市
+        - 地区
+        - IP
+        - 手机品牌
+        - 手机具体型号
+        - 屏幕宽高
+        - 运行商名称
+        - 网络模式
+        - 经度
+        - 纬度
+        - 发送消息前的初始化时间
+    - 业务字段（多个）
+        - 操作事件生产时间
+        - 操作事件类型编号
+        - 操作事件内容（ key-value 多个。一般到这一层就结束，不要再多一层，不然解析比较麻烦）
+            - 广告展示
+            - 广告点击
+            - 下拉刷新
+            - 加载更多
+            - 不感兴趣
 
-- jenkins 相关目录释义：
 
-```
-/usr/lib/jenkins/：jenkins安装目录，war 包会放在这里。
-/etc/sysconfig/jenkins：jenkins配置文件，“端口”，“JENKINS_HOME” 等都可以在这里配置。
-/var/lib/jenkins/：默认的 JENKINS_HOME。
-~/.jenkins：当前用户的相关配置
-/var/log/jenkins/jenkins.log：jenkins 日志文件。
-```
+### 业务数据 RDS（MySQL）
 
-- 控制台输出方式启动：`java -jar /usr/lib/jenkins/jenkins.war --httpPort=18080`
-- 内置 Jetty，默认是 18080 端口，你也可以改为其他（建议修改为其他）
-- 可以看到有一个这个重点内容，这是你的初始化密码，等下会用到的：
+- 每天活跃用户100万，每天下单的用户10万，每人每天产生的业务数据 10条,每条日志 1KB 左右：10万*10条*1KB=1G左右
+- 数仓四层存储：1G*3=3G
+- 保存3副本： 3G*3=9G
+- 半年内不护容服务器来算： 9G*180天=约1.6T
+- 预留20%〜30%Buf=1.6T/0.7=2T
 
 
-```
-Jenkins initial setup is required. An admin user has been created and a password generated.
-Please use the following password to proceed to installation:
+### 爬虫数据
 
-daacc724767640a29ddc99d159a80cf8
+### 流程
 
-This may also be found at: /root/.jenkins/secrets/initialAdminPassword
-```
-
-- 守护进程启动：`nohup java -jar /usr/lib/jenkins/jenkins.war --httpPort=18080 > nohub-jenkins.log 2>&1 &`
-- 浏览器访问 Jenkins 首页开始配置：<http://192.168.0.105:18080/>
-- 特殊情况：
-	- 如果配置插件过程遇到这个错误：`No valid crumb was included in the request`，则多重试几次。
-	- 登录后把：<http://192.168.0.105:18080/configureSecurity/> 下面的 `防止跨站点请求伪造` 勾选去掉。遇到问题多试几次。
-
-
-## 忘记 admin 密码进行重置
-
-- 备份配置文件：`cp /root/.jenkins/config.xml /root/.jenkins/config.xml.back`
-- 编辑：`vim /root/.jenkins/config.xml`，删除 config.xml 文件中的这部分内容，在 10 行左右位置
-
-```
-<useSecurity>true</useSecurity>
-<authorizationStrategy class="hudson.security.FullControlOnceLoggedInAuthorizationStrategy">
-  <denyAnonymousReadAccess>true</denyAnonymousReadAccess>
-</authorizationStrategy>
-<securityRealm class="hudson.security.HudsonPrivateSecurityRealm">
-  <disableSignup>true</disableSignup>
-  <enableCaptcha>false</enableCaptcha>
-</securityRealm>
-```
-
-- 重启服务，进入首页此时系统是免密状态
-- 选择左侧的 `系统管理`，系统会提示你需要配置安全设置：`全局安全配置`
-    - 勾选 `启用安全`
-    - 安全域 > 勾选 `Jenkins专有用户数据库`
-    - 点击保存
-- 重新点击首页：`系统管理`
-    - 点击 `管理用户`
-    - 在用户列表中点击 admin 右侧齿轮
-    - 修改密码，修改后即可重新登录。
-- 选择左侧的 `系统管理`，系统会提示你需要配置安全设置：`全局安全配置`
-    - 勾选 `启用安全`
-    - 授权策略 > 勾选 `登录用户可以做任何事` 或 `安全矩阵`
-    - 点击保存
-
-## 设置邮箱
-
-- 必备插件
-	- Email Extension Plugin
-	- Email Extension Template Plugin
-- 打开配置页面：<http://127.0.0.1:18080/configure>
-- 找到：`Jenkins Location` 选项
-    - 系统管理员邮件地址，填写发送人邮件地址，该地址必须和等下配置的 smtp 用户名的一致
-- 找到：`Extended E-mail Notification` 选项
-- 该选项下的一些参数说明
-    - SMTP server：`smtp.163.com`
-    - Default Content Type：内容展现的格式，一般选择 HTML
-    - Default Recipients：默认收件人
-    - Default Subject：`Jenkins  构建结果通知：$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!`
-    - Default Content：
-
-```
-<hr/>
-<h3>(本邮件是程序自动发送，请勿回复！)</h3>
-<hr/>
-
-项目名称：$PROJECT_NAME<br/><hr/>
-构建编号：$BUILD_NUMBER<br/><hr/>
-构建状态：$BUILD_STATUS<br/><hr/>
-触发原因：${CAUSE}<br/><hr/>
-构建地址：<a href="$BUILD_URL">$BUILD_URL</a><br/><hr/>
-构建日志：<a href="${BUILD_URL}console">${BUILD_URL}console</a><br/><hr/>
-变更内容:${JELLY_SCRIPT,template="html"}<br/><hr/>
-```
-
-- 找到：`邮件通知` 选项
-    - SMTP服务器：`smtp.163.com`
-    - SMTP端口：`25`（勾选 ”Use SSL“ 时默认是465，否则是 25）
-    - 用户名：`xxx@163.com`
-    - 密码：现在邮箱为了避免密码泄露基本都要用授权码，不用登陆密码了
-    - 字符集：`UTF-8`
-
-- 勾选：`通过发送测试邮件测试配置`，填写一个收件箱地址，点击：`Test configuration` 看下是否能发送成功。
-- 工程配置开启邮箱通知，Pipeline 的方式可以参考：[这篇文章](https://blog.csdn.net/cpongo3/article/details/90603215)
-    
-
+- DataStudio
+    - 数据开发
+        - 新建业务流程
+        - 调度配置
+- FunctionStudio
+    - 自定义 UDTF
 
 
 -------------------------------------------------------------------
 
-## pipeline 语法
-
-- 全局 pipeline 语法说明：<http://192.168.0.105:18080/job/react/pipeline-syntax/globals>
-- 其他资料
-	- <http://www.cnblogs.com/fengjian2016/p/8227532.html>
-	- <https://github.com/nbbull/jenkins2Book>
-	- <https://github.com/mcpaint/learning-jenkins-pipeline>
-	- <https://www.cnblogs.com/fengjian2016/p/8227532.html>
-	- <https://blog.csdn.net/diantun00/article/details/81075007>
-
-#### 内置的参数
-
-```
-BUILD_NUMBER = ${env.BUILD_NUMBER}"
-BUILD_ID = ${env.BUILD_ID}"
-BUILD_DISPLAY_NAME = ${env.BUILD_DISPLAY_NAME}"
-JOB_NAME = ${env.JOB_NAME}"
-JOB_BASE_NAME = ${env.JOB_BASE_NAME}"
-WORKSPACE = ${env.WORKSPACE}"
-JENKINS_HOME = ${env.JENKINS_HOME}"
-JENKINS_URL = ${env.JENKINS_URL}"
-BUILD_URL = ${env.BUILD_URL}"
-JOB_URL = ${env.JOB_URL}"
-```
-
-- 输出结果：
-
-```
-BUILD_NUMBER = 21
-BUILD_ID = 21
-BUILD_DISPLAY_NAME = #21
-JOB_NAME = react
-JOB_BASE_NAME = react
-WORKSPACE = /root/.jenkins/workspace/react
-JENKINS_HOME = /root/.jenkins
-JENKINS_URL = http://192.168.0.105:18080/
-BUILD_URL = http://192.168.0.105:18080/job/react/21/
-JOB_URL = http://192.168.0.105:18080/job/react/
-```
-
-#### 构建时指定参数
-
-- 如果要构建的时候明确输入参数值，可以用 `parameters`：
-
-```
-pipeline {
-  agent any
-
-  parameters {
-    string(name: 'assignVersionValue', defaultValue: '1.1.3', description: '构建之前请先指定版本号')
-  }
-  
-  tools {
-    jdk 'JDK8'
-    maven 'MAVEN3'
-  }
-
-  options {
-    timestamps()
-    disableConcurrentBuilds()
-    buildDiscarder(logRotator(
-      numToKeepStr: '20',
-      daysToKeepStr: '30',
-    ))
-  }
-
-
-  environment {
-    gitUrl = "https://gitee.com/youmeek/springboot-jenkins-demo.git"
-    branchName = "master"
-    giteeCredentialsId = "Gitee"
-    projectWorkSpacePath = "${env.WORKSPACE}"
-  }
-  
-  
-  stages {
-    
-    stage('Check Env') {
-    
-      /*当指定的参数版本号等于空字符的时候进入 steps。这里的 when 对 当前 stage 有效，对其他 stage 无效*/
-      when {
-        environment name: 'assignVersionValue', value: ''
-      }
-    
-      /*结束整个任务。如果不想结束整个任务，就不要用：exit 1*/
-      steps {
-        sh "exit 1"
-      }
-    }
-    
-    stage('Pre Env') {
-    
-      steps {
-        echo "======================================项目名称 = ${env.JOB_NAME}"
-        echo "======================================项目 URL = ${gitUrl}"
-        echo "======================================项目分支 = ${branchName}"
-        echo "======================================当前编译版本号 = ${env.BUILD_NUMBER}"
-        echo "======================================项目空间文件夹路径 = ${projectWorkSpacePath}"
-        echo "======================================构建时自己指定的版本号值 = ${params.assignVersionValue}"
-      }
-    }
-        
-  }
-}
-```
-
-
-#### 定时构建
-
-```
-pipeline {
-  agent any
-  
-  /*采用 linux cron 语法即可*/
-  triggers {
-    cron('*/1 * * * *')
-  }
-  
-  tools {
-    jdk 'JDK8'
-    maven 'MAVEN3'
-  }
-
-  options {
-    timestamps()
-    disableConcurrentBuilds()
-    buildDiscarder(logRotator(
-      numToKeepStr: '20',
-      daysToKeepStr: '30',
-    ))
-  }
-
-
-  environment {
-    gitUrl = "https://gitee.com/youmeek/springboot-jenkins-demo.git"
-    branchName = "master"
-    giteeCredentialsId = "Gitee"
-    projectWorkSpacePath = "${env.WORKSPACE}"
-  }
-  
-  
-  stages {
-    
-    stage('Pre Env') {
-      steps {
-         echo "======================================项目名称 = ${env.JOB_NAME}"
-         echo "======================================项目 URL = ${gitUrl}"
-         echo "======================================项目分支 = ${branchName}"
-         echo "======================================当前编译版本号 = ${env.BUILD_NUMBER}"
-         echo "======================================项目空间文件夹路径 = ${projectWorkSpacePath}"
-      }
-    }
-    
-  }
-}
-
-```
-
-#### 同时构建其他 Job
-
-```
-stage('运行其他任务') {
-  steps {
-      build job: '任务名称'
-  }
-}
-```
-
-
--------------------------------------------------------------------
-
-## Jenkins 前端 React 项目构建
-
-- **确保**：安装了 [Node.js](Node-Install-And-Usage.md)
-
-#### 简单的 pipeline 写法（开源项目）
-
-```
-pipeline {
-  agent any
-
-  options {
-    timestamps()
-    disableConcurrentBuilds()
-    buildDiscarder(logRotator(
-      numToKeepStr: '20',
-      daysToKeepStr: '30',
-    ))
-  }
-
-  /*=======================================常修改变量-start=======================================*/
-
-  environment {
-    gitUrl = "https://github.com/satan31415/heh_umi_template.git"
-    branchName = "master"
-    projectBuildPath = "${env.WORKSPACE}/dist"
-    nginxHtmlRoot = "/usr/share/nginx/react"
-  }
-  
-  /*=======================================常修改变量-end=======================================*/
-  
-  stages {
-    
-    stage('Pre Env') {
-      steps {
-         echo "======================================项目名称 = ${env.JOB_NAME}"
-         echo "======================================项目 URL = ${gitUrl}"
-         echo "======================================项目分支 = ${branchName}"
-         echo "======================================当前编译版本号 = ${env.BUILD_NUMBER}"
-         echo "======================================项目 Build 文件夹路径 = ${projectBuildPath}"
-         echo "======================================项目 Nginx 的 ROOT 路径 = ${nginxHtmlRoot}"
-      }
-    }
-    
-    stage('Git Clone'){
-      steps {
-          git branch: "${branchName}", url: "${gitUrl}"
-      }
-    }
-
-    stage('NPM Install') {
-      steps {
-        sh "npm install"
-      }
-    }
-
-    stage('NPM Build') {
-      steps {
-        sh "npm run build"
-      }
-    }
-
-    stage('Nginx Deploy') {
-      steps {
-        sh "rm -rf ${nginxHtmlRoot}/"
-        sh "cp -r ${projectBuildPath}/ ${nginxHtmlRoot}/"
-      }
-    }
-
-
-  }
-}
-```
-
-
-#### 简单的 pipeline 写法（闭源项目 -- 码云为例）
-
-- 新增一个全局凭据：<http://192.168.0.105:18080/credentials/store/system/domain/_/newCredentials>
-- 类型：`Username with password`
-- 范围：`全局`
-- Username：`你的 Gitee 账号`
-- Password：`你的 Gitee 密码`
-- **ID**：`只要是唯一值就行，后面要用到`
-- 描述：`最好跟 ID 一致，方便认`
-
-```
-pipeline {
-  agent any
-
-  options {
-    timestamps()
-    disableConcurrentBuilds()
-    buildDiscarder(logRotator(
-      numToKeepStr: '20',
-      daysToKeepStr: '30',
-    ))
-  }
-
-  /*=======================================常修改变量-start=======================================*/
-
-  environment {
-    gitUrl = "https://gitee.com/youmeek/react-demo.git"
-    branchName = "master"
-    giteeCredentialsId = "上面全局凭据填写的 ID"
-    projectBuildPath = "${env.WORKSPACE}/dist"
-    nginxHtmlRoot = "/usr/share/nginx/react"
-  }
-  
-  /*=======================================常修改变量-end=======================================*/
-  
-  stages {
-    
-    stage('Pre Env') {
-      steps {
-         echo "======================================项目名称 = ${env.JOB_NAME}"
-         echo "======================================项目 URL = ${gitUrl}"
-         echo "======================================项目分支 = ${branchName}"
-         echo "======================================当前编译版本号 = ${env.BUILD_NUMBER}"
-         echo "======================================项目 Build 文件夹路径 = ${projectBuildPath}"
-         echo "======================================项目 Nginx 的 ROOT 路径 = ${nginxHtmlRoot}"
-      }
-    }
-    
-    stage('Git Clone'){
-      steps {
-          git branch: "${branchName}",
-          credentialsId: "${giteeCredentialsId}",
-          url: "${gitUrl}"
-      }
-    }
-
-    stage('NPM Install') {
-      steps {
-        sh "npm install"
-      }
-    }
-
-    stage('NPM Build') {
-      steps {
-        sh "npm run build"
-      }
-    }
-
-    stage('Nginx Deploy') {
-      steps {
-        sh "rm -rf ${nginxHtmlRoot}/"
-        sh "cp -r ${projectBuildPath}/ ${nginxHtmlRoot}/"
-      }
-    }
-
-
-  }
-}
-```
-
-
--------------------------------------------------------------------
-
-## Jenkins 后端 Spring Boot 项目构建
-
-#### 安装 Maven
-
-- [参考该文章](Maven-Install-And-Settings.md)
-
-#### 配置工具
-
-- 访问：<http://192.168.0.105:18080/configureTools/>
-- 我习惯自己安装，所以这里修改配置：
-	- **需要注意**：配置里面的 `别名` 不要随便取名字，后面 Pipeline 要用到的。在 tool 标签里面会用到。
-	- 具体可以查看该图片说明：[点击查看](https://upload-images.jianshu.io/upload_images/12159-ef61595aebaa4244.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-
-
-#### 简单的 pipeline 写法（Jar 方式运行）（闭源项目 -- 码云为例）
-
-###### 用 supervisord 做进程控制
-
-- [supervisord 的使用](Daemontools.md)
-- 生成 supervisord 的配置文件会写在 Pipeline，所以只要你保证服务器 supervisord 正常运行即可
-
-###### 配置 Jenkins
-
-- **必须**：新增一个全局凭据，方法参考前端部分
-
-```
-pipeline {
-  agent any
-
-  /*=======================================工具环境修改-start=======================================*/
-  tools {
-    jdk 'JDK8'
-    maven 'MAVEN3'
-  }
-  /*=======================================工具环境修改-end=======================================*/
-
-  options {
-    timestamps()
-    disableConcurrentBuilds()
-    buildDiscarder(logRotator(
-      numToKeepStr: '20',
-      daysToKeepStr: '30',
-    ))
-  }
-
-  /*=======================================常修改变量-start=======================================*/
-
-  environment {
-    gitUrl = "https://gitee.com/youmeek/springboot-jenkins-demo.git"
-    branchName = "master"
-    giteeCredentialsId = "Gitee"
-    projectWorkSpacePath = "${env.WORKSPACE}"
-    projectBuildTargetPath = "${env.WORKSPACE}/target"
-    projectJarNewName = "${env.JOB_NAME}.jar"
-    supervisorConfigFileFullPath = "/etc/supervisor/conf.d/${env.JOB_NAME}.conf"
-    supervisorLogPath = "/var/log/supervisor"
-
-  }
-  
-  /*=======================================常修改变量-end=======================================*/
-  
-  stages {
-    
-    stage('Pre Env') {
-      steps {
-         echo "======================================项目名称 = ${env.JOB_NAME}"
-         echo "======================================项目 URL = ${gitUrl}"
-         echo "======================================项目分支 = ${branchName}"
-         echo "======================================当前编译版本号 = ${env.BUILD_NUMBER}"
-         echo "======================================项目空间文件夹路径 = ${projectWorkSpacePath}"
-         echo "======================================项目 build 后 jar 路径 = ${projectBuildTargetPath}"
-         echo "======================================项目 jar 新名称 = ${projectJarNewName}"
-         echo "======================================supervisor 配置文件路径 = ${supervisorConfigFileFullPath}"
-         echo "======================================supervisor 存放 log 路径 = ${supervisorLogPath}"
-      }
-    }
-    
-    stage('Git Clone'){
-      steps {
-          git branch: "${branchName}",
-          credentialsId: "${giteeCredentialsId}",
-          url: "${gitUrl}"
-      }
-    }
-
-    stage('Maven Clean') {
-      steps {
-        sh "mvn clean"
-      }
-    }
-
-    stage('Maven Package') {
-      steps {
-        sh "mvn package -DskipTests"
-      }
-    }
-
-    stage('Spring Boot Run') {
-      steps {
-
-sh """
-mv ${projectBuildTargetPath}/*.jar ${projectBuildTargetPath}/${projectJarNewName}
-
-if [ ! -f ${supervisorConfigFileFullPath} ]; then
-
-touch ${supervisorConfigFileFullPath}
-    
-cat << EOF >> ${supervisorConfigFileFullPath}
-[program:${env.JOB_NAME}]
-command=java -jar ${projectBuildTargetPath}/${projectJarNewName}
-stdout_logfile=${supervisorLogPath}/${env.JOB_NAME}.log
-stderr_logfile=${supervisorLogPath}/${env.JOB_NAME}-err.log
-user=root
-autostart=true
-autorestart=false
-startsecs=5
-priority=1
-stopasgroup=true
-killasgroup=true
-EOF
-
-/usr/bin/supervisorctl update
-fi
-
-/usr/bin/supervisorctl restart ${env.JOB_NAME}
-"""
-
-      }
-    }
-
-  }
-}
-```
-
-
-
-#### 简单的 pipeline 写法（Docker 方式运行）（闭源项目 -- 码云为例）
-
-- **确保** 项目根目录有 Dockerfile 文件（部分内容自己修改），内容模板：
-
-```
-FROM java:8
-VOLUME /tmp
-
-ENV TZ=Asia/Shanghai
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-
-ADD ./target/buildApp.jar /app.jar
-
-RUN bash -c 'touch /app.jar'
-
-EXPOSE 8081
-
-ENTRYPOINT ["java", "-jar", "-Xms512M", "-Xmx512M" , "-XX:MetaspaceSize=128M", "-XX:MaxMetaspaceSize=256M" ,"/app.jar"]
-```
-
-- Pipeline 写法
-
-```
-pipeline {
-  agent any
-
-  /*=======================================工具环境修改-start=======================================*/
-  tools {
-    jdk 'JDK8'
-    maven 'MAVEN3'
-  }
-  /*=======================================工具环境修改-end=======================================*/
-
-  options {
-    timestamps()
-    disableConcurrentBuilds()
-    buildDiscarder(logRotator(
-      numToKeepStr: '20',
-      daysToKeepStr: '30',
-    ))
-  }
-
-  /*=======================================常修改变量-start=======================================*/
-
-  environment {
-    gitUrl = "https://gitee.com/youmeek/springboot-jenkins-demo.git"
-    branchName = "master"
-    giteeCredentialsId = "Gitee"
-    projectWorkSpacePath = "${env.WORKSPACE}"
-    projectBuildTargetPath = "${env.WORKSPACE}/target"
-    projectJarNewName = "buildApp.jar"
-
-
-    dockerImageName = "docker.youmeek.com/demo/${env.JOB_NAME}:${env.BUILD_NUMBER}"
-    dockerContainerName = "${env.JOB_NAME}"
-    inHostPort = "8082"
-    inDockerAndJavaPort = "8081"
-    inHostLogPath = "/data/docker/logs/${dockerContainerName}/${env.BUILD_NUMBER}"
-    inDockerLogPath = "/data/logs"
-    dockerRunParam = "--name=${dockerContainerName} --hostname=${dockerContainerName} -v /etc/hosts:/etc/hosts -v ${inHostLogPath}:${inDockerLogPath} --restart=always  -p ${inHostPort}:${inDockerAndJavaPort}"
-  }
-  
-  /*=======================================常修改变量-end=======================================*/
-  
-  stages {
-    
-    stage('Pre Env') {
-      steps {
-         echo "======================================项目名称 = ${env.JOB_NAME}"
-         echo "======================================项目 URL = ${gitUrl}"
-         echo "======================================项目分支 = ${branchName}"
-         echo "======================================当前编译版本号 = ${env.BUILD_NUMBER}"
-         echo "======================================项目空间文件夹路径 = ${projectWorkSpacePath}"
-         echo "======================================项目 build 后 jar 路径 = ${projectBuildTargetPath}"
-         echo "======================================项目 jar 新名称 = ${projectJarNewName}"
-         echo "======================================Docker 镜像名称 = ${dockerImageName}"
-         echo "======================================Docker 容器名称 = ${dockerContainerName}"
-      }
-    }
-    
-    stage('Git Clone'){
-      steps {
-          git branch: "${branchName}",
-          credentialsId: "${giteeCredentialsId}",
-          url: "${gitUrl}"
-      }
-    }
-
-    stage('Maven Clean') {
-      steps {
-        sh "mvn clean"
-      }
-    }
-
-    stage('Maven Package') {
-      steps {
-        sh "mvn package -DskipTests"
-      }
-    }
-
-    stage('构建 Docker 镜像') {
-      steps {
-        sh """
-            mv ${projectBuildTargetPath}/*.jar ${projectBuildTargetPath}/${projectJarNewName}
-            
-            cd ${projectWorkSpacePath}
-            
-            docker build -t ${dockerImageName} ./
-        """
-      }
-    }
-
-    stage('运行 Docker 镜像') {
-      steps {
-        sh """
-            docker stop ${dockerContainerName} | true
-
-            docker rm -f ${dockerContainerName} | true
-            
-            docker run -d  ${dockerRunParam} ${dockerImageName}
-        """
-      }
-    }
-    
-    
-
-    
-    
-
-  }
-}
-```
-
-
-#### 简单的 pipeline 写法（Docker + Harbor 方式运行）（闭源项目 -- 码云为例）
-
-- 请先看懂上面 Docker 方式
-- 一共需要 3 台机子（要保证在内网环境，不然一定会有安全问题）
-	- 一台部署 [Harbor](Harbor-Install-And-Usage.md)
-	- 一台部署 Jenkins
-	- 一台运行项目
-- 确保 Jenkins 机子已经 Docker Login Harbor，这个就一次性的动作，所以自己在 Jenkins 服务器上操作即可
-- 确保 Spring Boot 项目运行的机子已经 Docker Login Harbor，这个就一次性的动作，所以自己在 Jenkins 服务器上操作即可
-- 确保 Spring Boot 项目运行的机子 docker remote api 开启（没有身份认证功能，所以才要保证内网）
-- Pipeline 写法
-
-```
-pipeline {
-  agent any
-
-  /*=======================================工具环境修改-start=======================================*/
-  tools {
-    jdk 'JDK8'
-    maven 'MAVEN3'
-  }
-  /*=======================================工具环境修改-end=======================================*/
-
-  options {
-    timestamps()
-    disableConcurrentBuilds()
-    buildDiscarder(logRotator(
-      numToKeepStr: '20',
-      daysToKeepStr: '30',
-    ))
-  }
-
-  /*=======================================常修改变量-start=======================================*/
-
-  environment {
-    gitUrl = "https://gitee.com/youmeek/springboot-jenkins-demo.git"
-    branchName = "master"
-    giteeCredentialsId = "Gitee"
-    projectWorkSpacePath = "${env.WORKSPACE}"
-    projectBuildTargetPath = "${env.WORKSPACE}/target"
-    projectJarNewName = "buildApp.jar"
-
-    projectDockerDaemon = "tcp://192.168.1.12:2376"
-    harborUrl = "192.168.1.13"
-    harborProjectName = "demo"
-    dockerImageName = "${harborUrl}/${harborProjectName}/${env.JOB_NAME}:${env.BUILD_NUMBER}"
-    dockerContainerName = "${env.JOB_NAME}"
-    inHostPort = "8082"
-    inDockerAndJavaPort = "8081"
-    inHostLogPath = "/data/docker/logs/${dockerContainerName}/${env.BUILD_NUMBER}"
-    inDockerLogPath = "/data/logs"
-    dockerRunParam = "--name=${dockerContainerName} --hostname=${dockerContainerName} -v /etc/hosts:/etc/hosts -v ${inHostLogPath}:${inDockerLogPath} --restart=always  -p ${inHostPort}:${inDockerAndJavaPort}"
-  }
-  
-  /*=======================================常修改变量-end=======================================*/
-  
-  stages {
-    
-    stage('Pre Env') {
-      steps {
-         echo "======================================项目名称 = ${env.JOB_NAME}"
-         echo "======================================项目 URL = ${gitUrl}"
-         echo "======================================项目分支 = ${branchName}"
-         echo "======================================当前编译版本号 = ${env.BUILD_NUMBER}"
-         echo "======================================项目空间文件夹路径 = ${projectWorkSpacePath}"
-         echo "======================================项目 build 后 jar 路径 = ${projectBuildTargetPath}"
-         echo "======================================项目 jar 新名称 = ${projectJarNewName}"
-         echo "======================================Docker 镜像名称 = ${dockerImageName}"
-         echo "======================================Docker 容器名称 = ${dockerContainerName}"
-         echo "======================================harbor 地址 = ${harborUrl}"
-         echo "======================================harbor 项目名称 = ${harborProjectName}"
-         echo "======================================项目在宿主机的端口 = ${inHostPort}"
-         echo "======================================项目在 Docker 容器中的端口 = ${inDockerAndJavaPort}"
-         echo "======================================项目在宿主机的 log 路径 = ${inHostLogPath}"
-         echo "======================================项目在 docker 容器的 log 路径 = ${inDockerLogPath}"
-         echo "======================================项目运行的 Docker remote ip 信息 = ${projectDockerDaemon}"
-         echo "======================================项目运行的参数 = ${dockerRunParam}"
-      }
-    }
-    
-    stage('Git Clone'){
-      steps {
-          git branch: "${branchName}",
-          credentialsId: "${giteeCredentialsId}",
-          url: "${gitUrl}"
-      }
-    }
-
-    stage('Maven Clean') {
-      steps {
-        sh "mvn clean"
-      }
-    }
-
-    stage('Maven Package') {
-      steps {
-        sh "mvn package -DskipTests"
-      }
-    }
-
-    stage('构建 Docker 镜像') {
-      steps {
-        sh """
-            mv ${projectBuildTargetPath}/*.jar ${projectBuildTargetPath}/${projectJarNewName}
-            
-            cd ${projectWorkSpacePath}
-            
-            docker build -t ${dockerImageName} ./
-        """
-      }
-    }
-
-    stage('Push Docker 镜像') {
-      options {
-        timeout(time: 5, unit: 'MINUTES') 
-      }
-      steps {
-        sh """
-          docker push ${dockerImageName}
-          docker rmi ${dockerImageName}
-        """
-      }
-    }
-
-    stage('运行远程 Docker 镜像') {
-      options {
-        timeout(time: 5, unit: 'MINUTES') 
-      }
-      steps {
-        sh """
-            docker -H ${projectDockerDaemon} pull ${dockerImageName}
-            
-            docker -H ${projectDockerDaemon} stop ${dockerContainerName} | true
-            
-            docker -H ${projectDockerDaemon} rm -f ${dockerContainerName} | true
-            
-            docker -H ${projectDockerDaemon} run -d  ${dockerRunParam} ${dockerImageName}
-        """
-      }
-    }
-    
-    
-
-    
-    
-
-  }
-}
-```
-
--------------------------------------------------------------------
-
-## 普通窗口配置的一些细节
-
-- 如果要执行 shell 启动一个应用，需要这样写：`BUILD_ID=dontKillMe sh ./startup.sh start`
-
-
--------------------------------------------------------------------
-
-## 多节点 master 与 slave 
-
-- 可以参考这篇：<http://www.cnblogs.com/sparkdev/p/7102622.html>
-
-
--------------------------------------------------------------------
-
-
-## 资料
-
-- <http://stackoverflow.com/questions/4969156/java-net-unknownhostexception>
-- <https://www.jianshu.com/p/b50e679e2409>
-- <http://xkcoding.com/2018/01/04/devops-jenkins.html>
-- <https://blog.csdn.net/jlminghui/article/details/54952148>
+## 实时数据数仓
+
+### 用户行为埋点数据（日志采集）
+
+- 后端埋点：Filebeat 采集 > Kafka > Logstash > DataHub > DataWorks > 实时计算 > DataHub > AnalyticDB > DataV
+- 前端埋点：Nginx + Nginx-kafka-module > Kafka > Logstash > DataHub > DataWorks > 实时计算 > DataHub > AnalyticDB > DataV
+- 参考资料：
+    - [Filebeat+Kafka+Logstash+ElasticSearch+Kibana搭建完整版](https://www.cnblogs.com/jiashengmei/p/8857053.html)
+    - [Logstash + DataHub + MaxCompute/StreamCompute 进行实时数据分析](https://blog.csdn.net/weixin_34059951/article/details/91664451)
+    - []()
+    - []()
+    - []()
+    - []()
+
+### DataHub（数据总线）
+
+- <https://www.aliyun.com/product/datahub>
+- <https://datahub.console.aliyun.com/datahub>
+- Logstash DataHub 插件（优先）：<https://help.aliyun.com/document_detail/47451.html>
+- Flume DataHub 插件：<https://help.aliyun.com/document_detail/143572.html>
+
+### 业务数据 RDS（MySQL）
+
+- RDS > DTS > DataHub > DataWorks > 实时计算 > DataHub > AnalyticDB
+- 添加本地电脑 IP 到白名单中
+    - 本地 IP 可以写成 112.32.36.0/24 代表 1 ~ 255 都可以访问
+- 申请外网地址
+- 创建账号
+
+### DTS（数据传输服务）
+
+- <https://www.aliyun.com/product/dts>
+- 数据同步
+    - MySQL > DataHub
+    - MySQL > MySQL
+    - MySQL > Elasticsearch
+    - MySQL > Kafka
+    - MySQL > MaxCompute
+    - MySQL > POLARDB
+    - MySQL > AnalyticDB for MySQL
+    - MySQL > AnalyticDB for PostgreSQL
+- 数据迁移
+- 数据订阅
+
+### 实时数仓分层
+
+- ods 原始数据层，保持数据原貌不做处理 datahub
+    - 业务数仓
+        - 商品信息表
+        - 品牌信息表
+        - 产品分类表
+        - 用户信息表
+        - 订单表
+        - 订单明细表
+        - 支付流水表
+        - 省市表
+        - 地区表（华中，华南等）
+- dwd 数据明细层，数据清洗 datahub
+    - 预处理
+        - 空值去除/补充
+        - 脏数据
+    - 业务数仓
+        - 订单表
+        - 用户信息表
+        - 订单明细表
+        - 商品信息表
+        - 地区省市表
+- dws 服务数据层，轻度聚合、汇总 datahub
+    - 业务数仓
+        - 用户当日交易行为宽表
+    - 行为数仓
+        - 每日活跃表（趋势图-折线图）
+        - 每周活跃表（趋势图-折线图）
+        - 每月活跃表（趋势图-折线图）
+        - 每日新增用户表（趋势图-折线图）
+        - 每日留存用户表（趋势图-折线图）
+- ads 统计报表层，最终报告输出值 AnalyticDB
+    - 业务数仓
+        - 年龄销售统计表（饼图，年龄段维度）
+        - 地区销售统计表（色彩地图，地区维度）
+        - 商品销售统计表（柱状图，商品名称维度）
+    - 行为数仓
+        - PV
+        - UV
+        - 跳出率
+        - 平均访问时长
+        - 新增客户总数
+        - 渠道日活（饼图）
+        - 每日新增设备数量表
+        - 流失用户数量表
+        - 沉默用户数量表
+        - 留存用户数量表
+        - 留存用户数比率表
+        - 本周回流用户数量表
+        - 最新七天内连续三天活跃用户数量表
+        - 连续三周活跃用户数量表
+- dim 维度表命名前缀
+- df（day full） 每日全量导入命名前缀
+- di（day increment） 每日增量导入命名前缀
+
+
+### 实时计算（Flink）
+
+- <https://data.aliyun.com/product/sc>
+- 独享模式
+    - 创建集群
+        - 集群详情里面有一个 ENI 是集群的 IP 列表，要复制到 AnalyticDB 白名单中
+    - 创建集群下项目
+
+### DataWorks（数据工厂）
+
+- <https://data.aliyun.com/product/ide>
+- 创建工作空间，绑定实时计算（独享模式）
+    - 绑定集群
+    - 绑定集群下项目
+- 进入数据开发
+- DataStudio
+- Stream Studio
+    - 新建业务流程
+        - 新建任务
+- 任务模式
+    - DAG 组件模式（拖拉拽模式）
+    - SQL 模式（FlinkSQL/BLink）
+        - [官网帮助文档](https://help.aliyun.com/document_detail/111864.html)
+- 任务组件
+    - 数据源表
+        - [创建数据源表](https://help.aliyun.com/knowledge_list/62516.html)
+        - DataHub
+        - Kafka
+    - 数据维表
+        - [数据维表](https://help.aliyun.com/knowledge_list/62518.html)
+        - RDS
+    - 数据处理
+        - UDTF
+        - Select
+        - Filter
+        - Join
+        - GroupBy
+        - UnionAll
+        - 固定列切分
+        - 动态列切分
+    - 数据结果表
+        - [创建数据结果表](https://help.aliyun.com/knowledge_list/62517.html)
+        - RDS
+        - DataHub
+        - AnalyticDB
+        - Elasticsearch
+- 执行计划
+
+### AnalyticDB for MySQL
+
+- <https://www.aliyun.com/product/ads>
+- 数据安全中添加实时计算 IP、本地电脑 IP 到白名单中
+    - 本地 IP 可以写成 112.32.36.0/24 代表 1 ~ 255 都可以访问
+- 申请外网地址
+- 创建账号
+- 特点
+    - 可处理百亿数据，无需分库分表
+    - 实时化写入
+    - 高并发查询（PB 级别）
+    - ETL
+- 维度表或者普通表：<https://help.aliyun.com/document_detail/128514.html>
+
+### AnalyticDB for PostgreSQL
+
+- <https://www.aliyun.com/product/gpdb>
+
+### DataV
+
+- AnalyticDB > DataV

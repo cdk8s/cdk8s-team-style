@@ -366,6 +366,31 @@ PLAY RECAP *********************************************************************
 - 执行命令：`ansible-playbook /opt/hadoop-playbook.yml`
 
 
+-------------------------------------------------------------------
+
+
+## 基础命令
+
+```
+执行 shell 命令，不带参数
+- name: install-epel
+  shell: "{{ item }}"
+  with_items:
+     - yum install -y epel-release
+
+执行 shell 命令，带参数，指定目录下
+- name: install-nginx
+  shell: "{{ item }}"
+  args:
+    chdir: /opt/software/centos7.9-nginx
+  with_items:
+     - yum localinstall -y *.rpm
+
+
+```
+
+
+
 
 
 
