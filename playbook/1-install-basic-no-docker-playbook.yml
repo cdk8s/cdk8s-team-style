@@ -1,0 +1,62 @@
+- hosts: all
+  remote_user: root
+  tasks:
+    - name: Disable SELinux at next reboot
+      selinux:
+        state: disabled
+
+    - name: disable firewalld
+      shell: "{{ item }}"
+      with_items:
+         - systemctl stop firewalld
+         - systemctl disable firewalld
+         - echo "vm.swappiness = 0" >> /etc/sysctl.conf
+         - swapoff -a
+         - sysctl -w vm.swappiness=0
+
+    - name: install-epel
+      shell: "{{ item }}"
+      with_items:
+         - yum install -y epel-release
+
+    - name: install-basic
+      shell: "{{ item }}"
+      with_items:
+         - yum install -y zip unzip git wget htop
+
+    - name: install zsh oh-my-zsh
+      shell: "{{ item }}"
+      with_items:
+         - yum install -y zsh
+         - wget https://gitee.com/cdk8s_org/oh-my-zsh/raw/master/tools/install.sh  -O - | sh
+         - chsh -s /bin/zsh root
+
+    - name: install zsh plugin
+      shell: "{{ item }}"
+      with_items:
+        - git clone --depth=1 https://gitee.com/cdk8s_org/zsh-autosuggestions.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+        - git clone --depth=1 https://gitee.com/cdk8s_org/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+
+    - name: replace zshrc theme
+      lineinfile:
+        path: /root/.zshrc
+        regexp: '^ZSH_THEME='
+        line: ZSH_THEME="af-magic"
+
+    - name: replace zshrc plugins
+      lineinfile:
+        path: /root/.zshrc
+        regexp: '^plugins='
+        line: plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
+
+    - name: replace zshrc update
+      lineinfile:
+        path: /root/.zshrc
+        regexp: '^# DISABLE_AUTO_UPDATE'
+        line: DISABLE_AUTO_UPDATE="true"
+
+    - name: install-vim
+      shell: "{{ item }}"
+      with_items:
+         - yum install -y vim
+         - curl https://gitee.com/cdk8s_org/vim-for-server/raw/master/vimrc > ~/.vimrc
