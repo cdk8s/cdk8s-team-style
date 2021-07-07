@@ -441,6 +441,12 @@ yum 安装并监控执行结果
     src=/opt/software/jdk-8u261-linux-x64.tar.gz
     dest=/usr/local
 
+备份配置文件
+- name: copy config file
+  copy:
+    src=/etc/my.cnf
+    dest=/etc/my.cnf.back
+
 
 删除文件
 - name: remove tar.gz file
