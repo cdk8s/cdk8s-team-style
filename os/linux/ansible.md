@@ -477,6 +477,43 @@ yum 安装并监控执行结果
           "https://docker.mirrors.ustc.edu.cn"
         ]
       }
+
+
+常用的复制、删除、创建、添加内容一套方案 start
+- name: copy hadoop-env.sh
+  copy:
+    src=/etc/hadoop/hadoop-env.sh
+    dest=/etc/hadoop/hadoop-env.sh.back
+
+- name: remove hadoop-env.sh
+  file:
+    path: { hadoop_home_path }}/etc/hadoop/hadoop-env.sh
+    state: absent
+
+- name: create hadoop-env.sh
+  file:
+    path=/etc/hadoop/{{ item }}
+    state=touch
+    mode=777
+  with_items:
+    - hadoop-env.sh
+
+- name: set hadoop-env.sh
+  blockinfile:
+    path: /etc/hadoop/hadoop-env.sh
+    marker: ""
+    block: |
+      {
+        "registry-mirrors": [
+          "https://ldhc17y9.mirror.aliyuncs.com",
+          "https://hub-mirror.c.163.com",
+          "https://mirror.baidubce.com",
+          "https://docker.mirrors.ustc.edu.cn"
+        ]
+      }
+常用的复制、删除、创建、添加内容一套方案 end
+
+
 ```
 
 
