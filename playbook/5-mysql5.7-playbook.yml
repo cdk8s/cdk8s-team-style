@@ -73,23 +73,23 @@
         path: /etc/my.cnf
         marker: ""
         block: |
-            [mysql]
-            default-character-set = utf8mb4
-            [mysqld]
-            max_connections = 500
-            datadir = /var/lib/mysql
-            socket = /var/lib/mysql/mysql.sock
-            bind-address = 127.0.0.1
-            symbolic-links=0
-            log-error=/var/log/mysqld.log
-            pid-file=/var/run/mysqld/mysqld.pid
-            default-storage-engine = InnoDB
-            collation-server = utf8mb4_unicode_520_ci
-            init_connect = 'SET NAMES utf8mb4'
-            character-set-server = utf8mb4
-            lower_case_table_names = 1
-            max_allowed_packet = 50M
-            sql_mode=STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION
+          [mysql]
+          default-character-set = utf8mb4
+          [mysqld]
+          max_connections = 500
+          datadir = /var/lib/mysql
+          socket = /var/lib/mysql/mysql.sock
+          bind-address = 127.0.0.1
+          symbolic-links=0
+          log-error=/var/log/mysqld.log
+          pid-file=/var/run/mysqld/mysqld.pid
+          default-storage-engine = InnoDB
+          collation-server = utf8mb4_unicode_520_ci
+          init_connect = 'SET NAMES utf8mb4'
+          character-set-server = utf8mb4
+          lower_case_table_names = 1
+          max_allowed_packet = 50M
+          sql_mode=STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION
 
     - name: enable mysql
       shell: "{{ item }}"
