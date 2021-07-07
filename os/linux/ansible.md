@@ -417,8 +417,12 @@ yum 安装并监控执行结果
 创建目录
 - name: create directory
   file:
-    path: /etc/docker
+    path: "{{ item }}"
     state: directory
+  with_items:
+    - /usr/local/redis/config
+    - /home/data/redis/log
+    - /home/data/redis/dir
 
 
 创建文件
