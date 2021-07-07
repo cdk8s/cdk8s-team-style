@@ -1118,6 +1118,61 @@ location /aa/ {
 
 -------------------------------------------------------------------
 
+### Vue 项目部署根目录配置
+
+```
+vue.config.js 配置，或者不配置直接采用默认：
+const vueConfig = {
+  publicPath: '/',
+  outputDir: "dist",
+  ......
+}
+
+nginx 配置：
+server {
+    charset utf-8;
+    client_max_body_size 128M;
+
+    listen 80;
+    server_name hst-manage.netwintech.com;
+
+    location / {
+        root        /opt/jar/frontend/dist;
+        index       index.html index.php;
+        try_files $uri $uri/ /index.html;
+    }
+}
+```
+
+### Vue 项目部署非根目录配置
+
+```
+比如目录名为：manage
+vue.config.js 配置：
+const vueConfig = {
+  publicPath: '/manage/',
+  outputDir: "dist/manage",
+  ......
+}
+
+nginx 配置：
+server {
+    charset utf-8;
+    client_max_body_size 128M;
+
+    listen 80;
+    server_name hst-manage.netwintech.com;
+
+    location /manage {
+        root        /opt/jar/frontend/dist;
+        index       index.html index.php;
+        try_files $uri $uri/ /manage/index.html;
+    }
+}
+```
+
+-------------------------------------------------------------------
+
 
 ### HTTP 服务，绑定多个域名
 
