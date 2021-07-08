@@ -125,6 +125,7 @@ ansible-playbook /opt/playbook/1-install-basic-playbook.yml
 ansible-playbook /opt/playbook/2-jdk8-playbook.yml
 ```
 
+--------------------------------------------------------------------------------------------------------------------------------------
 
 ## Hadoop 安装
 
