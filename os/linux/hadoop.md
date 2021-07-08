@@ -109,14 +109,18 @@ yum install -y lrzsz
 在三台机子上都执行：
 mkdir -p /opt/playbook /opt/software
 
-在三台机子上：
+在三台机子上都上传文件：
 cd /opt/software
 将 hadoop-3.1.3.tar.gz、jdk-8u261-linux-x64.tar.gz 上传到 /opt/software
 
 在 header1 上
 cd /opt/playbook
-把以下三个脚本上传上去，并执行：
+把以下三个脚本上传上去：
+1-install-basic-no-docker-playbook.yml
+2-jdk8-playbook.yml
+10-hadoop-playbook.yml
 
+执行：
 ansible-playbook /opt/playbook/1-install-basic-no-docker-playbook.yml
 ansible-playbook /opt/playbook/2-jdk8-playbook.yml
 ```
@@ -125,26 +129,27 @@ ansible-playbook /opt/playbook/2-jdk8-playbook.yml
 ## Hadoop 安装
 
 ```
-hadoop-env.sh	配置Hadoop运行所需的环境变量
-yarn-env.sh	   配置Yarn运行所需的环境变量
-core-site.xml	Hadoop核心全局配置文件，可在其他配置文件中引用该文件
-hdfs-site.xml	HDFS配置文件，继承core-site.xml配置文件
-mapred-site.xml	MapReduce配置文件，继承core-site.xml配置文件
-yarn-site.xml	Yarn配置文件，继承core-site.xml配置文件
+hadoop-env.sh      配置Hadoop运行所需的环境变量
+yarn-env.sh        配置Yarn运行所需的环境变量
+core-site.xml      Hadoop核心全局配置文件，可在其他配置文件中引用该文件
+hdfs-site.xml      HDFS配置文件，继承core-site.xml配置文件
+mapred-site.xml    MapReduce配置文件，继承core-site.xml配置文件
+yarn-site.xml      Yarn配置文件，继承core-site.xml配置文件
 ```
 
-执行安装脚本：
+开始安装 hadoop：
+
+```
+在 header1 上执行：
 ansible-playbook /opt/playbook/10-hadoop-playbook.yml
 
-执行完成后，端口所有终端窗口，重新连接
+执行完成后，断开所有终端窗口，重新连接
 
 
-## header1 机子运行
-
-```
 首次使用需要先格式化  HDFS
+在 header1 上执行：
 hdfs namenode -format
-必须出现有
+控制台必须出现有
 common.Storage: Storage directory /home/data/hadoop/hdfs/tmpdir/dfs/name has been successfully formatted
 的信息才表示格式化成功，然后就可以正式启动集群了；否则，就需要查看指令是否正确，或者之前Hadoop集群的安装和配置是否正确。
 ```
@@ -223,67 +228,31 @@ SHUTDOWN_MSG: Shutting down NameNode at header1/192.168.31.137
 
 ## HDFS 启动
 
-- 切换到 header1 机器
 
 ```
-- 任何目录下执行执行：start-dfs.sh
+- 切换到 header1 机器
+- 可以在任何目录下执行执行：start-dfs.sh
 
-启动MapReduce JobHistory Server，并在指定服务器上以mapred运行：
+启动 MapReduce JobHistory Server：
 mapred --daemon start historyserver
 
 
-进程效果：
+查看进程情况：jps -l
 25857 org.apache.hadoop.mapreduce.v2.hs.JobHistoryServer
 25234 org.apache.hadoop.hdfs.server.namenode.NameNode
 25417 org.apache.hadoop.hdfs.server.datanode.DataNode
 
 如果要停止，命令：stop-dfs.sh
-
-#停止历史服务
+停止历史服务
 mapred --daemon stop historyserver
 
 
-worker2 我们是不需要管的。
-在 启动 dfs 和 yarn 的时候，worker2 就会启动如下进程：
-11558 org.apache.hadoop.hdfs.server.namenode.SecondaryNameNode
-11671 org.apache.hadoop.yarn.server.nodemanager.NodeManager
-11483 org.apache.hadoop.hdfs.server.datanode.DataNode
 
-```
+-------------------------------------------------------------------
+切换到 worker1 机器，
+可以在任何目录下执行执行：start-yarn.sh
 
-
-- 查看运行更多情况：`hdfs dfsadmin -report`
-
-```
-Configured Capacity: 0 (0 B)
-Present Capacity: 0 (0 B)
-DFS Remaining: 0 (0 B)
-DFS Used: 0 (0 B)
-DFS Used%: NaN%
-Under replicated blocks: 0
-Blocks with corrupt replicas: 0
-Missing blocks: 0
-```
-
-- 查看 log：`cd $HADOOP_HOME/logs`
-
-```
-其他平时常用命令：
-hdfs --daemon start namenode
-hdfs --daemon start datanode
-yarn --daemon start resourcemanager
-yarn --daemon start nodemsnager
-```
-
-
-## YARN 运行
-
-```
-切换到 worker1 机器
-start-yarn.sh
-
- 
-进程效果：
+查看进程情况：jps -l
 19184 org.apache.hadoop.yarn.server.resourcemanager.ResourceManager
 19524 org.apache.hadoop.yarn.server.nodemanager.NodeManager
 18763 org.apache.hadoop.hdfs.server.datanode.DataNode
@@ -299,8 +268,110 @@ yarn node -list
 yarn application -list
 
 
+-------------------------------------------------------------------
+
+worker2 我们是不需要管的。
+在 启动 dfs 和 yarn 的时候，worker2 就会启动如下进程：
+11558 org.apache.hadoop.hdfs.server.namenode.SecondaryNameNode
+11671 org.apache.hadoop.yarn.server.nodemanager.NodeManager
+11483 org.apache.hadoop.hdfs.server.datanode.DataNode
 
 ```
+
+
+### 其他常用的一些信息
+
+```
+日志的目录地址：
+/usr/local/hadoop-3.1.3/logs
+
+```
+
+- 查看集群运行情况：`hdfs dfsadmin -report`
+
+```
+Configured Capacity: 415217807360 (386.70 GB)
+Present Capacity: 415110766592 (386.60 GB)
+DFS Remaining: 415107829760 (386.60 GB)
+DFS Used: 2936832 (2.80 MB)
+DFS Used%: 0.00%
+Replicated Blocks:
+        Under replicated blocks: 2
+        Blocks with corrupt replicas: 0
+        Missing blocks: 0
+        Missing blocks (with replication factor 1): 0
+        Low redundancy blocks with highest priority to recover: 0
+        Pending deletion blocks: 0
+Erasure Coded Block Groups:
+        Low redundancy block groups: 0
+        Block groups with corrupt internal blocks: 0
+        Missing block groups: 0
+        Low redundancy blocks with highest priority to recover: 0
+        Pending deletion blocks: 0
+
+-------------------------------------------------
+Live datanodes (3):
+
+Name: 192.168.31.137:9866 (header1)
+Hostname: header1
+Decommission Status : Normal
+Configured Capacity: 178149920768 (165.92 GB)
+DFS Used: 978944 (956 KB)
+Non DFS Used: 37101568 (35.38 MB)
+DFS Remaining: 178111840256 (165.88 GB)
+DFS Used%: 0.00%
+DFS Remaining%: 99.98%
+Configured Cache Capacity: 0 (0 B)
+Cache Used: 0 (0 B)
+Cache Remaining: 0 (0 B)
+Cache Used%: 100.00%
+Cache Remaining%: 0.00%
+Xceivers: 1
+Last contact: Thu Jul 08 16:25:07 CST 2021
+Last Block Report: Thu Jul 08 16:17:43 CST 2021
+Num of Blocks: 11
+
+
+Name: 192.168.31.237:9866 (worker2)
+Hostname: worker2
+Decommission Status : Normal
+Configured Capacity: 58985041920 (54.93 GB)
+DFS Used: 978944 (956 KB)
+Non DFS Used: 36048896 (34.38 MB)
+DFS Remaining: 58948014080 (54.90 GB)
+DFS Used%: 0.00%
+DFS Remaining%: 99.94%
+Configured Cache Capacity: 0 (0 B)
+Cache Used: 0 (0 B)
+Cache Remaining: 0 (0 B)
+Cache Used%: 100.00%
+Cache Remaining%: 0.00%
+Xceivers: 1
+Last contact: Thu Jul 08 16:25:06 CST 2021
+Last Block Report: Thu Jul 08 15:26:45 CST 2021
+Num of Blocks: 11
+
+
+Name: 192.168.31.88:9866 (worker1)
+Hostname: worker1
+Decommission Status : Normal
+Configured Capacity: 178082844672 (165.85 GB)
+DFS Used: 978944 (956 KB)
+Non DFS Used: 33890304 (32.32 MB)
+DFS Remaining: 178047975424 (165.82 GB)
+DFS Used%: 0.00%
+DFS Remaining%: 99.98%
+Configured Cache Capacity: 0 (0 B)
+Cache Used: 0 (0 B)
+Cache Remaining: 0 (0 B)
+Cache Used%: 100.00%
+Cache Remaining%: 0.00%
+Xceivers: 1
+Last contact: Thu Jul 08 16:25:05 CST 2021
+Last Block Report: Thu Jul 08 16:02:08 CST 2021
+Num of Blocks: 11
+```
+
 
 ## 端口情况
 

@@ -674,6 +674,7 @@ docker-pr 13551 root    4u  IPv6 2116824      0t0  TCP *:aicc-cmi (LISTEN)
 
 #### netstat
 
+- 安装命令：`yum install -y net-tools`
 - 更多用法可以看：[netstat 的10个基本用法](https://linux.cn/article-2434-1.html)
 - 查看所有在用的端口（macOS 也适用）：`netstat -ntlp`
 
