@@ -484,37 +484,35 @@ yum 安装并监控执行结果
 
 
 常用的复制、删除、创建、添加内容一套方案 start
-- name: copy hadoop-env.sh
+- name: copy ntp.conf
   copy:
-    src=/etc/hadoop/hadoop-env.sh
-    dest=/etc/hadoop/hadoop-env.sh.back
+    src=/etc/ntp.conf
+    dest=/etc/ntp.conf.back
 
-- name: remove hadoop-env.sh
+- name: remove ntp.conf
   file:
-    path: { hadoop_home_path }}/etc/hadoop/hadoop-env.sh
+    path: /etc/ntp.conf
     state: absent
 
-- name: create hadoop-env.sh
+- name: create ntp.conf
   file:
-    path=/etc/hadoop/{{ item }}
+    path=/etc/{{ item }}
     state=touch
     mode=777
   with_items:
-    - hadoop-env.sh
+    - ntp.conf
 
-- name: set hadoop-env.sh
+- name: set ntp.conf
   blockinfile:
-    path: /etc/hadoop/hadoop-env.sh
+    path: /etc/ntp.conf
     marker: ""
     block: |
-      {
-        "registry-mirrors": [
-          "https://ldhc17y9.mirror.aliyuncs.com",
-          "https://hub-mirror.c.163.com",
-          "https://mirror.baidubce.com",
-          "https://docker.mirrors.ustc.edu.cn"
-        ]
-      }
+      ntp1.aliyun.com
+      ntp2.aliyun.com
+      ntp3.aliyun.com
+      ntp4.aliyun.com
+      ntp5.aliyun.com
+      ntp6.aliyun.com
 常用的复制、删除、创建、添加内容一套方案 end
 
 
