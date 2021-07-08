@@ -96,12 +96,13 @@ server {
 
     # listen            80;
     listen 443 ssl;
-    ssl_certificate     /usr/share/nginx/html/mytestabcdef.com+4.pem;
-    ssl_certificate_key /usr/share/nginx/html/mytestabcdef.com+4-key.pem;
+    ssl_certificate     /opt/jar/192.168.30.239+3.pem;
+    ssl_certificate_key /opt/jar/192.168.30.239+3-key.pem;
     ssl_session_timeout 5m;
     ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
     ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:HIGH:!aNULL:!MD5:!RC4:!DHE;
     ssl_prefer_server_ciphers on;
+    
     server_name       192.168.31.207 mytestabcdef.com;
 
     location / {
