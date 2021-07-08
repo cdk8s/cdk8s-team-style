@@ -11,7 +11,7 @@
       debug:
         msg: "'{{ lookup('env', 'JAVA_HOME') }}' -- is environment variable"
 
-    - name: get environment variable AWS_ACCESS_KEY_ID
+    - name: get environment variable JAVA_HOME
       set_fact:
         JAVA_HOME_VAR: "{{ lookup('env', 'JAVA_HOME')}}"
     - name: check JAVA_HOME environment variable

@@ -383,7 +383,7 @@ PLAY RECAP *********************************************************************
     msg: "'{{ lookup('env', 'JAVA_HOME') }}' -- is environment variable"
 
 检查环境变量
-- name: get environment variable AWS_ACCESS_KEY_ID
+- name: get environment variable JAVA_HOME
   set_fact:
     JAVA_HOME_VAR: "{{ lookup('env', 'JAVA_HOME')}}"
 - name: check JAVA_HOME environment variable
