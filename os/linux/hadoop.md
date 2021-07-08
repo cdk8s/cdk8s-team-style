@@ -141,6 +141,19 @@ yarn-site.xml      Yarn配置文件，继承core-site.xml配置文件
 开始安装 hadoop：
 
 ```
+注意：如果是生产环境，还需要修改下以下配置：
+理论上服务器是挂载多个磁盘的，在hdfs-site.xml文件中配置多目录
+假设我们挂载的路径分别是：/home/dfs/data1 /home/dfs/data2 /home/dfs/data3
+HDFS 的 DataNode 节点保存数据的路径由 dfs.datanode.data.dir 参数决定，其默认值为file://${hadoop.tmp.dir}/dfs/data，若服务器有多个磁盘，必须对该参数进行修改。如果是测试环境没有多个磁盘，默认继承 core-site.xml 的 hadoop.tmp.dir 即可
+<property>
+    <name>dfs.datanode.data.dir</name>
+<value>file:///home/dfs/data1,file:///home/dfs/data2,file:///home/dfs/data3</value>
+</property>
+注意：每个节点的服务器挂载的磁盘不一样，所以这个不能写在 playbook 中，除非你所有服务器都是同样的挂载目录。
+
+
+
+
 在 header1 上执行：
 ansible-playbook /opt/playbook/10-hadoop-playbook.yml
 
@@ -267,6 +280,55 @@ worker2 我们是不需要管的。
 11558 org.apache.hadoop.hdfs.server.namenode.SecondaryNameNode
 11671 org.apache.hadoop.yarn.server.nodemanager.NodeManager
 11483 org.apache.hadoop.hdfs.server.datanode.DataNode
+
+
+-------------------------------------------------------------------
+
+
+创建LZO文件的索引，LZO压缩文件的可切片特性依赖于其索引，故我们需要手动为LZO压缩文件创建索引。若无索引，则LZO文件的切片只有一个
+切片：MR 对大文件进行切片，方便分布式处理，加快进度
+
+测试切片
+
+将bigtable.lzo（200M）上传到集群的根目录，下面的 /input 文件路径是指的 hadoop 下的 fs 路径
+hadoop fs -mkdir /input
+hadoop fs -put /opt/software/bigtable.lzo /input
+
+上传后可以访问：http://header1:9870/explorer.html#/ 进行查看
+
+对上传的LZO文件建索引。索引文件会创建在 lzo 文件同目录下，名字 .index 为后缀。类似这样：bigtable.lzo.index
+除了对指定文件创建索引，也可以指定目录。指定目录下只要是 .lzo 追尾的文件都会被创建各自的索引文件。
+hadoop jar /usr/local/hadoop-3.1.3/share/hadoop/common/hadoop-lzo-0.4.20.jar  com.hadoop.compression.lzo.DistributedLzoIndexer /input/bigtable.lzo
+
+执行WordCount程序
+hadoop jar /usr/local/hadoop-3.1.3/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.1.3.jar wordcount -Dmapreduce.job.inputformat.class=com.hadoop.mapreduce.LzoTextInputFormat /input/bigtable.lzo /output
+控制台输出类似这样一句话，表示切成了 2 个分片，切片成功了：2021-07-08 23:35:27,297 INFO mapreduce.JobSubmitter: number of splits:2 
+除了对文件进行计算，也可以对整个目录下的 .lzo 都进行计算，可以这样写：
+hadoop jar /usr/local/hadoop-3.1.3/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.1.3.jar wordcount -Dmapreduce.job.inputformat.class=com.hadoop.mapreduce.LzoTextInputFormat /input /output
+
+
+
+基准测试
+测试HDFS写性能
+测试内容：向HDFS集群写10个128M的文件
+hadoop jar /usr/local/hadoop-3.1.3/share/hadoop/mapreduce/hadoop-mapreduce-client-jobclient-3.1.3-tests.jar TestDFSIO -write -nrFiles 10 -fileSize 128MB
+
+
+测试HDFS读性能
+测试内容：读取HDFS集群10个128M的文件
+hadoop jar /usr/local/hadoop-3.1.3/share/hadoop/mapreduce/hadoop-mapreduce-client-jobclient-3.1.3-tests.jar TestDFSIO -read -nrFiles 10 -fileSize 128MB
+
+删除测试生成数据
+hadoop jar /usr/local/hadoop-3.1.3/share/hadoop/mapreduce/hadoop-mapreduce-client-jobclient-3.1.3-tests.jar TestDFSIO -clean
+
+
+使用Sort程序评测MapReduce
+（1）使用RandomWriter来产生随机数，每个节点运行10个Map任务，每个Map产生大约1G大小的二进制随机数
+hadoop jar /usr/local/hadoop-3.1.3/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.1.3.jar randomwriter random-data
+（2）执行Sort程序
+hadoop jar /usr/local/hadoop-3.1.3/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.1.3.jar sort random-data sorted-data
+（3）验证数据是否真正排好序了
+hadoop jar /usr/local/hadoop-3.1.3/share/hadoop/mapreduce/hadoop-mapreduce-client-jobclient-3.1.3-tests.jar testmapredsort -sortInput random-data -sortOutput sorted-data
 
 ```
 
@@ -453,6 +515,38 @@ tcp        0      0 127.0.0.1:34337         0.0.0.0:*               LISTEN      
 - 使用以下命令获取正在运行的应用程序的列表：`yarn application -list`
 - 使用以下命令打印正在运行的节点的报告：`yarn node -list`
 - 关闭 Hadoop 任务进程：`yarn application -kill 你的ApplicationId`
+
+-------------------------------------------------------------------
+
+## 集群数据均衡（优化）
+
+```
+1）节点间数据均衡
+开启数据均衡命令：
+start-balancer.sh -threshold 10
+对于参数10，代表的是集群中各个节点的磁盘空间利用率相差不超过10%，可根据实际情况进行调整。
+停止数据均衡命令：
+stop-balancer.sh
+2）磁盘间数据均衡
+（1）生成均衡计划（只有一块磁盘，就不会生成计划）
+hdfs diskbalancer -plan header1
+（2）执行均衡计划
+hdfs diskbalancer -execute header1.plan.json
+（3）查看当前均衡任务的执行情况
+hdfs diskbalancer -query header1
+（4）取消均衡任务
+hdfs diskbalancer -cancel header1.plan.json
+```
+
+-------------------------------------------------------------------
+
+## 优化
+
+```
+
+```
+
+
 
 -------------------------------------------------------------------
 

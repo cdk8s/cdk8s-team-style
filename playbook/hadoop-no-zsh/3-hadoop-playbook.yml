@@ -252,6 +252,12 @@
                   <name>dfs.replication</name>
                   <value>3</value>
               </property>
+
+              <!-- zchtodo 配置线程池数，默认是 10，根据集群的规模不同，这个值也要跟着优化 -->
+              <property>
+                  <name>dfs.namenode.handler.count</name>
+                  <value>10</value>
+              </property>
           </configuration>
     - name: remove blank lines blockinfile
       lineinfile :
@@ -303,17 +309,19 @@
                   <value>JAVA_HOME,HADOOP_COMMON_HOME,HADOOP_HDFS_HOME,HADOOP_CONF_DIR,CLASSPATH_PREPEND_DISTCACHE,HADOOP_YARN_HOME,HADOOP_MAPRED_HOME</value>
               </property>
 
-              <!-- yarn容器允许分配的最大最小内存 -->
+              <!-- zchtodo yarn容器允许分配的最大最小内存，根据集群硬件配置进行优化 -->
               <property>
                   <name>yarn.scheduler.minimum-allocation-mb</name>
                   <value>512</value>
               </property>
+
+              <!-- zchtodo 单个任务可申请的最多物理内存量，默认是8192（MB） -->
               <property>
                   <name>yarn.scheduler.maximum-allocation-mb</name>
                   <value>4096</value>
               </property>
 
-              <!-- yarn容器允许管理的物理内存大小 -->
+              <!-- zchtodo yarn容器允许管理的物理内存大小，根据集群硬件配置进行优化，默认是8192（MB） -->
               <property>
                   <name>yarn.nodemanager.resource.memory-mb</name>
                   <value>4096</value>
