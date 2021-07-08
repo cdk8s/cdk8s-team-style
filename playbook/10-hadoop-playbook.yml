@@ -13,8 +13,8 @@
         marker: ""
         block: |
           192.168.31.137 header1
-          192.168.31.237 worker1
-          192.168.31.88 worker2
+          192.168.31.88 worker1
+          192.168.31.237 worker2
 
     - name: copy tar.gz
       copy:
