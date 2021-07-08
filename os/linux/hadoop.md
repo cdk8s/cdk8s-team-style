@@ -375,32 +375,58 @@ Num of Blocks: 11
 
 ## 端口情况
 
-- 主节点当前运行的所有端口：`netstat -tpnl | grep java`
-- 会用到端口（为了方便展示，整理下顺序）：
+- header1 当前运行的所有端口：`netstat -tpnl | grep java`
 
 ```
-tcp        0      0 172.16.0.17:9000        0.0.0.0:*               LISTEN      22932/java >> NameNode
-tcp        0      0 0.0.0.0:50070           0.0.0.0:*               LISTEN      22932/java >> NameNode
-tcp        0      0 0.0.0.0:50090           0.0.0.0:*               LISTEN      23125/java >> SecondaryNameNode
-tcp6       0      0 172.16.0.17:8030      :::*                    LISTEN      23462/java   >> ResourceManager
-tcp6       0      0 172.16.0.17:8031      :::*                    LISTEN      23462/java   >> ResourceManager
-tcp6       0      0 172.16.0.17:8032      :::*                    LISTEN      23462/java   >> ResourceManager
-tcp6       0      0 172.16.0.17:8033      :::*                    LISTEN      23462/java   >> ResourceManager
-tcp6       0      0 172.16.0.17:8088      :::*                    LISTEN      23462/java   >> ResourceManager
+tcp        0      0 0.0.0.0:8040            0.0.0.0:*               LISTEN      29886/java
+tcp        0      0 0.0.0.0:9864            0.0.0.0:*               LISTEN      29767/java
+tcp        0      0 0.0.0.0:8042            0.0.0.0:*               LISTEN      29886/java
+tcp        0      0 0.0.0.0:9866            0.0.0.0:*               LISTEN      29767/java
+tcp        0      0 0.0.0.0:9867            0.0.0.0:*               LISTEN      29767/java
+tcp        0      0 192.168.31.137:9870     0.0.0.0:*               LISTEN      29580/java
+tcp        0      0 127.0.0.1:42481         0.0.0.0:*               LISTEN      29767/java
+tcp        0      0 0.0.0.0:13562           0.0.0.0:*               LISTEN      29886/java
+tcp        0      0 192.168.31.137:9820     0.0.0.0:*               LISTEN      29580/java
+tcp        0      0 0.0.0.0:38589           0.0.0.0:*               LISTEN      29886/java
+tcp6       0      0 192.168.31.137:10020    :::*                    LISTEN      27911/java
+tcp6       0      0 192.168.31.137:19888    :::*                    LISTEN      27911/java
+tcp6       0      0 :::10033                :::*                    LISTEN      27911/java 
 ```
 
-- 从节点当前运行的所有端口：`netstat -tpnl | grep java`
-- 会用到端口（为了方便展示，整理下顺序）：
+- worker1 当前运行的所有端口：`netstat -tpnl | grep java`
 
 ```
-tcp        0      0 0.0.0.0:50010           0.0.0.0:*               LISTEN      14545/java >> DataNode
-tcp        0      0 0.0.0.0:50020           0.0.0.0:*               LISTEN      14545/java >> DataNode
-tcp        0      0 0.0.0.0:50075           0.0.0.0:*               LISTEN      14545/java >> DataNode
-tcp6       0      0 :::8040                 :::*                    LISTEN      14698/java >> NodeManager
-tcp6       0      0 :::8042                 :::*                    LISTEN      14698/java >> NodeManager
-tcp6       0      0 :::13562                :::*                    LISTEN      14698/java >> NodeManager
-tcp6       0      0 :::37481                :::*                    LISTEN      14698/java >> NodeManager
+tcp        0      0 0.0.0.0:9867            0.0.0.0:*               LISTEN      21745/java
+tcp        0      0 127.0.0.1:40309         0.0.0.0:*               LISTEN      21745/java
+tcp        0      0 192.168.31.88:8088      0.0.0.0:*               LISTEN      21673/java
+tcp        0      0 0.0.0.0:44857           0.0.0.0:*               LISTEN      21958/java
+tcp        0      0 0.0.0.0:13562           0.0.0.0:*               LISTEN      21958/java
+tcp        0      0 192.168.31.88:8030      0.0.0.0:*               LISTEN      21673/java
+tcp        0      0 192.168.31.88:8031      0.0.0.0:*               LISTEN      21673/java
+tcp        0      0 192.168.31.88:8032      0.0.0.0:*               LISTEN      21673/java
+tcp        0      0 192.168.31.88:8033      0.0.0.0:*               LISTEN      21673/java
+tcp        0      0 0.0.0.0:8040            0.0.0.0:*               LISTEN      21958/java
+tcp        0      0 0.0.0.0:9864            0.0.0.0:*               LISTEN      21745/java
+tcp        0      0 0.0.0.0:8042            0.0.0.0:*               LISTEN      21958/java
+tcp        0      0 0.0.0.0:9866            0.0.0.0:*               LISTEN      21745/java
 ```
+
+
+- worker2 当前运行的所有端口：`netstat -tpnl | grep java`
+
+```
+tcp        0      0 0.0.0.0:8040            0.0.0.0:*               LISTEN      12483/java
+tcp        0      0 0.0.0.0:9864            0.0.0.0:*               LISTEN      12413/java
+tcp        0      0 0.0.0.0:8042            0.0.0.0:*               LISTEN      12483/java
+tcp        0      0 0.0.0.0:9866            0.0.0.0:*               LISTEN      12413/java
+tcp        0      0 0.0.0.0:9867            0.0.0.0:*               LISTEN      12413/java
+tcp        0      0 192.168.31.237:9868     0.0.0.0:*               LISTEN      12550/java
+tcp        0      0 0.0.0.0:13562           0.0.0.0:*               LISTEN      12483/java
+tcp        0      0 0.0.0.0:42849           0.0.0.0:*               LISTEN      12483/java
+tcp        0      0 127.0.0.1:34337         0.0.0.0:*               LISTEN      12413/java
+```
+
+
 
 -------------------------------------------------------------------
 
