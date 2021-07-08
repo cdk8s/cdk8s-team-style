@@ -383,6 +383,10 @@ yum 卸载
     name: nodejs
     state: absent
 
+yum 简单安装
+- name: install redis
+  yum:
+    name: redis
 
 yum 安装并监控执行结果
 - name : install node
