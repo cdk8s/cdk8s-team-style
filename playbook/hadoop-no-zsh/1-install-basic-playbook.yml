@@ -1,0 +1,31 @@
+- hosts: all
+  remote_user: root
+  tasks:
+    - name: Disable SELinux at next reboot
+      selinux:
+        state: disabled
+
+    - name: disable firewalld
+      shell: "{{ item }}"
+      with_items:
+         - systemctl stop firewalld
+         - systemctl disable firewalld
+         - echo "vm.swappiness = 0" >> /etc/sysctl.conf
+         - swapoff -a
+         - sysctl -w vm.swappiness=0
+
+    - name: install-epel
+      shell: "{{ item }}"
+      with_items:
+         - yum install -y epel-release
+
+    - name: install-basic
+      shell: "{{ item }}"
+      with_items:
+         - yum install -y zip unzip lrzsz git wget htop deltarpm gcc gcc-c++ pcre pcre-devel zlib zlib-devel openssl openssl-devel
+
+    - name: install-vim
+      shell: "{{ item }}"
+      with_items:
+         - yum install -y vim
+         - curl https://gitee.com/cdk8s_org/vim-for-server/raw/master/vimrc > ~/.vimrc

@@ -11,7 +11,7 @@
 
 ## 基础环境
 
-- 注意：不能使用 zsh，不然会报错：bash v3.2+ is required. Sorry
+- 注意：不能使用 zsh，因为 libexec/hadoop-config.sh 要求使用 bash，不然会报错：bash v3.2+ is required. Sorry
 - 最小配置
     - header1：4C8G
     - worker1：2C8G
@@ -116,12 +116,12 @@ cd /opt/software
 在 header1 上
 cd /opt/playbook
 把以下三个脚本上传上去：
-1-install-basic-no-docker-playbook.yml
+1-install-basic-playbook.yml
 2-jdk8-playbook.yml
 10-hadoop-playbook.yml
 
 执行：
-ansible-playbook /opt/playbook/1-install-basic-no-docker-playbook.yml
+ansible-playbook /opt/playbook/1-install-basic-playbook.yml
 ansible-playbook /opt/playbook/2-jdk8-playbook.yml
 ```
 
@@ -257,16 +257,7 @@ mapred --daemon stop historyserver
 19524 org.apache.hadoop.yarn.server.nodemanager.NodeManager
 18763 org.apache.hadoop.hdfs.server.datanode.DataNode
 
-
-
 停止：stop-yarn.sh
-
-使用以下命令打印正在运行的节点的报告：
-yarn node -list
-
-使用以下命令获取正在运行的应用程序的列表：
-yarn application -list
-
 
 -------------------------------------------------------------------
 
@@ -278,8 +269,9 @@ worker2 我们是不需要管的。
 
 ```
 
+--------------------------------------------------------------------------------------------------------------------------------------
 
-### 其他常用的一些信息
+## 其他常用的一些信息
 
 ```
 日志的目录地址：
@@ -373,7 +365,7 @@ Num of Blocks: 11
 ```
 
 
-## 端口情况
+#### 端口情况
 
 - header1 当前运行的所有端口：`netstat -tpnl | grep java`
 
@@ -445,10 +437,10 @@ tcp        0      0 127.0.0.1:34337         0.0.0.0:*               LISTEN      
 - 在 header1 节点上操作
 - 运行一个 Mapreduce 作业试试：
 	- 计算 π：`hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.1.3.jar pi 1 1`
+    - 计算最终结果最后一行：`Estimated value of Pi is 4.00000000000000000000`
 - 运行一个文件相关作业：
 	- 由于运行 hadoop 时指定的输入文件只能是 HDFS 文件系统中的文件，所以我们必须将要进行 wordcount 的文件从本地文件系统拷贝到 HDFS 文件系统中。
 	- 查看目前根目录结构：`hadoop fs -ls /`
-		- 查看目前根目录结构，另外写法：`hadoop fs -ls hdfs://linux-05:9000/`
 		- 或者列出目录以及下面的文件：`hadoop fs -ls -R /`
 		- 更多命令可以看：[hadoop HDFS常用文件操作命令](https://segmentfault.com/a/1190000002672666)
 	- 创建目录：`hadoop fs -mkdir -p /tmp/zch/wordcount_input_dir`
@@ -457,9 +449,9 @@ tcp        0      0 127.0.0.1:34337         0.0.0.0:*               LISTEN      
 	- 向 yarn 提交作业，计算单词个数：`hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.1.3.jar wordcount /tmp/zch/wordcount_input_dir /tmp/zch/wordcount_output_dir`
 	- 查看计算结果输出的目录：`hadoop fs -ls /tmp/zch/wordcount_output_dir`
 	- 查看计算结果输出内容：`hadoop fs -cat /tmp/zch/wordcount_output_dir/part-r-00000`
-- 查看正在运行的 Hadoop 任务：`yarn application -list`
+- 使用以下命令获取正在运行的应用程序的列表：`yarn application -list`
+- 使用以下命令打印正在运行的节点的报告：`yarn node -list`
 - 关闭 Hadoop 任务进程：`yarn application -kill 你的ApplicationId`
-
 
 -------------------------------------------------------------------
 
