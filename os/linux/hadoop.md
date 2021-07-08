@@ -11,7 +11,7 @@
 
 ## 基础环境
 
-
+- 注意：不能使用 zsh，不然会报错：bash v3.2+ is required. Sorry
 - 最小配置
     - header1：4C8G
     - worker1：2C8G
@@ -226,26 +226,21 @@ SHUTDOWN_MSG: Shutting down NameNode at header1/192.168.31.137
 - 切换到 header1 机器
 
 ```
-- 启动：start-dfs.sh，根据提示一路 yes
-这个命令效果：
-主节点会启动任务：NameNode 和 SecondaryNameNode
-从节点会启动任务：DataNode
+- 任何目录下执行执行：start-dfs.sh，根据提示一路 yes
+
+启动MapReduce JobHistory Server，并在指定服务器上以mapred运行：
+mapred --daemon start historyserver
 
 
-主节点查看：jps，可以看到：
-21922 Jps
-21603 NameNode
-21787 SecondaryNameNode
-
-
-从节点查看：jps 可以看到：
-19728 DataNode
-19819 Jps
+进程效果：
+25857 org.apache.hadoop.mapreduce.v2.hs.JobHistoryServer
+25234 org.apache.hadoop.hdfs.server.namenode.NameNode
+25417 org.apache.hadoop.hdfs.server.datanode.DataNode
 
 如果要停止，命令：stop-dfs.sh
 
-动MapReduce JobHistory Server，并在指定服务器上以mapred运行：
-mapred --daemon start historyserver
+#停止历史服务
+mapred --daemon stop historyserver
 
 ```
 
@@ -263,7 +258,6 @@ Blocks with corrupt replicas: 0
 Missing blocks: 0
 ```
 
-- 如果需要停止：`stop-dfs.sh`
 - 查看 log：`cd $HADOOP_HOME/logs`
 
 ```
@@ -280,9 +274,14 @@ yarn --daemon start nodemsnager
 ```
 切换到 worker1 机器
 start-yarn.sh
-然后 jps 你会看到一个：ResourceManager 
 
-从节点你会看到：NodeManager
+ 
+进程效果：
+19184 org.apache.hadoop.yarn.server.resourcemanager.ResourceManager
+19524 org.apache.hadoop.yarn.server.nodemanager.NodeManager
+18763 org.apache.hadoop.hdfs.server.datanode.DataNode
+
+
 
 停止：stop-yarn.sh
 
@@ -293,8 +292,7 @@ yarn node -list
 yarn application -list
 
 
-#停止历史服务
-mapred --daemon stop historyserver
+
 ```
 
 ## 端口情况

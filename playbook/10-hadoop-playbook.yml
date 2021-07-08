@@ -361,20 +361,6 @@
                   <value>yarn</value>
               </property>
 
-              <!--继承环境变量 -->
-              <property>
-                  <name>yarn.app.mapreduce.am.env</name>
-                  <value>HADOOP_MAPRED_HOME=${HADOOP_HOME}</value>
-              </property>
-              <property>
-                  <name>mapreduce.map.env</name>
-                  <value>HADOOP_MAPRED_HOME=${HADOOP_HOME}</value>
-              </property>
-              <property>
-                  <name>mapreduce.reduce.env</name>
-                  <value>HADOOP_MAPRED_HOME=${HADOOP_HOME}</value>
-              </property>
-
               <!-- 历史服务器端地址 -->
               <property>
                   <name>mapreduce.jobhistory.address</name>
