@@ -22,7 +22,7 @@
     - name: install-basic
       shell: "{{ item }}"
       with_items:
-         - yum install -y zip unzip git wget htop
+         - yum install -y zip unzip lrzsz git wget htop deltarpm gcc gcc-c++ pcre pcre-devel zlib zlib-devel openssl openssl-devel
 
     - name: install zsh oh-my-zsh
       shell: "{{ item }}"
