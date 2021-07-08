@@ -513,6 +513,12 @@ yum 安装并监控执行结果
       ntp4.aliyun.com
       ntp5.aliyun.com
       ntp6.aliyun.com
+
+- name: remove blank lines blockinfile
+  lineinfile :
+    path: "/etc/ntp.conf"
+    regexp: "^$"
+    state: absent
 常用的复制、删除、创建、添加内容一套方案 end
 
 
