@@ -1,7 +1,7 @@
 - hosts: all
   remote_user: root
   vars:
-    java_install_folder: /usr/local
+    java_install_folder: /usr/share
     file_name: jdk-8u261-linux-x64.tar.gz
   tasks:
     - name: copy jdk
