@@ -144,79 +144,79 @@ ansible-playbook /opt/playbook/10-hadoop-playbook.yml
 ```
 首次使用需要先格式化  HDFS
 hdfs namenode -format
-必须出现有“successfully formatted”信息才表示格式化成功，然后就可以正式启动集群了；否则，就需要查看指令是否正确，或者之前Hadoop集群的安装和配置是否正确。
+必须出现有
+common.Storage: Storage directory /home/data/hadoop/hdfs/tmpdir/dfs/name has been successfully formatted
+的信息才表示格式化成功，然后就可以正式启动集群了；否则，就需要查看指令是否正确，或者之前Hadoop集群的安装和配置是否正确。
 ```
 
 - 输出结果：
 
 ```
-[root@header1 hadoop-3.1.3]# hdfs namenode -format
-18/12/17 17:47:17 INFO namenode.NameNode: STARTUP_MSG:
+2021-07-08 10:31:47,359 INFO namenode.NameNode: registered UNIX signal handlers for [TERM, HUP, INT]
+2021-07-08 10:31:47,409 INFO namenode.NameNode: createNameNode [-format]
+Formatting using clusterid: CID-3c97fdc3-7d66-4834-b14d-fe707d27d29b
+2021-07-08 10:31:47,691 INFO namenode.FSEditLog: Edit logging is async:true
+2021-07-08 10:31:47,699 INFO namenode.FSNamesystem: KeyProvider: null
+2021-07-08 10:31:47,700 INFO namenode.FSNamesystem: fsLock is fair: true
+2021-07-08 10:31:47,700 INFO namenode.FSNamesystem: Detailed lock hold time metrics enabled: false
+2021-07-08 10:31:47,703 INFO namenode.FSNamesystem: fsOwner             = root (auth:SIMPLE)
+2021-07-08 10:31:47,703 INFO namenode.FSNamesystem: supergroup          = supergroup
+2021-07-08 10:31:47,703 INFO namenode.FSNamesystem: isPermissionEnabled = true
+2021-07-08 10:31:47,703 INFO namenode.FSNamesystem: HA Enabled: false
+2021-07-08 10:31:47,730 INFO common.Util: dfs.datanode.fileio.profiling.sampling.percentage set to 0. Disabling file IO profiling
+2021-07-08 10:31:47,737 INFO blockmanagement.DatanodeManager: dfs.block.invalidate.limit: configured=1000, counted=60, effected=1000
+2021-07-08 10:31:47,737 INFO blockmanagement.DatanodeManager: dfs.namenode.datanode.registration.ip-hostname-check=true
+2021-07-08 10:31:47,740 INFO blockmanagement.BlockManager: dfs.namenode.startup.delay.block.deletion.sec is set to 000:00:00:00.000
+2021-07-08 10:31:47,740 INFO blockmanagement.BlockManager: The block deletion will start around 2021 七月 08 10:31:47
+2021-07-08 10:31:47,741 INFO util.GSet: Computing capacity for map BlocksMap
+2021-07-08 10:31:47,741 INFO util.GSet: VM type       = 64-bit
+2021-07-08 10:31:47,742 INFO util.GSet: 2.0% max memory 6.9 GB = 141.7 MB
+2021-07-08 10:31:47,742 INFO util.GSet: capacity      = 2^24 = 16777216 entries
+2021-07-08 10:31:47,751 INFO blockmanagement.BlockManager: dfs.block.access.token.enable = false
+2021-07-08 10:31:47,755 INFO Configuration.deprecation: No unit for dfs.namenode.safemode.extension(30000) assuming MILLISECONDS
+2021-07-08 10:31:47,755 INFO blockmanagement.BlockManagerSafeMode: dfs.namenode.safemode.threshold-pct = 0.9990000128746033
+2021-07-08 10:31:47,755 INFO blockmanagement.BlockManagerSafeMode: dfs.namenode.safemode.min.datanodes = 0
+2021-07-08 10:31:47,755 INFO blockmanagement.BlockManagerSafeMode: dfs.namenode.safemode.extension = 30000
+2021-07-08 10:31:47,755 INFO blockmanagement.BlockManager: defaultReplication         = 3
+2021-07-08 10:31:47,755 INFO blockmanagement.BlockManager: maxReplication             = 512
+2021-07-08 10:31:47,755 INFO blockmanagement.BlockManager: minReplication             = 1
+2021-07-08 10:31:47,755 INFO blockmanagement.BlockManager: maxReplicationStreams      = 2
+2021-07-08 10:31:47,755 INFO blockmanagement.BlockManager: redundancyRecheckInterval  = 3000ms
+2021-07-08 10:31:47,755 INFO blockmanagement.BlockManager: encryptDataTransfer        = false
+2021-07-08 10:31:47,755 INFO blockmanagement.BlockManager: maxNumBlocksToLog          = 1000
+2021-07-08 10:31:47,768 INFO namenode.FSDirectory: GLOBAL serial map: bits=24 maxEntries=16777215
+2021-07-08 10:31:47,777 INFO util.GSet: Computing capacity for map INodeMap
+2021-07-08 10:31:47,777 INFO util.GSet: VM type       = 64-bit
+2021-07-08 10:31:47,778 INFO util.GSet: 1.0% max memory 6.9 GB = 70.9 MB
+2021-07-08 10:31:47,778 INFO util.GSet: capacity      = 2^23 = 8388608 entries
+2021-07-08 10:31:47,787 INFO namenode.FSDirectory: ACLs enabled? false
+2021-07-08 10:31:47,787 INFO namenode.FSDirectory: POSIX ACL inheritance enabled? true
+2021-07-08 10:31:47,787 INFO namenode.FSDirectory: XAttrs enabled? true
+2021-07-08 10:31:47,787 INFO namenode.NameNode: Caching file names occurring more than 10 times
+2021-07-08 10:31:47,791 INFO snapshot.SnapshotManager: Loaded config captureOpenFiles: false, skipCaptureAccessTimeOnlyChange: false, snapshotDiffAllowSnapRootDescendant: true, maxSnapshotLimit: 65536
+2021-07-08 10:31:47,792 INFO snapshot.SnapshotManager: SkipList is disabled
+2021-07-08 10:31:47,794 INFO util.GSet: Computing capacity for map cachedBlocks
+2021-07-08 10:31:47,794 INFO util.GSet: VM type       = 64-bit
+2021-07-08 10:31:47,795 INFO util.GSet: 0.25% max memory 6.9 GB = 17.7 MB
+2021-07-08 10:31:47,795 INFO util.GSet: capacity      = 2^21 = 2097152 entries
+2021-07-08 10:31:47,799 INFO metrics.TopMetrics: NNTop conf: dfs.namenode.top.window.num.buckets = 10
+2021-07-08 10:31:47,799 INFO metrics.TopMetrics: NNTop conf: dfs.namenode.top.num.users = 10
+2021-07-08 10:31:47,799 INFO metrics.TopMetrics: NNTop conf: dfs.namenode.top.windows.minutes = 1,5,25
+2021-07-08 10:31:47,801 INFO namenode.FSNamesystem: Retry cache on namenode is enabled
+2021-07-08 10:31:47,801 INFO namenode.FSNamesystem: Retry cache will use 0.03 of total heap and retry cache entry expiry time is 600000 millis
+2021-07-08 10:31:47,802 INFO util.GSet: Computing capacity for map NameNodeRetryCache
+2021-07-08 10:31:47,802 INFO util.GSet: VM type       = 64-bit
+2021-07-08 10:31:47,802 INFO util.GSet: 0.029999999329447746% max memory 6.9 GB = 2.1 MB
+2021-07-08 10:31:47,802 INFO util.GSet: capacity      = 2^18 = 262144 entries
+2021-07-08 10:31:47,815 INFO namenode.FSImage: Allocated new BlockPoolId: BP-592614855-192.168.31.137-1625711507811
+2021-07-08 10:31:47,831 INFO common.Storage: Storage directory /home/data/hadoop/hdfs/tmpdir/dfs/name has been successfully formatted.
+2021-07-08 10:31:47,844 INFO namenode.FSImageFormatProtobuf: Saving image file /home/data/hadoop/hdfs/tmpdir/dfs/name/current/fsimage.ckpt_0000000000000000000using no compression
+2021-07-08 10:31:47,903 INFO namenode.FSImageFormatProtobuf: Image file /home/data/hadoop/hdfs/tmpdir/dfs/name/current/fsimage.ckpt_0000000000000000000 of size 391 bytes saved in 0 seconds .
+2021-07-08 10:31:47,911 INFO namenode.NNStorageRetentionManager: Going to retain 1 images with txid >= 0
+2021-07-08 10:31:47,914 INFO namenode.FSImage: FSImageSaver clean checkpoint: txid = 0 when meet shutdown.
+2021-07-08 10:31:47,914 INFO namenode.NameNode: SHUTDOWN_MSG:
 /************************************************************
-STARTUP_MSG: Starting NameNode
-STARTUP_MSG:   host = localhost/127.0.0.1
-STARTUP_MSG:   args = [-format]
-STARTUP_MSG:   version = 3.1.3
-STARTUP_MSG:   classpath = /usr/local/hadoop-3.1.3/etc/hadoop:/usr/local/hadoop-3.1.3/share/hadoop/common/lib/apacheds-kerberos-codec-2.0.0-M15.jar:/usr/local/hadoop-3.1.3/share/hadoop/common/lib/commons-io-2.4.jar:/usr/local/hadoop-3.1.3/share/hadoop/common/lib/activation-1.1.jar:/usr/local/hadoop-3.1.3/share/hadoop/common/lib/netty-3.6.2.Final.jar:/usr/local/hadoop-3.1.3/share/hadoop/common/lib/jackson-mapper-asl-1.9.13.jar:/usr/local/hadoop-3.1.3/share/hadoop/common/lib/slf4j-api-1.7.5.jar:/usr/local/hadoop-3.1.3/share/hadoop/common/lib/junit-4.11.jar:/usr/local/hadoop-3.1.3/share/hadoop/common/lib/curator-recipes-2.6.0.jar:/usr/local/hadoop-3.1.3/share/hadoop/common/lib/jasper-compiler-5.5.23.jar:/usr/local/hadoop-3.1.3/share/hadoop/common/lib/jets3t-0.9.0.jar:/usr/local/hadoop-3.1.3/share/hadoop/common/lib/commons-lang-2.6.jar:/usr/local/hadoop-3.1.3/share/hadoop/common/lib/commons-digester-1.8.jar:/usr/local/hadoop-3.1.3/share/hadoop/common/lib/jackson-core-asl-1.9.13.jar:/usr/local/hadoop-3.1.3/share/hadoop/common/lib/apacheds-i18n-2.0.0-M15.jar:/usr/local/hadoop-3.1.3/share/hadoop/common/lib/guava-11.0.2.jar:/usr/local/hadoop-3.1.3/share/hadoop/common/lib/gson-2.2.4.jar:/usr/local/hadoop-3.1.3/share/hadoop/common/lib/jackson-jaxrs-1.9.13.jar:/usr/local/hadoop-3.1.3/share/hadoop/common/lib/jettison-1.1.jar:/usr/local/hadoop-3.1.3/share/hadoop/common/lib/jetty-6.1.26.jar:/usr/local/hadoop-3.1.3/share/hadoop/common/lib/api-util-1.0.0-M20.jar:/usr/local/hadoop-3.1.3/share/hadoop/common/lib/log4j-1.2.17.jar:/usr/local/hadoop-3.1.3/share/hadoop/common/lib/commons-beanutils-core-1.8.0.jar:/usr/local/hadoop-3.1.3/share/hadoop/common/lib/commons-httpclient-3.1.jar:/usr/local/hadoop-3.1.3/share/hadoop/common/lib/commons-el-1.0.jar:/usr/local/hadoop-3.1.3/share/hadoop/common/lib/paranamer-2.3.jar:/usr/local/hadoop-3.1.3/share/hadoop/common/lib/slf4j-log4j12-1.7.5.jar:/usr/local/hadoop-3.1.3/share/hadoop/common/lib/commons-collections-3.2.2.jar:/usr/local/hadoop-3.1.3/share/hadoop/common/lib/jersey-server-1.9.jar:/usr/local/hadoop-3.1.3/share/hadoop/common/lib/commons-net-3.1.jar:/usr/local/hadoop-3.1.3/share/hadoop/common/lib/hadoop-auth-3.1.3.jar:/usr/local/hadoop-3.1.3/share/hadoop/common/lib/jasper-runtime-5.5.23.jar:/usr/local/hadoop-3.1.3/share/hadoop/common/lib/jaxb-impl-2.2.3-1.jar:/usr/local/hadoop-3.1.3/share/hadoop/common/lib/hamcrest-core-1.3.jar:/usr/local/hadoop-3.1.3/share/hadoop/common/lib/stax-api-1.0-2.jar:/usr/local/hadoop-3.1.3/share/hadoop/common/lib/commons-beanutils-1.7.0.jar:/usr/local/hadoop-3.1.3/share/hadoop/common/lib/protobuf-java-2.5.0.jar:/usr/local/hadoop-3.1.3/share/hadoop/common/lib/curator-framework-2.6.0.jar:/usr/local/hadoop-3.1.3/share/hadoop/common/lib/xz-1.0.jar:/usr/local/hadoop-3.1.3/share/hadoop/common/lib/jsr305-1.3.9.jar:/usr/local/hadoop-3.1.3/share/hadoop/common/lib/jsp-api-2.1.jar:/usr/local/hadoop-3.1.3/share/hadoop/common/lib/commons-compress-1.4.1.jar:/usr/local/hadoop-3.1.3/share/hadoop/common/lib/asm-3.2.jar:/usr/local/hadoop-3.1.3/share/hadoop/common/lib/jsch-0.1.42.jar:/usr/local/hadoop-3.1.3/share/hadoop/common/lib/commons-configuration-1.6.jar:/usr/local/hadoop-3.1.3/share/hadoop/common/lib/commons-cli-1.2.jar:/usr/local/hadoop-3.1.3/share/hadoop/common/lib/jackson-xc-1.9.13.jar:/usr/local/hadoop-3.1.3/share/hadoop/common/lib/commons-logging-1.1.3.jar:/usr/local/hadoop-3.1.3/share/hadoop/common/lib/htrace-core-3.0.4.jar:/usr/local/hadoop-3.1.3/share/hadoop/common/lib/jetty-util-6.1.26.jar:/usr/local/hadoop-3.1.3/share/hadoop/common/lib/commons-math3-3.1.1.jar:/usr/local/hadoop-3.1.3/share/hadoop/common/lib/mockito-all-1.8.5.jar:/usr/local/hadoop-3.1.3/share/hadoop/common/lib/jersey-json-1.9.jar:/usr/local/hadoop-3.1.3/share/hadoop/common/lib/zookeeper-3.4.6.jar:/usr/local/hadoop-3.1.3/share/hadoop/common/lib/httpclient-4.2.5.jar:/usr/local/hadoop-3.1.3/share/hadoop/common/lib/servlet-api-2.5.jar:/usr/local/hadoop-3.1.3/share/hadoop/common/lib/xmlenc-0.52.jar:/usr/local/hadoop-3.1.3/share/hadoop/common/lib/httpcore-4.2.5.jar:/usr/local/hadoop-3.1.3/share/hadoop/common/lib/api-asn1-api-1.0.0-M20.jar:/usr/local/hadoop-3.1.3/share/hadoop/common/lib/java-xmlbuilder-0.4.jar:/usr/local/hadoop-3.1.3/share/hadoop/common/lib/avro-1.7.4.jar:/usr/local/hadoop-3.1.3/share/hadoop/common/lib/jaxb-api-2.2.2.jar:/usr/local/hadoop-3.1.3/share/hadoop/common/lib/commons-codec-1.4.jar:/usr/local/hadoop-3.1.3/share/hadoop/common/lib/jersey-core-1.9.jar:/usr/local/hadoop-3.1.3/share/hadoop/common/lib/snappy-java-1.0.4.1.jar:/usr/local/hadoop-3.1.3/share/hadoop/common/lib/curator-client-2.6.0.jar:/usr/local/hadoop-3.1.3/share/hadoop/common/lib/hadoop-annotations-3.1.3.jar:/usr/local/hadoop-3.1.3/share/hadoop/common/hadoop-common-3.1.3.jar:/usr/local/hadoop-3.1.3/share/hadoop/common/hadoop-common-3.1.3-tests.jar:/usr/local/hadoop-3.1.3/share/hadoop/common/hadoop-nfs-3.1.3.jar:/usr/local/hadoop-3.1.3/share/hadoop/hdfs:/usr/local/hadoop-3.1.3/share/hadoop/hdfs/lib/commons-io-2.4.jar:/usr/local/hadoop-3.1.3/share/hadoop/hdfs/lib/netty-3.6.2.Final.jar:/usr/local/hadoop-3.1.3/share/hadoop/hdfs/lib/jackson-mapper-asl-1.9.13.jar:/usr/local/hadoop-3.1.3/share/hadoop/hdfs/lib/commons-lang-2.6.jar:/usr/local/hadoop-3.1.3/share/hadoop/hdfs/lib/commons-daemon-1.0.13.jar:/usr/local/hadoop-3.1.3/share/hadoop/hdfs/lib/jackson-core-asl-1.9.13.jar:/usr/local/hadoop-3.1.3/share/hadoop/hdfs/lib/guava-11.0.2.jar:/usr/local/hadoop-3.1.3/share/hadoop/hdfs/lib/jetty-6.1.26.jar:/usr/local/hadoop-3.1.3/share/hadoop/hdfs/lib/log4j-1.2.17.jar:/usr/local/hadoop-3.1.3/share/hadoop/hdfs/lib/commons-el-1.0.jar:/usr/local/hadoop-3.1.3/share/hadoop/hdfs/lib/xercesImpl-2.9.1.jar:/usr/local/hadoop-3.1.3/share/hadoop/hdfs/lib/jersey-server-1.9.jar:/usr/local/hadoop-3.1.3/share/hadoop/hdfs/lib/jasper-runtime-5.5.23.jar:/usr/local/hadoop-3.1.3/share/hadoop/hdfs/lib/protobuf-java-2.5.0.jar:/usr/local/hadoop-3.1.3/share/hadoop/hdfs/lib/jsr305-1.3.9.jar:/usr/local/hadoop-3.1.3/share/hadoop/hdfs/lib/xml-apis-1.3.04.jar:/usr/local/hadoop-3.1.3/share/hadoop/hdfs/lib/jsp-api-2.1.jar:/usr/local/hadoop-3.1.3/share/hadoop/hdfs/lib/asm-3.2.jar:/usr/local/hadoop-3.1.3/share/hadoop/hdfs/lib/commons-cli-1.2.jar:/usr/local/hadoop-3.1.3/share/hadoop/hdfs/lib/commons-logging-1.1.3.jar:/usr/local/hadoop-3.1.3/share/hadoop/hdfs/lib/htrace-core-3.0.4.jar:/usr/local/hadoop-3.1.3/share/hadoop/hdfs/lib/jetty-util-6.1.26.jar:/usr/local/hadoop-3.1.3/share/hadoop/hdfs/lib/servlet-api-2.5.jar:/usr/local/hadoop-3.1.3/share/hadoop/hdfs/lib/xmlenc-0.52.jar:/usr/local/hadoop-3.1.3/share/hadoop/hdfs/lib/commons-codec-1.4.jar:/usr/local/hadoop-3.1.3/share/hadoop/hdfs/lib/jersey-core-1.9.jar:/usr/local/hadoop-3.1.3/share/hadoop/hdfs/hadoop-hdfs-3.1.3-tests.jar:/usr/local/hadoop-3.1.3/share/hadoop/hdfs/hadoop-hdfs-nfs-3.1.3.jar:/usr/local/hadoop-3.1.3/share/hadoop/hdfs/hadoop-hdfs-3.1.3.jar:/usr/local/hadoop-3.1.3/share/hadoop/yarn/lib/commons-io-2.4.jar:/usr/local/hadoop-3.1.3/share/hadoop/yarn/lib/activation-1.1.jar:/usr/local/hadoop-3.1.3/share/hadoop/yarn/lib/aopalliance-1.0.jar:/usr/local/hadoop-3.1.3/share/hadoop/yarn/lib/netty-3.6.2.Final.jar:/usr/local/hadoop-3.1.3/share/hadoop/yarn/lib/jackson-mapper-asl-1.9.13.jar:/usr/local/hadoop-3.1.3/share/hadoop/yarn/lib/commons-lang-2.6.jar:/usr/local/hadoop-3.1.3/share/hadoop/yarn/lib/jackson-core-asl-1.9.13.jar:/usr/local/hadoop-3.1.3/share/hadoop/yarn/lib/guice-3.0.jar:/usr/local/hadoop-3.1.3/share/hadoop/yarn/lib/guava-11.0.2.jar:/usr/local/hadoop-3.1.3/share/hadoop/yarn/lib/jackson-jaxrs-1.9.13.jar:/usr/local/hadoop-3.1.3/share/hadoop/yarn/lib/jettison-1.1.jar:/usr/local/hadoop-3.1.3/share/hadoop/yarn/lib/jetty-6.1.26.jar:/usr/local/hadoop-3.1.3/share/hadoop/yarn/lib/log4j-1.2.17.jar:/usr/local/hadoop-3.1.3/share/hadoop/yarn/lib/commons-httpclient-3.1.jar:/usr/local/hadoop-3.1.3/share/hadoop/yarn/lib/commons-collections-3.2.2.jar:/usr/local/hadoop-3.1.3/share/hadoop/yarn/lib/jersey-server-1.9.jar:/usr/local/hadoop-3.1.3/share/hadoop/yarn/lib/jaxb-impl-2.2.3-1.jar:/usr/local/hadoop-3.1.3/share/hadoop/yarn/lib/stax-api-1.0-2.jar:/usr/local/hadoop-3.1.3/share/hadoop/yarn/lib/protobuf-java-2.5.0.jar:/usr/local/hadoop-3.1.3/share/hadoop/yarn/lib/xz-1.0.jar:/usr/local/hadoop-3.1.3/share/hadoop/yarn/lib/jsr305-1.3.9.jar:/usr/local/hadoop-3.1.3/share/hadoop/yarn/lib/jersey-client-1.9.jar:/usr/local/hadoop-3.1.3/share/hadoop/yarn/lib/guice-servlet-3.0.jar:/usr/local/hadoop-3.1.3/share/hadoop/yarn/lib/commons-compress-1.4.1.jar:/usr/local/hadoop-3.1.3/share/hadoop/yarn/lib/asm-3.2.jar:/usr/local/hadoop-3.1.3/share/hadoop/yarn/lib/commons-cli-1.2.jar:/usr/local/hadoop-3.1.3/share/hadoop/yarn/lib/jersey-guice-1.9.jar:/usr/local/hadoop-3.1.3/share/hadoop/yarn/lib/jackson-xc-1.9.13.jar:/usr/local/hadoop-3.1.3/share/hadoop/yarn/lib/commons-logging-1.1.3.jar:/usr/local/hadoop-3.1.3/share/hadoop/yarn/lib/jetty-util-6.1.26.jar:/usr/local/hadoop-3.1.3/share/hadoop/yarn/lib/leveldbjni-all-1.8.jar:/usr/local/hadoop-3.1.3/share/hadoop/yarn/lib/jersey-json-1.9.jar:/usr/local/hadoop-3.1.3/share/hadoop/yarn/lib/javax.inject-1.jar:/usr/local/hadoop-3.1.3/share/hadoop/yarn/lib/zookeeper-3.4.6.jar:/usr/local/hadoop-3.1.3/share/hadoop/yarn/lib/servlet-api-2.5.jar:/usr/local/hadoop-3.1.3/share/hadoop/yarn/lib/jaxb-api-2.2.2.jar:/usr/local/hadoop-3.1.3/share/hadoop/yarn/lib/jline-0.9.94.jar:/usr/local/hadoop-3.1.3/share/hadoop/yarn/lib/commons-codec-1.4.jar:/usr/local/hadoop-3.1.3/share/hadoop/yarn/lib/jersey-core-1.9.jar:/usr/local/hadoop-3.1.3/share/hadoop/yarn/hadoop-yarn-server-web-proxy-3.1.3.jar:/usr/local/hadoop-3.1.3/share/hadoop/yarn/hadoop-yarn-api-3.1.3.jar:/usr/local/hadoop-3.1.3/share/hadoop/yarn/hadoop-yarn-server-common-3.1.3.jar:/usr/local/hadoop-3.1.3/share/hadoop/yarn/hadoop-yarn-registry-3.1.3.jar:/usr/local/hadoop-3.1.3/share/hadoop/yarn/hadoop-yarn-server-nodemanager-3.1.3.jar:/usr/local/hadoop-3.1.3/share/hadoop/yarn/hadoop-yarn-client-3.1.3.jar:/usr/local/hadoop-3.1.3/share/hadoop/yarn/hadoop-yarn-common-3.1.3.jar:/usr/local/hadoop-3.1.3/share/hadoop/yarn/hadoop-yarn-applications-unmanaged-am-launcher-3.1.3.jar:/usr/local/hadoop-3.1.3/share/hadoop/yarn/hadoop-yarn-server-tests-3.1.3.jar:/usr/local/hadoop-3.1.3/share/hadoop/yarn/hadoop-yarn-server-resourcemanager-3.1.3.jar:/usr/local/hadoop-3.1.3/share/hadoop/yarn/hadoop-yarn-server-applicationhistoryservice-3.1.3.jar:/usr/local/hadoop-3.1.3/share/hadoop/yarn/hadoop-yarn-applications-distributedshell-3.1.3.jar:/usr/local/hadoop-3.1.3/share/hadoop/mapreduce/lib/commons-io-2.4.jar:/usr/local/hadoop-3.1.3/share/hadoop/mapreduce/lib/aopalliance-1.0.jar:/usr/local/hadoop-3.1.3/share/hadoop/mapreduce/lib/netty-3.6.2.Final.jar:/usr/local/hadoop-3.1.3/share/hadoop/mapreduce/lib/jackson-mapper-asl-1.9.13.jar:/usr/local/hadoop-3.1.3/share/hadoop/mapreduce/lib/junit-4.11.jar:/usr/local/hadoop-3.1.3/share/hadoop/mapreduce/lib/jackson-core-asl-1.9.13.jar:/usr/local/hadoop-3.1.3/share/hadoop/mapreduce/lib/guice-3.0.jar:/usr/local/hadoop-3.1.3/share/hadoop/mapreduce/lib/log4j-1.2.17.jar:/usr/local/hadoop-3.1.3/share/hadoop/mapreduce/lib/paranamer-2.3.jar:/usr/local/hadoop-3.1.3/share/hadoop/mapreduce/lib/jersey-server-1.9.jar:/usr/local/hadoop-3.1.3/share/hadoop/mapreduce/lib/hamcrest-core-1.3.jar:/usr/local/hadoop-3.1.3/share/hadoop/mapreduce/lib/protobuf-java-2.5.0.jar:/usr/local/hadoop-3.1.3/share/hadoop/mapreduce/lib/xz-1.0.jar:/usr/local/hadoop-3.1.3/share/hadoop/mapreduce/lib/guice-servlet-3.0.jar:/usr/local/hadoop-3.1.3/share/hadoop/mapreduce/lib/commons-compress-1.4.1.jar:/usr/local/hadoop-3.1.3/share/hadoop/mapreduce/lib/asm-3.2.jar:/usr/local/hadoop-3.1.3/share/hadoop/mapreduce/lib/jersey-guice-1.9.jar:/usr/local/hadoop-3.1.3/share/hadoop/mapreduce/lib/leveldbjni-all-1.8.jar:/usr/local/hadoop-3.1.3/share/hadoop/mapreduce/lib/javax.inject-1.jar:/usr/local/hadoop-3.1.3/share/hadoop/mapreduce/lib/avro-1.7.4.jar:/usr/local/hadoop-3.1.3/share/hadoop/mapreduce/lib/jersey-core-1.9.jar:/usr/local/hadoop-3.1.3/share/hadoop/mapreduce/lib/snappy-java-1.0.4.1.jar:/usr/local/hadoop-3.1.3/share/hadoop/mapreduce/lib/hadoop-annotations-3.1.3.jar:/usr/local/hadoop-3.1.3/share/hadoop/mapreduce/hadoop-mapreduce-client-app-3.1.3.jar:/usr/local/hadoop-3.1.3/share/hadoop/mapreduce/hadoop-mapreduce-client-common-3.1.3.jar:/usr/local/hadoop-3.1.3/share/hadoop/mapreduce/hadoop-mapreduce-client-shuffle-3.1.3.jar:/usr/local/hadoop-3.1.3/share/hadoop/mapreduce/hadoop-mapreduce-client-jobclient-3.1.3.jar:/usr/local/hadoop-3.1.3/share/hadoop/mapreduce/hadoop-mapreduce-client-core-3.1.3.jar:/usr/local/hadoop-3.1.3/share/hadoop/mapreduce/hadoop-mapreduce-client-hs-3.1.3.jar:/usr/local/hadoop-3.1.3/share/hadoop/mapreduce/hadoop-mapreduce-client-hs-plugins-3.1.3.jar:/usr/local/hadoop-3.1.3/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.1.3.jar:/usr/local/hadoop-3.1.3/share/hadoop/mapreduce/hadoop-mapreduce-client-jobclient-3.1.3-tests.jar:/usr/local/hadoop-3.1.3/contrib/capacity-scheduler/*.jar
-STARTUP_MSG:   build = https://github.com/apache/hadoop.git -r e8c9fe0b4c252caf2ebf1464220599650f119997; compiled by 'sjlee' on 2016-10-02T23:43Z
-STARTUP_MSG:   java = 1.8.0_191
-************************************************************/
-18/12/17 17:47:17 INFO namenode.NameNode: registered UNIX signal handlers for [TERM, HUP, INT]
-18/12/17 17:47:17 INFO namenode.NameNode: createNameNode [-format]
-Formatting using clusterid: CID-beba43b4-0881-48b4-8eda-5c3bca046398
-18/12/17 17:47:17 INFO namenode.FSNamesystem: No KeyProvider found.
-18/12/17 17:47:17 INFO namenode.FSNamesystem: fsLock is fair:true
-18/12/17 17:47:17 INFO blockmanagement.DatanodeManager: dfs.block.invalidate.limit=1000
-18/12/17 17:47:17 INFO blockmanagement.DatanodeManager: dfs.namenode.datanode.registration.ip-hostname-check=true
-18/12/17 17:47:17 INFO blockmanagement.BlockManager: dfs.namenode.startup.delay.block.deletion.sec is set to 000:00:00:00.000
-18/12/17 17:47:17 INFO blockmanagement.BlockManager: The block deletion will start around 2018 Dec 17 17:47:17
-18/12/17 17:47:17 INFO util.GSet: Computing capacity for map BlocksMap
-18/12/17 17:47:17 INFO util.GSet: VM type       = 64-bit
-18/12/17 17:47:17 INFO util.GSet: 2.0% max memory 889 MB = 17.8 MB
-18/12/17 17:47:17 INFO util.GSet: capacity      = 2^21 = 2097152 entries
-18/12/17 17:47:17 INFO blockmanagement.BlockManager: dfs.block.access.token.enable=false
-18/12/17 17:47:17 INFO blockmanagement.BlockManager: defaultReplication         = 2
-18/12/17 17:47:17 INFO blockmanagement.BlockManager: maxReplication             = 512
-18/12/17 17:47:17 INFO blockmanagement.BlockManager: minReplication             = 1
-18/12/17 17:47:17 INFO blockmanagement.BlockManager: maxReplicationStreams      = 2
-18/12/17 17:47:17 INFO blockmanagement.BlockManager: replicationRecheckInterval = 3000
-18/12/17 17:47:17 INFO blockmanagement.BlockManager: encryptDataTransfer        = false
-18/12/17 17:47:17 INFO blockmanagement.BlockManager: maxNumBlocksToLog          = 1000
-18/12/17 17:47:17 INFO namenode.FSNamesystem: fsOwner             = root (auth:SIMPLE)
-18/12/17 17:47:17 INFO namenode.FSNamesystem: supergroup          = supergroup
-18/12/17 17:47:17 INFO namenode.FSNamesystem: isPermissionEnabled = false
-18/12/17 17:47:17 INFO namenode.FSNamesystem: HA Enabled: false
-18/12/17 17:47:17 INFO namenode.FSNamesystem: Append Enabled: true
-18/12/17 17:47:17 INFO util.GSet: Computing capacity for map INodeMap
-18/12/17 17:47:17 INFO util.GSet: VM type       = 64-bit
-18/12/17 17:47:17 INFO util.GSet: 1.0% max memory 889 MB = 8.9 MB
-18/12/17 17:47:17 INFO util.GSet: capacity      = 2^20 = 1048576 entries
-18/12/17 17:47:17 INFO namenode.NameNode: Caching file names occuring more than 10 times
-18/12/17 17:47:17 INFO util.GSet: Computing capacity for map cachedBlocks
-18/12/17 17:47:17 INFO util.GSet: VM type       = 64-bit
-18/12/17 17:47:17 INFO util.GSet: 0.25% max memory 889 MB = 2.2 MB
-18/12/17 17:47:17 INFO util.GSet: capacity      = 2^18 = 262144 entries
-18/12/17 17:47:17 INFO namenode.FSNamesystem: dfs.namenode.safemode.threshold-pct = 0.9990000128746033
-18/12/17 17:47:17 INFO namenode.FSNamesystem: dfs.namenode.safemode.min.datanodes = 0
-18/12/17 17:47:17 INFO namenode.FSNamesystem: dfs.namenode.safemode.extension     = 30000
-18/12/17 17:47:17 INFO namenode.FSNamesystem: Retry cache on namenode is enabled
-18/12/17 17:47:17 INFO namenode.FSNamesystem: Retry cache will use 0.03 of total heap and retry cache entry expiry time is 600000 millis
-18/12/17 17:47:17 INFO util.GSet: Computing capacity for map NameNodeRetryCache
-18/12/17 17:47:17 INFO util.GSet: VM type       = 64-bit
-18/12/17 17:47:17 INFO util.GSet: 0.029999999329447746% max memory 889 MB = 273.1 KB
-18/12/17 17:47:17 INFO util.GSet: capacity      = 2^15 = 32768 entries
-18/12/17 17:47:17 INFO namenode.NNConf: ACLs enabled? false
-18/12/17 17:47:17 INFO namenode.NNConf: XAttrs enabled? true
-18/12/17 17:47:17 INFO namenode.NNConf: Maximum size of an xattr: 16384
-18/12/17 17:47:17 INFO namenode.FSImage: Allocated new BlockPoolId: BP-233285725-127.0.0.1-1545040037972
-18/12/17 17:47:18 INFO common.Storage: Storage directory /data/hadoop/hdfs/name has been successfully formatted.
-18/12/17 17:47:18 INFO namenode.FSImageFormatProtobuf: Saving image file /data/hadoop/hdfs/name/current/fsimage.ckpt_0000000000000000000 using no compression
-18/12/17 17:47:18 INFO namenode.FSImageFormatProtobuf: Image file /data/hadoop/hdfs/name/current/fsimage.ckpt_0000000000000000000 of size 321 bytes saved in 0 seconds.
-18/12/17 17:47:18 INFO namenode.NNStorageRetentionManager: Going to retain 1 images with txid >= 0
-18/12/17 17:47:18 INFO util.ExitUtil: Exiting with status 0
-18/12/17 17:47:18 INFO namenode.NameNode: SHUTDOWN_MSG:
-/************************************************************
-SHUTDOWN_MSG: Shutting down NameNode at localhost/127.0.0.1
+SHUTDOWN_MSG: Shutting down NameNode at header1/192.168.31.137
 ************************************************************/
 
 ```
