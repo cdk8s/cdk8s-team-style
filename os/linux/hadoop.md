@@ -310,26 +310,25 @@ hadoop jar /usr/local/hadoop-3.1.3/share/hadoop/mapreduce/hadoop-mapreduce-examp
 
 基准测试
 测试HDFS写性能
-测试内容：向HDFS集群写10个128M的文件
-hadoop jar /usr/local/hadoop-3.1.3/share/hadoop/mapreduce/hadoop-mapreduce-client-jobclient-3.1.3-tests.jar TestDFSIO -write -nrFiles 10 -fileSize 128MB
+测试内容：向HDFS集群写7个512M的文件（这里的 7 的数值一般是由服务器逻辑核数-1 得到）
+hadoop jar /usr/local/hadoop-3.1.3/share/hadoop/mapreduce/hadoop-mapreduce-client-jobclient-3.1.3-tests.jar TestDFSIO -write -nrFiles 7 -fileSize 512MB
 
 
 测试HDFS读性能
-测试内容：读取HDFS集群10个128M的文件
-hadoop jar /usr/local/hadoop-3.1.3/share/hadoop/mapreduce/hadoop-mapreduce-client-jobclient-3.1.3-tests.jar TestDFSIO -read -nrFiles 10 -fileSize 128MB
+测试内容：读取HDFS集群7个512M的文件
+hadoop jar /usr/local/hadoop-3.1.3/share/hadoop/mapreduce/hadoop-mapreduce-client-jobclient-3.1.3-tests.jar TestDFSIO -read -nrFiles 7 -fileSize 512MB
 
 删除测试生成数据
 hadoop jar /usr/local/hadoop-3.1.3/share/hadoop/mapreduce/hadoop-mapreduce-client-jobclient-3.1.3-tests.jar TestDFSIO -clean
 
 
-使用Sort程序评测MapReduce
-（1）使用RandomWriter来产生随机数，每个节点运行10个Map任务，每个Map产生大约1G大小的二进制随机数
+使用Sort程序评测MapReduce（测试服务器不需要测试，数据量有点大，预计要跑几个小时）
+1. 使用RandomWriter来产生随机数，每个节点运行10个Map任务，每个Map产生大约1G大小的二进制随机数
 hadoop jar /usr/local/hadoop-3.1.3/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.1.3.jar randomwriter random-data
-（2）执行Sort程序
+2. 执行Sort程序
 hadoop jar /usr/local/hadoop-3.1.3/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.1.3.jar sort random-data sorted-data
-（3）验证数据是否真正排好序了
+3. 验证数据是否真正排好序了
 hadoop jar /usr/local/hadoop-3.1.3/share/hadoop/mapreduce/hadoop-mapreduce-client-jobclient-3.1.3-tests.jar testmapredsort -sortInput random-data -sortOutput sorted-data
-
 ```
 
 --------------------------------------------------------------------------------------------------------------------------------------
@@ -488,9 +487,10 @@ tcp        0      0 127.0.0.1:34337         0.0.0.0:*               LISTEN      
 ## 管理界面
 
 - 查看 HDFS NameNode 管理界面（默认端口 9870）：<http://header1:9870>
-- 访问 YARN ResourceManager 管理界面（默认端口 8088）：<http://header1:8088> 
-- 访问 NodeManager-1 管理界面：<http://worker1:8042> 
-- 访问 NodeManager-2 管理界面：<http://worker2:8042> 
+- 访问 YARN ResourceManager 管理界面（默认端口 8088）：<http://worker1:8088/cluster> 
+- 访问 NodeManager-1 管理界面：<http://header1:8042> 
+- 访问 NodeManager-2 管理界面：<http://worker1:8042> 
+- 访问 NodeManager-3 管理界面：<http://worker2:8042> 
 
 
 -------------------------------------------------------------------
