@@ -1,4 +1,4 @@
-- hosts: all
+- hosts: hadoops
   remote_user: root
   vars:
     java_install_folder: /usr/local
