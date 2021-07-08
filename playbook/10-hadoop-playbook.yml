@@ -1,11 +1,11 @@
 - hosts: hadoops
   remote_user: root
   vars:
-    java_install_folder: /usr/local
-    file_name: hadoop-3.1.3.tar.gz
-    java_home_path: /usr/local/jdk1.8.0_261
-    hadoop_home_path: /usr/local/hadoop-3.1.3
-    hadoop_etc_path: {{ hadoop_home_path }}/etc/hadoop
+    java_install_folder: "/usr/local"
+    file_name: "hadoop-3.1.3.tar.gz"
+    java_home_path: "/usr/local/jdk1.8.0_261"
+    hadoop_home_path: "/usr/local/hadoop-3.1.3"
+    hadoop_etc_path: "{{ hadoop_home_path }}/etc/hadoop"
   tasks:
     - name: update hosts
       blockinfile:
@@ -18,21 +18,21 @@
 
     - name: copy tar.gz
       copy:
-        src=/opt/software/{{ file_name }}
-        dest={{ java_install_folder }}
+        src="/opt/software/{{ file_name }}"
+        dest="{{ java_install_folder }}"
 
     - name: create directory
       file:
         path: "{{ item }}"
         state: directory
       with_items:
-        - {{ hadoop_home_path }}/tmp
+        - "{{ hadoop_home_path }}/tmp"
         - /home/data/hadoop/hdfs/tmpdir
 
     - name: tar gz
       shell: "{{ item }}"
       args:
-        chdir: {{ java_install_folder }}
+        chdir: "{{ java_install_folder }}"
       with_items:
         - tar zxvf {{ file_name }}
 
@@ -51,29 +51,29 @@
 
     - name: remove gz
       file:
-        path: { java_install_folder }}/{{ file_name }}
+        path: "{ java_install_folder }}/{{ file_name }}"
         state: absent
 
 
 
     - name: copy hadoop-env.sh
       copy:
-        src={{ hadoop_etc_path }}/hadoop-env.sh
-        dest={{ hadoop_etc_path }}/hadoop-env.sh.back
+        src="{{ hadoop_etc_path }}/hadoop-env.sh"
+        dest="{{ hadoop_etc_path }}/hadoop-env.sh.back"
     - name: remove hadoop-env.sh
       file:
-        path: {{ hadoop_etc_path }}/hadoop-env.sh
+        path: "{{ hadoop_etc_path }}/hadoop-env.sh"
         state: absent
     - name: create hadoop-env.sh
       file:
-        path={{ hadoop_etc_path }}/{{ item }}
+        path="{{ hadoop_etc_path }}/{{ item }}"
         state=touch
         mode=777
       with_items:
         - hadoop-env.sh
     - name: set hadoop-env.sh
       blockinfile:
-        path: {{ hadoop_etc_path }}/hadoop-env.sh
+        path: "{{ hadoop_etc_path }}/hadoop-env.sh"
         marker: ""
         block: |
           export JAVA_HOME={{ java_home_path }}
@@ -87,22 +87,22 @@
 
     - name: copy yarn-env.sh
       copy:
-        src={{ hadoop_etc_path }}/yarn-env.sh
-        dest={{ hadoop_etc_path }}/yarn-env.sh.back
+        src="{{ hadoop_etc_path }}/yarn-env.sh"
+        dest="{{ hadoop_etc_path }}/yarn-env.sh.back"
     - name: remove yarn-env.sh
       file:
-        path: {{ hadoop_etc_path }}/yarn-env.sh
+        path: "{{ hadoop_etc_path }}/yarn-env.sh"
         state: absent
     - name: create yarn-env.sh
       file:
-        path={{ hadoop_etc_path }}/{{ item }}
+        path="{{ hadoop_etc_path }}/{{ item }}"
         state=touch
         mode=777
       with_items:
         - yarn-env.sh
     - name: set yarn-env.sh
       blockinfile:
-        path: {{ hadoop_etc_path }}/yarn-env.sh
+        path: "{{ hadoop_etc_path }}/yarn-env.sh"
         marker: ""
         block: |
           export JAVA_HOME={{ java_home_path }}
@@ -110,22 +110,22 @@
 
     - name: copy core-site.xml
       copy:
-        src={{ hadoop_etc_path }}/core-site.xml
-        dest={{ hadoop_etc_path }}/core-site.xml.back
+        src="{{ hadoop_etc_path }}/core-site.xml"
+        dest="{{ hadoop_etc_path }}/core-site.xml.back"
     - name: remove core-site.xml
       file:
-        path: {{ hadoop_etc_path }}/core-site.xml
+        path: "{{ hadoop_etc_path }}/core-site.xml"
         state: absent
     - name: create core-site.xml
       file:
-        path={{ hadoop_etc_path }}/{{ item }}
+        path="{{ hadoop_etc_path }}/{{ item }}"
         state=touch
         mode=777
       with_items:
         - core-site.xml
     - name: set core-site.xml
       blockinfile:
-        path: {{ hadoop_etc_path }}/core-site.xml
+        path: "{{ hadoop_etc_path }}/core-site.xml"
         marker: ""
         block: |
           <?xml version="1.0" encoding="UTF-8"?>
@@ -175,22 +175,22 @@
 
     - name: copy hdfs-site.xml
       copy:
-        src={{ hadoop_etc_path }}/hdfs-site.xml
-        dest={{ hadoop_etc_path }}/hdfs-site.xml.back
+        src="{{ hadoop_etc_path }}/hdfs-site.xml"
+        dest="{{ hadoop_etc_path }}/hdfs-site.xml.back"
     - name: remove hdfs-site.xml
       file:
-        path: {{ hadoop_etc_path }}/hdfs-site.xml
+        path: "{{ hadoop_etc_path }}/hdfs-site.xml"
         state: absent
     - name: create hdfs-site.xml
       file:
-        path={{ hadoop_etc_path }}/{{ item }}
+        path="{{ hadoop_etc_path }}/{{ item }}"
         state=touch
         mode=777
       with_items:
         - hdfs-site.xml
     - name: set hdfs-site.xml
       blockinfile:
-        path: {{ hadoop_etc_path }}/hdfs-site.xml
+        path: "{{ hadoop_etc_path }}/hdfs-site.xml"
         marker: ""
         block: |
           <?xml version="1.0" encoding="UTF-8"?>
@@ -221,22 +221,22 @@
 
     - name: copy yarn-site.xml
       copy:
-        src={{ hadoop_etc_path }}/yarn-site.xml
-        dest={{ hadoop_etc_path }}/yarn-site.xml.back
+        src="{{ hadoop_etc_path }}/yarn-site.xml"
+        dest="{{ hadoop_etc_path }}/yarn-site.xml.back"
     - name: remove yarn-site.xml
       file:
-        path: {{ hadoop_etc_path }}/yarn-site.xml
+        path: "{{ hadoop_etc_path }}/yarn-site.xml"
         state: absent
     - name: create yarn-site.xml
       file:
-        path={{ hadoop_etc_path }}/{{ item }}
+        path="{{ hadoop_etc_path }}/{{ item }}"
         state=touch
         mode=777
       with_items:
         - yarn-site.xml
     - name: set yarn-site.xml
       blockinfile:
-        path: {{ hadoop_etc_path }}/yarn-site.xml
+        path: "{{ hadoop_etc_path }}/yarn-site.xml"
         marker: ""
         block: |
           <?xml version="1.0" encoding="UTF-8"?>
@@ -312,22 +312,22 @@
 
     - name: copy mapred-site.xml
       copy:
-        src={{ hadoop_etc_path }}/mapred-site.xml
-        dest={{ hadoop_etc_path }}/mapred-site.xml.back
+        src="{{ hadoop_etc_path }}/mapred-site.xml"
+        dest="{{ hadoop_etc_path }}/mapred-site.xml.back"
     - name: remove mapred-site.xml
       file:
-        path: {{ hadoop_etc_path }}/mapred-site.xml
+        path: "{{ hadoop_etc_path }}/mapred-site.xml"
         state: absent
     - name: create mapred-site.xml
       file:
-        path={{ hadoop_etc_path }}/{{ item }}
+        path="{{ hadoop_etc_path }}/{{ item }}"
         state=touch
         mode=777
       with_items:
         - mapred-site.xml
     - name: set mapred-site.xml
       blockinfile:
-        path: {{ hadoop_etc_path }}/mapred-site.xml
+        path: "{{ hadoop_etc_path }}/mapred-site.xml"
         marker: ""
         block: |
           <?xml version="1.0" encoding="UTF-8"?>
@@ -373,22 +373,22 @@
 
     - name: copy workers
       copy:
-        src={{ hadoop_etc_path }}/workers
-        dest={{ hadoop_etc_path }}/workers.back
+        src="{{ hadoop_etc_path }}/workers"
+        dest="{{ hadoop_etc_path }}/workers.back"
     - name: remove workers
       file:
-        path: {{ hadoop_etc_path }}/workers
+        path: "{{ hadoop_etc_path }}/workers"
         state: absent
     - name: create workers
       file:
-        path={{ hadoop_etc_path }}/{{ item }}
+        path="{{ hadoop_etc_path }}/{{ item }}"
         state=touch
         mode=777
       with_items:
         - workers
     - name: set workers
       blockinfile:
-        path: {{ hadoop_etc_path }}/workers
+        path: "{{ hadoop_etc_path }}/workers"
         marker: ""
         block: |
           header1

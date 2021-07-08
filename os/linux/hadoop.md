@@ -54,8 +54,7 @@ hostnamectl set-hostname worker2
 
 
 我们先在 header1
-ssh-keygen -t rsa -b 2048 -N '' -f ~/.ssh/id_rsa
-cat /root/.ssh/id_rsa.pub >> /root/.ssh/authorized_keys
+ssh-keygen -t rsa -b 2048 -N '' -f ~/.ssh/id_rsa && cat /root/.ssh/id_rsa.pub >> /root/.ssh/authorized_keys
 测试：ssh localhost
 测试：ssh 192.168.31.137
 
@@ -71,38 +70,56 @@ ssh -p 22 root@192.168.31.88
 
 
 我们在 worker1
-ssh-keygen -t rsa -b 2048 -N '' -f ~/.ssh/id_rsa
-cat /root/.ssh/id_rsa.pub >> /root/.ssh/authorized_keys
+ssh-keygen -t rsa -b 2048 -N '' -f ~/.ssh/id_rsa && cat /root/.ssh/id_rsa.pub >> /root/.ssh/authorized_keys
 测试：ssh localhost
-测试：ssh 192.168.31.237
+测试：ssh 192.168.31.88
 
 同步到其他两台：
 ssh-copy-id -i /root/.ssh/id_rsa.pub -p 22 root@192.168.31.137
-ssh-copy-id -i /root/.ssh/id_rsa.pub -p 22 root@192.168.31.88
+ssh-copy-id -i /root/.ssh/id_rsa.pub -p 22 root@192.168.31.237
 
 测试下是否可以免登陆：
 ssh -p 22 root@192.168.31.137
-ssh -p 22 root@192.168.31.88
+ssh -p 22 root@192.168.31.237
 ```
 
 - 设置 ansible 配置
 
 
 ```
+在 header1 安装 ansible
+yum install -y epel-release
+yum install -y ansible
+
 在 header1 使用 ansible
 vim /etc/ansible/hosts
 
 [hadoops]
 192.168.31.137 ansible_ssh_port=22
-192.168.31.237 ansible_ssh_port=22
 192.168.31.88 ansible_ssh_port=22
+192.168.31.237 ansible_ssh_port=22
+
+
+测试：
+ansible all -a 'ps'
+
+在三台机子上都执行：
+yum install -y lrzsz
+
+在三台机子上都执行：
+mkdir -p /opt/playbook /opt/software
+
+在三台机子上：
+cd /opt/software
+将 hadoop-3.1.3.tar.gz、jdk-8u261-linux-x64.tar.gz 上传到 /opt/software
+
+在 header1 上
+cd /opt/playbook
+把以下三个脚本上传上去，并执行：
+
+ansible-playbook /opt/playbook/1-install-basic-no-docker-playbook.yml
+ansible-playbook /opt/playbook/2-jdk8-playbook.yml
 ```
-
-
-
-执行：
-1-install-basic-no-docker-playbook.yml
-2-jdk8-playbook.yml
 
 
 ## Hadoop 安装
@@ -116,7 +133,8 @@ mapred-site.xml	MapReduce配置文件，继承core-site.xml配置文件
 yarn-site.xml	Yarn配置文件，继承core-site.xml配置文件
 ```
 
-10-hadoop-playbook.yml
+执行安装脚本：
+ansible-playbook /opt/playbook/10-hadoop-playbook.yml
 
 
 
