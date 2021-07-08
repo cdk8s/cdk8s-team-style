@@ -136,6 +136,7 @@ yarn-site.xml	Yarn配置文件，继承core-site.xml配置文件
 执行安装脚本：
 ansible-playbook /opt/playbook/10-hadoop-playbook.yml
 
+执行完成后，端口所有终端窗口，重新连接
 
 
 ## header1 机子运行

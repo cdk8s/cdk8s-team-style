@@ -83,7 +83,11 @@
           export HDFS_SECONDARYNAMENODE_USER=root
           export YARN_RESOURCEMANAGER_USER=root
           export YARN_NODEMANAGER_USER=root
-
+    - name: remove blank lines blockinfile
+        lineinfile :
+          path: "{{ hadoop_etc_path }}/hadoop-env.sh"
+          regexp: "^$"
+          state: absent
 
     - name: copy yarn-env.sh
       copy:
@@ -106,6 +110,11 @@
         marker: ""
         block: |
           export JAVA_HOME={{ java_home_path }}
+    - name: remove blank lines blockinfile
+        lineinfile :
+          path: "{{ hadoop_etc_path }}/yarn-env.sh"
+          regexp: "^$"
+          state: absent
 
 
     - name: copy core-site.xml
@@ -169,7 +178,11 @@
                   <value>*</value>
               </property>
           </configuration>
-
+    - name: remove blank lines blockinfile
+        lineinfile :
+          path: "{{ hadoop_etc_path }}/core-site.xml"
+          regexp: "^$"
+          state: absent
 
 
 
@@ -216,7 +229,11 @@
                   <value>3</value>
               </property>
           </configuration>
-
+    - name: remove blank lines blockinfile
+        lineinfile :
+          path: "{{ hadoop_etc_path }}/hdfs-site.xml"
+          regexp: "^$"
+          state: absent
 
 
     - name: copy yarn-site.xml
@@ -306,7 +323,11 @@
                   <value>604800</value>
               </property>
           </configuration>
-
+    - name: remove blank lines blockinfile
+        lineinfile :
+          path: "{{ hadoop_etc_path }}/yarn-site.xml"
+          regexp: "^$"
+          state: absent
 
 
 
@@ -366,7 +387,11 @@
                   <value>header1:19888</value>
               </property>
           </configuration>
-
+    - name: remove blank lines blockinfile
+        lineinfile :
+          path: "{{ hadoop_etc_path }}/mapred-site.xml"
+          regexp: "^$"
+          state: absent
 
 
 
@@ -394,6 +419,11 @@
           header1
           worker1
           worker2
+    - name: remove blank lines blockinfile
+        lineinfile :
+          path: "{{ hadoop_etc_path }}/workers"
+          regexp: "^$"
+          state: absent
     - debug:
         msg: "workers 配置的是 datanode 工作的机器，datanode 主要是用来存放数据文件的"
     - debug:
