@@ -226,7 +226,7 @@ SHUTDOWN_MSG: Shutting down NameNode at header1/192.168.31.137
 - 切换到 header1 机器
 
 ```
-- 任何目录下执行执行：start-dfs.sh，根据提示一路 yes
+- 任何目录下执行执行：start-dfs.sh
 
 启动MapReduce JobHistory Server，并在指定服务器上以mapred运行：
 mapred --daemon start historyserver
@@ -241,6 +241,13 @@ mapred --daemon start historyserver
 
 #停止历史服务
 mapred --daemon stop historyserver
+
+
+worker2 我们是不需要管的。
+在 启动 dfs 和 yarn 的时候，worker2 就会启动如下进程：
+11558 org.apache.hadoop.hdfs.server.namenode.SecondaryNameNode
+11671 org.apache.hadoop.yarn.server.nodemanager.NodeManager
+11483 org.apache.hadoop.hdfs.server.datanode.DataNode
 
 ```
 
