@@ -1,0 +1,157 @@
+- hosts: hadoops
+  remote_user: root
+  vars:
+    tar_gz_file_name: "apache-zookeeper-3.5.7-bin.tar.gz"
+    install_folder: "/usr/local"
+    home_path: "{{ install_folder }}/apache-zookeeper-3.5.7-bin"
+    etc_path: "{{ home_path }}/conf"
+    data_path: "{{ home_path }}/zkdata"
+  tasks:
+    - name: copy tar.gz
+      copy:
+        src=/opt/software/{{ tar_gz_file_name }}
+        dest={{ install_folder }}
+
+    - name: tar gz
+      shell:
+        chdir={{ install_folder }}
+        tar zxf {{ tar_gz_file_name }}
+
+    - name: create zkdata directory
+      file:
+        path: "{{ item }}"
+        state: directory
+      with_items:
+        - "{{ data_path }}"
+
+      - name: create conf
+        file:
+          path="{{ etc_path }}/{{ item }}"
+          state=touch
+          mode=777
+        with_items:
+          - zoo.cfg
+      - name: set conf
+        blockinfile:
+          path: "{{ etc_path }}/zoo.cfg"
+          marker: ""
+          block: |
+            tickTime=2000
+            initLimit=10
+            syncLimit=5
+            dataDir={{ data_path }}
+            clientPort=2181
+            server.1=header1:2888:3888
+            server.2=worker1:2888:3888
+            server.3=worker2:2888:3888
+      - name: remove blank lines blockinfile
+        lineinfile :
+          path: "{{ etc_path }}/zoo.cfg"
+          regexp: "^$"
+          state: absent
+
+
+- hosts: header1
+  remote_user: root
+  vars:
+    install_folder: "/usr/local"
+    home_path: "{{ install_folder }}/apache-zookeeper-3.5.7-bin"
+    etc_path: "{{ home_path }}/conf"
+    data_path: "{{ home_path }}/zkdata"
+    myid_path: "{{ data_path }}/myid"
+      - name: create myid
+        file:
+          path="{{ data_path }}"
+          state=touch
+          mode=777
+        with_items:
+          - myid
+      - name: set myid
+        blockinfile:
+          path: "{{ myid_path }}"
+          marker: ""
+          block: |
+            1
+      - name: remove blank lines blockinfile
+        lineinfile :
+          path: "{{ myid_path }}"
+          regexp: "^$"
+          state: absent
+
+
+- hosts: worker1
+  remote_user: root
+  vars:
+    install_folder: "/usr/local"
+    home_path: "{{ install_folder }}/apache-zookeeper-3.5.7-bin"
+    etc_path: "{{ home_path }}/conf"
+    data_path: "{{ home_path }}/zkdata"
+    myid_path: "{{ data_path }}/myid"
+      - name: create myid
+        file:
+          path="{{ data_path }}"
+          state=touch
+          mode=777
+        with_items:
+          - myid
+      - name: set myid
+        blockinfile:
+          path: "{{ myid_path }}"
+          marker: ""
+          block: |
+            2
+      - name: remove blank lines blockinfile
+        lineinfile :
+          path: "{{ myid_path }}"
+          regexp: "^$"
+          state: absent
+
+
+- hosts: worker2
+  remote_user: root
+  vars:
+    install_folder: "/usr/local"
+    home_path: "{{ install_folder }}/apache-zookeeper-3.5.7-bin"
+    etc_path: "{{ home_path }}/conf"
+    data_path: "{{ home_path }}/zkdata"
+    myid_path: "{{ data_path }}/myid"
+      - name: create myid
+        file:
+          path="{{ data_path }}"
+          state=touch
+          mode=777
+        with_items:
+          - myid
+      - name: set myid
+        blockinfile:
+          path: "{{ myid_path }}"
+          marker: ""
+          block: |
+            3
+      - name: remove blank lines blockinfile
+        lineinfile :
+          path: "{{ myid_path }}"
+          regexp: "^$"
+          state: absent
+
+
+- hosts: hadoops
+  remote_user: root
+  vars:
+    install_folder: "/usr/local"
+    home_path: "{{ install_folder }}/apache-zookeeper-3.5.7-bin"
+    bin_path: "{{ home_path }}/bin"
+  tasks:
+    - name: start zk
+      shell: "{{ item }}"
+      args:
+        chdir: "{{ bin_path }}"
+      with_items:
+        - sh zkServer.sh start
+
+    - name: echo status
+      shell: "{{ item }}"
+      args:
+        chdir: "{{ bin_path }}"
+      with_items:
+        - sh zkServer.sh status
