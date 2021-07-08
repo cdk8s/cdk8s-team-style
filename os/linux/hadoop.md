@@ -98,10 +98,16 @@ vim /etc/ansible/hosts
 192.168.31.137 ansible_ssh_port=22
 192.168.31.88 ansible_ssh_port=22
 192.168.31.237 ansible_ssh_port=22
+[header1]
+192.168.31.137 ansible_ssh_port=22
+[worker1]
+192.168.31.88 ansible_ssh_port=22
+[worker2]
+192.168.31.237 ansible_ssh_port=22
 
 
 测试：
-ansible all -a 'ps'
+ansible hadoops -a 'ps'
 
 在三台机子上都执行：
 yum install -y lrzsz
