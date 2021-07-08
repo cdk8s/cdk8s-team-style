@@ -93,18 +93,15 @@ mytestabcdef.com+4.pem
 这里给 nginx 做证书配置
 
 server {
+
     # listen            80;
     listen 443 ssl;
-    
     ssl_certificate     /usr/share/nginx/html/mytestabcdef.com+4.pem;
     ssl_certificate_key /usr/share/nginx/html/mytestabcdef.com+4-key.pem;
-    
     ssl_session_timeout 5m;
     ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
     ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:HIGH:!aNULL:!MD5:!RC4:!DHE;
     ssl_prefer_server_ciphers on;
-    
-    
     server_name       192.168.31.207 mytestabcdef.com;
 
     location / {
