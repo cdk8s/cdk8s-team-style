@@ -8,6 +8,18 @@
     hadoop_home_path: "/usr/local/hadoop-3.1.3"
     hadoop_etc_path: "{{ hadoop_home_path }}/etc/hadoop"
   tasks:
+    - name: echo JAVA_HOME
+      debug:
+        msg: "'{{ lookup('env', 'JAVA_HOME') }}' -- is environment variable"
+
+    - name: get environment variable AWS_ACCESS_KEY_ID
+      set_fact:
+        JAVA_HOME_VAR: "{{ lookup('env', 'JAVA_HOME')}}"
+    - name: check JAVA_HOME environment variable
+      fail:
+        msg: "Environment variable JAVA_HOME is not defined or empty"
+      when: JAVA_HOME_VAR == ""
+
     - name: update hosts
       blockinfile:
         path: /etc/hosts

@@ -11,9 +11,13 @@
       debug:
         msg: "'{{ lookup('env', 'JAVA_HOME') }}' -- is environment variable"
 
-    - fail:
+    - name: get environment variable AWS_ACCESS_KEY_ID
+      set_fact:
+        JAVA_HOME_VAR: "{{ lookup('env', 'JAVA_HOME')}}"
+    - name: check JAVA_HOME environment variable
+      fail:
         msg: "Environment variable JAVA_HOME is not defined or empty"
-        when: "{{ (lookup('env', 'JAVA_HOME') | length) > 0 }}"
+      when: JAVA_HOME_VAR == ""
 
     - name: copy tar.gz
       copy:
