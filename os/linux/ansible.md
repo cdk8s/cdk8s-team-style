@@ -377,6 +377,21 @@ PLAY RECAP *********************************************************************
     msg: "这里使用清华源：https://mirrors.tuna.tsinghua.edu.cn/help/mysql/"
 
 
+打印环境变量
+- name: echo JAVA_HOME
+  debug:
+    msg: "'{{ lookup('env', 'JAVA_HOME') }}' -- is environment variable"
+
+检查环境变量
+- name: get environment variable AWS_ACCESS_KEY_ID
+  set_fact:
+    JAVA_HOME_VAR: "{{ lookup('env', 'JAVA_HOME')}}"
+- name: check JAVA_HOME environment variable
+  fail:
+    msg: "Environment variable JAVA_HOME is not defined or empty"
+  when: JAVA_HOME_VAR == ""
+
+
 yum 卸载
 - name: remove the nodejs
   yum:
