@@ -7,6 +7,14 @@
     etc_path: "{{ home_path }}/conf"
     data_path: "{{ home_path }}/zkdata"
   tasks:
+    - name: echo JAVA_HOME
+      debug:
+        msg: "'{{ lookup('env', 'JAVA_HOME') }}' -- is environment variable"
+
+    - fail:
+        msg: "Environment variable JAVA_HOME is not defined or empty"
+        when: "{{ (lookup('env', 'JAVA_HOME') | length) > 0 }}"
+
     - name: copy tar.gz
       copy:
         src=/opt/software/{{ tar_gz_file_name }}
