@@ -36,31 +36,31 @@
       with_items:
         - "{{ data_path }}"
 
-      - name: create conf
-        file:
-          path="{{ etc_path }}/{{ item }}"
-          state=touch
-          mode=777
-        with_items:
-          - zoo.cfg
-      - name: set conf
-        blockinfile:
-          path: "{{ etc_path }}/zoo.cfg"
-          marker: ""
-          block: |
-            tickTime=2000
-            initLimit=10
-            syncLimit=5
-            dataDir={{ data_path }}
-            clientPort=2181
-            server.1=header1:2888:3888
-            server.2=worker1:2888:3888
-            server.3=worker2:2888:3888
-      - name: remove blank lines blockinfile
-        lineinfile :
-          path: "{{ etc_path }}/zoo.cfg"
-          regexp: "^$"
-          state: absent
+    - name: create conf
+      file:
+        path="{{ etc_path }}/{{ item }}"
+        state=touch
+        mode=777
+      with_items:
+        - zoo.cfg
+    - name: set conf
+      blockinfile:
+        path: "{{ etc_path }}/zoo.cfg"
+        marker: ""
+        block: |
+          tickTime=2000
+          initLimit=10
+          syncLimit=5
+          dataDir={{ data_path }}
+          clientPort=2181
+          server.1=header1:2888:3888
+          server.2=worker1:2888:3888
+          server.3=worker2:2888:3888
+    - name: remove blank lines blockinfile
+      lineinfile :
+        path: "{{ etc_path }}/zoo.cfg"
+        regexp: "^$"
+        state: absent
 
 
 - hosts: header1
@@ -71,24 +71,25 @@
     etc_path: "{{ home_path }}/conf"
     data_path: "{{ home_path }}/zkdata"
     myid_path: "{{ data_path }}/myid"
-      - name: create myid
-        file:
-          path="{{ data_path }}"
-          state=touch
-          mode=777
-        with_items:
-          - myid
-      - name: set myid
-        blockinfile:
-          path: "{{ myid_path }}"
-          marker: ""
-          block: |
-            1
-      - name: remove blank lines blockinfile
-        lineinfile :
-          path: "{{ myid_path }}"
-          regexp: "^$"
-          state: absent
+  tasks:
+    - name: create myid
+      file:
+        path="{{ data_path }}"
+        state=touch
+        mode=777
+      with_items:
+        - myid
+    - name: set myid
+      blockinfile:
+        path: "{{ myid_path }}"
+        marker: ""
+        block: |
+          1
+    - name: remove blank lines blockinfile
+      lineinfile :
+        path: "{{ myid_path }}"
+        regexp: "^$"
+        state: absent
 
 
 - hosts: worker1
@@ -99,24 +100,25 @@
     etc_path: "{{ home_path }}/conf"
     data_path: "{{ home_path }}/zkdata"
     myid_path: "{{ data_path }}/myid"
-      - name: create myid
-        file:
-          path="{{ data_path }}"
-          state=touch
-          mode=777
-        with_items:
-          - myid
-      - name: set myid
-        blockinfile:
-          path: "{{ myid_path }}"
-          marker: ""
-          block: |
-            2
-      - name: remove blank lines blockinfile
-        lineinfile :
-          path: "{{ myid_path }}"
-          regexp: "^$"
-          state: absent
+  tasks:
+    - name: create myid
+      file:
+        path="{{ data_path }}"
+        state=touch
+        mode=777
+      with_items:
+        - myid
+    - name: set myid
+      blockinfile:
+        path: "{{ myid_path }}"
+        marker: ""
+        block: |
+          2
+    - name: remove blank lines blockinfile
+      lineinfile :
+        path: "{{ myid_path }}"
+        regexp: "^$"
+        state: absent
 
 
 - hosts: worker2
@@ -127,24 +129,25 @@
     etc_path: "{{ home_path }}/conf"
     data_path: "{{ home_path }}/zkdata"
     myid_path: "{{ data_path }}/myid"
-      - name: create myid
-        file:
-          path="{{ data_path }}"
-          state=touch
-          mode=777
-        with_items:
-          - myid
-      - name: set myid
-        blockinfile:
-          path: "{{ myid_path }}"
-          marker: ""
-          block: |
-            3
-      - name: remove blank lines blockinfile
-        lineinfile :
-          path: "{{ myid_path }}"
-          regexp: "^$"
-          state: absent
+  tasks:
+    - name: create myid
+      file:
+        path="{{ data_path }}"
+        state=touch
+        mode=777
+      with_items:
+        - myid
+    - name: set myid
+      blockinfile:
+        path: "{{ myid_path }}"
+        marker: ""
+        block: |
+          3
+    - name: remove blank lines blockinfile
+      lineinfile :
+        path: "{{ myid_path }}"
+        regexp: "^$"
+        state: absent
 
 
 - hosts: hadoops
