@@ -29,6 +29,11 @@
         chdir={{ install_folder }}
         tar zxf {{ tar_gz_file_name }}
 
+    - name: remove tar.gz file
+      file:
+        path: "{{ install_folder }}/{{ tar_gz_file_name }}"
+        state: absent
+
     - name: create zkdata directory
       file:
         path: "{{ item }}"
@@ -74,7 +79,7 @@
   tasks:
     - name: create myid
       file:
-        path="{{ data_path }}"
+        path="{{ data_path }}/{{ item }}"
         state=touch
         mode=777
       with_items:
@@ -103,7 +108,7 @@
   tasks:
     - name: create myid
       file:
-        path="{{ data_path }}"
+        path="{{ data_path }}/{{ item }}"
         state=touch
         mode=777
       with_items:
@@ -132,7 +137,7 @@
   tasks:
     - name: create myid
       file:
-        path="{{ data_path }}"
+        path="{{ data_path }}/{{ item }}"
         state=touch
         mode=777
       with_items:
@@ -164,9 +169,17 @@
       with_items:
         - sh zkServer.sh start
 
+    - name: Pause for wait start
+      pause:
+        seconds: 10
+
     - name: echo status
       shell: "{{ item }}"
+      register: printresult
       args:
         chdir: "{{ bin_path }}"
       with_items:
         - sh zkServer.sh status
+    - name: echo result
+      debug:
+        msg: printresult.stdout_lines

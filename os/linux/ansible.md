@@ -376,7 +376,6 @@ PLAY RECAP *********************************************************************
 - debug:
     msg: "这里使用清华源：https://mirrors.tuna.tsinghua.edu.cn/help/mysql/"
 
-
 打印环境变量
 - name: echo JAVA_HOME
   debug:
@@ -391,6 +390,10 @@ PLAY RECAP *********************************************************************
     msg: "Environment variable JAVA_HOME is not defined or empty"
   when: JAVA_HOME_VAR == ""
 
+暂停执行
+- name: Pause for wait start
+  pause:
+    seconds: 10
 
 yum 卸载
 - name: remove the nodejs
