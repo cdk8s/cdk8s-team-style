@@ -392,7 +392,7 @@ PLAY RECAP *********************************************************************
 打印环境变量，并检查环境变量 end
 
 
-检查目录是否存在
+目录不存在，即异常
 - name: check zookeeper folders exist
   stat:
     path: "{{ zookeeper_home_path }}"
@@ -401,6 +401,16 @@ PLAY RECAP *********************************************************************
   fail:
     msg: "check zookeeper folders exist fail"
   when: not register_result.stat.exists
+
+目录存在，即异常
+- name: check zookeeper folders exist
+  stat:
+    path: "{{ zookeeper_home_path }}"
+  register: register_result
+- name: check zookeeper folders exist fail
+  fail:
+    msg: "check zookeeper folders exist fail"
+  when: register_result.stat.exists
 
 
 
