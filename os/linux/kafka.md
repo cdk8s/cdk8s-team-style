@@ -7,7 +7,7 @@
 - [Flink 的要求](https://ci.apache.org/projects/flink/flink-docs-release-1.6/dev/connectors/kafka.html)
 - [Spark 的要求](https://spark.apache.org/docs/latest/streaming-kafka-integration.html)
 - [Spring 的要求](http://projects.spring.io/spring-kafka/)
-
+- 注意：Topic 的命名采用驼峰命名，不要带点、下划线，有些场景会出问题，虽然用这类方式命名不会报错
 
 ## 消息系统的好处
 
