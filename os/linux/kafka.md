@@ -390,78 +390,33 @@ wurstmeister/kafka:latest
 - Kafka manager 是一款管理 + 监控的工具，比较重
 
 
-
 ----------------------------------------------------------------------------------------------
 
-## Kafka 1.0.1 源码安装（也支持 1.0.2、0.11.0.3、0.10.2.2）
-
-- 测试环境：2G 内存足够
-- 一台机子：CentOS 7.4，根据文章最开头，已经修改了 hosts
-- 确保本机安装有 JDK8（JDK 版本不能随便挑选）
-- 先用上面的 docker 方式部署一个 zookeeper，我这里的 zookeeper IP 地址为：`172.16.0.2`
-	- **如果该 zookeeper 前面已经用过了，最好重新删除，重新 run，因为 zookeeper 上保留的旧的 topic 配置**
-- 官网下载：<https://kafka.apache.org/downloads>
-- 当前（201803）最新版本为：**1.0.1，同时推荐 Scala 版本为 2.11**，这里要特别注意：kafka_2.11-1.0.1.tgz 中的 2.11 指的是 Scala 版本
-	- 找到：`Binary downloads` 下面的链接
-	- 下载：`wget http://mirrors.shu.edu.cn/apache/kafka/1.0.1/kafka_2.11-1.0.1.tgz`
-- 解压：`tar zxvf kafka_2.11-1.0.1.tgz`，假设当前目录为：`/usr/local/kafka_2.11-1.0.1`
-- 为了方便，修改目录名字：`mv /usr/local/kafka_2.11-1.0.1 /usr/local/kafka`
-- 创建 log 输出目录：`mkdir -p /data/kafka/logs`
-- 修改 kafka-server 的配置文件：`vim /usr/local/kafka/config/server.properties`
-- 找到下面两个参数内容，修改成如下：
 
 ```
-# 唯一ID（kafka 集群环境下，该值必须唯一，默认从 0 开始），和 zookeeper 的配置文件中的 myid 类似道理（单节点多 broker 的情况下该参数必改）
-broker.id=1
-# 监听地址（单节点多 broker 的情况下该参数必改）
-listeners=PLAINTEXT://0.0.0.0:9092
-# 向 Zookeeper 注册的地址。这里可以直接填写外网IP地址，但是不建议这样做，而是通过配置 hosts 的方式来设置。不然填写外网 IP 地址会导致所有流量都走外网（单节点多 broker 的情况下该参数必改）
-advertised.listeners=PLAINTEXT://youmeekhost:9092
-# zookeeper，存储了 broker 的元信息
-zookeeper.connect=youmeekhost:2181
-# 日志数据目录，可以通过逗号来指定多个目录（单节点多 broker 的情况下该参数必改）
-log.dirs=/data/kafka/logs
-# 创建新 topic 的时候默认 1 个分区。需要特别注意的是：已经创建好的 topic 的 partition 的个数只可以被增加，不能被减少。
-# 如果对消息有高吞吐量的要求，可以增加分区数来分摊压力
-num.partitions=1
-# 允许删除topic
-delete.topic.enable=false
-# 允许自动创建topic（默认是 true）
-auto.create.topics.enable=true
-# 磁盘IO不足的时候，可以适当调大该值 ( 当内存足够时 )
-#log.flush.interval.messages=10000
-#log.flush.interval.ms=1000
-# kafka 数据保留时间 默认 168 小时 == 7 天
-log.retention.hours=168
-
-
-# 其余都使用默认配置，但是顺便解释下：
-# borker 进行网络处理的线程数
-num.network.threads=3
-
-# borker 进行 I/O 处理的线程数
-num.io.threads=8
-
-# 发送缓冲区 buffer 大小，数据不是一下子就发送的，先回存储到缓冲区了到达一定的大小后在发送，能提高性能
-socket.send.buffer.bytes=102400
-
-# 接收缓冲区大小，当数据到达一定大小后在序列化到磁盘
-socket.receive.buffer.bytes=102400
-
-# 这个参数是向 kafka 请求消息或者向 kafka 发送消息的请请求的最大数，这个值不能超过 java 的堆栈大小
-socket.request.max.bytes=104857600
+- hosts: header1
+  remote_user: root
+  tasks:
+    - debug:
+        msg:
+          - "启动命令：sh /usr/local/kafka_2.11-2.4.1/bin/kafka-server-start.sh -daemon /usr/local/kafka_2.11-2.4.1/config/server.properties"
+          - "停止命令：sh /usr/local/kafka_2.11-2.4.1/bin/kafka-server-stop.sh"
+          - "查看所有topic：sh /usr/local/kafka_2.11-2.4.1/bin/kafka-topics.sh --zookeeper header1:2181,worker1:2181,worker2:2181/kafka --list"
+          - "查看指定topic：sh /usr/local/kafka_2.11-2.4.1/bin/kafka-topics.sh --zookeeper header1:2181,worker1:2181,worker2:2181/kafka --describe --topic myTopicName"
+          - "创建指定topic，topic 命名不能有下划线、点：sh /usr/local/kafka_2.11-2.4.1/bin/kafka-topics.sh --zookeeper header1:2181,worker1:2181,worker2:2181/kafka --create --replication-factor 3 --partitions 3 --topic myTopicName"
+          - "删除指定topic：sh /usr/local/kafka_2.11-2.4.1/bin/kafka-topics.sh --zookeeper header1:2181,worker1:2181,worker2:2181/kafka --delete --topic myTopicName"
+          - "发送消息：sh /usr/local/kafka_2.11-2.4.1/bin/kafka-console-producer.sh --broker-list header1:9092,worker1:9092,worker2:9092 --topic myTopicName"
+          - "接收消息，只接收当前的：sh /usr/local/kafka_2.11-2.4.1/bin/kafka-console-consumer.sh --bootstrap-server header1:9092,worker1:9092,worker2:9092 --topic myTopicName"
+          - "接收消息，包括前面的消息：sh /usr/local/kafka_2.11-2.4.1/bin/kafka-console-consumer.sh --bootstrap-server header1:9092,worker1:9092,worker2:9092 --from-beginning --topic myTopicName"
+          - "修改分区数：sh /usr/local/kafka_2.11-2.4.1/bin/kafka-topics.sh --zookeeper header1:2181,worker1:2181,worker2:2181/kafka --alter --topic myTopicName --partitions 6"
+    - debug:
+        msg:
+          - "查看当前消费者列表：sh /usr/local/kafka_2.11-2.4.1/bin/kafka-consumer-groups.sh --bootstrap-server header1:9092,worker1:9092,worker2:9092 --list"
+          - "根据消费者名查看当前消费情况：sh /usr/local/kafka_2.11-2.4.1/bin/kafka-consumer-groups.sh --bootstrap-server header1:9092,worker1:9092,worker2:9092 --describe --group 前面的查询出的消费者"
+    - debug:
+        msg: "kafka 监控工具：https://www.kafka-eagle.org/index.html"
 ```
 
-- 启动 kafka 服务（必须制定配置文件）：`cd /usr/local/kafka && bin/kafka-server-start.sh config/server.properties`
-	- 后台方式运行 kafka 服务：`cd /usr/local/kafka && bin/kafka-server-start.sh -daemon config/server.properties`
-	- 停止 kafka 服务：`cd /usr/local/kafka && bin/kafka-server-stop.sh`
-- 再开一个终端测试：
-	- 创建 topic 命令：`cd /usr/local/kafka && bin/kafka-topics.sh --create --zookeeper youmeekhost:2181 --replication-factor 1 --partitions 1 --topic my-topic-test`
-	- 查看 topic 命令：`cd /usr/local/kafka && bin/kafka-topics.sh --list --zookeeper youmeekhost:2181`
-	- 删除 topic：`cd /usr/local/kafka && bin/kafka-topics.sh --delete --topic my-topic-test --zookeeper youmeekhost:2181`
-	- 给 topic 发送消息命令：`cd /usr/local/kafka && bin/kafka-console-producer.sh --broker-list youmeekhost:9092 --topic my-topic-test`，然后在出现交互输入框的时候输入你要发送的内容
-	- 再开一个终端，进入 kafka 容器，接受消息：`cd /usr/local/kafka && bin/kafka-console-consumer.sh --bootstrap-server youmeekhost:9092 --topic my-topic-test --from-beginning`
-	- 此时发送的终端输入一个内容回车，接受消息的终端就可以收到。
 - Spring Boot 依赖：
 
 ```xml
