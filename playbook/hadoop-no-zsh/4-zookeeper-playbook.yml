@@ -177,10 +177,13 @@
       register: printresult
     - debug: msg={{ printresult.stdout }}
 
-    - debug:
-        msg: "启动 zookeeper：sh /usr/local/apache-zookeeper-3.5.7-bin/bin/zkServer.sh start"
-    - debug:
-        msg: "停止 zookeeper：sh /usr/local/apache-zookeeper-3.5.7-bin/bin/zkServer.sh stop"
-    - debug:
-        msg: "状态 zookeeper：sh /usr/local/apache-zookeeper-3.5.7-bin/bin/zkServer.sh status"
 
+
+- hosts: header1
+  remote_user: root
+  tasks:
+    - debug:
+        msg:
+          - "启动 zookeeper：sh /usr/local/apache-zookeeper-3.5.7-bin/bin/zkServer.sh start"
+          - "停止 zookeeper：sh /usr/local/apache-zookeeper-3.5.7-bin/bin/zkServer.sh stop"
+          - "状态 zookeeper：sh /usr/local/apache-zookeeper-3.5.7-bin/bin/zkServer.sh status"
