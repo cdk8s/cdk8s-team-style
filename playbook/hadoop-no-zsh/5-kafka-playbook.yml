@@ -1,11 +1,8 @@
 - hosts: hadoops
   remote_user: root
   vars:
-    tar_gz_file_name: "apache-zookeeper-3.5.7-bin.tar.gz"
     install_folder: "/usr/local"
     zookeeper_home_path: "{{ install_folder }}/apache-zookeeper-3.5.7-bin"
-    etc_path: "{{ home_path }}/conf"
-    data_path: "{{ home_path }}/zkdata"
   tasks:
     - name: echo JAVA_HOME
       debug:
