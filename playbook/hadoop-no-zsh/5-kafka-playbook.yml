@@ -263,6 +263,8 @@
         msg: "接收消息，包括前面的消息：sh /usr/local/kafka_2.11-2.4.1/bin/kafka-console-consumer.sh --bootstrap-server header1:9092,worker1:9092,worker2:9092 --from-beginning --topic myTopicName"
     - debug:
         msg: "修改分区数：sh /usr/local/kafka_2.11-2.4.1/bin/kafka-topics.sh --zookeeper header1:2181,worker1:2181,worker2:2181/kafka --alter --topic myTopicName --partitions 6"
+    - debug:
+        msg: "kafka 监控工具：https://www.kafka-eagle.org/index.html"
 
 
 
