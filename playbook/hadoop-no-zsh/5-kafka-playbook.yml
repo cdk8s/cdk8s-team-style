@@ -251,11 +251,8 @@
   vars:
     install_folder: "/usr/local"
     home_path: "{{ install_folder }}/kafka_2.11-2.4.1"
-    bin_path: "{{ home_path }}/bin"
   tasks:
     - name: start kafka
       shell: "{{ item }}"
-      args:
-        chdir: "{{ bin_path }}"
       with_items:
-        - sh kafka-server-start.sh -daemon
+        - "sh {{ home_path }}/bin/kafka-server-start.sh {{ home_path }}/config/server.properties"
