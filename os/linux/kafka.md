@@ -403,7 +403,7 @@ wurstmeister/kafka:latest
           - "停止命令：sh /usr/local/kafka_2.11-2.4.1/bin/kafka-server-stop.sh"
           - "查看所有topic：sh /usr/local/kafka_2.11-2.4.1/bin/kafka-topics.sh --zookeeper header1:2181,worker1:2181,worker2:2181/kafka --list"
           - "查看指定topic：sh /usr/local/kafka_2.11-2.4.1/bin/kafka-topics.sh --zookeeper header1:2181,worker1:2181,worker2:2181/kafka --describe --topic myTopicName"
-          - "创建指定topic，topic 命名不能有下划线、点：sh /usr/local/kafka_2.11-2.4.1/bin/kafka-topics.sh --zookeeper header1:2181,worker1:2181,worker2:2181/kafka --create --replication-factor 3 --partitions 3 --topic myTopicName"
+          - "创建指定topic，topic 命名不能有下划线、点：sh /usr/local/kafka_2.11-2.4.1/bin/kafka-topics.sh --zookeeper header1:2181,worker1:2181,worker2:2181/kafka --create --replication-factor 3 --partitions 2 --topic myTopicName"
           - "删除指定topic：sh /usr/local/kafka_2.11-2.4.1/bin/kafka-topics.sh --zookeeper header1:2181,worker1:2181,worker2:2181/kafka --delete --topic myTopicName"
           - "发送消息：sh /usr/local/kafka_2.11-2.4.1/bin/kafka-console-producer.sh --broker-list header1:9092,worker1:9092,worker2:9092 --topic myTopicName"
           - "接收消息，只接收当前的：sh /usr/local/kafka_2.11-2.4.1/bin/kafka-console-consumer.sh --bootstrap-server header1:9092,worker1:9092,worker2:9092 --topic myTopicName"
@@ -413,6 +413,21 @@ wurstmeister/kafka:latest
         msg:
           - "查看当前消费者列表：sh /usr/local/kafka_2.11-2.4.1/bin/kafka-consumer-groups.sh --bootstrap-server header1:9092,worker1:9092,worker2:9092 --list"
           - "根据消费者名查看当前消费情况：sh /usr/local/kafka_2.11-2.4.1/bin/kafka-consumer-groups.sh --bootstrap-server header1:9092,worker1:9092,worker2:9092 --describe --group 前面的查询出的消费者"
+    - debug:
+        msg:
+          - "生产者压力测试：sh /usr/local/kafka_2.11-2.4.1/bin/kafka-producer-perf-test.sh  --topic myTopicName --record-size 100 --num-records 100000 --throughput -1 --producer-props bootstrap.servers=header1:9092,worker1:9092,worker2:9092"
+          - "参数：record-size是一条信息有多大，单位是字节"
+          - "参数：num-records是总共发送多少条信息。"
+          - "参数：throughput 是每秒多少条信息，设成-1，表示不限流，可测出生产者最大吞吐量"
+          - "测试结果：100000 records sent, 92764.378479 records/sec (8.85 MB/sec), 161.54 ms avg latency, 688.00 ms max latency, 15 ms 50th, 626 ms 95th, 678 ms 99th, 687 ms 99.9th"
+          - "测试结果表示：一共写入10w条消息，吞吐量为 8.85 MB/sec，每次写入的平均延迟为 161.54 ms 毫秒，最大的延迟为 688.00 毫秒"
+    - debug:
+        msg:
+          - "消费者压力测试：sh /usr/local/kafka_2.11-2.4.1/bin/kafka-consumer-perf-test.sh --broker-list header1:9092,worker1:9092,worker2:9092 --topic myTopicName --fetch-size 10000 --messages 100000 --threads 1"
+          - "参数：fetch-size 指定每次fetch的数据的大小"
+          - "参数：messages 总共要消费的消息个数"
+          - "测试结果：2021-07-10 01:37:13:088, 2021-07-10 01:37:13:601, 9.5436, 18.6036, 100075, 195077.9727, 1625852233293, -1625852232780, -0.0000, -0.0001"
+          - "测试结果表示：开始测试时间，测试结束数据，共消费数据 9.5436MB，吞吐量 18.6036MB/s，共消费 100075 条，平均每秒消费 195077.9727 条"
     - debug:
         msg: "kafka 监控工具：https://www.kafka-eagle.org/index.html"
 ```
