@@ -264,6 +264,10 @@
     - debug:
         msg: "修改分区数：sh /usr/local/kafka_2.11-2.4.1/bin/kafka-topics.sh --zookeeper header1:2181,worker1:2181,worker2:2181/kafka --alter --topic myTopicName --partitions 6"
     - debug:
+        msg:
+          - "查看当前消费者列表：sh /usr/local/kafka_2.11-2.4.1/bin/kafka-consumer-groups.sh --bootstrap-server header1:9092,worker1:9092,worker2:9092 --list"
+          - "根据消费者名查看当前消费情况：sh /usr/local/kafka_2.11-2.4.1/bin/kafka-consumer-groups.sh --bootstrap-server header1:9092,worker1:9092,worker2:9092 --describe --group 前面的查询出的消费者"
+    - debug:
         msg: "kafka 监控工具：https://www.kafka-eagle.org/index.html"
 
 

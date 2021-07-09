@@ -372,10 +372,15 @@ PLAY RECAP *********************************************************************
 ## 基础命令
 
 ```
-打印信息
+打印一条信息
 - debug:
     msg: "这里使用清华源：https://mirrors.tuna.tsinghua.edu.cn/help/mysql/"
 
+打印多条信息
+- debug:
+    msg:
+      - "信息1"
+      - "信息2"
 
 打印环境变量，并检查环境变量 start
 - name: echo JAVA_HOME
