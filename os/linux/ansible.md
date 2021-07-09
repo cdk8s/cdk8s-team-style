@@ -395,6 +395,14 @@ PLAY RECAP *********************************************************************
   pause:
     seconds: 10
 
+
+打印 shell 脚本执行输出到终端的结果信息出来
+tasks:
+- shell: "sh {{bin_path}}/zkServer.sh status"
+  register: printresult
+- debug: msg={{ printresult.stdout }}
+
+
 yum 卸载
 - name: remove the nodejs
   yum:

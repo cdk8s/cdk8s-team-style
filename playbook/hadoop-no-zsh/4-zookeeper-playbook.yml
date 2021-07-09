@@ -173,13 +173,6 @@
       pause:
         seconds: 10
 
-    - name: echo status
-      shell: "{{ item }}"
+    - shell: "sh {{bin_path}}/zkServer.sh status"
       register: printresult
-      args:
-        chdir: "{{ bin_path }}"
-      with_items:
-        - sh zkServer.sh status
-    - name: echo result
-      debug:
-        msg: printresult.stdout_lines
+    - debug: msg={{ printresult.stdout }}
