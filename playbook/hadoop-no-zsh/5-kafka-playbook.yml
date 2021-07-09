@@ -63,3 +63,199 @@
 
 
 
+- hosts: header1
+  remote_user: root
+  vars:
+    install_folder: "/usr/local"
+    home_path: "{{ install_folder }}/kafka_2.11-2.4.1"
+    config_path: "{{ home_path }}/config"
+    logs_path: "{{ home_path }}/logs"
+  tasks:
+    - name: copy server.properties
+      copy:
+        src="{{ config_path }}/server.properties"
+        dest="{{ config_path }}/server.properties.back"
+    - name: remove server.properties
+      file:
+        path: "{{ config_path }}/server.properties"
+        state: absent
+    - name: create server.properties
+      file:
+        path="{{ config_path }}/{{ item }}"
+        state=touch
+        mode=777
+      with_items:
+        - server.properties
+    - name: set server.properties
+      blockinfile:
+        path: "{{ config_path }}/server.properties"
+        marker: ""
+        block: |
+          #broker的全局唯一编号，不能重复
+          broker.id=1
+          #删除topic功能使能
+          delete.topic.enable=true
+          #配置连接Zookeeper集群地址，末尾的/kafka可选，但是建议配置上，因为注册到ZooKeeper的除了kafka可能还有其他服务，增加根目录便于区分
+          zookeeper.connect=header1:2181,worker1:2181,worker2:2181/kafka
+          num.network.threads=3
+          num.io.threads=8
+          socket.send.buffer.bytes=102400
+          socket.receive.buffer.bytes=102400
+          socket.request.max.bytes=104857600
+          log.dirs={{ logs_path }}
+          num.partitions=1
+          num.recovery.threads.per.data.dir=1
+          offsets.topic.replication.factor=1
+          transaction.state.log.replication.factor=1
+          transaction.state.log.min.isr=1
+          log.retention.hours=168
+          log.segment.bytes=1073741824
+          log.retention.check.interval.ms=300000
+          zookeeper.connect=localhost:2181
+          zookeeper.connection.timeout.ms=6000
+          group.initial.rebalance.delay.ms=0
+    - name: remove blank lines blockinfile
+      lineinfile :
+        path: "{{ config_path }}/server.properties"
+        regexp: "^$"
+        state: absent
+
+
+
+
+
+- hosts: worker1
+  remote_user: root
+  vars:
+    install_folder: "/usr/local"
+    home_path: "{{ install_folder }}/kafka_2.11-2.4.1"
+    config_path: "{{ home_path }}/config"
+    logs_path: "{{ home_path }}/logs"
+  tasks:
+    - name: copy server.properties
+      copy:
+        src="{{ config_path }}/server.properties"
+        dest="{{ config_path }}/server.properties.back"
+    - name: remove server.properties
+      file:
+        path: "{{ config_path }}/server.properties"
+        state: absent
+    - name: create server.properties
+      file:
+        path="{{ config_path }}/{{ item }}"
+        state=touch
+        mode=777
+      with_items:
+        - server.properties
+    - name: set server.properties
+      blockinfile:
+        path: "{{ config_path }}/server.properties"
+        marker: ""
+        block: |
+          #broker的全局唯一编号，不能重复
+          broker.id=2
+          #删除topic功能使能
+          delete.topic.enable=true
+          #配置连接Zookeeper集群地址，末尾的/kafka可选，但是建议配置上，因为注册到ZooKeeper的除了kafka可能还有其他服务，增加根目录便于区分
+          zookeeper.connect=header1:2181,worker1:2181,worker2:2181/kafka
+          num.network.threads=3
+          num.io.threads=8
+          socket.send.buffer.bytes=102400
+          socket.receive.buffer.bytes=102400
+          socket.request.max.bytes=104857600
+          log.dirs={{ logs_path }}
+          num.partitions=1
+          num.recovery.threads.per.data.dir=1
+          offsets.topic.replication.factor=1
+          transaction.state.log.replication.factor=1
+          transaction.state.log.min.isr=1
+          log.retention.hours=168
+          log.segment.bytes=1073741824
+          log.retention.check.interval.ms=300000
+          zookeeper.connect=localhost:2181
+          zookeeper.connection.timeout.ms=6000
+          group.initial.rebalance.delay.ms=0
+    - name: remove blank lines blockinfile
+      lineinfile :
+        path: "{{ config_path }}/server.properties"
+        regexp: "^$"
+        state: absent
+
+
+
+
+
+
+- hosts: worker2
+  remote_user: root
+  vars:
+    install_folder: "/usr/local"
+    home_path: "{{ install_folder }}/kafka_2.11-2.4.1"
+    config_path: "{{ home_path }}/config"
+    logs_path: "{{ home_path }}/logs"
+  tasks:
+    - name: copy server.properties
+      copy:
+        src="{{ config_path }}/server.properties"
+        dest="{{ config_path }}/server.properties.back"
+    - name: remove server.properties
+      file:
+        path: "{{ config_path }}/server.properties"
+        state: absent
+    - name: create server.properties
+      file:
+        path="{{ config_path }}/{{ item }}"
+        state=touch
+        mode=777
+      with_items:
+        - server.properties
+    - name: set server.properties
+      blockinfile:
+        path: "{{ config_path }}/server.properties"
+        marker: ""
+        block: |
+          #broker的全局唯一编号，不能重复
+          broker.id=3
+          #删除topic功能使能
+          delete.topic.enable=true
+          #配置连接Zookeeper集群地址，末尾的/kafka可选，但是建议配置上，因为注册到ZooKeeper的除了kafka可能还有其他服务，增加根目录便于区分
+          zookeeper.connect=header1:2181,worker1:2181,worker2:2181/kafka
+          num.network.threads=3
+          num.io.threads=8
+          socket.send.buffer.bytes=102400
+          socket.receive.buffer.bytes=102400
+          socket.request.max.bytes=104857600
+          log.dirs={{ logs_path }}
+          num.partitions=1
+          num.recovery.threads.per.data.dir=1
+          offsets.topic.replication.factor=1
+          transaction.state.log.replication.factor=1
+          transaction.state.log.min.isr=1
+          log.retention.hours=168
+          log.segment.bytes=1073741824
+          log.retention.check.interval.ms=300000
+          zookeeper.connect=localhost:2181
+          zookeeper.connection.timeout.ms=6000
+          group.initial.rebalance.delay.ms=0
+    - name: remove blank lines blockinfile
+      lineinfile :
+        path: "{{ config_path }}/server.properties"
+        regexp: "^$"
+        state: absent
+
+
+
+
+- hosts: hadoops
+  remote_user: root
+  vars:
+    install_folder: "/usr/local"
+    home_path: "{{ install_folder }}/kafka_2.11-2.4.1"
+    bin_path: "{{ home_path }}/bin"
+  tasks:
+    - name: start kafka
+      shell: "{{ item }}"
+      args:
+        chdir: "{{ bin_path }}"
+      with_items:
+        - sh kafka-server-start.sh -daemon
