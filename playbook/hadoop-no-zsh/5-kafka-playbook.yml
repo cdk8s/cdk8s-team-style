@@ -1,8 +1,11 @@
 - hosts: hadoops
   remote_user: root
   vars:
+    tar_gz_file_name: "kafka_2.11-2.4.1.tgz"
     install_folder: "/usr/local"
     zookeeper_home_path: "{{ install_folder }}/apache-zookeeper-3.5.7-bin"
+    home_path: "{{ install_folder }}/kafka_2.11-2.4.1"
+    config_path: "{{ home_path }}/config"
   tasks:
     - name: echo JAVA_HOME
       debug:
@@ -24,3 +27,39 @@
       fail:
         msg: "check zookeeper folders exist fail"
       when: not register_result.stat.exists
+
+    - name: copy tar.gz
+      copy:
+        src=/opt/software/{{ tar_gz_file_name }}
+        dest={{ install_folder }}
+
+    - name: tar gz
+      shell:
+        chdir={{ install_folder }}
+        tar zxf {{ tar_gz_file_name }}
+
+    - name: remove tar.gz file
+      file:
+        path: "{{ install_folder }}/{{ tar_gz_file_name }}"
+        state: absent
+
+    - name: create logs directory
+      file:
+        path: "{{ item }}"
+        state: directory
+      with_items:
+        - "{{ home_path }}/logs"
+
+    - name: set KAFKA_HOME
+      blockinfile:
+        path: /root/.bashrc
+        marker: "#{mark} kafka ENV"
+        block: |
+          export KAFKA_HOME={{ home_path }}
+          export PATH=$PATH:$KAFKA_HOME/bin
+    - name: source bashrc
+      shell: source /root/.bashrc
+
+
+
+

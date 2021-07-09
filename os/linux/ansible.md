@@ -413,6 +413,17 @@ PLAY RECAP *********************************************************************
   when: register_result.stat.exists
 
 
+设置环境变量
+- name: set KAFKA_HOME
+  blockinfile:
+    path: /root/.bashrc
+    marker: "#{mark} kafka ENV"
+    block: |
+      export KAFKA_HOME={{ home_path }}
+      export PATH=$PATH:$KAFKA_HOME/bin
+- name: source bashrc
+  shell: source /root/.bashrc
+
 
 暂停执行
 - name: Pause for wait start
