@@ -50,16 +50,6 @@
       with_items:
         - "{{ home_path }}/logs"
 
-    - name: set KAFKA_HOME
-      blockinfile:
-        path: /root/.bashrc
-        marker: "#{mark} kafka ENV"
-        block: |
-          export KAFKA_HOME={{ home_path }}
-          export PATH=$PATH:$KAFKA_HOME/bin
-    - name: source bashrc
-      shell: source /root/.bashrc
-
 
 
 
@@ -111,7 +101,6 @@
           log.retention.hours=168
           log.segment.bytes=1073741824
           log.retention.check.interval.ms=300000
-          zookeeper.connect=localhost:2181
           zookeeper.connection.timeout.ms=6000
           group.initial.rebalance.delay.ms=0
     - name: remove blank lines blockinfile
@@ -172,7 +161,6 @@
           log.retention.hours=168
           log.segment.bytes=1073741824
           log.retention.check.interval.ms=300000
-          zookeeper.connect=localhost:2181
           zookeeper.connection.timeout.ms=6000
           group.initial.rebalance.delay.ms=0
     - name: remove blank lines blockinfile
@@ -234,7 +222,6 @@
           log.retention.hours=168
           log.segment.bytes=1073741824
           log.retention.check.interval.ms=300000
-          zookeeper.connect=localhost:2181
           zookeeper.connection.timeout.ms=6000
           group.initial.rebalance.delay.ms=0
     - name: remove blank lines blockinfile
@@ -256,3 +243,33 @@
       shell: "{{ item }}"
       with_items:
         - "sh {{ home_path }}/bin/kafka-server-start.sh -daemon {{ home_path }}/config/server.properties"
+    - debug:
+        msg: "启动命令：sh /usr/local/kafka_2.11-2.4.1/bin/kafka-server-start.sh -daemon /usr/local/kafka_2.11-2.4.1/config/server.properties"
+    - debug:
+        msg: "停止命令：sh /usr/local/kafka_2.11-2.4.1/bin/kafka-server-stop.sh"
+    - debug:
+        msg: "查看当前服务器中的所有topic：sh /usr/local/kafka_2.11-2.4.1/bin/kafka-topics.sh --zookeeper header1:2181,worker1:2181,worker2:2181/kafka --list"
+    - debug:
+        msg: "查看当前服务器中的所有topic，topic 命名不能有下划线、点：sh /usr/local/kafka_2.11-2.4.1/bin/kafka-topics.sh --zookeeper header1:2181,worker1:2181,worker2:2181/kafka --create --replication-factor 3 --partitions 3 --topic myTopicName"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
