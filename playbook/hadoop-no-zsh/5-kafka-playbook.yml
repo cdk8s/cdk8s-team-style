@@ -255,4 +255,4 @@
     - name: start kafka
       shell: "{{ item }}"
       with_items:
-        - "sh {{ home_path }}/bin/kafka-server-start.sh {{ home_path }}/config/server.properties"
+        - "sh {{ home_path }}/bin/kafka-server-start.sh -daemon {{ home_path }}/config/server.properties"
