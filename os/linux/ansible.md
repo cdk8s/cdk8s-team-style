@@ -376,12 +376,12 @@ PLAY RECAP *********************************************************************
 - debug:
     msg: "这里使用清华源：https://mirrors.tuna.tsinghua.edu.cn/help/mysql/"
 
-打印环境变量
+
+打印环境变量，并检查环境变量 start
 - name: echo JAVA_HOME
   debug:
     msg: "'{{ lookup('env', 'JAVA_HOME') }}' -- is environment variable"
 
-检查环境变量
 - name: get environment variable JAVA_HOME
   set_fact:
     JAVA_HOME_VAR: "{{ lookup('env', 'JAVA_HOME')}}"
@@ -389,6 +389,8 @@ PLAY RECAP *********************************************************************
   fail:
     msg: "Environment variable JAVA_HOME is not defined or empty"
   when: JAVA_HOME_VAR == ""
+打印环境变量，并检查环境变量 end
+
 
 暂停执行
 - name: Pause for wait start
