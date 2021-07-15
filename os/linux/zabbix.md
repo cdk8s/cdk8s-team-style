@@ -128,6 +128,9 @@ Interfaces 填写你客户端机子的 ip 地址和端口即可，客户端端�
 不断刷新，等打开1分钟，`可用性` 一列中 ZBX 字母是绿色高亮即表示已经连上客户端成功
 ```
 
+-------------------------------------------------------------------
+
+
 ## 监控自定义监控项
 
 - 客户端配置
@@ -156,6 +159,149 @@ zabbix_get -s 127.0.0.1 -p 10050 -k "login.ssh.user.num"
 点击 `测试` 我们就可以拿到对应的值
 ```
 
+-------------------------------------------------------------------
+
+## 触发器
+
+```
+网页端打开：http://192.168.31.137/hosts.php
+选择对应主机的 `触发器`
+选择右上角 `创建触发器`
+表达式一栏点击 `添加`
+    - 监控项选择我们刚刚创建的 SSH 登录数量监控
+    - `功能` 表示可以取最后(最近)值、平均值、总数、最近相差值
+    - `最后一个 X 计数` 默认是 1，表示当出现一次这样的问题就开始触发报警。如果填写 5，就是连续出现 5 次这样的情况我才触发 
+    - `间隔` 填写多久触发一次
+    - `结果` 我们选择大于号，数值填写 3
+事件成功迭代：选择 `表达式`
+    - 如果你认为 ssh 必须是 1 才能算恢复正常，不需要报警，则可以继续添加一个 `恢复表达式`
+    - 填写恢复表达式跟上面逻辑是一样的只是现在 结果 要填写 等于 1
+点击添加保存
+
+
+当你有多个 ssh 连接后，你可以访问：http://192.168.31.137/zabbix.php?action=problem.view
+可以看到有问题数据
+```
+
+-------------------------------------------------------------------
+
+## 配置企业微信收到报警信息
+
+
+- 企业微信后台设置
+
+```
+访问企业微信后台：https://work.weixin.qq.com/wework_admin/frame
+访问通讯录：https://work.weixin.qq.com/wework_admin/frame#contacts
+创建一个 `监控部门`，然后导入需要接收消息的用户
+选择其中一个认定为核心人员，获取他的账号名，比如我是：ZhangZhaoHuang
+
+访问我的企业：https://work.weixin.qq.com/wework_admin/frame#profile
+查看最底部：企业 ID 的值（也叫做 CorpID），稍后要用到：wwdd7f11cb112cc2c3
+
+访问应用管理：https://work.weixin.qq.com/wework_admin/frame#apps
+点击 创建应用
+应用名称填写：运维告警
+可见范围选择：刚刚创建的 监控部门
+创建完，记录
+AgentId：1000018
+Secret：R61V-w8x0q0ZRSNIhX__JU4C8-2s7Mdtd9dynzRNOcw
+```
+
+- Zabbix 服务端设置
+
+```
+vim /etc/zabbix/zabbix_server.conf
+找到 523 行，确保脚本路径是没有被注释的：AlertScriptsPath=/usr/lib/zabbix/alertscripts
+
+
+cd /usr/lib/zabbix/alertscripts/
+wget https://raw.githubusercontent.com/OneOaaS/weixin-alert/master/weixin_linux_amd64
+mv weixin_linux_amd64 wechat
+chmod 755 wechat 
+chown zabbix:zabbix wechat
+
+
+测试脚本：
+/usr/lib/zabbix/alertscripts/wechat --corpid=wwdd7f11cb112cc2c3 --corpsecret=R61V-w8x0q0ZRSNIhX__JU4C8-2s7Mdtd9dynzRNOcw --msg="您好，告警测试" --user=ZhangZhaoHuang --agentid=1000018
+返回：
+{"errcode":0,"errmsg":"ok","invaliduser":""}
+```
+
+
+- Zabbix 网页端设置
+
+```
+打开 `报警媒介类型`：http://192.168.31.137/zabbix.php?action=mediatype.list
+点击右上角：创建媒体类型
+类型选择：脚本
+脚本名称就是：/usr/lib/zabbix/alertscripts 目录下的 wechat
+脚本参数：
+    - 填写 `--corpid=wwdd7f11cb112cc2c3`
+    - 填写 `--corpsecret=R61V-w8x0q0ZRSNIhX__JU4C8-2s7Mdtd9dynzRNOcw`
+    - 填写 `--agentid=1000018`
+    - 填写 `--user={ALERT.SENDTO}`
+    - 填写 `--msg={ALERT.MESSAGE}`
+添加完成后，右边有一个测试按钮，可以试一下是否可以发送成功
+
+
+打开用户管理：http://192.168.31.137/zabbix.php?action=user.list
+选择管理员 Admin
+点击页头 tab，选择 `报警媒介`，添加
+    - 类型选择：我们刚加的企业微信媒介
+    - 收件人填写：ZhangZhaoHuang
+
+
+设置告警动作：http://192.168.31.137/actionconf.php
+先把左上角的下拉选择变成：`Trigger actions`
+然后点击右上角 `创建动作`
+    条件选择 `触发器`，选择 `等于`，触发器输入框输入我们自己创建的触发器名称，让它模糊提示
+切换 tab 到 `操作`
+`操作` 选择添加，在弹出框中
+    - 选择 Admin 管理员
+    - `仅发送` 选择我们添加的企业微信媒介
+    - 勾选 `Custom message`，填写如下信息
+
+主题：
+服务故障: <font color="warning">{EVENT.NAME}</font>
+
+消息内容：
+服务故障: <font color="warning">{EVENT.NAME}</font>
+告警主机: **{HOST.NAME}**
+主机地址: **{HOST.IP}**
+监控项目: {ITEM.NAME}
+当前取值: {ITEM.LASTVALUE}
+告警等级: {TRIGGER.SEVERITY}
+告警时间: {EVENT.DATE}-{EVENT.TIME}
+事件ID: {EVENT.ID}
+
+
+
+`恢复操作` 选择添加，在弹出框中
+    - 选择 Admin 管理员
+    - `仅发送` 选择我们添加的企业微信媒介
+    - 勾选 `Custom message`，填写如下信息
+
+主题：
+故障恢复: <font color="info">{EVENT.NAME}</font>
+
+消息内容：
+故障恢复: <font color="info">{EVENT.NAME}</font>
+主机名称: **{HOST.NAME}**
+主机地址: **{HOST.IP}**
+告警名称: {EVENT.NAME}
+持续时长: {EVENT.DURATION}
+恢复时间: {EVENT.RECOVERY.DATE}-{EVENT.RECOVERY.TIME} 
+当前状态: {TRIGGER.STATUS}
+当前取值: {ITEM.LASTVALUE}
+事件ID: {EVENT.ID}
+
+
+现在可以模拟异常情况了
+```
+
+
+-------------------------------------------------------------------
 
 ## 其他工具介绍
 
