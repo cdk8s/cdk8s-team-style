@@ -34,18 +34,18 @@ yum install -y zabbix-web-mysql-scl zabbix-nginx-conf-scl
 
 
 创建数据库、用户、授权关系
-echo "CREATE DATABASE IF NOT EXISTS zabbix DEFAULT CHARACTER SET utf8 COLLATE utf8_bin;" | mysql -u root --password='Upupmo123456_#'
-echo "CREATE USER 'zabbix'@'%' IDENTIFIED WITH 'mysql_native_password' BY 'Upupmo123456_#';" | mysql -u root --password='Upupmo123456_#'
-echo "ALTER USER 'zabbix'@'%' IDENTIFIED WITH 'mysql_native_password' BY 'Upupmo123456_#' PASSWORD EXPIRE NEVER;" | mysql -u root --password='Upupmo123456_#'
-echo "GRANT ALL PRIVILEGES ON zabbix.* TO 'zabbix'@'%' WITH GRANT OPTION;" | mysql -u root --password='Upupmo123456_#'
-echo "FLUSH PRIVILEGES;" | mysql -u root --password='Upupmo123456_#'
+echo "CREATE DATABASE IF NOT EXISTS zabbix DEFAULT CHARACTER SET utf8 COLLATE utf8_bin;" | mysql -u root --password='Upupmo123456'
+echo "CREATE USER 'zabbix'@'%' IDENTIFIED WITH 'mysql_native_password' BY 'Upupmo123456';" | mysql -u root --password='Upupmo123456'
+echo "ALTER USER 'zabbix'@'%' IDENTIFIED WITH 'mysql_native_password' BY 'Upupmo123456' PASSWORD EXPIRE NEVER;" | mysql -u root --password='Upupmo123456'
+echo "GRANT ALL PRIVILEGES ON zabbix.* TO 'zabbix'@'%' WITH GRANT OPTION;" | mysql -u root --password='Upupmo123456'
+echo "FLUSH PRIVILEGES;" | mysql -u root --password='Upupmo123456'
 
 
 解压初始化数据脚本：
 zcat /usr/share/doc/zabbix-server-mysql*/create.sql.gz > /opt/create.sql
 
 导入数据：
-mysql -u root --password='Upupmo123456_#' zabbix < /opt/create.sql
+mysql -u root --password='Upupmo123456' zabbix < /opt/create.sql
 
 
 修改配置文件，把 MySQL 连接密码保存进去
