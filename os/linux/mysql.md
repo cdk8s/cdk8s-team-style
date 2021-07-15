@@ -915,6 +915,17 @@ select count(*) from warehouse;
     80
 ```
 
+## 常用命令
+
+```
+删除用户（后面@什么要根据当时创建的是什么，两个是不同的）：
+drop user 'myUserName'@'%';
+drop user 'myUserName'@'localhost';
+
+删除数据库：
+drop database myDbName;
+```
+
 
 ## 资料
 
