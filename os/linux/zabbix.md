@@ -3,6 +3,10 @@
 ## Zabbix 安装
 
 ```
+环境：CentOS 7.9
+关闭了防火墙、SELinux
+
+
 官网下载：https://www.zabbix.com/download?zabbix=5.0&os_distribution=centos&os_version=7&db=mysql&ws=nginx
 官网有一个引导式选择平台，展示不同的安装脚本，很有意思
 
@@ -73,3 +77,49 @@ zabbix
 
 在这个页面可以修改显示语言：http://worker1/zabbix.php?action=userprofile.edit
 ```
+
+## 安装最新的 agent2 客户端
+
+```
+agent2 官网介绍：https://www.zabbix.com/documentation/current/manual/concepts/agent2
+总结起来就是：
+用 Go 开发，更高的性能，跟少的资源
+
+先安装源：（网络不稳定，需要多次尝试）
+rpm -Uvh https://repo.zabbix.com/zabbix/5.0/rhel/7/x86_64/zabbix-release-5.0-1.el7.noarch.rpm
+
+安装软件：（网络不稳定，需要多次尝试）
+yum install -y zabbix-agent2
+
+修改配置文件：
+vim /etc/zabbix/zabbix_agent2.conf（如果是第一代的 agent 配置文件是 vim /etc/zabbix/zabbix_agentd.conf）
+修改 80 行，把 Server=127.0.0.1 改为 Server=192.168.31.88
+修改 120 行，把 ServerActive=127.0.0.1 改为 ServerActive=192.168.31.88
+修改 131 行，把 Hostname=Zabbix server 改为 Hostname=header1
+
+
+重启服务：systemctl restart zabbix-agent2
+启动后，查看占用端口：netstat -lntup
+可以看到客户端会占用 10050 端口
+通过 htop 查看占用内存差不多 50MB 左右
+
+加入自启动：
+systemctl enable zabbix-agent2
+
+
+现在转到浏览器，访问：http://worker1/hosts.php
+选择右上角：创建主机
+主机名称随便填，方便阅读即可
+群组可以自定义输入，也可以选择，为了后续对一整个群组机子就操作使用的
+Interfaces 填写你客户端机子的 ip 地址和端口即可，客户端端口默认是 10050
+其他用默认值即可
+然后切换 tab 到 `模板`
+在 Link new templates 我们输入 linux 进行模糊搜索，然后在下拉结果中，选择：Template OS Linux by Zabbix agent，然后添加
+
+添加完成后，重新访问：http://worker1/hosts.php
+不断刷新，等打开1分钟，`可用性` 一列中 ZBX 字母是绿色高亮即表示已经连上客户端成功
+```
+
+
+
+
