@@ -1,10 +1,15 @@
 
 
-## Zabbix 安装
+## 安装 Zabbix 服务端 + agent2 客户端
 
 ```
 环境：CentOS 7.9
 关闭了防火墙、SELinux
+**注意：必须把 zabbix server 安装在有 MySQL 的服务器上，不然无法启动，因为它需要用到 MySQL 客户端**
+**注意：必须把 zabbix server 安装在有 MySQL 的服务器上，不然无法启动，因为它需要用到 MySQL 客户端**
+**注意：必须把 zabbix server 安装在有 MySQL 的服务器上，不然无法启动，因为它需要用到 MySQL 客户端**
+**注意：必须把 zabbix server 安装在有 MySQL 的服务器上，不然无法启动，因为它需要用到 MySQL 客户端**
+**注意：必须把 zabbix server 安装在有 MySQL 的服务器上，不然无法启动，因为它需要用到 MySQL 客户端**
 
 
 官网下载：https://www.zabbix.com/download?zabbix=5.0&os_distribution=centos&os_version=7&db=mysql&ws=nginx
@@ -21,7 +26,7 @@ vim /etc/yum.repos.d/zabbix.repo
 enabled=0 改为 enabled=1
 
 安装后端服务（网络不稳定，需要多次尝试）
-yum install -y zabbix-server-mysql zabbix-agent
+yum install -y zabbix-server-mysql zabbix-agent2
 
 安装前端（网络不稳定，需要多次尝试）
 yum install -y centos-release-scl
@@ -52,7 +57,7 @@ DBPassword=我的MySQL密码
 修改 nginx 配置，放开 80 端口和 server_name
 vim /etc/opt/rh/rh-nginx116/nginx/conf.d/zabbix.conf
 listen 80;
-server_name worker1;
+server_name 192.168.31.137;
 
 
 修改 php 配置，把 nginx 账号授权加进去，以及修改时区
@@ -62,13 +67,17 @@ vim /etc/opt/rh/rh-php72/php-fpm.d/zabbix.conf
 
 
 加入自启动（Server 预计占用内存在 200M 左右）：
-systemctl restart zabbix-server zabbix-agent rh-nginx116-nginx rh-php72-php-fpm
-systemctl enable zabbix-server zabbix-agent rh-nginx116-nginx rh-php72-php-fpm
+systemctl restart zabbix-server zabbix-agent2 rh-nginx116-nginx rh-php72-php-fpm
+systemctl enable zabbix-server zabbix-agent2 rh-nginx116-nginx rh-php72-php-fpm
 
-浏览器访问：http://worker1
+查看下 server 启动日志：
+tail -100f /var/log/zabbix/zabbix_server.log
+
+
+浏览器访问：http://192.168.31.137
 这时候会出现配置的引导页面
 在 Check of pre-requisites 页面确保右侧的所有都是绿色的 OK 提示
-在 Configure DB connection 就根据你的情况配置好连接信息即可
+在 Configure DB connection 就根据你的情况配置好连接信息即可，建议 Database host 配置填写的是局域网 ip，而不是 localhost
 在 Zabbix server details 配置你的 Zabbix 服务的域名、端口（默认 10051 不用改）
 
 默认管理员账号密码：
@@ -78,7 +87,7 @@ zabbix
 在这个页面可以修改显示语言：http://worker1/zabbix.php?action=userprofile.edit
 ```
 
-## 安装最新的 agent2 客户端
+## 其他机子安装最新的 agent2 客户端
 
 ```
 agent2 官网介绍：https://www.zabbix.com/documentation/current/manual/concepts/agent2
@@ -93,21 +102,20 @@ yum install -y zabbix-agent2
 
 修改配置文件：
 vim /etc/zabbix/zabbix_agent2.conf（如果是第一代的 agent 配置文件是 vim /etc/zabbix/zabbix_agentd.conf）
-修改 80 行，把 Server=127.0.0.1 改为 Server=192.168.31.88
-修改 120 行，把 ServerActive=127.0.0.1 改为 ServerActive=192.168.31.88
-修改 131 行，把 Hostname=Zabbix server 改为 Hostname=header1
-
+修改 80 行，把 Server=127.0.0.1 改为 Server=192.168.31.137
+修改 120 行，把 ServerActive=127.0.0.1 改为 ServerActive=192.168.31.137
+修改 131 行，把 Hostname=Zabbix server 改为 Hostname=worker1（填写你当前客户端机子的 hostname）
 
 重启服务：systemctl restart zabbix-agent2
 启动后，查看占用端口：netstat -lntup
 可以看到客户端会占用 10050 端口
-通过 htop 查看占用内存差不多 50MB 左右
+通过 top 查看占用内存差不多 50MB 左右
 
 加入自启动：
 systemctl enable zabbix-agent2
 
 
-现在转到浏览器，访问：http://worker1/hosts.php
+现在转到浏览器，访问：http://192.168.31.137/hosts.php
 选择右上角：创建主机
 主机名称随便填，方便阅读即可
 群组可以自定义输入，也可以选择，为了后续对一整个群组机子就操作使用的
@@ -116,10 +124,20 @@ Interfaces 填写你客户端机子的 ip 地址和端口即可，客户端端�
 然后切换 tab 到 `模板`
 在 Link new templates 我们输入 linux 进行模糊搜索，然后在下拉结果中，选择：Template OS Linux by Zabbix agent，然后添加
 
-添加完成后，重新访问：http://worker1/hosts.php
+添加完成后，重新访问：http://192.168.31.137/hosts.php
 不断刷新，等打开1分钟，`可用性` 一列中 ZBX 字母是绿色高亮即表示已经连上客户端成功
 ```
 
+#### 其他工具介绍
 
+```
+yum install -y zabbix-get
+
+通过命令行获取客户端的主机名
+zabbix_get -s 127.0.0.1 -p 10050 -I 127.0.0.1 -k "system.hostname"
+
+通过命令行获取客户端的 cpu 情况
+zabbix_get -s 127.0.0.1 -p 10050 -k "system.cpu.load[all,avg1]"
+```
 
 
