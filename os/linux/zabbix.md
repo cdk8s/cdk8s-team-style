@@ -315,4 +315,90 @@ zabbix_get -s 127.0.0.1 -p 10050 -I 127.0.0.1 -k "system.hostname"
 zabbix_get -s 127.0.0.1 -p 10050 -k "system.cpu.load[all,avg1]"
 ```
 
+-------------------------------------------------------------------
+
+## MySQL 监控
+
+```
+下载 percona 提供的插件：https://www.percona.com/downloads/percona-monitoring-plugins/
+版本：Percona Monitoring Plugins 1.1.8
+选择：percona-zabbix-templates-1.1.8-1.noarch.rpm 下载
+
+-------------------------------------------------------------------
+
+客户端操作（这台机子有 MySQL、PHP7.x 服务）：
+安装版本较新的 php 7.4
+yum install -y epel-release
+yum install -y http://rpms.remirepo.net/enterprise/remi-release-7.rpm
+yum install -y yum-utils
+yum-config-manager --enable remi-php74
+yum install -y php php-cli php-fpm php-mysqlnd php-zip php-devel php-gd php-mcrypt php-mbstring php-curl php-xml php-pear php-bcmath php-json php-redis
+php -v
+
+下载监控插件：
+wget https://downloads.percona.com/downloads/percona-monitoring-plugins/percona-monitoring-plugins-1.1.8/binary/redhat/7/x86_64/percona-zabbix-templates-1.1.8-1.noarch.rpm
+yum localinstall -y percona-zabbix-templates-1.1.8-1.noarch.rpm
+安装过程有提示：
+Scripts are installed to /var/lib/zabbix/percona/scripts
+Templates are installed to /var/lib/zabbix/percona/templates
+
+拷贝自定义的变量：
+cp /var/lib/zabbix/percona/templates/userparameter_percona_mysql.conf /etc/zabbix/zabbix_agent2.d
+重启服务：systemctl restart zabbix-agent2
+
+修改 PHP 的 MySQL 连接信息：
+vim /var/lib/zabbix/percona/scripts/ss_get_mysql_stats.php
+把 30、31 行的连接信息进行修改：
+mysql_user = 'zabbix';
+mysql_pass = 'Upupmo123456';
+
+通过 shell 测试查看 pool size：/var/lib/zabbix/percona/scripts/get_mysql_stats_wrapper.sh gq
+通过 agent 查看：zabbix_agent2 -t MySQL.Questions
+可以拿到数值就表示配置都正常了。
+
+服务端测试操作：
+zabbix_get -s 127.0.0.1 -p 10050 -k "MySQL.Questions"
+
+-------------------------------------------------------------------
+都拿到值后，我们开始接下来操作：
+下载模板文件：https://pan.baidu.com/s/1iIK1eFISRK0x2ggUA01sIQ  密码: 7rar
+官网自带的那个模板文件不支持 zabbix 3及以上版本
+
+网页端：
+打开：http://192.168.31.137/templates.php
+点击右上角 `导入`
+选择我们模板文件，点击 `导入`
+
+访问：http://192.168.31.137/hosts.php
+选择我们的对应主机，切换 tab 到 `模板`
+    Link new templates 输入 percona 模糊搜索出我们的模板
+    现在可以看到我们主机的监控项变多
+
+
+打开客户端机子：
+修改一个临时文件的权限：（MySQL 的端口必须是 3306，不然文件名会不一样，php 脚本也需要对应修改，所以还是建议使用 3306 端口）
+chown -R zabbix.zabbix /tmp/localhost-mysql_cacti_stats.txt
+
+访问：http://192.168.31.137/zabbix.php?action=latest.view
+默认是 5 分钟抓取一次数据，5 分钟后就可以看到对应的数据了
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
