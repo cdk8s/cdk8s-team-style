@@ -34,7 +34,7 @@
     - name: install openresty
       shell: "{{ item }}"
       with_items:
-        - yum install yum-utils
+        - yum install -y yum-utils
         - yum-config-manager --add-repo https://openresty.org/package/centos/openresty.repo
         - yum install -y openresty
 
