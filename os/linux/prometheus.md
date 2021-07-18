@@ -275,6 +275,23 @@ scrape_configs:
     - <https://grafana.com/dashboards/2949>
     - <https://grafana.com/dashboards/2984>
 
+#### Spring Boot 监控
+
+#### Redis 监控
+
+https://grafana.com/grafana/dashboards/11835
+https://grafana.com/grafana/dashboards/11692
+
+#### MySQL 监控
+
+https://grafana.com/grafana/dashboards/7362
+
+#### Nginx 监控
+
+https://grafana.com/grafana/dashboards/7362
+
+
+
 ----------------------------------------------------------------------------------------------
 
 
