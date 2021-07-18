@@ -324,7 +324,6 @@ zabbix_get -s 127.0.0.1 -p 10050 -k "system.cpu.load[all,avg1]"
 版本：Percona Monitoring Plugins 1.1.8
 选择：percona-zabbix-templates-1.1.8-1.noarch.rpm 下载
 
--------------------------------------------------------------------
 
 客户端操作（这台机子有 MySQL、PHP7.x 服务）：
 安装版本较新的 php 7.4
@@ -381,7 +380,110 @@ chown -R zabbix.zabbix /tmp/localhost-mysql_cacti_stats.txt
 
 访问：http://192.168.31.137/zabbix.php?action=latest.view
 默认是 5 分钟抓取一次数据，5 分钟后就可以看到对应的数据了
+
+查看图形报表：
+打开 http://192.168.31.137/zabbix.php?action=host.view
+选择对应主机，`图形` 一列
+
 ```
+
+
+-------------------------------------------------------------------
+
+## Spring Boot 监控（不推荐，还是建议使用 Prometheus + grafana 方案）
+
+```
+客户端安装：（网络不稳定，需要多次尝试）
+yum install -y zabbix-java-gateway
+
+安装 zabbix-java-gateway 会自动安装 open-jdk，所以我们要卸载掉
+rpm -qa | grep java
+rpm -e java-1.8.0-openjdk-headless-1.8.0.292.b10-1.el7_9.x86_64 --nodeps
+
+
+编辑客户端配置文件
+vim /etc/zabbix/zabbix_java_gateway.conf
+把下面几个原本是注释的打开：
+LISTEN_IP="0.0.0.0"
+LISTEN_PORT=10052
+START_POLLERS=5
+TIMEOUT=5
+
+
+vim /usr/sbin/zabbix_java_gateway
+把 JAVA=${JAVA:-java} 改为 /usr/local/jdk1.8.0_261/bin/java
+
+启动客户端：
+systemctl enable zabbix-java-gateway.service
+systemctl start zabbix-java-gateway.service
+systemctl status zabbix-java-gateway.service
+
+编辑服务端：
+vim /etc/zabbix/zabbix_server.conf
+把 297 行的 JavaGateway 改为你刚刚客户端安装 zabbix-java-gateway 的机子 ip
+JavaGateway=127.0.0.1
+把 305 行注释打开，端口和刚刚配置的客户端端口一致
+JavaGatewayPort=10052
+把 313 行注释打开，改为跟 START_POLLERS 一致
+StartJavaPollers=5
+
+重启服务：
+systemctl restart zabbix-server.service
+
+
+开始测试：
+如果是开发机 IntelliJ IDEA 运行项目，则在 IntelliJ IDEA 启动配置的 VM options 加上：
+-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=19092 -Dcom.sun.management.jmxremote.rmi.port=19092 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false -Djava.rmi.server.hostname=127.0.0.1
+
+在开发机通过 jconsole 或 jvisualvm，选择：添加 JMX 连接
+在弹出框中输入服务 127.0.0.1:19092，点击连接即可查看当前服务的各项信息。
+
+
+如果是用 Jar 包启动这样添加参数：
+java -jar \
+-Dcom.sun.management.jmxremote \
+-Dcom.sun.management.jmxremote.port=19092 \
+-Dcom.sun.management.jmxremote.rmi.port=19092 \
+-Dcom.sun.management.jmxremote.ssl=false \
+-Dcom.sun.management.jmxremote.authenticate=false \ 
+-Djava.rmi.server.hostname=本机IP地址 \
+/opt/myjar.jar
+
+
+在开发机通过 jconsole 或 jvisualvm，选择：添加 JMX 连接
+在弹出框中输入服务 192.168.31.137:19092，点击连接即可查看当前服务的各项信息。
+
+
+在服务端上通过 cmdline-jmxclient 验证，下载地址：http://crawler.archive.org/cmdline-jmxclient/downloads.html
+java -jar /opt/jar/cmdline-jmxclient-0.10.3.jar - 192.168.31.137:19092 java.lang:type=Memory NonHeapMemoryUsage
+如果显示如下内容则表示服务端可连上客户端：
+07/18/2021 08:19:29 +0800 org.archive.jmx.Client NonHeapMemoryUsage:
+committed: 145817600
+init: 2555904
+max: 713031680
+used: 139790064
+
+现在可以到 Web 界面配置 JMX 监控 Java 应用
+编辑主机 > Interfaces 添加 JMX 类型，指定 ip 地址，端口指定为 19092 端口
+点击模板选项卡，在Template中找到 Template App Generic Java JMX，添加完毕后点击添加/更新
+在主机界面进行查看，查看JMX是否可用（JMX是绿色的才是正确的）
+在监测→最新数据中即可添加查看JMX监控信息
+
+
+如果 Spring Boot 需要创建自定义的MBeans、主动推送 Bean，可以参考如下文章：
+https://brysong.com/2020/09/23/Spring-Boot%20%E4%BD%BF%E7%94%A8JMX%E7%9B%91%E6%8E%A7/
+https://blog.csdn.net/m0_37607945/article/details/110187778
+```
+
+
+-------------------------------------------------------------------
+
+## Redis 监控
+
+
+
+
+
 
 
 
