@@ -33,7 +33,7 @@ docker run \
   drone/drone:2
 
 
-test push event
+test push event1
 
 
 
