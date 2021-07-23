@@ -56,9 +56,7 @@ cat /var/log/drone-runner-exec/log.txt
 INFO[0000] starting the server
 INFO[0000] successfully pinged the remote server
 
-
 ```
-
 
 ##  官网运行示例
 
