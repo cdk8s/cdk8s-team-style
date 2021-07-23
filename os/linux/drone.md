@@ -33,9 +33,6 @@ docker run \
   drone/drone:2
 
 
-test push event12345678334333233333333333333333333334443333
-
-
 
 安装客户端
 
