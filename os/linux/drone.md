@@ -12,7 +12,6 @@
 - Drone 官网 Github：<https://github.com/drone/drone>
 - Drone 官网文档：<https://docs.drone.io/>
 
-
 ## 安装
 
 ```
@@ -31,8 +30,6 @@ docker run \
   --detach=true \
   --name=drone \
   drone/drone:2
-
-
 
 安装客户端
 
