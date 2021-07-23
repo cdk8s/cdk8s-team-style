@@ -1,5 +1,7 @@
 # Drone 安装和配置（适合 k8s 的 CI/CD）
 
+11
+
 ## 环境
 
 - CentOS 7 64位
