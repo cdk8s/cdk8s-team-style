@@ -139,6 +139,19 @@ drwxr-xr-x. 5 root root 4096 3月 26 10:57，其中最前面的 d 表示这是�
 	- `shell grep -H '安装' *.sh`，查找当前目录下所有 sh 类型文件中，文件内容包含 `安装` 的当前行内容
 	- `grep 'test' java*`，显示当前目录下所有以 java 开头的文件中包含 test 的行
 	- `grep 'test' spring.ini docker.sh`，显示当前目录下 spring.ini docker.sh 两个文件中匹配 test 的行
+    - 更多参数
+        - `-i` 搜索时忽略大小写
+        - `-n` 显示行号
+        - `-r` 递归搜索
+        - `-E` 支持扩展正则
+        - `V` 反向选择，不显示匹配行信息
+        - `w` 只匹配整个单词，比如搜索 love，文件里面的 lover 是不会被匹配到的 
+        - `x` 只匹配整个行
+- `sed`
+      - `sed -n -e '/pyth.*/p' aa.txt` 打印文件中匹配正则 pyth.* 规则的内容，p 是打印的意思（只有一个规则的时候 -e 是可以省略的，但是不建议）
+      - `sed -n -e '/python/p' -e '/PYTHON/p' aa.txt` 打印文件中匹配 python 大写或小写的行内容，p 是打印的意思
+      - `sed -n -r '/python|PYTHON/p' aa.txt` 打印文件中匹配 python 大写或小写的行内容，p 是打印的意思，这里用的是扩展表达式，不是正则表达式
+      - `sed -i 's/python/java/g' aa.txt` 把 python 字眼改为 java
 - `ps`
 	- `ps –ef|grep java`，查看当前系统中有关 java 的所有进程
 	- `ps -ef|grep --color java`，高亮显示当前系统中有关 java 的所有进程
