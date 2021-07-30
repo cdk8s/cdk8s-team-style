@@ -15,6 +15,7 @@
 ## 二进制安装（直接使用 SQLite3）
 
 ```
+必须保证安装了 git：yum install -y git
 假设我文件放在 /opt 目录下
 
 wget https://github.com/gogs/gogs/releases/download/v0.12.3/gogs_0.12.3_linux_amd64.tar.gz
