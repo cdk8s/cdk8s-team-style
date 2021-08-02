@@ -27,7 +27,7 @@ ulimit -u 5568
 
 
 ```
-echo "GET http://www.baidu.com"| vegeta -cpus=4 attack -rate=500 -duration=10s | tee results.bin | vegeta report
+echo "GET http://127.0.0.1:9091/sculptor-boot-backend/api/open/sysCommon/prometheusTest"| vegeta -cpus=6 attack -rate=10000 -duration=30s | tee results.bin | vegeta report
 
 cpus 使用 cpu 数量
 rate 每秒钟请求次数
@@ -37,17 +37,23 @@ tee results.bin 保存测试报告并用 veteta report 显示报告内容，
 
 
 压测结果：
-Requests      [total, rate, throughput]         5000, 500.13, 130.41
-Duration      [total, attack, wait]             38.118s, 9.997s, 28.12s
-Latencies     [min, mean, 50, 90, 95, 99, max]  80.999ms, 5.807s, 5.349s, 9.857s, 11.192s, 14.124s, 30.001s
-Bytes In      [total, mean]                     1520494361, 304098.87
+Requests      [total, rate, throughput]         300000, 10000.04, 3473.08
+Duration      [total, attack, wait]             59.997s, 30s, 29.997s
+Latencies     [min, mean, 50, 90, 95, 99, max]  9.074µs, 1.053s, 5.922ms, 22.79ms, 1.674s, 30s, 30.005s
+Bytes In      [total, mean]                     20212181, 67.37
 Bytes Out     [total, mean]                     0, 0.00
-Success       [ratio]                           99.42%
-Status Codes  [code:count]                      0:29  200:4971
+Success       [ratio]                           69.46%
+Status Codes  [code:count]                      0:91627  200:208373
 Error Set:
-context deadline exceeded (Client.Timeout or context cancellation while reading body)
-Get "http://www.baidu.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
-
+Get "http://127.0.0.1:9091/sculptor-boot-backend/api/open/sysCommon/prometheusTest": read tcp 127.0.0.1:51773->127.0.0.1:9091: read: connection reset by peer
+Get "http://127.0.0.1:9091/sculptor-boot-backend/api/open/sysCommon/prometheusTest": dial tcp 0.0.0.0:0->127.0.0.1:9091: connect: connection reset by peer
+Get "http://127.0.0.1:9091/sculptor-boot-backend/api/open/sysCommon/prometheusTest": read tcp 127.0.0.1:51785->127.0.0.1:9091: read: connection reset by peer
+Get "http://127.0.0.1:9091/sculptor-boot-backend/api/open/sysCommon/prometheusTest": write tcp 127.0.0.1:51781->127.0.0.1:9091: write: broken pipe
+Get "http://127.0.0.1:9091/sculptor-boot-backend/api/open/sysCommon/prometheusTest": readLoopPeekFailLocked: read tcp 127.0.0.1:51811->127.0.0.1:9091: read: connection reset by peer
+Get "http://127.0.0.1:9091/sculptor-boot-backend/api/open/sysCommon/prometheusTest": read tcp 127.0.0.1:51782->127.0.0.1:9091: read: connection reset by peer
+Get "http://127.0.0.1:9091/sculptor-boot-backend/api/open/sysCommon/prometheusTest": read tcp 127.0.0.1:51847->127.0.0.1:9091: read: connection reset by peer
+Get "http://127.0.0.1:9091/sculptor-boot-backend/api/open/sysCommon/prometheusTest": write tcp 127.0.0.1:51810->127.0.0.1:9091: write: broken pipe
+Get "http://127.0.0.1:9091/sculptor-boot-backend/api/open/sysCommon/prometheusTest": dial tcp 0.0.0.0:0->127.0.0.1:9091: socket: too many open files
 
 Duration：持续时间（攻击是加+等待时间），attack 攻击时间，wait 等待时间
 Latencies：延迟
@@ -56,6 +62,27 @@ Bytes In 请求的大小（字节）
 Bytes Out：字节输出
 Status Codes：返回状态码与请求数，0 的状态码表示客户端临时结束
 Success：请求成功率
+Error Set 错误集
+
+-------------------------------------------------------------------
+
+这是 wrk 测试结果，可以用来做参考对比：（目前测试 wrk 会更强一些，但是不跨平台）
+Running 30s test @ http://127.0.0.1:9091/sculptor-boot-backend/api/open/sysCommon/prometheusTest
+  6 threads and 100 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency     9.88ms    6.55ms 138.47ms   83.95%
+    Req/Sec     1.73k   168.62     2.22k    69.44%
+  Latency Distribution
+     50%    7.76ms
+     75%   12.31ms
+     90%   17.75ms
+     99%   33.98ms
+  309718 requests in 30.01s, 210.96MB read
+Requests/sec:  10320.17
+Transfer/sec:      7.03MB
+
+
+
 ```
 
 
