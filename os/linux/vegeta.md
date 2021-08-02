@@ -27,13 +27,35 @@ ulimit -u 5568
 
 
 ```
-echo "GET http://127.0.0.1:233"| vegeta attack -rate=500 -duration=10s | tee results.bin | vegeta report
+echo "GET http://www.baidu.com"| vegeta -cpus=4 attack -rate=500 -duration=10s | tee results.bin | vegeta report
 
-
+cpus 使用 cpu 数量
 rate 每秒钟请求次数
 connections 每个地址最大连接数
 duration 持续时间
 tee results.bin 保存测试报告并用 veteta report 显示报告内容，
+
+
+压测结果：
+Requests      [total, rate, throughput]         5000, 500.13, 130.41
+Duration      [total, attack, wait]             38.118s, 9.997s, 28.12s
+Latencies     [min, mean, 50, 90, 95, 99, max]  80.999ms, 5.807s, 5.349s, 9.857s, 11.192s, 14.124s, 30.001s
+Bytes In      [total, mean]                     1520494361, 304098.87
+Bytes Out     [total, mean]                     0, 0.00
+Success       [ratio]                           99.42%
+Status Codes  [code:count]                      0:29  200:4971
+Error Set:
+context deadline exceeded (Client.Timeout or context cancellation while reading body)
+Get "http://www.baidu.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+
+Duration：持续时间（攻击是加+等待时间），attack 攻击时间，wait 等待时间
+Latencies：延迟
+mean：单个请求的平均值
+Bytes In 请求的大小（字节）
+Bytes Out：字节输出
+Status Codes：返回状态码与请求数，0 的状态码表示客户端临时结束
+Success：请求成功率
 ```
 
 
@@ -65,13 +87,25 @@ vegeta report -type=hdrplot results.bin
 
 生成报表图：
 vegeta plot --title ThisIsTitle results.bin > plot.html
+
+别人做的统计表，可以参考：
+https://img-blog.csdnimg.cn/20190813003520979.png
 ```
+
+
 
 
 ## 分布式测试
 
 ```
 这篇文章不错：<https://blog.csdn.net/minxihou/article/details/99353832>
+
+如果状态为“0”的请求分布比较多的时候，代表着这些请求没有在压力机发出整个测试就结束了。这里需要考虑有两点：
+是否是被测端过饱和了导致更多的请求无法被接收到。
+是否压力机太少了导致压力机产生了额定的请求速率但是没有发送出去。
+这里不需要考虑测试的执行时间问题。因为压测端的请求速率是恒定的，如果说有status codes等于“0”的情况，你随着增加测试时间status codes等于“0”的个数只会越来越多。
+博主使用的4核8GB内存的虚拟机来进行的压测。在这种规格的虚机下使用vegeta去压测一个静态页面时，rate指定超过3W会使虚机本身成为压力瓶颈。
+
 
 值得提一下的就是如果是分布式压测最后统计结果生成报告的话，应该是将每台压力机的houminxi.bin拷贝到同一台机器的相同路径下。
 使用vegeta report houminxi.bin houminxi-1.bin | less（记得拷贝过来将结果文件houminxi.bin重命名，以免覆盖其他机器拷贝过来结果文件。
