@@ -264,6 +264,8 @@ _analyze?pretty   POST
 
 
 {"analyzer":"ik_smart","text":"安徽省长江流域"}
+
+{"analyzer":"pinyin","text":"安徽省长江流域"}
 ```
 
 - ik_max_word 和 ik_smart 什么区别?
