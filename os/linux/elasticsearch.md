@@ -220,7 +220,9 @@ ik_smart: 会做最粗粒度的拆分，比如会将“中华人民共和国国�
 - `mkdir -p ~/docker/elasticsearch-7.9.3/data`
 - `vim ~/docker/elasticsearch-7.9.3/elasticsearch-7.9.3-docker.yml`，内容如下
 - 下载 ik 分词（版本必须和 Elasticsearch 版本对应，包括小版本号）：<https://github.com/medcl/elasticsearch-analysis-ik/tags>
+- 下载 pinyin 分词（版本必须和 Elasticsearch 版本对应，包括小版本号）：<https://github.com/medcl/elasticsearch-analysis-pinyin/tags>
 - 把 ik 解压到如下目录：`/Users/meek/docker/elasticsearch-7.9.3/elasticsearch-analysis-ik-7.9.3`
+- 把 pinyin 解压到如下目录：`/Users/meek/docker/elasticsearch-7.9.3/elasticsearch-analysis-pinyin-7.9.3`
 
 ```
 version: '3'
@@ -248,6 +250,7 @@ services:
     volumes:
       - /Users/meek/docker/elasticsearch-7.9.3/data:/usr/share/elasticsearch/data
       - /Users/meek/docker/elasticsearch-7.9.3/elasticsearch-analysis-ik-7.9.3:/usr/share/elasticsearch/plugins/elasticsearch-analysis-ik-7.9.3
+      - /Users/meek/docker/elasticsearch-7.9.3/elasticsearch-analysis-pinyin-7.9.3:/usr/share/elasticsearch/plugins/elasticsearch-analysis-pinyin-7.9.3
 ```
 
 - 启动：`docker-compose -f ~/docker/elasticsearch-7.9.3/elasticsearch-7.9.3-docker.yml -p elasticsearch_7.9.3 up -d`
