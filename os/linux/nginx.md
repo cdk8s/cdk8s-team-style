@@ -1,5 +1,5 @@
 
-# Nginx 安装和使用
+# Nginx 使用
 
 ## 环境
 
@@ -18,54 +18,92 @@
     - 次要：<http://nginx.org/en/docs/>
 - Nginx 模块地址：<https://www.nginx.com/resources/wiki/modules/>
 
+-------------------------------------------------------------------
+
 ## Nginx 安装（Docker）
 
-- 预设好目录，在宿主机上创建下面目录：`mkdir -p /data/docker/nginx/logs /data/docker/nginx/conf /data/docker/nginx/html`
-- **重点**：先准备好你的 nginx.conf 文件，存放在宿主机的：`vim /data/docker/nginx/conf/nginx.conf` 目录下，等下需要映射。
+- 预设好目录，在宿主机上创建下面目录：`mkdir -p ~/docker/nginx/logs ~/docker/nginx/conf ~/docker/nginx/html`
+- **重点**：先准备好你的 nginx.conf 文件，存放在宿主机的：`vim ~/docker/nginx/conf/nginx.conf` 目录下，等下需要映射。
 
 ```
-worker_processes      1;
+user  nginx;
+worker_processes  auto;
+
+error_log  /var/log/nginx/error.log notice;
+pid        /var/run/nginx.pid;
+
 
 events {
-  worker_connections  1024;
+    worker_connections  1024;
 }
 
+
 http {
-  include             mime.types;
-  default_type        application/octet-stream;
+    include       /etc/nginx/mime.types;
+    default_type  application/octet-stream;
 
-  sendfile on;
+    log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                      '$status $body_bytes_sent "$http_referer" '
+                      '"$http_user_agent" "$http_x_forwarded_for"';
 
-  keepalive_timeout   65;
+    access_log  /var/log/nginx/access.log  main;
 
-  server {
-    listen            80;
-    server_name       localhost 127.0.0.1 193.112.221.203 youmeek.com;
-
-    location / {
-      root            /usr/share/nginx/html;
-      index           index.html index.htm;
+    sendfile        on;
+    keepalive_timeout  65;
+    gzip  on;
+    include /etc/nginx/conf.d/*.conf;
+    
+    server {
+        listen            80;
+        server_name       192.168.31.207 mytestabcdef.com;
+    
+        location / {
+          root            /usr/share/nginx/html;
+          index           index.html index.htm;
+        }
     }
-  }
 }
 ```
 
+- 创建一个 html 页面（macOS 需要创建这个，不然映射后默认的容器 /usr/share/nginx/html 无权限读取里面内容）
+
+```
+vim ~/docker/nginx/html/index.html
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>这是首页</title>
+</head>
+<body>
+<h1>这是 nginx 首页</h1>
+</body>
+</html>
+```
+
+
+- 给目录赋权：`chmod -R 777 ~/docker/nginx`
 - 官网镜像：<https://hub.docker.com/_/nginx/>
 - 下载镜像：`docker pull nginx:1.12.2`
-- 运行容器：
+  - 2021-06 最新版本为 1.21
+- 运行容器：（macOS 下也支持 80、443 端口）
 
 ```
 docker run --name local-nginx \
 -p 80:80 \
--v /data/docker/nginx/logs:/var/log/nginx \
--v /data/docker/nginx/conf/nginx.conf:/etc/nginx/nginx.conf:ro \
--v /data/docker/nginx/html:/usr/share/nginx/html \
--d nginx:1.12.2
+-p 443:443 \
+-v ~/docker/nginx/logs:/var/log/nginx \
+-v ~/docker/nginx/conf/nginx.conf:/etc/nginx/nginx.conf:ro \
+-v ~/docker/nginx/html:/usr/share/nginx/html \
+-d nginx:1.21
 ```
 
-- 重新加载配置（目前测试无效，只能重启服务）：`docker exec -it youmeek-nginx nginx -s reload`
-- 停止服务：`docker exec -it youmeek-nginx nginx -s stop` 或者：`docker stop youmeek-nginx`
-- 重新启动服务：`docker restart youmeek-nginx`
+- 重新加载配置（目前测试无效，只能重启服务）：`docker exec -it local-nginx nginx -s reload`
+- 停止服务：`docker exec -it local-nginx nginx -s stop` 或者：`docker stop local-nginx`
+- 重新启动服务：`docker restart local-nginx`
 
 
 -------------------------------------------------------------------
@@ -110,9 +148,66 @@ docker run --name local-nginx \
 
 -------------------------------------------------------------------
 
-## Nginx 源码编译安装（带监控模块）
+## Nginx 1.21.0 源码编译安装（离线安装）（带监控模块）
+
+```
+下载：
+gcc-c++-4.8.5-44.el7.x86_64.rpm
+keyutils-libs-devel-1.5.8-3.el7.x86_64.rpm
+krb5-devel-1.15.1-50.el7.x86_64.rpm
+libcom_err-devel-1.42.9-19.el7.x86_64.rpm
+libkadm5-1.15.1-50.el7.x86_64.rpm
+libselinux-devel-2.5-15.el7.x86_64.rpm
+libsepol-devel-2.5-10.el7.x86_64.rpm
+libstdc++-devel-4.8.5-44.el7.x86_64.rpm
+libverto-devel-0.2.5-4.el7.x86_64.rpm
+openssl-devel-1.0.2k-21.el7_9.x86_64.rpm
+pcre-devel-8.32-17.el7.x86_64.rpm
+zlib-devel-1.2.7-19.el7_9.x86_64.rpm
+
+安装所有依赖：
+rpm -ivh *.rpm
+
+
+下载：
+wget https://nginx.org/download/nginx-1.21.0.tar.gz
+
+tar -zxvf nginx-1.21.0.tar.gz
+
+mkdir -p /usr/local/nginx /var/log/nginx /var/temp/nginx /var/lock/nginx
+
+cd nginx-1.21.0
+
+./configure \
+--prefix=/usr/local/nginx \
+--pid-path=/var/local/nginx/nginx.pid \
+--lock-path=/var/lock/nginx/nginx.lock \
+--error-log-path=/var/log/nginx/error.log \
+--http-log-path=/var/log/nginx/access.log \
+--with-http_gzip_static_module \
+--http-client-body-temp-path=/var/temp/nginx/client \
+--http-proxy-temp-path=/var/temp/nginx/proxy \
+--http-fastcgi-temp-path=/var/temp/nginx/fastcgi \
+--http-uwsgi-temp-path=/var/temp/nginx/uwsgi \
+--with-http_ssl_module \
+--with-http_stub_status_module \
+--http-scgi-temp-path=/var/temp/nginx/scgi
+
+
+make
+make install
+
+启动：/usr/local/nginx/sbin/nginx
+刷新 Nginx 配置后重启：/usr/local/nginx/sbin/nginx -s reload
+停止 Nginx：/usr/local/nginx/sbin/nginx -s stop
+```
+
+
+
+## Nginx 1.8 源码编译安装（离线安装）（带监控模块）
 
 - 官网下载最新稳定版本 **1.8.1**，大小：814K
+- 官网下载地址：<https://nginx.org/en/download.html>
 - 官网安装说明：<https://www.nginx.com/resources/wiki/start/topics/tutorials/install/>
 - 源码编译配置参数说明：
     - <https://www.nginx.com/resources/wiki/start/topics/tutorials/installoptions/>
@@ -145,8 +240,7 @@ docker run --name local-nginx \
 
 - 编译：`make`
 - 安装：`make install`
-- 启动 Nginx
-	- 先检查是否在 /usr/local 目录下生成了 Nginx 等相关文件：`cd /usr/local/nginx;ll`，正常的效果应该是显示这样的：
+- 先检查是否在 /usr/local 目录下生成了 Nginx 等相关文件：`cd /usr/local/nginx;ll`，正常的效果应该是显示这样的：
 
 ``` nginx
 drwxr-xr-x. 2 root root 4096 3月  22 16:21 conf
@@ -154,6 +248,7 @@ drwxr-xr-x. 2 root root 4096 3月  22 16:21 html
 drwxr-xr-x. 2 root root 4096 3月  22 16:21 sbin
 ```
 
+- 启动：`/usr/local/nginx/sbin/nginx`
 - 如果要检查刚刚编译的哪些模块，可以：`nginx -V`
 
 ```
@@ -304,7 +399,7 @@ server {
 - 除了 crt 后缀的文件，有的是 pem 后缀的，配置一样
 - 旧版本的 nginx
 ```
-# crt 和 key 文件的存放位置根据你自己存放位置进行修改
+# crt（或pem格式） 和 key 文件的存放位置根据你自己存放位置进行修改
 server {
     listen       443;
     server_name  sso.youmeek.com;
@@ -945,6 +1040,26 @@ location ^~ /sculptor-boot-backend/ {
   proxy_set_header X-Forwarded-Proto $scheme;
 }
 
+只有当 `响应状态码` 等于 200, 201, 204, 206, 301, 302, 303, 304, 307, 或 308 时生效
+如果指定了 always 参数，头信息将无视状态码，在所有响应中强制返回
+server {
+    listen  8088;
+    location /abc {
+        root /opt/upload;
+        add_header Cache-Control no-cache;
+        add_header 'Access-Control-Allow-Origin' '*' always;
+    }
+}
+
+方便测试，直接响应指定状态码和内容
+server {
+    listen  8088;
+    location /abc {
+        return 200 '"OK"';
+    }
+}
+
+
 
 ```
 
@@ -1000,6 +1115,61 @@ location /aa/ {
 ```
 
 
+
+-------------------------------------------------------------------
+
+### Vue 项目部署根目录配置
+
+```
+vue.config.js 配置，或者不配置直接采用默认：
+const vueConfig = {
+  publicPath: '/',
+  outputDir: "dist",
+  ......
+}
+
+nginx 配置：
+server {
+    charset utf-8;
+    client_max_body_size 128M;
+
+    listen 80;
+    server_name hst-manage.netwintech.com;
+
+    location / {
+        root        /opt/jar/frontend/dist;
+        index       index.html index.php;
+        try_files $uri $uri/ /index.html;
+    }
+}
+```
+
+### Vue 项目部署非根目录配置
+
+```
+比如目录名为：manage
+vue.config.js 配置：
+const vueConfig = {
+  publicPath: '/manage/',
+  outputDir: "dist/manage",
+  ......
+}
+
+nginx 配置：
+server {
+    charset utf-8;
+    client_max_body_size 128M;
+
+    listen 80;
+    server_name hst-manage.netwintech.com;
+
+    location /manage {
+        root        /opt/jar/frontend/dist;
+        index       index.html index.php;
+        try_files $uri $uri/ /manage/index.html;
+    }
+}
+```
 
 -------------------------------------------------------------------
 

@@ -139,6 +139,19 @@ drwxr-xr-x. 5 root root 4096 3月 26 10:57，其中最前面的 d 表示这是�
 	- `shell grep -H '安装' *.sh`，查找当前目录下所有 sh 类型文件中，文件内容包含 `安装` 的当前行内容
 	- `grep 'test' java*`，显示当前目录下所有以 java 开头的文件中包含 test 的行
 	- `grep 'test' spring.ini docker.sh`，显示当前目录下 spring.ini docker.sh 两个文件中匹配 test 的行
+    - 更多参数
+        - `-i` 搜索时忽略大小写
+        - `-n` 显示行号
+        - `-r` 递归搜索
+        - `-E` 支持扩展正则
+        - `V` 反向选择，不显示匹配行信息
+        - `w` 只匹配整个单词，比如搜索 love，文件里面的 lover 是不会被匹配到的 
+        - `x` 只匹配整个行
+- `sed`
+      - `sed -n -e '/pyth.*/p' aa.txt` 打印文件中匹配正则 pyth.* 规则的内容，p 是打印的意思（只有一个规则的时候 -e 是可以省略的，但是不建议）
+      - `sed -n -e '/python/p' -e '/PYTHON/p' aa.txt` 打印文件中匹配 python 大写或小写的行内容，p 是打印的意思
+      - `sed -n -r '/python|PYTHON/p' aa.txt` 打印文件中匹配 python 大写或小写的行内容，p 是打印的意思，这里用的是扩展表达式，不是正则表达式
+      - `sed -i 's/python/java/g' aa.txt` 把 python 字眼改为 java
 - `ps`
 	- `ps –ef|grep java`，查看当前系统中有关 java 的所有进程
 	- `ps -ef|grep --color java`，高亮显示当前系统中有关 java 的所有进程
@@ -154,6 +167,26 @@ drwxr-xr-x. 5 root root 4096 3月 26 10:57，其中最前面的 d 表示这是�
 	- `tail -200f 文件名`，查看文件被更新的新内容尾 200 行，如果文件还有在新增可以动态查看到（一般用于查看日记文件）
 
 ## 用户、权限-相关命令
+
+- linux 的权限分为 rwx。r 代表：可读，w 代表：可写，x 代表：可执行
+- 这三个权限都可以转换成数值表示，r = 4，w = 2，x = 1，- = 0，所以总和是 7，也就是最大权限。第一个 7 是所属主（user）的权限，第二个 7 是所属组（group）的权限，最后一位 7 是非本群组用户（others）的权限。
+- 下面根据实战来描述这个数字：
+
+```
+drwxr-xr-x 2 root root 4.0K Jun 22 00:35 test
+因为 test 是目录，所以第一个字母是 d，代表 directory
+接下来的 rwx 代表所属主拥有：r可读、w可写、x可执行，数值之和是：4+2+1=7
+再接下来的 r-x 代表所属组拥有：r可读、x可执行，数值之和是：4+0+1=5
+再接下来的 r-x 代表非本群组用户拥有：r可读、x可执行，数值之和是：4+0+1=5
+所有总的权限赋值可以这样写：chmod -R 755 test
+-------------------------------------------------------------------
+-rw-r--r-- 1 root root    0 Jun 22 00:36 aa.txt
+因为 aa.txt 是文件，所以第一个字母是 - 横杆
+接下来的 rw- 代表所属主拥有：r可读、w可写，数值之和是：4+2=6
+再接下来的 r-- 代表所属组拥有：r可读，数值之和是：4+0+0=4
+再接下来的 r-- 代表非本群组用户拥有：r可读，数值之和是：4+0+0=4
+所有总的权限赋值可以这样写：chmod 644 aa.txt
+```
 
 - 使用 pem 证书登录：`ssh -i /opt/mykey.pem root@192.168.0.70`
 	- 证书权限不能太大，不然无法使用：`chmod 600 mykey.pem`
@@ -182,11 +215,9 @@ drwxr-xr-x. 5 root root 4096 3月 26 10:57，其中最前面的 d 表示这是�
 - `usermod 用户名 -g 组名`，把用户修改到其他组下
 - `passwd youmeek`，修改 youmeek 用户的密码（前提：只有 root 用户才有修改其他用户的权限，其他用户只能修改自己的）
 - `chmod 777 文件名/目录`，给指定文件增加最高权限，系统中的所有人都可以进行读写。
-	- linux 的权限分为 rwx。r 代表：可读，w 代表：可写，x 代表：可执行
-	- 这三个权限都可以转换成数值表示，r = 4，w = 2，x = 1，- = 0，所以总和是 7，也就是最大权限。第一个 7 是所属主（user）的权限，第二个 7 是所属组（group）的权限，最后一位 7 是非本群组用户（others）的权限。
-	- `chmod -R 777 目录` 表示递归目录下的所有文件夹，都赋予 777 权限
-    - `chown myUsername:myGroupName myFile` 表示修改文件所属用户、组
-    - `chown -R myUsername:myGroupName myFolder` 表示递归修改指定目录下的所有文件权限
+- `chmod -R 777 目录` 表示递归目录下的所有文件夹，都赋予 777 权限
+- `chown myUsername:myGroupName myFile` 表示修改文件所属用户、组
+- `chown -R myUsername:myGroupName myFolder` 表示递归修改指定目录下的所有文件权限
 - `su`：切换到 root 用户，终端目录还是原来的地方（常用）
 	- `su -`：切换到 root 用户，其中 **-** 号另起一个终端并切换账号
 	- `su 用户名`，切换指定用户帐号登陆，终端目录还是原来地方。
@@ -447,6 +478,27 @@ rm -rf /home/temp/
     - `grep '^[^#]' /etc/openvpn/server.conf`
 - 查看某个配置文件，排除掉里面以 # 开头和 ; 开头的注释内容：
     - `grep '^[^#;]' /etc/openvpn/server.conf`
+- 通过 yum 下载 rpm 安装包
+
+```
+- 安装该软件：yum install -y yum-plugin-downloadonly
+
+- 以下载 openssh-server 为例：
+- yum install openssh-server --downloadonly --downloaddir=/opt
+- 在 /opt/ssh 目录下有如下内容：
+    
+
+-rw-r--r--. 1 root root 280524 Aug 13  2015 openssh-5.3p1-112.el6_7.x86_64.rpm
+-rw-r--r--. 1 root root 448872 Aug 13  2015 openssh-clients-5.3p1-112.el6_7.x86_64.rpm
+-rw-r--r--. 1 root root 331544 Aug 13  2015 openssh-server-5.3p1-112.el6_7.x86_64.rpm
+
+
+- 安装下载的 rpm 文件：`sudo rpm -ivh *.rpm`
+- 利用 yum 安装 rpm 文件，并自动满足依赖的 rpm 文件：`sudo yum localinstall *.rpm`
+```
+
+
+
 
 ## 找回/恢复被删除文件
 

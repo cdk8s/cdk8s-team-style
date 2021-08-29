@@ -19,6 +19,7 @@ services:
   elasticsearch1:
     image: docker.elastic.co/elasticsearch/elasticsearch:5.6.8
     container_name: elasticsearch-5.6.8
+    restart: always
     environment:
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
       - "cluster.name=elasticsearch"
@@ -213,6 +214,68 @@ ik_max_word: 会将文本做最细粒度的拆分，比如会将“中华人民�
 ik_smart: 会做最粗粒度的拆分，比如会将“中华人民共和国国歌”拆分为“中华人民共和国,国歌”，适合 Phrase 查询。
 ```
 
+#### 7.9.3（带 ik 分词）
+
+- 先测试下镜像下载网络情况，一般会很慢：`docker pull docker.elastic.co/elasticsearch/elasticsearch:7.9.3`
+    - 如果实在下载不下来就用：`docker pull elasticsearch:7.9.3`
+- `mkdir -p ~/docker/elasticsearch-7.9.3/data`
+- `vim ~/docker/elasticsearch-7.9.3/elasticsearch-7.9.3-docker.yml`，内容如下
+- 下载 ik 分词（版本必须和 Elasticsearch 版本对应，包括小版本号）：<https://github.com/medcl/elasticsearch-analysis-ik/tags>
+- 下载 pinyin 分词（版本必须和 Elasticsearch 版本对应，包括小版本号）：<https://github.com/medcl/elasticsearch-analysis-pinyin/tags>
+- 把 ik 解压到如下目录：`/Users/meek/docker/elasticsearch-7.9.3/elasticsearch-analysis-ik-7.9.3`
+- 把 pinyin 解压到如下目录：`/Users/meek/docker/elasticsearch-7.9.3/elasticsearch-analysis-pinyin-7.9.3`
+
+```
+version: '3'
+services:
+  elasticsearch1:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.9.3
+    container_name: elasticsearch-7.9.3
+    environment:
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - "cluster.name=elasticsearch"
+      - "discovery.type=single-node"
+      - "network.host=0.0.0.0"
+      - "http.host=0.0.0.0"
+      - "xpack.security.enabled=false"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    ports:
+      - 9200:9200
+      - 9300:9300
+    volumes:
+      - /Users/meek/docker/elasticsearch-7.9.3/data:/usr/share/elasticsearch/data
+      - /Users/meek/docker/elasticsearch-7.9.3/elasticsearch-analysis-ik-7.9.3:/usr/share/elasticsearch/plugins/elasticsearch-analysis-ik-7.9.3
+      - /Users/meek/docker/elasticsearch-7.9.3/elasticsearch-analysis-pinyin-7.9.3:/usr/share/elasticsearch/plugins/elasticsearch-analysis-pinyin-7.9.3
+```
+
+- 启动：`docker-compose -f ~/docker/elasticsearch-7.9.3/elasticsearch-7.9.3-docker.yml -p elasticsearch_7.9.3 up -d`
+- Elasticsearch Head 插件地址：<https://chrome.google.com/webstore/detail/ffmkiejjmecolpfloofpjologoblkegm>
+- 打开 Head 插件，选择 `复合查询` 测试：
+
+
+```
+http://localhost:9200/
+_analyze?pretty   POST
+
+
+{"analyzer":"ik_smart","text":"安徽省长江流域"}
+
+{"analyzer":"pinyin","text":"安徽省长江流域"}
+```
+
+- ik_max_word 和 ik_smart 什么区别?
+
+```
+ik_max_word: 会将文本做最细粒度的拆分，比如会将“中华人民共和国国歌”拆分为“中华人民共和国,中华人民,中华,华人,人民共和国,人民,人,民,共和国,共和,和,国国,国歌”，会穷尽各种可能的组合，适合 Term Query；
+ik_smart: 会做最粗粒度的拆分，比如会将“中华人民共和国国歌”拆分为“中华人民共和国,国歌”，适合 Phrase 查询。
+```
+
 
 
 -------------------------------------------------------------------
@@ -221,7 +284,7 @@ ik_smart: 会做最粗粒度的拆分，比如会将“中华人民共和国国�
 
 ```
 查看集群分布
-curl -XGET 'http://192.168.0.18:9200/_cat/nodes?v'
+curl -X GET 'http://192.168.0.18:9200/_cat/nodes?v'
 ip           heap.percent ram.percent cpu load_1m load_5m load_15m node.role master name
 192.168.0.19           37          98   0    0.05    0.06     0.05 mdi       -      elasticsearch-2
 192.168.0.18           25          97   0    0.00    0.01     0.05 mdi       *      elasticsearch-1
@@ -454,6 +517,23 @@ curl -X POST "http://127.0.0.1:9200/索引名称/类型名称/_delete_by_query?r
 
 -------------------------------------------------------------------------------------------------------------------
 
+## Elasticsearch 7.9.3 安装（CentOS 7.9）
+
+```
+官网安装说明：
+https://www.elastic.co/guide/en/elasticsearch/reference/7.9/rpm.html
+
+rpm包安装说明：
+https://www.elastic.co/guide/en/elasticsearch/reference/7.9/rpm.html#install-rpm
+
+已经做成了 Ansible Playbook，请查看 sculptor-boot-backend 项目下的 doc 目录 1-software-include-elasticsearch-playbook.yml
+```
+
+
+
+-------------------------------------------------------------------------------------------------------------------
+
+
 ## Elasticsearch 5.2.0 安装
 
 - 官网下载地址：<https://www.elastic.co/cn/downloads/elasticsearch>
@@ -518,7 +598,7 @@ vm.max_map_count=262144
 - 切换用户：`su elasticsearch`
 - 控制台运行（启动比较慢）：`cd /usr/program/elasticsearch-5.2.0 ; ./bin/elasticsearch`
 - 后台运行：`cd /usr/program/elasticsearch-5.2.0 ; ./bin/elasticsearch -d -p 自定义pid值`
-- 在本机终端输入该命令：`curl -XGET 'http://192.168.1.127:9200'`，（也可以用浏览器访问：<http://192.168.1.127:9200/>）如果能得到如下结果，则表示启动成功：
+- 在本机终端输入该命令：`curl -X GET 'http://192.168.1.127:9200'`，（也可以用浏览器访问：<http://192.168.1.127:9200/>）如果能得到如下结果，则表示启动成功：
 
 ``` json
 {

@@ -162,12 +162,12 @@ PLAY RECAP *********************************************************************
     # 按行的方式写入
     - name: Set JAVA_HOME 1
       lineinfile: 
-        dest=/etc/profile
+        dest=/root/.bashrc
         line="JAVA_HOME={{ java_install_folder }}/jdk1.8.0_181"
     # 按块的方式写入，#{mark} 会被自动替换成：begin 和 end 字符来包裹整块内容（我这里自己定义了词语）
     - name: Set JAVA_HOME 2
       blockinfile: 
-        path: /etc/profile
+        path: /root/.bashrc
         marker: "#{mark} JDK ENV"
         marker_begin: "开始"
         marker_end: "结束"
@@ -305,7 +305,7 @@ PLAY RECAP *********************************************************************
       
     - name: set JAVA_HOME
       blockinfile: 
-        path: /etc/profile
+        path: /root/.bashrc
         marker: "#{mark} JDK ENV"
         block: |
           JAVA_HOME={{ java_install_folder }}/jdk1.8.0_181
@@ -318,7 +318,7 @@ PLAY RECAP *********************************************************************
           export CLASSPATH
     
     - name: source profile
-      shell: source /etc/profile
+      shell: source /root/.bashrc
 ```
 
 
@@ -350,7 +350,7 @@ PLAY RECAP *********************************************************************
 
     - name: set HADOOP_HOME
       blockinfile: 
-        path: /etc/profile
+        path: /root/.bashrc
         marker: "#{mark} HADOOP ENV"
         block: |
           HADOOP_HOME=/usr/local/hadoop
@@ -359,11 +359,237 @@ PLAY RECAP *********************************************************************
           export PATH
     
     - name: source profile
-      shell: source /etc/profile
+      shell: source /root/.bashrc
 ```
 
 
 - 执行命令：`ansible-playbook /opt/hadoop-playbook.yml`
+
+
+-------------------------------------------------------------------
+
+
+## 基础命令
+
+```
+打印一条信息
+- debug:
+    msg: "这里使用清华源：https://mirrors.tuna.tsinghua.edu.cn/help/mysql/"
+
+打印多条信息
+- debug:
+    msg:
+      - "信息1"
+      - "信息2"
+
+打印环境变量，并检查环境变量 start
+- name: echo JAVA_HOME
+  debug:
+    msg: "'{{ lookup('env', 'JAVA_HOME') }}' -- is environment variable"
+
+- name: get environment variable JAVA_HOME
+  set_fact:
+    JAVA_HOME_VAR: "{{ lookup('env', 'JAVA_HOME')}}"
+- name: check JAVA_HOME environment variable
+  fail:
+    msg: "Environment variable JAVA_HOME is not defined or empty"
+  when: JAVA_HOME_VAR == ""
+打印环境变量，并检查环境变量 end
+
+
+目录不存在，即异常
+- name: check zookeeper folders exist
+  stat:
+    path: "{{ zookeeper_home_path }}"
+  register: register_result
+- name: check zookeeper folders exist fail
+  fail:
+    msg: "check zookeeper folders exist fail"
+  when: not register_result.stat.exists
+
+目录存在，即异常
+- name: check zookeeper folders exist
+  stat:
+    path: "{{ zookeeper_home_path }}"
+  register: register_result
+- name: check zookeeper folders exist fail
+  fail:
+    msg: "check zookeeper folders exist fail"
+  when: register_result.stat.exists
+
+
+设置环境变量
+- name: set KAFKA_HOME
+  blockinfile:
+    path: /root/.bashrc
+    marker: "#{mark} kafka ENV"
+    block: |
+      export KAFKA_HOME={{ home_path }}
+      export PATH=$PATH:$KAFKA_HOME/bin
+- name: source bashrc
+  shell: source /root/.bashrc
+
+
+暂停执行
+- name: Pause for wait start
+  pause:
+    seconds: 10
+
+
+打印 shell 脚本执行输出到终端的结果信息出来
+tasks:
+- shell: "sh {{bin_path}}/zkServer.sh status"
+  register: printresult
+- debug: msg={{ printresult.stdout }}
+
+
+yum 卸载
+- name: remove the nodejs
+  yum:
+    name: nodejs
+    state: absent
+
+yum 简单安装
+- name: install redis
+  yum:
+    name: redis
+
+yum 安装并监控执行结果
+- name : install node
+  yum:
+    name: nodejs
+  async : 1000
+  poll : 0
+  register: node_install_result
+- name: 'check install result'
+  async_status: jid={{ node_install_result.ansible_job_id }}
+  register: job_node_install_result
+  until: job_node_install_result.finished
+  retries: 600
+
+
+执行 shell 命令，不带参数
+- name: install-epel
+  shell: "{{ item }}"
+  with_items:
+     - yum install -y epel-release
+
+
+执行 shell 命令，带参数，指定目录下
+- name: install-nginx
+  shell: "{{ item }}"
+  args:
+    chdir: /opt/software/centos7.9-nginx
+  with_items:
+     - yum localinstall -y *.rpm
+
+
+创建目录
+- name: create directory
+  file:
+    path: "{{ item }}"
+    state: directory
+  with_items:
+    - /usr/local/redis/config
+    - /home/data/redis/log
+    - /home/data/redis/dir
+
+
+创建文件
+- name: create json file
+  file:
+    path=/etc/docker/{{ item }}
+    state=touch
+    mode=777
+  with_items:
+    - daemon.json
+
+
+复制文件到指定目录
+- name: copy jdk
+  copy:
+    src=/opt/software/jdk-8u261-linux-x64.tar.gz
+    dest=/usr/local
+
+备份配置文件
+- name: copy config file
+  copy:
+    src=/etc/my.cnf
+    dest=/etc/my.cnf.back
+
+
+删除文件
+- name: remove tar.gz file
+  file:
+    path: /opt/software/jdk-8u261-linux-x64.tar.gz
+    state: absent
+
+
+替换某一行
+- name: replace zshrc update
+  lineinfile:
+    path: /root/.zshrc
+    regexp: '^# DISABLE_AUTO_UPDATE'
+    line: DISABLE_AUTO_UPDATE="true"
+
+
+在文件尾部追加内容
+- name: set config
+  blockinfile:
+    path: /etc/docker/daemon.json
+    marker: ""
+    block: |
+      {
+        "registry-mirrors": [
+          "https://ldhc17y9.mirror.aliyuncs.com",
+          "https://hub-mirror.c.163.com",
+          "https://mirror.baidubce.com",
+          "https://docker.mirrors.ustc.edu.cn"
+        ]
+      }
+
+
+常用的复制、删除、创建、添加内容一套方案 start
+- name: copy ntp.conf
+  copy:
+    src=/etc/ntp.conf
+    dest=/etc/ntp.conf.back
+
+- name: remove ntp.conf
+  file:
+    path: /etc/ntp.conf
+    state: absent
+
+- name: create ntp.conf
+  file:
+    path=/etc/{{ item }}
+    state=touch
+    mode=777
+  with_items:
+    - ntp.conf
+
+- name: set ntp.conf
+  blockinfile:
+    path: /etc/ntp.conf
+    marker: ""
+    block: |
+      ntp1.aliyun.com
+      ntp2.aliyun.com
+      ntp3.aliyun.com
+      ntp4.aliyun.com
+      ntp5.aliyun.com
+      ntp6.aliyun.com
+
+- name: remove blank lines blockinfile
+  lineinfile :
+    path: "/etc/ntp.conf"
+    regexp: "^$"
+    state: absent
+常用的复制、删除、创建、添加内容一套方案 end
+
+
+```
+
 
 
 

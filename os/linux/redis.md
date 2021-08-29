@@ -199,6 +199,79 @@ docker run -d -it -p 6379:6379 \
     redis-server /etc/redis/redis.conf
 ```
 
+
+
+-------------------------------------------------------------------
+
+## Redis 离线安装（3、4、5 版本使用，6 未测试）
+
+- 官网下载：<http://download.redis.io/releases/>
+
+```
+wget http://download.redis.io/releases/redis-3.2.9.tar.gz
+
+tar -zxvf redis-3.2.9.tar.gz
+
+cd redis-3.2.9
+make
+make PREFIX=/usr/local/redis install
+
+
+# 创建目录用于存储redis配置文件
+mkdir -p /usr/local/redis/config
+
+# 复制配置文件到/usr/local/redis/config
+cp /root/redis-3.2.9/redis.conf /usr/local/redis/config/
+
+
+# 修改配置文件
+vi /usr/local/redis/config/redis.conf
+
+把
+daemonize no 
+改为
+daemonize yes 
+
+把
+# requirepass foobared
+改为
+requirepass adgredis123456
+
+
+# 创建redis.service文件
+vim /etc/systemd/system/redis.service
+
+# 添加如下内容：
+[Unit]
+Description=Redis
+After=network.target
+
+[Service]
+Type=forking
+ExecStart=/usr/local/redis/bin/redis-server /usr/local/redis/config/redis.conf
+ExecStop=/usr/local/redis/bin/redis-server -s stop
+PrivateTmp=true
+User=root
+Group=root
+
+[Install]
+WantedBy=multi-user.target
+
+
+
+启动redis：systemctl start redis
+关闭redis：systemctl stop redis
+设置开机自启：systemctl enable redis
+关闭开机自启：systemctl disable redis
+查看运行状态：systemctl status redis
+访问客户端：/usr/local/redis/bin/redis-cli -h 127.0.0.1 -p 6379 -a adgredis123456
+
+```
+
+
+
+-------------------------------------------------------------------
+
 ## RedisCluster 集群（Docker 方式）
 
 #### Redis 容器准备

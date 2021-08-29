@@ -6,15 +6,46 @@
         name: mariadb
         state: absent
 
-    - name: install mysql 1
-      shell: "{{ item }}"
+    - debug:
+        msg: "这里使用清华源：https://mirrors.tuna.tsinghua.edu.cn/help/mysql/"
+
+    - name: create repo file
+      file:
+        path="/etc/yum.repos.d/{{ item }}"
+        state=touch
       with_items:
-         - wget http://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm
-         - yum localinstall -y mysql57-community-release-el7-11.noarch.rpm
+        - mysql-community.repo
+
+    - name: set repo file
+      blockinfile:
+        path: /etc/yum.repos.d/mysql-community.repo
+        marker: ""
+        block: |
+          [mysql-connectors-community]
+          name=MySQL Connectors Community
+          baseurl=https://mirrors.tuna.tsinghua.edu.cn/mysql/yum/mysql-connectors-community-el7-$basearch/
+          enabled=1
+          gpgcheck=1
+          gpgkey=https://repo.mysql.com/RPM-GPG-KEY-mysql
+
+          [mysql-tools-community]
+          name=MySQL Tools Community
+          baseurl=https://mirrors.tuna.tsinghua.edu.cn/mysql/yum/mysql-tools-community-el7-$basearch/
+          enabled=1
+          gpgcheck=1
+          gpgkey=https://repo.mysql.com/RPM-GPG-KEY-mysql
+
+          [mysql-5.7-community]
+          name=MySQL 5.7 Community Server
+          baseurl=https://mirrors.tuna.tsinghua.edu.cn/mysql/yum/mysql-5.7-community-el7-$basearch/
+          enabled=1
+          gpgcheck=1
+          gpgkey=https://repo.mysql.com/RPM-GPG-KEY-mysql
+
 
     - name : install mysql 2
       yum:
-        name: mysql-community-server
+        name: mysql-community-server.x86_64
       async : 1000
       poll : 0
       register: mysql_install_result
@@ -42,23 +73,23 @@
         path: /etc/my.cnf
         marker: ""
         block: |
-            [mysql]
-            default-character-set = utf8mb4
-            [mysqld]
-            max_connections = 500
-            datadir = /var/lib/mysql
-            socket = /var/lib/mysql/mysql.sock
-            bind-address = 127.0.0.1
-            symbolic-links=0
-            log-error=/var/log/mysqld.log
-            pid-file=/var/run/mysqld/mysqld.pid
-            default-storage-engine = InnoDB
-            collation-server = utf8mb4_unicode_520_ci
-            init_connect = 'SET NAMES utf8mb4'
-            character-set-server = utf8mb4
-            lower_case_table_names = 1
-            max_allowed_packet = 50M
-            sql_mode=STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION
+          [mysql]
+          default-character-set = utf8mb4
+          [mysqld]
+          max_connections = 500
+          datadir = /var/lib/mysql
+          socket = /var/lib/mysql/mysql.sock
+          bind-address = 127.0.0.1
+          symbolic-links=0
+          log-error=/var/log/mysqld.log
+          pid-file=/var/run/mysqld/mysqld.pid
+          default-storage-engine = InnoDB
+          collation-server = utf8mb4_unicode_520_ci
+          init_connect = 'SET NAMES utf8mb4'
+          character-set-server = utf8mb4
+          lower_case_table_names = 1
+          max_allowed_packet = 50M
+          sql_mode=STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION
 
     - name: enable mysql
       shell: "{{ item }}"

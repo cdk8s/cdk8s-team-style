@@ -6,15 +6,46 @@
         name: mariadb
         state: absent
 
-    - name: install mysql 1 tip file from https://dev.mysql.com/downloads/repo/yum/
-      shell: "{{ item }}"
+    - debug:
+        msg: "这里使用清华源：https://mirrors.tuna.tsinghua.edu.cn/help/mysql/"
+
+    - name: create repo file
+      file:
+        path="/etc/yum.repos.d/{{ item }}"
+        state=touch
       with_items:
-        - wget http://dev.mysql.com/get/Downloads/mysql80-community-release-el7-3.noarch.rpm
-        - yum localinstall -y mysql80-community-release-el7-3.noarch.rpm
+        - mysql-community.repo
+
+    - name: set repo file
+      blockinfile:
+        path: /etc/yum.repos.d/mysql-community.repo
+        marker: ""
+        block: |
+          [mysql-connectors-community]
+          name=MySQL Connectors Community
+          baseurl=https://mirrors.tuna.tsinghua.edu.cn/mysql/yum/mysql-connectors-community-el7-$basearch/
+          enabled=1
+          gpgcheck=1
+          gpgkey=https://repo.mysql.com/RPM-GPG-KEY-mysql
+
+          [mysql-tools-community]
+          name=MySQL Tools Community
+          baseurl=https://mirrors.tuna.tsinghua.edu.cn/mysql/yum/mysql-tools-community-el7-$basearch/
+          enabled=1
+          gpgcheck=1
+          gpgkey=https://repo.mysql.com/RPM-GPG-KEY-mysql
+
+          [mysql-8.0-community]
+          name=MySQL 8.0 Community Server
+          baseurl=https://mirrors.tuna.tsinghua.edu.cn/mysql/yum/mysql-8.0-community-el7-$basearch/
+          enabled=1
+          gpgcheck=1
+          gpgkey=https://repo.mysql.com/RPM-GPG-KEY-mysql
+
 
     - name : install mysql 2
       yum:
-        name: mysql-community-server
+        name: mysql-community-server.x86_64
       async : 1000
       poll : 0
       register: mysql_install_result

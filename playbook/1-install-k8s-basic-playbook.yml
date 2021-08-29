@@ -6,7 +6,7 @@
         state: disabled
 
     - name: disable firewalld
-      command: "{{ item }}"
+      shell: "{{ item }}"
       with_items:
          - systemctl stop firewalld
          - systemctl disable firewalld
@@ -15,20 +15,20 @@
          - sysctl -w vm.swappiness=0
 
     - name: timedatectl
-      command: "{{ item }}"
+      shell: "{{ item }}"
       with_items:
          - timedatectl
          - timedatectl set-ntp true
 
     - name: install-epel
-      command: "{{ item }}"
+      shell: "{{ item }}"
       with_items:
          - yum install -y epel-release
 
     - name: install-basic
-      command: "{{ item }}"
+      shell: "{{ item }}"
       with_items:
-         - yum install -y zip unzip lrzsz git wget htop deltarpm
+         - yum install -y zip unzip lrzsz git wget htop deltarpm gcc gcc-c++ pcre pcre-devel zlib zlib-devel openssl openssl-devel
 
     - name: install zsh oh-my-zsh
       shell: "{{ item }}"

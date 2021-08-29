@@ -11,6 +11,11 @@
 - [nmon](Nmon.md)
 
 
+## 云厂商基线检查
+
+- [阿里云-安骑士-基线检查](https://help.aliyun.com/document_detail/59003.html)
+- [腾讯云-安全基线检测列表](https://cloud.tencent.com/document/product/296/17339)
+
 
 ---------------------------------------------------------------------
 
@@ -378,6 +383,19 @@ Total:       16080      15919        160
 
 - 以上的结果重点关注是：`-/+ buffers/cache`，这一行代表实际使用情况。
 
+#### 查看具体某个进程的内存占用
+
+```
+通过：ps -ef | grep java 找到其 pid 值
+
+通过：top -p 1956 查看进程信息
+其中 RES 列下是 20492 单位 kb 也就是 20MB 左右
+其中 %CPU %MEM 可以看出占用的 cpu、内存百分比
+
+更多信息查看可以通过：cat /proc/1956/status
+其中 VmRSS:     20492 kB 代表物理内存占用，跟 top 值是对得上的
+```
+
 
 ##### pidstat 采样内存使用情况
 
@@ -415,7 +433,32 @@ Average:        0     24841      8.80      0.00 10423576 4968428  30.54  java
 
 ---------------------------------------------------------------------
 
-## 硬盘监控
+## 硬盘监控/磁盘监控
+
+
+#### 磁盘使用情况
+
+- 优点：
+- 统计的目录以仪表盘更加清晰地展示
+- 可以以磁盘占用大小或者文件名称排序
+
+
+```
+安装（需要 epel-release）：
+yum install -y ncdu
+
+扫描指定目录：
+ncdu /opt
+
+扫描结果出来后，按如下快捷键进行操作：
+?: 提示帮助
+n：按文件名进行排序
+s：按文件大小进行排序
+r：重新统计当前文件夹大小
+g：用#或百分比显示各文件/目录的大小所占的百分比
+i：显示当前文件/目录信息
+```
+
 
 #### 硬盘容量相关查看
 
@@ -555,6 +598,42 @@ kB_ccwr/s：任务取消的写入磁盘的 KB。当任务截断脏的 pagecache 
 	- `nload`：默认是监控第一块网卡的流量
 	- `nload eth0`：监控 eth0
 - 界面就两个：in 和 out，所以看整体就很直观
+- 关于单位计算：
+
+```
+数据传输率的单位一般采用MB/s或Mbit/s，尤其在内部数据传输率上官方数据中更多的采用Mbit/s为单位。此处有必要讲解一下两个单位二者之间的差异： 
+MB/s的含义是兆字节每秒，Mbit/s的含义是兆比特每秒，前者是指每秒传输的字节数量，后者是指每秒传输的比特位数。MB/s中的B字母是Byte的含义，虽然与Mbit/s中的bit翻译一样，都是比特，也都是数据量度单位，但二者是完全不同的。
+Byte是字节数，bit是位数，在计算机中每八位为一字节，也就是1Byte＝8bit，是1：8的对应关系。因此1MB/s等于8Mbit/s。因此在在书写单位时一定要注意B字母的大小写，尤其有些人还把Mbit/s简写为Mb/s，此时B字母的大小真可以称为失之毫厘，谬以千里。 
+上面这是一般情况下MB/s与Mbit/s的对应关系，但在硬盘的数据传输率上二者就不能用一般的MB和Mbit的换算关系（1B=8bit）来进行换算。
+比如某款产品官方标称的内部数据传输率为683Mbit/s，此时不能简单的认为683除以8得到85.375，就认为85MB/s是该硬盘的内部数据传输率。因为在683Mbit中还包含有许多bit（位）的辅助信息，不完全是硬盘传输的数据，简单的用8来换算，将无法得到真实的内部数据传输率数值。
+来源：https://blog.csdn.net/junjieguo/article/details/6458982
+```
+
+#### iproute2
+
+- iproute2是linux下管理控制TCP/IP网络和流量控制的新一代工具包，旨在替代老派的工具链net-tools，即大家比较熟悉的ifconfig，arp，route，netstat等命令。
+- CentOS 7 之后已经内置了
+
+```
+路由表：ip route
+网络接口统计信息：ip -s link
+组播：ip maddr
+网络接口地址和链路：ip addr /ip link
+ARP：ip neigh
+隧道：ip tunnel
+```
+
+#### 网络监控 nethogs
+
+- nethogs 的特点是可以在终端中看到各个进程的带宽占用情况
+
+```
+安装（需要 epel-release）：
+yum install -y nethogs
+
+每隔 3 秒刷新一次数据
+nethogs -d 3
+```
 
 
 #### 网络监控常用 iftop
@@ -608,6 +687,7 @@ docker-pr 13551 root    4u  IPv6 2116824      0t0  TCP *:aicc-cmi (LISTEN)
 
 #### netstat
 
+- 安装命令：`yum install -y net-tools`
 - 更多用法可以看：[netstat 的10个基本用法](https://linux.cn/article-2434-1.html)
 - 查看所有在用的端口（macOS 也适用）：`netstat -ntlp`
 
@@ -792,6 +872,23 @@ Out of memory: Kill process 19452 (java) score 264 or sacrifice child
 
 ---------------------------------------------------------------------
 
+## 通过PID查看进程完整信息、所在位置（目录）
+
+- 先通过 top 找到你想要的程序 PID，比如 7022，然后执行：
+- `ll /proc/7022`，可以得到一些信息，其中下面几个是最核心的
+
+```
+exe 符号连接就是执行程序的绝对路径（核心）
+cwd 符号链接的是进程运行目录；
+cmdline 就是程序运行时输入的命令行命令；
+environ 记录了进程运行时的环境变量；
+fd 目录下是进程打开或使用的文件的符号连接。
+```
+
+
+
+---------------------------------------------------------------------
+
 ## 服务器故障排查顺序
 
 #### 请求时好时坏
@@ -967,6 +1064,7 @@ S0     S1     E      O      M     CCS    YGC     YGCT    FGC    FGCT     GCT
 - <https://www.jianshu.com/p/3667157d63bb>
 - <https://www.cnblogs.com/yjd_hycf_space/p/7755633.html>
 - <http://silverd.cn/2016/05/27/nginx-access-log.html>
+- <https://blog.csdn.net/Great_Smile/article/details/50114133>
 
 
 

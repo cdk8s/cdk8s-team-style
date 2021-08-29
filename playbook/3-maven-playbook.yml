@@ -19,16 +19,16 @@
         path: /root/.zshrc
         marker: "#{mark} MAVEN ENV"
         block: |
-            MAVEN_HOME={{ maven_install_folder }}/apache-maven-3.6.3
-            M3_HOME={{ maven_install_folder }}/apache-maven-3.6.3
-            M2_HOME={{ maven_install_folder }}/apache-maven-3.6.3
-            PATH=$PATH:$M3_HOME/bin
-            MAVEN_OPTS="-Xms1024m -Xmx1024m -XX:MaxPermSize=512m"
-            export M3_HOME
-            export M2_HOME
-            export MAVEN_HOME
-            export PATH
-            export MAVEN_OPTS
+          MAVEN_HOME={{ maven_install_folder }}/apache-maven-3.6.3
+          M3_HOME={{ maven_install_folder }}/apache-maven-3.6.3
+          M2_HOME={{ maven_install_folder }}/apache-maven-3.6.3
+          PATH=$PATH:$M3_HOME/bin
+          MAVEN_OPTS="-Xms1024m -Xmx1024m -XX:MaxPermSize=512m"
+          export M3_HOME
+          export M2_HOME
+          export MAVEN_HOME
+          export PATH
+          export MAVEN_OPTS
 
     - name: source zshrc
       shell: source /root/.zshrc

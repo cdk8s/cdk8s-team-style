@@ -193,6 +193,113 @@ docker run -p 3306:3306 \
 
 -------------------------------------------------------------------
 
+## MySQL 8.0 离线安装（CentOS 7.9）
+
+```
+2021-06 最新版：8.0.25
+下载地址：
+wget https://dev.mysql.com/get/Downloads/MySQL-8.0/mysql-8.0.25-1.el7.x86_64.rpm-bundle.tar
+后续要下载最新版，访问官网：https://dev.mysql.com/ 查看左侧 MySQL Community Server 显示的最新版本号是多少，然后自己修改下载地址，它们理论上都是同一个规则的下载地址
+
+
+```
+
+
+## MySQL 5.7 离线安装（CentOS 7.9）
+
+```
+2021-06 最新版：5.7.34
+下载地址：
+wget https://dev.mysql.com/get/Downloads/MySQL-5.7/mysql-5.7.34-1.el7.x86_64.rpm-bundle.tar
+后续要下载最新版，访问官网：https://dev.mysql.com/ 查看左侧 MySQL Community Server 显示的最新版本号是多少，然后自己修改下载地址，它们理论上都是同一个规则的下载地址
+
+
+yum install -y lrzsz zip unzip git wget htop
+
+1.安装新版mysql前，需将系统自带的 mariadb-lib 卸载。
+rpm -qa|grep mariadb
+rpm -e --nodeps mariadb-libs-5.5.68-1.el7.x86_64
+
+2.查看该操作系统上是否已经安装了mysql数据库
+rpm -qa | grep mysql
+假如有，就用如下命令进行卸载：
+rpm -ev mysql-community-libs-5.7.34-1.el6.x86_64 --nodeps
+查看卸载是否成功 
+rpm -qa | grep mysql
+
+对压缩包进行解压：
+tar -xvf mysql-5.7.34-1.el7.x86_64.rpm-bundle.tar
+
+解压后得到如下文件：
+mysql-5.7.34-1.el7.x86_64.rpm-bundle.tar
+mysql-community-client-5.7.34-1.el7.x86_64.rpm
+mysql-community-common-5.7.34-1.el7.x86_64.rpm
+mysql-community-devel-5.7.34-1.el7.x86_64.rpm
+mysql-community-embedded-5.7.34-1.el7.x86_64.rpm
+mysql-community-embedded-compat-5.7.34-1.el7.x86_64.rpm
+mysql-community-embedded-devel-5.7.34-1.el7.x86_64.rpm
+mysql-community-libs-5.7.34-1.el7.x86_64.rpm
+mysql-community-libs-compat-5.7.34-1.el7.x86_64.rpm
+mysql-community-server-5.7.34-1.el7.x86_64.rpm
+mysql-community-test-5.7.34-1.el7.x86_64.rpm
+ 
+使用rpm -ivh命令依次进行安装；以下步骤需要root权限。且因包之间的依赖关系，各rpm命令必须按序执行。
+rpm -ivh  libaio-0.3.109-13.el7.x86_64.rpm
+rpm -ivh  mysql-community-common-5.7.34-1.el7.x86_64.rpm
+rpm -ivh  mysql-community-libs-5.7.34-1.el7.x86_64.rpm
+rpm -ivh  mysql-community-client-5.7.34-1.el7.x86_64.rpm
+rpm -ivh  mysql-community-server-5.7.34-1.el7.x86_64.rpm
+
+
+修改配置文件
+vim /etc/my.cnf
+
+[mysql]
+default-character-set = utf8mb4
+[mysqld]
+datadir=/var/lib/mysql
+socket=/var/lib/mysql/mysql.sock
+log-error=/var/log/mysqld.log
+pid-file=/var/run/mysqld/mysqld.pid
+max_connections = 500
+bind-address = 127.0.0.1
+symbolic-links=0
+default-storage-engine = InnoDB
+collation-server = utf8mb4_unicode_520_ci
+init_connect = 'SET NAMES utf8mb4'
+character-set-server = utf8mb4
+lower_case_table_names = 1
+max_allowed_packet = 50M
+explicit_defaults_for_timestamp = true
+sql_mode=STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION
+
+
+6. 初始化数据库（这个时间会很久，需要10分钟左右）
+cd /usr/bin && mysqld --initialize --user=mysql
+
+查看初始化过程生成的随机密码
+cat /var/log/mysqld.log | grep password
+我的类似这样一句话：A temporary password is generated for root@localhost: grCDqt6djL/k
+
+启动服务：
+systemctl start mysqld
+
+进入客户端：mysql -uroot -p 输入生成的密码
+修改密码并永不过期（必须是大小写字母+特殊符号+数字）：ALTER USER 'root'@'localhost' IDENTIFIED WITH 'mysql_native_password' BY 'Meek_123456' PASSWORD EXPIRE NEVER;
+创建用户：CREATE USER 'myuser'@'%' IDENTIFIED WITH 'mysql_native_password' BY 'MyPwd_123456';
+修改密码并永不过期：ALTER USER 'myuser'@'%' IDENTIFIED WITH 'mysql_native_password' BY 'MyPwd_123456' PASSWORD EXPIRE NEVER;
+分配所有数据库权限：GRANT ALL PRIVILEGES ON *.* TO 'myuser'@'%' WITH GRANT OPTION;
+刷新配置：FLUSH PRIVILEGES;
+
+
+设置自启动：
+systemctl enable mysqld.service
+systemctl restart mysqld.service
+```
+
+
+-------------------------------------------------------------------
+
 
 ## MySQL 配置
 
@@ -441,6 +548,27 @@ ALTER TABLE mysql.slow_log RENAME mysql.slow_log_drop;
 SET GLOBAL slow_query_log = 'ON';
 
 DROP TABLE mysql.slow_log_drop; 
+```
+
+## MySQL 8.0 的卸载
+
+```
+whereis mysql
+mysql: /usr/bin/mysql /usr/lib64/mysql /usr/share/man/man1/mysql.1.gz
+
+rpm -qa |grep -i mysql
+mysql-community-common-8.0.23-1.el7.x86_64
+mysql-community-client-plugins-8.0.23-1.el7.x86_64
+mysql-community-client-8.0.23-1.el7.x86_64
+mysql-community-server-8.0.23-1.el7.x86_64
+mysql80-community-release-el7-3.noarch
+mysql-community-libs-8.0.23-1.el7.x86_64
+mysql-community-libs-compat-8.0.23-1.el7.x86_64
+
+删除以上查询的到，以及下面一些未查询到的：
+rm -rf /var/lib/mysql
+rm -rf /var/lib/mysql-files
+rm /etc/my.cnf
 ```
 
 
@@ -785,6 +913,17 @@ select count(*) from stock;
     8000000
 select count(*) from warehouse;
     80
+```
+
+## 常用命令
+
+```
+删除用户（后面@什么要根据当时创建的是什么，两个是不同的）：
+drop user 'myUserName'@'%';
+drop user 'myUserName'@'localhost';
+
+删除数据库：
+drop database myDbName;
 ```
 
 

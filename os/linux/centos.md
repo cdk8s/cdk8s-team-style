@@ -1,4 +1,80 @@
-# CentOS 常用设置
+
+# CentOS 介绍
+
+- CentOS Wiki：<https://zh.wikipedia.org/zh/CentOS>
+- CentOS 百科：<http://baike.baidu.com/item/centos>
+- CentOS 官网：<https://www.centos.org/>
+- CentOS 的自我介绍：<https://wiki.centos.org/zh/About>
+- CentOS 官网下载：<https://www.centos.org/download/>
+- CentOS 官网下载（含有旧版本）：<https://wiki.centos.org/Download>
+- CentOS 国内镜像下载：
+    - <http://isoredirect.centos.org/centos/6/isos/x86_64/>
+    - <http://isoredirect.centos.org/centos/7/isos/x86_64/>
+    - <http://isoredirect.centos.org/centos/8/isos/x86_64/>
+- 版本更新记录：<https://wiki.centos.org/Manuals/ReleaseNotes>
+
+
+
+# CentOS 原型系统：Red Hat Enterprise Linux
+
+
+- Red Hat Enterprise Linux Wiki：<https://zh.wikipedia.org/wiki/Red_Hat_Enterprise_Linux>
+- Red Hat Enterprise Linux 百科：<http://baike.baidu.com/view/1139590.htm>
+- 衍生版本：<https://zh.wikipedia.org/wiki/Red_Hat_Enterprise_Linux衍生版本>
+
+
+# Red Hat Enterprise Linux 后花园系统：Fedora
+
+- Fedora Wiki：<https://zh.wikipedia.org/wiki/Fedora>
+- Fedora 百科：<http://baike.baidu.com/view/182182.htm>
+- Fedora 官网：<https://fedoraproject.org>
+- Fedora 官网桌面版下载：<https://getfedora.org/zh_CN/workstation/download/>
+- Fedora 官网文档：<https://docs.fedoraproject.org/zh-CN/index.html>
+
+
+## 安装方法
+
+- <https://github.com/judasn/Linux-Tutorial/blob/master/markdown-file/CentOS-7-Install.md>
+
+```
+安装完后需要做如下准备
+设置 hostname，这个最好设置一下，并且设置全部小写字母和数字，一定要小写字母
+hostnamectl set-hostname header1
+
+关闭 SELinux
+setenforce 0 && sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
+
+禁用防火墙
+systemctl stop firewalld && systemctl disable firewalld && echo "vm.swappiness = 0" >> /etc/sysctl.conf && swapoff -a && sysctl -w vm.swappiness=0
+
+设置时区
+timedatectl set-timezone Asia/Shanghai
+
+时间同步
+timedatectl && timedatectl set-ntp true
+
+安装基础软件：zip unzip lrzsz htop ncdu nethogs deltarpm（在 ju**1 账号云盘中 centos7.9-base-tool.zip）
+解压后安装：sudo yum localinstall -y *.rpm
+
+安装 vim 软件（在 ju**1 账号云盘中 centos7.9-vim.zip）
+解压后安装：sudo yum localinstall -y *.rpm
+
+安装 ansible（在 ju**1 账号云盘中 centos7.9-ansible.zip）
+解压后安装：sudo yum localinstall -y *.rpm
+
+配置 ssh 证书免密
+ssh-keygen -t rsa -b 2048 -N '' -f ~/.ssh/id_rsa
+cat /root/.ssh/id_rsa.pub >> /root/.ssh/authorized_keys
+
+编辑 Ansible 配置文件：vim /etc/ansible/hosts
+在配置文件最底部添加如下内容
+[local]
+192.168.31.237
+测试：ansible all -a 'ps'
+
+
+```
+
 
 ## 镜像源
 
