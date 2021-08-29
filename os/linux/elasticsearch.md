@@ -231,6 +231,7 @@ services:
   elasticsearch1:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.9.3
     container_name: elasticsearch-7.9.3
+    restart: always
     environment:
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
       - "cluster.name=elasticsearch"
