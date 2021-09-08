@@ -147,9 +147,9 @@
                   proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
                   proxy_set_header X-Forwarded-Proto $scheme;
 
-                  limit_conn perIpLimit 10;
-                  limit_conn perServerLimit 500;
-                  limit_req zone=contentRateLimit burst=10 nodelay;
+                  limit_conn perIpLimit 50;
+                  limit_conn perServerLimit 2000;
+                  limit_req zone=contentRateLimit burst=50 nodelay;
               }
 
               location ^~ /logs {
