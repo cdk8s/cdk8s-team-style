@@ -143,6 +143,8 @@ vim /usr/bin/yum
 还有一个文件也需要这么改：
 vim /usr/libexec/urlgrabber-ext-down
 
+vim /usr/bin/supervisord
+
 ```
 
 -------------------------------------------------------------------
