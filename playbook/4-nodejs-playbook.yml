@@ -21,7 +21,7 @@
       poll : 0
       register: node_install_result
 
-    - name: 'check install result'
+    - name: 'checking for install result'
       async_status: jid={{ node_install_result.ansible_job_id }}
       register: job_node_install_result
       until: job_node_install_result.finished
@@ -33,4 +33,9 @@
     - name: install yarn
       shell: "{{ item }}"
       with_items:
-         - yum -y install yarn
+        - yum -y install yarn
+
+    - name: install pm2
+      shell: "{{ item }}"
+      with_items:
+        - yarn global add pm2

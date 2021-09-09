@@ -46,7 +46,7 @@ mkdir -p /opt/playbook /opt/jar /data/docker/openresty/cert /opt/software
 ansible-playbook /opt/playbook/1-install-basic-playbook.yml
 ansible-playbook /opt/playbook/2-jdk8-playbook.yml
 ansible-playbook /opt/playbook/3-maven-playbook.yml
-ansible-playbook /opt/playbook/4-node-playbook.yml
+ansible-playbook /opt/playbook/4-nodejs-playbook.yml
 ansible-playbook /opt/playbook/5-mysql8-playbook.yml
 ansible-playbook /opt/playbook/6-redis-playbook.yml
 ansible-playbook /opt/playbook/7-jenkins-playbook.yml
