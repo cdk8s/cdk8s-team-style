@@ -19,7 +19,7 @@ coscmd config -a <secret_id> -s <secret_key> -b <bucketName> -r <region> [-m <ma
 max_thread 可选参数，多线程上传时的最大线程数（默认为 5），有效值：1~10
 parts_size 可选参数，分块上传的单块大小（单位为 MB，默认为 1MB），有效值：1~10
 
-完整例子：
+完整例子（相关密钥信息上腾讯云后台去看下）：
 coscmd config -a AChT4ThiXAbpBDEFGhT4ThiXAbp -s WE54wreefvds3462refgwewe -b bucket-name -r ap-chengdu
 
 然后会生成一个配置文件：~/.cos.conf
@@ -43,3 +43,25 @@ coscmd upload -r /opt/client client/
 
 
 ```
+
+-------------------------------------------------------------------
+
+
+## COS Migration 工具
+
+- 官网：<https://cloud.tencent.com/document/product/436/15392>
+
+```
+需要 JDK8 环境
+Linux 环境需要 IFUNC 支持，确保环境 binutils 版本大于 2.20，查看方式：ld --version
+
+下载：
+git clone --depth=1 https://github.com/tencentyun/cos_migrate_tool_v5.git
+
+修改：./conf/config.ini
+
+
+```
+
+
+

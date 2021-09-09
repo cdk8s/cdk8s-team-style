@@ -83,27 +83,30 @@ cat /root/.ssh/id_rsa.pub >> /root/.ssh/authorized_keys
 - <https://developer.aliyun.com/mirror/centos>
 - `yum install -y epel-release`
 
+-------------------------------------------------------------------
+
 ## 升级 Python
 
-- 下载最新版本：<https://www.python.org/downloads/>
+- 下载最新版本：<https://www.python.org/downloads/source/>
     - 当前 2021-02 最新版本为：3.9.2，点击进去选择：Gzipped source tarball 进行下载
+    - 当前 2021-09 最新版本为：3.9.7，点击进去选择：Gzipped source tarball 进行下载
 - 编译安装
 
 ```
 安装基础依赖工具
 yum group install -y 'Development Tools'
 
-yum install zlib-devel bzip2-devel openssl-devel ncurese-devel readline-devel sqlite-devel libffi-devel
+yum install -y zlib-devel bzip2-devel openssl-devel ncurese-devel readline-devel sqlite-devel libffi-devel
 
-wget https://www.python.org/ftp/python/3.9.2/Python-3.9.2.tgz
-
-tar zxvf Python-3.9.2.tgz
-cd Python-3.9.2
+cd /opt/software
+tar zxvf Python-3.9.7.tgz
+cd Python-3.9.7
 ./configure  --prefix=/usr/local/python3
 make && make install
 ```
 
-- 更换系统默认的Python版本（）
+- 更换系统默认的Python版本
+- 下面是直接更改默认 python 版本，我其实不推荐直接修改默认 python 版本，而是改为 python3 执行
 
 ```
 查看当前 python 版本：
@@ -111,10 +114,8 @@ python -V 得到 2.7.5
 
 如果不更改默认，则不需要 mv，只要保留最下面的 python3 相关的软链接即可
 mv /usr/bin/python /usr/bin/python2.7.5
-ln -s /usr/bin/python/bin/python3.9 /usr/bin/python
+ln -s /usr/local/python3/bin/python3.9 /usr/bin/python
 ln -s /usr/local/python3/bin/pip3 /usr/bin/pip
-
-如果不更改默认，就只要这两个
 ln -s /usr/local/python3/bin/python3.9 /usr/bin/python3
 ln -s /usr/local/python3/bin/pip3 /usr/bin/pip3
 
@@ -144,7 +145,7 @@ vim /usr/libexec/urlgrabber-ext-down
 
 ```
 
-
+-------------------------------------------------------------------
 
 ## 安装常用工具
 
