@@ -894,7 +894,6 @@ http {
 net.ipv4.tcp_fin_timeout = 10           #保持在FIN-WAIT-2状态的时间，使系统可以处理更多的连接。此参数值为整数，单位为秒。
 net.ipv4.tcp_tw_reuse = 1              #开启重用，允许将TIME_WAIT socket用于新的TCP连接。默认为0，表示关闭。
 net.ipv4.tcp_tw_recycle = 0            #开启TCP连接中TIME_WAIT socket的快速回收。默认值为0，表示关闭。
-net.ipv4.tcp_syncookies = 1            #开启SYN cookie，出现SYN等待队列溢出时启用cookie处理，防范少量的SYN攻击。默认为0，表示关闭。
 net.core.somaxconn = 1024             #定义了系统中每一个端口最大的监听队列的长度, 对于一个经常处理新连接的高负载 web服务环境来说，默认值为128，偏小。
 ```
 
