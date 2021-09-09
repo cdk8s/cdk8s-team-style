@@ -59,10 +59,20 @@ coscmd upload -r /opt/client client/
 Linux 环境需要 IFUNC 支持，确保环境 binutils 版本大于 2.20，查看方式：ld --version
 
 下载：
+cd /opt/jar
 git clone --depth=1 https://github.com/tencentyun/cos_migrate_tool_v5.git
 
 修改：./conf/config.ini
 
+重点修改：
+secretId=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+secretKey=yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy
+bucketName=mybucket-1251668577
+cosPath=/client
+localPath=/opt/jar/sculptor-boot-frontend-nuxt-pc/.nuxt/dist/client
+entireFileMd5Attached=on
+
+运行：sh start_migrate.sh
 
 ```
 
