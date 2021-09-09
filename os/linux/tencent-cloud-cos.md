@@ -25,8 +25,11 @@ coscmd config -a AChT4ThiXAbpBDEFGhT4ThiXAbp -s WE54wreefvds3462refgwewe -b buck
 然后会生成一个配置文件：~/.cos.conf
 这里会记录下我们刚刚配置的密钥和桶信息
 
-删除根目录下的 aa.txt 文件
+删除根目录下的 aa.txt 文件（需要交互确认）
 coscmd delete aa.txt
+
+删除根目录下的 aa.txt 文件（不需要交互确认）
+echo y | coscmd delete aa.txt
 
 删除根目录下的 client/ 目录
 echo y | coscmd delete -r client/
