@@ -144,6 +144,7 @@ vim /usr/bin/yum
 vim /usr/libexec/urlgrabber-ext-down
 
 vim /usr/bin/supervisord
+vim /usr/bin/supervisorctl
 
 ```
 
