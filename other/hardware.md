@@ -200,13 +200,13 @@
     - 1TB 固态硬盘
     - 2 台 Pro Display XDR
 
-> CPU：3400 RMB
+> CPU：3500 RMB
 
-- [英特尔（Intel）i9-9900K 8核16线程](https://search.jd.com/Search?enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=c0d90a09b813492cbb88dbd39455a471-p_669678130&abt=3&keyword=%E8%8B%B1%E7%89%B9%E5%B0%94%EF%BC%88Intel%EF%BC%89i9-9900K%208%E6%A0%B816%E7%BA%BF%E7%A8%8B)
+- [英特尔（Intel）i9-10900KF 10核20线程](http://search.jd.com/Search?enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=c0d90a09b813492cbb88dbd39455a471-p_669678130&abt=3&keyword=%E8%8B%B1%E7%89%B9%E5%B0%94%EF%BC%88Intel%EF%BC%89i9-10900KF%2010%E6%A0%B820%E7%BA%BF%E7%A8%8B)
 
-> 主板：1800 RMB
+> 主板：2900 RMB
 
-- [技嘉（GIGABYTE）Z390 AORUS ULTRA（ATX）](https://search.jd.com/Search?enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=c0d90a09b813492cbb88dbd39455a471-p_669678130&abt=3&keyword=%E6%8A%80%E5%98%89%EF%BC%88GIGABYTE%EF%BC%89Z390%20AORUS%20ULTRA%EF%BC%88ATX%EF%BC%89)
+- [技嘉（GIGABYTE）Z490 AORUS MASTER（ATX）](http://search.jd.com/Search?enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=c0d90a09b813492cbb88dbd39455a471-p_669678130&abt=3&keyword=%E6%8A%80%E5%98%89%EF%BC%88GIGABYTE%EF%BC%89Z490%20AORUS%20MASTER)
 
 > 显卡：3400 RMB
 
