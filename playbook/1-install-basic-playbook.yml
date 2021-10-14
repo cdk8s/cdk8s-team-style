@@ -1,6 +1,13 @@
 - hosts: all
   remote_user: root
   tasks:
+    - name: update hostname
+      shell: "{{ item }}"
+      with_items:
+         - hostnamectl set-hostname header1
+         - timedatectl set-timezone Asia/Shanghai
+         - timedatectl set-ntp true
+
     - name: Disable SELinux at next reboot
       selinux:
         state: disabled
