@@ -13,16 +13,39 @@
 - **核心：**
     - 使用 mongo 在插入数据的时候，每次插入的字段都可以各不相同，这对于那些表结构无法确定的业务来讲很有帮助，在 java 实现过程中，我们的单个模型的 entity 就可以存在多个，每个可以是略微区别，也可以是完全不同。
 
+## 先查看 MongoDB 目前主流版本有哪些
+
+- 官网地址：<https://www.mongodb.com/try/download/community>
+
 ## 如果你用 Spring Data MongoDB 依赖请注意
 
 - 请先看官网最新支持到哪个版本的依赖：<https://docs.spring.io/spring-data/mongodb/docs/current/reference/html/#new-features>
-	- 查看锚点为：`What’s new in Spring Data MongoDB` 的内容，比如：What’s new in Spring Data MongoDB 1.10，出现这样一句话：`Compatible with MongoDB Server 3.4 and the MongoDB Java Driver 3.4`
-- 目前 201712 支持 MongoDB 3.4
+    - 查看锚点为：`What’s new in Spring Data MongoDB` 的内容，比如：What’s new in Spring Data MongoDB 1.10，出现这样一句话：`Compatible with MongoDB Server 3.4 and the MongoDB Java Driver 3.4`
+    - 还有一个兼容性细节描述：<https://docs.spring.io/spring-data/mongodb/docs/current/reference/html/#compatibility.matrix>
+    - 当前时间 202110 下：
+
+```
+<dependency>
+  <groupId>org.springframework.data</groupId>
+  <artifactId>spring-data-mongodb</artifactId>
+  <version>3.1.13</version>
+  <scope>compile</scope>
+</dependency>
+
+支持的 mongo server 最高版本：4.4.x
+```
+
+
+## 如果你用 MongoDB Compass GUI 客户端
+
+- 官网下载：<https://www.mongodb.com/zh-cn/products/compass>
 
 ## 如果你用 Robomongo GUI 客户端请注意
 
 - 请查看介绍中支持哪个版本：<https://robomongo.org/download>
+- 只要下载：Robo 3T 即可
 - 目前 201712 支持 MongoDB 3.4
+- 目前 202110 支持 MongoDB 4.2
 
 ## 阿里云 MongoDB 版本支持
 
