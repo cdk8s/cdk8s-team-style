@@ -90,19 +90,24 @@ brew update
 - 常用安装软件
 
 ```
-brew install node@14
-brew install opensll@1.1
-brew install vim
 brew install git
-brew install zsh
+brew install vim
 brew install htop
 brew install wrk
 brew install telnet
 brew install curl
 brew install wget
-brew install yarn
-brew install ruby
-brew install python@3.9
+brew install zsh
+
+
+https://nodejs.org/en/
+brew install node@16
+记得安装 npm install -g yarn
+
+https://www.python.org/downloads/
+brew install python@3.10
+
+
 ```
 
 - 官网软件列表（按下载倒序排名）：<https://formulae.brew.sh/api/analytics/install-on-request/90d.json >
