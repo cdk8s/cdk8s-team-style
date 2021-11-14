@@ -23,8 +23,7 @@
 
 ## JDK
 
-- 官网下载 JDK7：<http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html>
-- 官网下载 JDK8：<http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html>
+- 官网下载 JDK8：<https://www.oracle.com/java/technologies/javase/javase8u211-later-archive-downloads.html>
     - jdk-8u231-macosx-x64.dmg
     - 百度云（d8rj）：<https://pan.baidu.com/s/1VFAi0gpMWikTgjTQokZEhQ>
 - Java 开发环境理论上一般都是这个优先安装的。
