@@ -233,7 +233,7 @@ services:
     container_name: elasticsearch-7.9.3
     restart: always
     environment:
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - "ES_JAVA_OPTS=-Xms512m -Xmx1512m"
       - "cluster.name=elasticsearch"
       - "discovery.type=single-node"
       - "network.host=0.0.0.0"
