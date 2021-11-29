@@ -25,6 +25,115 @@
 
 - 请查看介绍中支持哪个版本：<https://github.com/uglide/RedisDesktopManager>
 
+-------------------------------------------------------------------
+
+## Redis 6.2.X 安装（Docker）
+
+- 官网：<https://hub.docker.com/_/redis/>
+- 创建一个宿主机目录用来存放 redis 配置文件、数据：`mkdir -p ~/docker/redis/conf ~/docker/redis/db`
+- 赋权：`chmod -R 777 ~/docker/redis`
+- 自己编写一个配置文件 `vim ~/docker/redis/conf/redis.conf`，内容如下：
+
+- Redis 默认的配置文件内容：
+
+``` ini
+# 支持外网方式
+bind 0.0.0.0
+requirepass 123456
+protected-mode no
+
+# 不支持外网方式
+bind 127.0.0.1
+requirepass 123456
+protected-mode yes
+
+# 其他配置
+port 6379
+tcp-backlog 511
+timeout 0
+tcp-keepalive 300
+daemonize no
+pidfile /data/redis_6379.pid
+loglevel notice
+logfile ""
+databases 16
+always-show-logo no
+set-proc-title yes
+proc-title-template "{title} {listen-addr} {server-mode}"
+stop-writes-on-bgsave-error yes
+rdbcompression yes
+rdbchecksum yes
+dbfilename dump.rdb
+rdb-del-sync-files no
+dir /data
+replica-serve-stale-data yes
+replica-read-only yes
+repl-diskless-sync no
+repl-diskless-sync-delay 5
+repl-diskless-load disabled
+repl-disable-tcp-nodelay no
+replica-priority 100
+acllog-max-len 128
+lazyfree-lazy-eviction no
+lazyfree-lazy-expire no
+lazyfree-lazy-server-del no
+replica-lazy-flush no
+lazyfree-lazy-user-del no
+lazyfree-lazy-user-flush no
+oom-score-adj no
+oom-score-adj-values 0 200 800
+disable-thp yes
+appendonly no
+appendfilename "appendonly.aof"
+appendfsync everysec
+no-appendfsync-on-rewrite no
+auto-aof-rewrite-percentage 100
+auto-aof-rewrite-min-size 64mb
+aof-load-truncated yes
+aof-use-rdb-preamble yes
+lua-time-limit 5000
+slowlog-log-slower-than 10000
+slowlog-max-len 128
+latency-monitor-threshold 0
+notify-keyspace-events ""
+hash-max-ziplist-entries 512
+hash-max-ziplist-value 64
+list-max-ziplist-size -2
+list-compress-depth 0
+set-max-intset-entries 512
+zset-max-ziplist-entries 128
+zset-max-ziplist-value 64
+hll-sparse-max-bytes 3000
+stream-node-max-bytes 4096
+stream-node-max-entries 100
+activerehashing yes
+client-output-buffer-limit normal 0 0 0
+client-output-buffer-limit replica 256mb 64mb 60
+client-output-buffer-limit pubsub 32mb 8mb 60
+hz 10
+dynamic-hz yes
+aof-rewrite-incremental-fsync yes
+rdb-save-incremental-fsync yes
+jemalloc-bg-thread yes
+
+```
+
+- 启动镜像：
+
+```
+docker run -d -it -p 6379:6379 \
+    -v ~/docker/redis/conf/redis.conf:/etc/redis/redis.conf \
+    -v ~/docker/redis/db:/data \
+    --restart always \
+    --name cloud-redis redis:6.2 \
+    redis-server /etc/redis/redis.conf
+```
+- 查看镜像运行情况：`docker ps`
+- 进入镜像中 redis shell 交互界面：`docker exec -it cloud-redis redis-cli -h 127.0.0.1 -p 6379 -a adgredis123456`
+- 重新启动服务：`docker restart cloud-redis`
+
+-------------------------------------------------------------------
+
 ## Redis 3.X 安装（Docker）
 
 - 官网：<https://hub.docker.com/_/redis/>
@@ -105,12 +214,14 @@ docker run -d -it -p 6379:6379 \
     -v ~/docker/redis/conf/redis.conf:/etc/redis/redis.conf \
     -v ~/docker/redis/db:/data \
     --restart always \
-    --name cloud-redis redis:3.2 \
+    --name cloud-redis redis:3 \
     redis-server /etc/redis/redis.conf
 ```
 - 查看镜像运行情况：`docker ps`
 - 进入镜像中 redis shell 交互界面：`docker exec -it cloud-redis redis-cli -h 127.0.0.1 -p 6379 -a adgredis123456`
 - 重新启动服务：`docker restart cloud-redis`
+
+-------------------------------------------------------------------
 
 ## Redis 5.0.X 安装（Docker）
 
