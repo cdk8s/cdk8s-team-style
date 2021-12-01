@@ -248,3 +248,179 @@
 - [罗技（Logitech）MX Master 3 鼠标 无线蓝牙鼠标](https://search.jd.com/Search?enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=c0d90a09b813492cbb88dbd39455a471-p_669678130&abt=3&keyword=%E7%BD%97%E6%8A%80%EF%BC%88Logitech%EF%BC%89MX%20Master%203%20%E9%BC%A0%E6%A0%87%20%E6%97%A0%E7%BA%BF%E8%93%9D%E7%89%99%E9%BC%A0%E6%A0%87)
 - [鼠标垫 5mm](https://search.jd.com/Search?enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=c0d90a09b813492cbb88dbd39455a471-p_669678130&abt=3&keyword=%E9%BC%A0%E6%A0%87%E5%9E%AB%205mm)
 - [BUBM 鼠标手托](http://search.jd.com/Search?enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=c0d90a09b813492cbb88dbd39455a471-p_669678130&abt=3&keyword=BUBM%20%E9%BC%A0%E6%A0%87%E6%89%8B%E6%89%98)
+
+-------------------------------------------------------------------
+
+## 支持列表记录
+
+#### CPU
+
+```
+不推荐带 F 后缀的 CPU
+
+Core i9-10900K
+3.7Ghz / 10 Cores / 20 Threads / 20MB L3 Cache / 125W Max TDP
+
+Core i9-10850K
+3.6Ghz / 10 Cores / 20 Threads / 20MB L3 Cache / 125W Max TDP
+
+Core i9-10900
+2.8Ghz / 10 Cores / 20 Threads / 20MB L3 Cache / 65W Max TDP
+
+Core i7-10700K
+3.8Ghz / 8 Cores / 16 Threads / 16MB L3 Cache / 125W Max TDP
+
+Core i7-10700
+2.9Ghz / 8 Cores / 16 Threads / 16MB L3 Cache / 65W Max TDP
+
+Core i5-10600K
+4.1Ghz / 6 Cores / 12 Threads / 12MB L3 Cache / 125W Max TDP
+
+Core i5-10600
+3.3Ghz / 6 Cores / 12 Threads / 12MB L3 Cache / 65W Max TDP
+
+Core i5-10500
+3.1Ghz / 6 Cores / 12 Threads / 12MB L3 Cache / 65W Max TDP
+
+Core i5-10400
+2.9Ghz / 6 Cores / 12 Threads / 12MB L3 Cache / 65W Max TDP
+```
+
+
+#### 主板
+
+```
+主板有 CFG Lock 的选项的最好，可以明确主动关闭，可以实现直接使用 macos 的原生电源管理，可以得到更完美的睡眠和CPU变频等功能
+如果是后缀 “K”的必须搭配 Z490
+
+十代 i5 搭配 H470
+十代 i7 搭配 H470 或 Z490
+十代 i9 搭配 Z490
+有钱的话推荐都是采用 Z490（技嘉）
+
+
+Gigabyte H470 HD3 ATX
+Form: ATX
+Audio: ALC887
+Network: Intel I219-V
+
+Gigabyte H470M DS3H mATX
+Form: mATX
+Audio: ALC887
+Network: Intel I219-V
+
+ASUS TUF GAMING H470-PRO ATX
+Form: ATX
+Audio: ALC1220
+Network: Intel I219-V
+
+ASUS PRIME H470M-PLUS mATX
+Form: mATX
+Audio: ALC887
+Network: Intel I219-V
+
+
+-------------------------------------------------------------------
+
+Gigabyte Z490 Aorus Master ATX
+Form:ATX
+Audio:ALC1220
+Network:Intel I225-V
+
+Gigabyte Z490 Aorus Pro AX ATX
+Form:ATX
+Audio:ALC1220
+Network:Intel I225-V
+
+Gigabyte Z490 Vision D ATX
+Form:ATX
+Audio:ALC1220
+Network:Intel I225-V
+
+Gigabyte Z490 Aorus Ultra ATX
+Form:ATX
+Audio:ALC1220
+Network:Intel I225-V
+
+Gigabyte Z490 Gaming X ATX
+Form:ATX
+Audio:ALC1220 
+Network:Intel I219-V
+
+Gigabyte Z490 Vision G ATX
+Form:ATX
+Audio:ALC1220
+Network:Intel I225-V
+
+Gigabyte Z490M Gaming X mATX
+Form:mATX
+Audio:ALC1220
+Network:Intel I219-V
+
+ASUS TUF Z490-Plus ATX
+Form:ATX
+Audio:ALC1220
+Network:Intel I219-V
+
+ASUS ProArt Z490-Creator 10G ATX
+Form:ATX
+Audio:ALC1220
+Network:Intel I225-V
+
+ASUS Prime Z490-A ATX
+Form:ATX
+Audio:ALC1220
+Network:Intel I225-V
+
+ASUS ROG Strix Z490-E Gaming ATX
+Form:ATX
+Audio:ALC1220
+Network:Intel I225-V
+
+ASUS ROG Strix Z490-A Gaming ATX
+Form:ATX
+Audio:ALC1220
+Network:Intel I225-V
+
+ASUS Prime Z490M-Plus mATX
+Form:mATX
+Audio:ALC887
+Network:Intel I219-V
+```
+
+#### 显卡
+
+```
+Radeon RX 460
+Radeon RX 470
+Radeon RX 480
+Radeon RX 560
+Radeon RX 570
+Radeon RX 580（市场上很多矿卡，不推荐）
+Radeon RX 590
+RX 5700XT
+RX 6600XT（需要 12.1 系统）
+RX 6800
+RX 6800XT
+RX 6900XT
+越新的卡要搭配越新的操作系统才能免驱，5000、6000 系列在配置上有一些细节要注意，比如：boot-args 就有参数要添加
+
+```
+
+
+#### SSD
+
+```
+推荐 1TB 容量
+西数 SN 系列
+铠侠 RC 系列
+最新的 970 EVO Plus 可以，旧的需要升级固件
+Intel 600p（不推荐，有很多问题）
+```
+
+#### 蓝牙、WIFI（非必须）
+
+```
+BCM94360CD + PCIEx1 转接卡（四天线）
+BCM94360CS2 + PCIEx1 转接卡（两天线）
+```
