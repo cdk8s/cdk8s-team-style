@@ -102,6 +102,35 @@ sudo systemctl status grafana-server
 
 ----------------------------------------------------------------------------------------------
 
+## 配置域名
+
+```
+假设我们最终要访问的域名是：www.abc.com/grafana20211111
+
+打开配置文件：
+vim /etc/grafana/grafana.ini
+
+修改如下配置：
+domain = www.abc.com
+root_url = %(protocol)s://%(domain)s:%(http_port)s/grafana20211111/
+serve_from_sub_path = true
+
+重启服务：systemctl start grafana-server
+
+nginx 修改：
+location /grafana20211111 {
+    proxy_pass http://127.0.0.1:3000;
+    proxy_redirect off;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+}
+
+```
+
+----------------------------------------------------------------------------------------------
+
 ## 数据源
 
 #### Elasticsearch
