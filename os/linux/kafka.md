@@ -390,6 +390,15 @@ wurstmeister/kafka:latest
 - Kafka manager 是一款管理 + 监控的工具，比较重
 
 
+## kafkaUI-lite 管理 Kafka
+
+- 项目地址：<https://gitee.com/freakchicken/kafka-ui-lite>
+
+```
+docker run -d --name kafka-ui -p 8889:8889 freakchicken/kafka-ui-lite
+```
+
+
 ----------------------------------------------------------------------------------------------
 
 
