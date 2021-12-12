@@ -396,9 +396,18 @@ wurstmeister/kafka:latest
 ## kafkaUI-lite 管理 Kafka
 
 - 项目地址：<https://gitee.com/freakchicken/kafka-ui-lite>
+- 它的 docker 是无效的，所以建议直接用 tar 运行
 
 ```
-docker run -d --name kafka-ui -p 8889:8889 freakchicken/kafka-ui-lite
+请下载kafka-ui-lite.tar.gz包并解压
+
+# 终端启动
+sh bin/kafkaUI.sh start
+# 守护启动
+sh bin/kafkaUI.sh -d start
+# 关闭后台启动的进程
+sh bin/kafkaUI.sh stop
+
 ```
 
 
