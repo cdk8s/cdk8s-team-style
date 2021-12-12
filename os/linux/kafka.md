@@ -95,6 +95,7 @@ Topic:kafka-all    PartitionCount:6    ReplicationFactor:3    Configs:
 - 这里的 kafka 对外网暴露端口是 9094，内网端口是 9092
 
 ```
+我宿主机 ip 为：192.168.31.207
 先创建目录：mkdir -p ~/docker/kafka ~/docker/zookeeper/data
 vim ~/docker/docker-compose-kafka.yml
 
@@ -118,10 +119,8 @@ services:
     environment:
       HOSTNAME_COMMAND: "docker info | grep ^Name: | cut -d' ' -f 2"
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_ADVERTISED_LISTENERS: INSIDE://:9092,OUTSIDE://_{HOSTNAME_COMMAND}:9094
-      KAFKA_LISTENERS: INSIDE://:9092,OUTSIDE://:9094
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT
-      KAFKA_INTER_BROKER_LISTENER_NAME: INSIDE
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://192.168.31.207:9092
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
       KAFKA_ADVERTISED_PORT: 9094
       KAFKA_PORT: 9092
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'true'
@@ -135,7 +134,7 @@ services:
 ```
 
 - 启动：`docker-compose -p zookeeper_kafka -f ~/docker/docker-compose-kafka.yml up -d`
-- 停止：`docker-compose -f ~/docker/docker-compose-kafka.yml stop`
+- 停止：`docker-compose -p zookeeper_kafka -f ~/docker/docker-compose-kafka.yml stop`
 - 访问：<http://127.0.0.1:9000>
 - 测试：
     - 进入 kafka 容器：`docker exec -it kafka_node1 /bin/bash`
