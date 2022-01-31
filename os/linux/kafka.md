@@ -407,6 +407,8 @@ sh bin/kafkaUI.sh -d start
 # 关闭后台启动的进程
 sh bin/kafkaUI.sh stop
 
+启动后访问：http://127.0.0.1:8889/
+
 ```
 
 
