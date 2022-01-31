@@ -46,4 +46,9 @@ sudo yum -y install nodejs
 - 安装：`npm install -g yarn`
 - 验证：`yarn -v`
 
+## 其他常用库
+
+```
+npm install -g serve
+```
 
