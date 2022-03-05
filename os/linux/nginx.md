@@ -1059,8 +1059,29 @@ server {
 }
 
 
+```
+
+### 用于临时验证网站所有权
+
 
 ```
+有些网站需要让你放某个文件在域名根目录，来证明你有该网站的所有权，可以这样做：
+
+server {
+    listen  8088;
+    location /bdunion.txt {
+        root /opt/jar;
+    }
+}
+
+
+文件存放硬盘路径：/opt/jar/bdunion.txt
+记得添加权限：chmod 777 /opt/jar/bdunion.txt
+
+
+```
+
+
 
 ### root 和 alias
 
