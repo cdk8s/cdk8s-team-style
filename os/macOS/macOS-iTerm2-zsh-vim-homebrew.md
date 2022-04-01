@@ -211,6 +211,13 @@ brew install python@3.10
     - 下载完后，会提示你输入当前登录系统的用户密码，输入完成之后就会从 bash 切换到 Zsh，如果你没有输入密码直接跳过了，可以运行该命令进行手动切换：`chsh -s /bin/Zsh gitnavi(你当前系统用户名)`
     - 切换完成之后，关掉终端，重新打开终端即可
 - 如果你需要修改 oh-my-Zsh 的主题，和安装 Zsh 插件，具体可以看我过去整理的这篇文章：[Zsh 入门](https://github.com/judasn/Linux-Tutorial/blob/master/Zsh.md)
+- 配置权限：
+
+```
+chmod 755 /usr/local/share/zsh
+chmod 755 /usr/local/share/zsh/site-functions
+
+```
 
 
 ### Zsh 软件特色
