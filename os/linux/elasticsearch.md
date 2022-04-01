@@ -8,6 +8,74 @@
     - 阿里云有一个 `插件配置` 功能，常用的 Elasticsearch 插件都带了，勾选下即可安装。也支持上传安装。
 - 注意：docker 版本下 client.transport.sniff = true 是无效的。
 
+
+
+#### 7.9.3（带 ik 分词）
+
+- 先测试下镜像下载网络情况，一般会很慢：`docker pull docker.elastic.co/elasticsearch/elasticsearch:7.9.3`
+    - 如果实在下载不下来就用：`docker pull elasticsearch:7.9.3`
+- `mkdir -p ~/docker/elasticsearch-7.9.3/data`
+- `vim ~/docker/elasticsearch-7.9.3/elasticsearch-7.9.3-docker.yml`，内容如下
+- 下载 ik 分词（版本必须和 Elasticsearch 版本对应，包括小版本号）：<https://github.com/medcl/elasticsearch-analysis-ik/tags>
+- 下载 pinyin 分词（版本必须和 Elasticsearch 版本对应，包括小版本号）：<https://github.com/medcl/elasticsearch-analysis-pinyin/tags>
+- 把 ik 解压到如下目录：`/Users/meek/docker/elasticsearch-7.9.3/elasticsearch-analysis-ik-7.9.3`
+- 把 pinyin 解压到如下目录：`/Users/meek/docker/elasticsearch-7.9.3/elasticsearch-analysis-pinyin-7.9.3`
+
+```
+version: '3'
+services:
+  elasticsearch1:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.9.3
+    container_name: elasticsearch-7.9.3
+    restart: always
+    environment:
+      - "ES_JAVA_OPTS=-Xms512m -Xmx1512m"
+      - "cluster.name=elasticsearch"
+      - "discovery.type=single-node"
+      - "network.host=0.0.0.0"
+      - "http.host=0.0.0.0"
+      - "xpack.security.enabled=false"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    ports:
+      - 9200:9200
+      - 9300:9300
+    volumes:
+      - /Users/meek/docker/elasticsearch-7.9.3/data:/usr/share/elasticsearch/data
+      - /Users/meek/docker/elasticsearch-7.9.3/elasticsearch-analysis-ik-7.9.3:/usr/share/elasticsearch/plugins/elasticsearch-analysis-ik-7.9.3
+      - /Users/meek/docker/elasticsearch-7.9.3/elasticsearch-analysis-pinyin-7.9.3:/usr/share/elasticsearch/plugins/elasticsearch-analysis-pinyin-7.9.3
+```
+
+- 启动：`docker-compose -f ~/docker/elasticsearch-7.9.3/elasticsearch-7.9.3-docker.yml -p elasticsearch_7.9.3 up -d`
+- Elasticsearch Head 插件地址：<https://chrome.google.com/webstore/detail/ffmkiejjmecolpfloofpjologoblkegm>
+- 打开 Head 插件，选择 `复合查询` 测试：
+
+
+```
+http://localhost:9200/
+_analyze?pretty   POST
+
+
+{"analyzer":"ik_smart","text":"安徽省长江流域"}
+
+{"analyzer":"pinyin","text":"安徽省长江流域"}
+```
+
+- ik_max_word 和 ik_smart 什么区别?
+
+```
+ik_max_word: 会将文本做最细粒度的拆分，比如会将“中华人民共和国国歌”拆分为“中华人民共和国,中华人民,中华,华人,人民共和国,人民,人,民,共和国,共和,和,国国,国歌”，会穷尽各种可能的组合，适合 Term Query；
+ik_smart: 会做最粗粒度的拆分，比如会将“中华人民共和国国歌”拆分为“中华人民共和国,国歌”，适合 Phrase 查询。
+```
+
+
+
+
 #### 5.6.x
 
 - `vim ~/elasticsearch-5.6.8-docker.yml`
@@ -213,70 +281,6 @@ _analyze?pretty   POST
 ik_max_word: 会将文本做最细粒度的拆分，比如会将“中华人民共和国国歌”拆分为“中华人民共和国,中华人民,中华,华人,人民共和国,人民,人,民,共和国,共和,和,国国,国歌”，会穷尽各种可能的组合，适合 Term Query；
 ik_smart: 会做最粗粒度的拆分，比如会将“中华人民共和国国歌”拆分为“中华人民共和国,国歌”，适合 Phrase 查询。
 ```
-
-#### 7.9.3（带 ik 分词）
-
-- 先测试下镜像下载网络情况，一般会很慢：`docker pull docker.elastic.co/elasticsearch/elasticsearch:7.9.3`
-    - 如果实在下载不下来就用：`docker pull elasticsearch:7.9.3`
-- `mkdir -p ~/docker/elasticsearch-7.9.3/data`
-- `vim ~/docker/elasticsearch-7.9.3/elasticsearch-7.9.3-docker.yml`，内容如下
-- 下载 ik 分词（版本必须和 Elasticsearch 版本对应，包括小版本号）：<https://github.com/medcl/elasticsearch-analysis-ik/tags>
-- 下载 pinyin 分词（版本必须和 Elasticsearch 版本对应，包括小版本号）：<https://github.com/medcl/elasticsearch-analysis-pinyin/tags>
-- 把 ik 解压到如下目录：`/Users/meek/docker/elasticsearch-7.9.3/elasticsearch-analysis-ik-7.9.3`
-- 把 pinyin 解压到如下目录：`/Users/meek/docker/elasticsearch-7.9.3/elasticsearch-analysis-pinyin-7.9.3`
-
-```
-version: '3'
-services:
-  elasticsearch1:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.9.3
-    container_name: elasticsearch-7.9.3
-    restart: always
-    environment:
-      - "ES_JAVA_OPTS=-Xms512m -Xmx1512m"
-      - "cluster.name=elasticsearch"
-      - "discovery.type=single-node"
-      - "network.host=0.0.0.0"
-      - "http.host=0.0.0.0"
-      - "xpack.security.enabled=false"
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-      nofile:
-        soft: 65536
-        hard: 65536
-    ports:
-      - 9200:9200
-      - 9300:9300
-    volumes:
-      - /Users/meek/docker/elasticsearch-7.9.3/data:/usr/share/elasticsearch/data
-      - /Users/meek/docker/elasticsearch-7.9.3/elasticsearch-analysis-ik-7.9.3:/usr/share/elasticsearch/plugins/elasticsearch-analysis-ik-7.9.3
-      - /Users/meek/docker/elasticsearch-7.9.3/elasticsearch-analysis-pinyin-7.9.3:/usr/share/elasticsearch/plugins/elasticsearch-analysis-pinyin-7.9.3
-```
-
-- 启动：`docker-compose -f ~/docker/elasticsearch-7.9.3/elasticsearch-7.9.3-docker.yml -p elasticsearch_7.9.3 up -d`
-- Elasticsearch Head 插件地址：<https://chrome.google.com/webstore/detail/ffmkiejjmecolpfloofpjologoblkegm>
-- 打开 Head 插件，选择 `复合查询` 测试：
-
-
-```
-http://localhost:9200/
-_analyze?pretty   POST
-
-
-{"analyzer":"ik_smart","text":"安徽省长江流域"}
-
-{"analyzer":"pinyin","text":"安徽省长江流域"}
-```
-
-- ik_max_word 和 ik_smart 什么区别?
-
-```
-ik_max_word: 会将文本做最细粒度的拆分，比如会将“中华人民共和国国歌”拆分为“中华人民共和国,中华人民,中华,华人,人民共和国,人民,人,民,共和国,共和,和,国国,国歌”，会穷尽各种可能的组合，适合 Term Query；
-ik_smart: 会做最粗粒度的拆分，比如会将“中华人民共和国国歌”拆分为“中华人民共和国,国歌”，适合 Phrase 查询。
-```
-
 
 
 -------------------------------------------------------------------
