@@ -28,7 +28,7 @@
 - 先安装 Xcode command line tools：
     - 打开终端，输入：`xcode-select --install `，如果提示已经安装过了那就不用管了。
 - **国内源安装推荐文：**
-    - <https://gitee.com/cunkai/HomebrewCN>
+    - 推荐中科大：<https://gitee.com/cunkai/HomebrewCN>
     - 安装完后退出整个软件，然后重新打开再通过 brew 安装其他软件
 - 打开终端，复制该命令：`ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`
     - 根据提示，按回车键
@@ -107,6 +107,8 @@ brew install node@16
 https://www.python.org/downloads/
 brew install python@3.10
 
+
+如果安装过程报：git fatal: unsafe repository xxx is owned by someone else 这个错误，解决办法：git config --global --add safe.directory "*"
 
 ```
 
