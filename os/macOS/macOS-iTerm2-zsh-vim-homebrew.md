@@ -258,7 +258,7 @@ export LESS_TERMCAP_us=$'\E[04;38;5;146m' # begin underline
     - 因为安装 zsh，终端的配置都变了，这时候可能最好重新安装 homebrew 会好一点，或者直接改它源
 - 额外增加两个配置
 ```
-ZSH_DISABLE_COMPFIX=true
+ZSH_DISABLE_COMPFIX="true"
 DISABLE_AUTO_UPDATE="true"
 ```
 
