@@ -43,6 +43,9 @@ brew link --overwrite --force node@14
 安装：npm install -g nrm
 列表源：nrm ls
 使用源：nrm use taobao
+
+安装 pnpm：
+npm install -g pnpm@next-7
 ```
 
 -------------------------------------------------------------------
