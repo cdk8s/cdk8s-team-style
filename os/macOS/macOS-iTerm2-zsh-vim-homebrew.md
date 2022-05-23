@@ -28,7 +28,7 @@
 - 先安装 Xcode command line tools：
     - 打开终端，输入：`xcode-select --install `，如果提示已经安装过了那就不用管了。
 - **国内源安装推荐文：**
-    - <https://gitee.com/cunkai/HomebrewCN>
+    - 推荐中科大：<https://gitee.com/cunkai/HomebrewCN>
     - 安装完后退出整个软件，然后重新打开再通过 brew 安装其他软件
 - 打开终端，复制该命令：`ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`
     - 根据提示，按回车键
@@ -107,6 +107,8 @@ brew install node@16
 https://www.python.org/downloads/
 brew install python@3.10
 
+
+如果安装过程报：git fatal: unsafe repository xxx is owned by someone else 这个错误，解决办法：git config --global --add safe.directory "*"
 
 ```
 
@@ -207,7 +209,7 @@ brew install python@3.10
 - 打开终端，先安装 git（已经安装的跳过该步骤），输入命令：`brew install git`
 - 打开终端，安装 wget 工具，输入命令：`brew install wget`
 - 打开终端，安装 Zsh：`brew install Zsh`
-- 打开终端，安装 oh-my-Zsh：`sh -c "$(wget https://gitee.com/mirrors/oh-my-zsh/raw/master/tools/install.sh -O -)"`
+- 打开终端，安装 oh-my-Zsh：`sh -c "$(wget https://gitee.com/cdk8s_org/oh-my-zsh/raw/master/tools/install.sh -O -)"`
     - 下载完后，会提示你输入当前登录系统的用户密码，输入完成之后就会从 bash 切换到 Zsh，如果你没有输入密码直接跳过了，可以运行该命令进行手动切换：`chsh -s /bin/Zsh gitnavi(你当前系统用户名)`
     - 切换完成之后，关掉终端，重新打开终端即可
 - 如果你需要修改 oh-my-Zsh 的主题，和安装 Zsh 插件，具体可以看我过去整理的这篇文章：[Zsh 入门](https://github.com/judasn/Linux-Tutorial/blob/master/Zsh.md)
@@ -256,7 +258,7 @@ export LESS_TERMCAP_us=$'\E[04;38;5;146m' # begin underline
     - 因为安装 zsh，终端的配置都变了，这时候可能最好重新安装 homebrew 会好一点，或者直接改它源
 - 额外增加两个配置
 ```
-ZSH_DISABLE_COMPFIX=true
+ZSH_DISABLE_COMPFIX="true"
 DISABLE_AUTO_UPDATE="true"
 ```
 
