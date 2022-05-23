@@ -794,12 +794,12 @@ lo       65536   453650      0      0 0        453650      0      0      0 LRU
 
 - ping 命令查看丢包、域名解析地址
 	- `ping 116.196.110.69`
-	- `ping www.GitNavi.com`
+	- `ping www.upupmo.com`
 - telnet 测试端口的连通性（验证服务的可用性）
 	- `yum install -y telnet`
       - mac：`brew update && brew install telnet`
 	- `telnet 116.196.110.68 3306`
-	- `telnet www.youmeek.com 80`
+	- `telnet www.upupmo.com 80`
 - tracert（跟踪路由）查看网络请求节点访问情况，用于确定 IP 数据报访问目标所采取的路径。
 	- `yum install -y traceroute`
 	- `traceroute gitnavi.com`
@@ -947,7 +947,7 @@ access_log  /home/wwwlogs/hicrew.log special_main;
 	- 查看系统日志：`tail -400f /var/log/messages`
 	- 查看简化线程树：`pstree -a >> /opt/pstree-20180915.log`
 	- 其他机子 ping（多个地区 ping），看下解析 IP 与网络丢包
-	- 查看网络节点情况：`traceroute www.youmeek.com`
+	- 查看网络节点情况：`traceroute www.upupmo.com`
 	- `ifconfig` 查看 dropped 和 error 是否在不断增加，判断网卡是否出现问题
 	- `nslookup` 命令查看 DNS 是否可用
 	- 如果 nginx 有安装：http_stub_status_module 模块，则查看当前统计

@@ -755,7 +755,7 @@ pipeline {
     projectJarNewName = "buildApp.jar"
 
 
-    dockerImageName = "docker.youmeek.com/demo/${env.JOB_NAME}:${env.BUILD_NUMBER}"
+    dockerImageName = "docker.upupmo.com/demo/${env.JOB_NAME}:${env.BUILD_NUMBER}"
     dockerContainerName = "${env.JOB_NAME}"
     inHostPort = "8082"
     inDockerAndJavaPort = "8081"

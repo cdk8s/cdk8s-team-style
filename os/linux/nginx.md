@@ -402,7 +402,7 @@ server {
 # crt（或pem格式） 和 key 文件的存放位置根据你自己存放位置进行修改
 server {
     listen       443;
-    server_name  sso.youmeek.com;
+    server_name  sso.upupmo.com;
     ssl  on;
     ssl_certificate     /opt/ssl/certificate.crt;
     ssl_certificate_key /opt/ssl/private.key;
@@ -598,7 +598,7 @@ http {
     server {
         listen       80;
         # 两个虚拟主机都使用 80 端口，设置不同域名
-        server_name  code.youmeek.com;
+        server_name  code.upupmo.com;
 
         location / {
             # 虚拟机根目录是 /usr/local/nginx/html 目录
@@ -616,7 +616,7 @@ http {
     server {
         listen       80;
         # 两个虚拟主机都使用 80 端口，设置不同域名
-        server_name  i.youmeek.com;
+        server_name  i.upupmo.com;
 
         location / {
             root   html-i;
@@ -657,7 +657,7 @@ http {
     keepalive_timeout  65;
 
     # 自己定义的两个 tomcat 请求地址和端口
-    # 也就是当浏览器请求：tomcat.youmeek.com 的时候从下面这两个 tomcat 中去找一个进行转发
+    # 也就是当浏览器请求：tomcat.upupmo.com 的时候从下面这两个 tomcat 中去找一个进行转发
     upstream tomcatCluster {
         server 192.168.1.114:8080;
         server 192.168.1.114:8081;
@@ -670,7 +670,7 @@ http {
 
     server {
         listen       80;
-        server_name  tomcat.youmeek.com;
+        server_name  tomcat.upupmo.com;
 
         location / {
             proxy_pass   http://tomcatCluster;
@@ -710,14 +710,14 @@ http {
     # 如果访问 http 也直接跳转到 https
     server {
         listen       80;
-        server_name sso.youmeek.com;
+        server_name sso.upupmo.com;
         return 301 https://$server_name$request_uri;
     }
     
     # crt 和 key 文件的存放位置根据你自己存放位置进行修改
     server {
         listen       443;
-        server_name  sso.youmeek.com;
+        server_name  sso.upupmo.com;
         ssl  on;
         ssl_certificate     /opt/ssl/certificate.crt;
         ssl_certificate_key /opt/ssl/private.key;

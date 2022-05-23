@@ -43,7 +43,7 @@
 
 ### 认知：碎片与系统
 
-![碎片与系统](http://img.youmeek.com/2019/read-write.png)
+![碎片与系统](https://openfilecdn.upupmo.com/upupmo-article/old-youmeek/read-write.png)
 
 
 ### 方法

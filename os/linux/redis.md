@@ -547,7 +547,7 @@ M: 5d0fe968559af3035d8d64ab598f2841e5f3a059 172.19.0.7:6379
     - 但是需要注意的是：key 是完全区分大小写的，比如 key=codeBlog 和 key=codeblog 是两个键值
 - 官网命令列表：<http://redis.io/commands>
 - `redis-cli -h 127.0.0.1 -p 6379`，如果有密码，进入 client 后需要输入：`auth 123456`
-- `SET key value`，设值。eg：`SET myblog www.youmeek.com`
+- `SET key value`，设值。eg：`SET myblog www.upupmo.com`
 - `redis-server -v`，查看服务器版本
 - `info keyspace`，查看各个库的 key 使用情况
 - `GET key`，取值

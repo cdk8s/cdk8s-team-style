@@ -19,7 +19,7 @@
 
 ## 常用软件
 
-- [GitNavi](http://www.gitnavi.com/u/judasn/)
+- [UPUPMO](https://upupmo.com)
 
 ##  终端环境
 

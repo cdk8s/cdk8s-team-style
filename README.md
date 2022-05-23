@@ -66,7 +66,7 @@
     - 我对 VSC 也是喜欢的，只是目前它更适合于个人。在推广整个团队规范和开发体验上，IDE 有更好的优势。
 - 以下是我们的早期作品，我们只是想表达：我们和大家的经验都是类似的，我们没有做盲目的否定他人信仰这件事
     - 大学和工作初期使用的是 NetBeans + Eclipse + MyEclipse，后面工作几年全部都是 IntelliJ IDEA
-    - 我们在 Windows + macOS + Ubuntu 下的软件列表：[点击我](http://www.gitnavi.com/u/judasn/)
+    - 我们在 Windows + macOS + Ubuntu 下的软件列表：[UPUPMO](https://upupmo.com)
     - 我们对 macOS 的理解：[点击我](https://github.com/cdk8s/cdk8s-team-style/blob/master/os/macOS/README.md)
     - 我们对 Linux 的理解：[点击我](https://github.com/cdk8s/cdk8s-team-style/blob/master/os/linux/README.md)
     - 我们对 IntelliJ IDEA 的理解：[点击我](https://github.com/judasn/IntelliJ-IDEA-Tutorial)
