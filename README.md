@@ -4,6 +4,7 @@
 
 ## 作者新方向，感谢支持
 
+- [从开公司到开发全平台产品](https://github.com/cdk8s/cdk8s-team-style/blob/master/full-stack/README.md)
 - [UPUPMO-扶持个人从开公司到全平台产品上线](https://www.bilibili.com/video/BV1Bb4y1j7dy)
 
 ## 只有上云才能撑住规模化后的发展
