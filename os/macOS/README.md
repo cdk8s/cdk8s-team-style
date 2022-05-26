@@ -5,9 +5,13 @@
 
 - 尽可能统一所有细节，方便沟通、协调
 
-## 系统重装
+## 备份细节
 
-- [macOS 系统重装](macOS-reload.md)
+- [macOS 备份细节](macOS-backup.md)
+
+## 黑苹果安装
+
+- [macOS 黑苹果安装](macOS-install.md)
 
 ## 基础功能使用
 
