@@ -1,5 +1,5 @@
 
-# 从开公司到开发全平台产品-1.开公司流程-UPUPMO
+# 【从开公司到开发全平台产品】1.开公司流程-UPUPMO
 
 
 - 本文视频版已发到 Bilibili：<https://www.bilibili.com/video/BV1M94y1S744>
