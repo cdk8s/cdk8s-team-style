@@ -25,7 +25,11 @@
 ## 1. 后端行业中常见争议
 
 #### 1.1 行业中的普遍争议
-(截图三大系统界面)
+
+
+![img](https://openfilecdn.upupmo.com/upupmo-article/2022/3-system-os.jpeg)
+
+
 1. Windows、macOS、Linux 哪个更适合程序员日常?（暂停 3 秒，大家想一下自己心中的答案）
 
 ```
@@ -39,7 +43,11 @@
 ```
 
 2. 程序员应该用哪个 IDE 或编辑器?
-   (截图jb官网)
+
+
+![img](https://openfilecdn.upupmo.com/upupmo-article/2022/JetBrains.png)
+
+
 ```
 我的答案是：
 这个问题也是不严谨的，应该是具体到哪种程序员
@@ -82,7 +90,6 @@
 
 7. Go 要取代 Java 吗?
 
-（搭配 Pivotal 介绍视频）
 
 ```
 在回答这个问题之前得先介绍 Pivotal：
@@ -154,7 +161,8 @@ JDK 17
 
 ## 2. 后端企业级架构标准
 
-（截图 cncf）
+
+![img](https://openfilecdn.upupmo.com/upupmo-article/2022/cncf.png)
 
 - 立这个标准主要目的是：每当我学习一个新的后端语言、后端框架，我都会按照此功能需求进行调研
 - 我主要是以业务驱动去思考使用的语言、框架
@@ -235,7 +243,7 @@ A/B测试、灰度发布
 
 ## 3. 各类数据库应用场景
 
-（截图database）
+![img](https://openfilecdn.upupmo.com/upupmo-article/2022/databases.png)
 
 ```
 传统数据库的范式要求既是缺点也是优点。
@@ -259,7 +267,6 @@ A/B测试、灰度发布
 ## 4. 如何挑选技术、框架（重点）
 
 
-（截图 github 视频）
 
 ```
 可以从下面看出来，我基本都是围着 GitHub 转，可以说我最大老师就是 GitHub 本身，也推荐大家养成这个习惯
