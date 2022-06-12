@@ -1,5 +1,5 @@
 
-# 【从开公司到开发全平台产品】2.黑、白苹果软硬件及系统安装-UPUPMO
+# 【从开公司到开发全平台产品】2.黑、白苹果软硬件及黑苹果安装-UPUPMO
 
 
 - 本文视频版已发到 Bilibili：<https://www.bilibili.com/video/BV1qt4y1p7rF/>
