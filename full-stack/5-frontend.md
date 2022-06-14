@@ -24,6 +24,8 @@
 
 ## 1. 前端企业级架构标准
 
+
+
 - 主要分为：框架标准，组件标准。
 - 其中建议预留开发者后门，比如代理配置、全局参数修改等，方便遇到问题的时候好调试
 
@@ -119,7 +121,9 @@ WebSocket
 ## 2. 主流前端框架对比
 
 
-（截图顶级框架）
+![img](https://openfilecdn.upupmo.com/upupmo-article/2022/Top-JavaScript-Frameworks.png)
+
+
 
 ```
 前端这些年的发展很快，各种框架层出不穷，但是对我而言来讲其实没那么复杂，
@@ -149,7 +153,8 @@ React、Vue 在社区生态中都是比较完善，但是它们的编码风格�
 
 ## 3. 正在发展的云开发介绍（无服务器）
 
-（截图）
+![img](https://openfilecdn.upupmo.com/upupmo-article/2022/serverless.png)
+
 
 ```
 国内目前云开发最有名的就是：微信小程序云开发。因为小程序本身界面、业务都是比较简单，确实挺合适的这种模式的。
@@ -176,15 +181,20 @@ React、Vue 在社区生态中都是比较完善，但是它们的编码风格�
 
 ## 4. 我常用的前端框架介绍
 
-（截图框架）
 
 
 #### 4.1 Vue3-Admin
+
+![img](https://openfilecdn.upupmo.com/upupmo-article/2022/element-plus.png)
+
 
 - Vue 的后台管理模板，在 Vue2 的时候我用 Ant-Design-Vue。现在 Vue3 我用 Element-Plus，
 - 主要是因为 Element-Plus 社区参与人员更多，细节更完善，并且不会跟 TailwindCSS 冲突，也方便我写 PC Web 场景。
 
 #### 4.2 Vu3-SSR
+
+![img](https://openfilecdn.upupmo.com/upupmo-article/2022/nuxt.png)
+
 
 - PC Web 用 SSR 框架除了 SEO 需要，那些以阅读为主的前端也可以用来提速加载速度
 - Vue 的 SSR 目前主推 Nuxt.js 没得选，当然它做得也不错
@@ -192,21 +202,32 @@ React、Vue 在社区生态中都是比较完善，但是它们的编码风格�
 
 #### 4.3 Chrome 扩展开发
 
+![img](https://openfilecdn.upupmo.com/upupmo-article/2022/chrome-ext.png)
+
+
 - Chrome 扩展开发我们可以用原生 JS 开发
 - 也可以用 Vue 框架编译，一般 Chrome 扩展都不是很复杂，可以直接考虑用 Vue
 
 #### 4.4 Electron 桌面跨平台开发
+
+![img](https://openfilecdn.upupmo.com/upupmo-article/2022/electron.png)
 
 - 考虑到桌面端类似于 PC Web 端，所以用 Electron-Vue 框架开发效率会更高。
 
 
 #### 4.5 Flutter 移动端跨平台开发
 
+![img](https://openfilecdn.upupmo.com/upupmo-article/2022/flutter.png)
+
+
 - APP 能用原生开发是最好的，Flutter 也只是一种折中，目前普通业务还是能支持的。
 - Flutter 在移动端上已经基本完善了，并且 pub.dev 也有大量的包，生态也起来了。
 - React Native 每次升个级都让自己很苦逼，配置环境，调试啥的也真的难用，不推荐。
 
 #### 4.6 微信小程序开发
+
+![img](https://openfilecdn.upupmo.com/upupmo-article/2022/weixin.png)
+
 
 - 如果你是一次性的小程序项目，或只是简单展示项目可以考虑 uni-app、Taro 这类多端的框架。
 - 但是，如果你打算长期维护，并且可能有复杂需求需要扩展，我建议还是用原生的，不然很容易出现无力感。
