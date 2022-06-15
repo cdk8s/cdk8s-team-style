@@ -197,11 +197,23 @@ docker run -p 3306:3306 \
 
 ```
 2021-06 最新版：8.0.25
+2022-06 最新版：8.0.29
 下载地址：
 wget https://dev.mysql.com/get/Downloads/MySQL-8.0/mysql-8.0.29-1.el7.x86_64.rpm-bundle.tar
 后续要下载最新版，访问官网：https://dev.mysql.com/ 查看左侧 MySQL Community Server 显示的最新版本号是多少，然后自己修改下载地址，它们理论上都是同一个规则的下载地址
 
 
+8.0.29 解压后，需要如下包：
+mysql-community-client-8.0.29-1.el7.x86_64.rpm
+mysql-community-client-plugins-8.0.29-1.el7.x86_64.rpm
+mysql-community-common-8.0.29-1.el7.x86_64.rpm
+mysql-community-devel-8.0.29-1.el7.x86_64.rpm
+mysql-community-embedded-compat-8.0.29-1.el7.x86_64.rpm
+mysql-community-icu-data-files-8.0.29-1.el7.x86_64.rpm
+mysql-community-libs-8.0.29-1.el7.x86_64.rpm
+mysql-community-libs-compat-8.0.29-1.el7.x86_64.rpm
+mysql-community-server-8.0.29-1.el7.x86_64.rpm
+mysql-community-server-debug-8.0.29-1.el7.x86_64.rpm
 ```
 
 
