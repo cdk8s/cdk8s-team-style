@@ -8,7 +8,7 @@
 - **[药品](https://github.com/cdk8s/cdk8s-team-style/blob/master/life/1111/shopping-medicine.md)**
 - **[文化](https://github.com/cdk8s/cdk8s-team-style/blob/master/life/1111/shopping-culture.md)**
 - **[汽车](https://github.com/cdk8s/cdk8s-team-style/blob/master/life/1111/shopping-car.md)**
-- **[2022-618-特别篇](https://github.com/cdk8s/cdk8s-team-style/blob/master/life/1111/shopping-car.md)**
+- **[2022-618-特别篇](https://github.com/cdk8s/cdk8s-team-style/blob/master/life/1111/2022-618.md)**
 
 
 
