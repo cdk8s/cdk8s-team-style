@@ -198,7 +198,7 @@ docker run -p 3306:3306 \
 ```
 2021-06 最新版：8.0.25
 下载地址：
-wget https://dev.mysql.com/get/Downloads/MySQL-8.0/mysql-8.0.25-1.el7.x86_64.rpm-bundle.tar
+wget https://dev.mysql.com/get/Downloads/MySQL-8.0/mysql-8.0.29-1.el7.x86_64.rpm-bundle.tar
 后续要下载最新版，访问官网：https://dev.mysql.com/ 查看左侧 MySQL Community Server 显示的最新版本号是多少，然后自己修改下载地址，它们理论上都是同一个规则的下载地址
 
 
@@ -217,8 +217,8 @@ wget https://dev.mysql.com/get/Downloads/MySQL-5.7/mysql-5.7.34-1.el7.x86_64.rpm
 yum install -y lrzsz zip unzip git wget htop
 
 1.安装新版mysql前，需将系统自带的 mariadb-lib 卸载。
-rpm -qa|grep mariadb
-rpm -e --nodeps mariadb-libs-5.5.68-1.el7.x86_64
+rpm -qa|grep mariadb 获取已安装的包名
+yum remove mariadb* 或直接指定具体包名 rpm -e --nodeps mariadb-libs-5.5.68-1.el7.x86_64
 
 2.查看该操作系统上是否已经安装了mysql数据库
 rpm -qa | grep mysql
