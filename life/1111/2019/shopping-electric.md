@@ -11,6 +11,10 @@
 
 - [电饭煲](http://search.jd.com/Search?keyword=电饭煲&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=be6945ada8b24136976eca95d75b628a-p_276666007&abt=3)
 
+## 空气炸锅
+
+- [空气炸锅](http://search.jd.com/Search?enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=c0d90a09b813492cbb88dbd39455a471-p_669678130&abt=3&keyword=%E7%A9%BA%E6%B0%94%E7%82%B8%E9%94%85)
+
 ## 电压力锅
 
 - [电压力锅](http://search.jd.com/Search?keyword=电压力锅&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=ea54f9d425494a8a88ccbdc6356c5bbb-p_276666007&abt=3)
