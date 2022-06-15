@@ -197,7 +197,7 @@
 
 ## 生活用品指南
 
-- [购物指南-程序员-系列](https://github.com/cdk8s/cdk8s-team-style/blob/master/life/1111/2019/shopping.md)
+- [购物指南-程序员-系列](https://github.com/cdk8s/cdk8s-team-style/blob/master/life/1111/shopping.md)
 
 ## 学习逻辑
 

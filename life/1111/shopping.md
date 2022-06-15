@@ -1,13 +1,16 @@
 
-# 2019 年双十一购物指南-程序员-系列
+# 购物节-精选商品-好物推荐-专题
 
-- **[数码](https://github.com/cdk8s/cdk8s-team-style/blob/master/life/1111/2019/shopping-digital.md)**
-- **[日用](https://github.com/cdk8s/cdk8s-team-style/blob/master/life/1111/2019/shopping-commodity.md)**
-- **[电器](https://github.com/cdk8s/cdk8s-team-style/blob/master/life/1111/2019/shopping-electric.md)**
-- **[食品](https://github.com/cdk8s/cdk8s-team-style/blob/master/life/1111/2019/shopping-food.md)**
-- **[药品](https://github.com/cdk8s/cdk8s-team-style/blob/master/life/1111/2019/shopping-medicine.md)**
-- **[文化](https://github.com/cdk8s/cdk8s-team-style/blob/master/life/1111/2019/shopping-culture.md)**
-- **[汽车](https://github.com/cdk8s/cdk8s-team-style/blob/master/life/1111/2019/shopping-car.md)**
+- **[数码](https://github.com/cdk8s/cdk8s-team-style/blob/master/life/1111/shopping-digital.md)**
+- **[日用](https://github.com/cdk8s/cdk8s-team-style/blob/master/life/1111/shopping-commodity.md)**
+- **[电器](https://github.com/cdk8s/cdk8s-team-style/blob/master/life/1111/shopping-electric.md)**
+- **[食品](https://github.com/cdk8s/cdk8s-team-style/blob/master/life/1111/shopping-food.md)**
+- **[药品](https://github.com/cdk8s/cdk8s-team-style/blob/master/life/1111/shopping-medicine.md)**
+- **[文化](https://github.com/cdk8s/cdk8s-team-style/blob/master/life/1111/shopping-culture.md)**
+- **[汽车](https://github.com/cdk8s/cdk8s-team-style/blob/master/life/1111/shopping-car.md)**
+- **[2022-618-特别篇](https://github.com/cdk8s/cdk8s-team-style/blob/master/life/1111/shopping-car.md)**
+
+
 
 ## 声明
 
@@ -19,6 +22,12 @@
     - [书籍《消费社会》](https://book.douban.com/subject/25900948/)
 - 国外的牌子不一定好，国内的牌子也不一定坏。主要在于自己要多试，找到合适自己的牌子。核心逻辑是：尽可能缩小尝试成本。
 - 理解大数据杀熟
+
+## 查询历史价格
+
+- [购物党-支持浏览器插件](https://www.gwdang.com/trend/)
+- [慢慢买](http://tool.manmanbuy.com/historylowest.aspx)
+
 
 ## 关于假洋牌
 
