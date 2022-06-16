@@ -13,6 +13,26 @@
 
 - [支持的 Elasticsearch 版本](http://docs.grafana.org/features/datasources/elasticsearch/#elasticsearch-version)
 
+## 升级 Grafana
+
+```
+以防万一，手工备份 grafana dashboard 配置
+
+手工备份配置数据库、配置文件：
+cp /etc/grafana/grafana.ini /opt
+cp /var/lib/grafana/grafana.db /opt
+
+停止旧服务：
+sudo systemctl stop grafana-server
+
+下载最新 rpm 包：
+https://grafana.com/grafana/download?platform=linux
+
+wget https://dl.grafana.com/enterprise/release/grafana-enterprise-9.0.0-1.x86_64.rpm
+sudo yum install grafana-enterprise-9.0.0-1.x86_64.rpm
+```
+
+
 ## Grafana 安装（Docker）
 
 - 官网：<https://hub.docker.com/r/grafana/grafana/>
