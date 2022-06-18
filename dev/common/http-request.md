@@ -8,6 +8,40 @@
 
 -------------------------------------------------------------------
 
+## URL 规范
+
+- 原则：先 Mock，后联调
+- 示例：<http://www.abcd.com/multiapi/API_CODE>
+
+#### API_CODE 的组成
+
+- API_CODE
+    - 类别码（1位英文字母）+ 数字编号（3位数字，建议累加，代表接口数量，以 YApi 的 ID 为准）+ 操作码（1位英文字母）+ 具体业务（因为单词）
+    - `c101p_product`
+        - `c`101p_product 是类别码，共享项目中约定 c 代表专家栏目功能
+        - c`101`p_product 代表专家栏目下的第 1 个接口
+        - c101`p`_product 代表 page 查询分页
+        - c101p_`product` 代表操作的业务是商品业务
+    - `c102c_order`
+        - `c`102c_order 是类别码，共享项目中约定 c 代表专家栏目功能
+        - c`102`c_order 代表专家栏目下的第 2 个接口
+        - c102`c`_order 代表 create 创建数据
+        - c102c_`order` 代表操作的业务是订单业务
+- 要求
+    - 全部小写组成
+    - 复词用下划线分割
+    - 操作码
+        - P 获取分页（page）
+        - L 获取全体（list）
+        - T 获取树（tree）
+        - V 详情（view）
+        - C 创建（create）
+        - D 删除（delete）
+        - E 更新（edit）
+
+
+-------------------------------------------------------------------
+
 ### POST 请求
 
 #### 分页查看
@@ -638,6 +672,279 @@
   "code": 200
 }
 ```
+
+
+-------------------------------------------------------------------
+
+
+## 请求 JSON 规范
+
+### 共有请求头参数
+
+- x-token
+- app_code（app 代码）
+- app_version（终端 app 版本）
+- app_uhid（硬件信息）
+- app_token（app token 字段）
+- app_userid（用户id）
+
+### 请求头内容场景
+
+- 如果是上传文件：`Content-Type: multipart/form-data`
+- 如果普通请求：`Content-Type: application/json`
+
+### POST 请求
+
+#### 分页查看
+
+- 请求方式：`POST`
+- URL：<https://github.com/cdk8s/store/sysUser/page>
+- 请求参数：
+
+```
+{
+  "pageNum": 1,
+  "pageSize": 10,
+  "userName": "aaaaaa"
+}
+```
+
+
+#### 列表查看
+
+- 请求方式：`POST`
+- URL：<https://github.com/cdk8s/store/sysUser/list>
+- 请求参数：
+
+```
+{
+  "userName": "aaaaaa",
+  "gender":1
+}
+```
+
+#### 单个对象查询
+
+- 请求方式：`POST`
+- URL：<https://github.com/cdk8s/store/sysUser/view>
+- 请求参数：
+
+```
+{
+  "id": "11111111111111111111"
+}
+```
+
+#### 单个对象新增
+
+- 请求方式：`POST`
+- URL：<https://github.com/cdk8s/store/sysUser/create>
+- 请求参数：
+
+```
+{
+  "userName": "aaaaaa",
+  "gender":1
+}
+```
+
+#### 单个对象更新
+
+
+- 请求方式：`POST`
+- URL：<https://github.com/cdk8s/store/sysUser/update>
+- 请求参数：
+
+```
+{
+  "id": 123456666,
+  "userName": "aaaaaa",
+  "gender":1
+}
+```
+
+#### 批量新增对象
+
+- 请求方式：`POST`
+- URL：<https://github.com/cdk8s/store/sysUser/batchCreate>
+- 请求参数：
+
+```
+{
+  "objectList": [
+    {
+      "userName": "aaaaaa",
+      "gender": 1
+    },
+    {
+      "userName": "bbbbbbb",
+      "gender": 1
+    }
+  ]
+}
+```
+
+#### 批量更新对象
+
+- 请求方式：`POST`
+- URL：<https://github.com/cdk8s/store/sysUser/batchUpdate>
+- 请求参数：
+
+```
+{
+  "objectList": [
+    {
+      "id": 123456,
+      "userName": "aaaaaa",
+      "gender": 1
+    },
+    {
+      "id": 123457,
+      "userName": "bbbbbbb",
+      "gender": 1
+    }
+  ]
+}
+```
+
+
+
+#### 批量删除
+
+- 请求方式：`POST`
+- URL：<https://github.com/cdk8s/store/sysUser/batchDelete>
+- 请求参数：
+
+```
+{
+  "idList": [
+    123456,
+    123457,
+    123458
+  ]
+}
+```
+
+
+
+-------------------------------------------------------------------
+
+#### Mock 资料
+
+- Mock.js 文档：<http://mockjs.com/examples.html>
+- 时间戳转换：<https://tool.lu/timestamp/>
+
+#### Mock 返回 Page
+
+```
+{
+  "data": {
+    "list|2-4": [
+        {
+          "string": "@string(12)",
+          "integer": "@integer(10, 30)",
+          "float": "@float(60, 100, 2, 2)",
+          "boolean": "@boolean",
+          "timestamp_时间戳": "@natural(1510133532000,1564133532000)",
+          "date": "@date(yyyy-MM-dd)",
+          "datetime": "@datetime",
+          "datetime2": "@datetime(yyyy-MM-dd HH:mm:ss)",
+          "now": "@now",
+          "url": "@url",
+          "ip": "@ip",
+          "upper": "@upper(@title)",
+          "guid": "@guid",
+          "id": "@id",
+          "guid": "@guid",
+          "image": "@image(200x200)",
+          "title": "@title",
+          "email": "@email",
+          "region_地区": "@region",
+          "province_省": "@province",
+          "province_省": "@province()工商行政管理局",
+          "city_市": "@city",
+          "county_区": "@county",
+          "cparagraph_中文段落": "@cparagraph",
+          "csentence_中文句子": "@csentence",
+          "ctitle_中文标题": "@ctitle(12)",
+          "putReason": "提交虚假材料或者采取其_@ctitle(10)",
+          "cname_中文名": "@cname",
+          "range": "@range(2, 6)"
+        }
+    ],
+    "total": 2,
+    "pageNum": 1,
+    "pageSize": 10,
+    "size": 2,
+    "startRow": 1,
+    "endRow": 2,
+    "pages": 1,
+    "prePage": 0,
+    "nextPage": 0,
+    "isFirstPage": true,
+    "isLastPage": true,
+    "hasPreviousPage": false,
+    "hasNextPage": false,
+    "navigatePages": 8,
+    "navigatepageNums": [
+      1
+    ],
+    "navigateFirstPage": 1,
+    "navigateLastPage": 1,
+    "firstPage": 1,
+    "lastPage": 1
+  },
+  "isSuccess": true,
+  "msg": "操作成功",
+  "timestamp": 1536768054052,
+  "code": 200
+}
+```
+
+
+#### Mock 返回单个对象
+
+```
+{
+  "data": {
+    "string": "@string(12)",
+    "integer": "@integer(10, 30)",
+    "float": "@float(60, 100, 2, 2)",
+    "boolean": "@boolean",
+    "timestamp_时间戳": "@natural(1510133532000,1564133532000)",
+    "date": "@date(yyyy-MM-dd)",
+    "datetime": "@datetime",
+    "datetime2": "@datetime(yyyy-MM-dd HH:mm:ss)",
+    "now": "@now",
+    "url": "@url",
+    "ip": "@ip",
+    "upper": "@upper(@title)",
+    "guid": "@guid",
+    "id": "@id",
+    "guid": "@guid",
+    "image": "@image(200x200)",
+    "title": "@title",
+    "email": "@email",
+    "region_地区": "@region",
+    "province_省": "@province",
+    "province_省": "@province()工商行政管理局",
+    "city_市": "@city",
+    "county_区": "@county",
+    "cparagraph_中文段落": "@cparagraph",
+    "csentence_中文句子": "@csentence",
+    "ctitle_中文标题": "@ctitle(12)",
+    "putReason": "提交虚假材料或者采取其_@ctitle(10)",
+    "cname_中文名": "@cname",
+    "range": "@range(2, 6)"
+  },
+  "isSuccess": true,
+  "msg": "操作成功",
+  "timestamp": 1536768054052,
+  "code": 200
+}
+```
+
+
 
 
 
