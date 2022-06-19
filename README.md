@@ -211,11 +211,11 @@
 - 邮箱：`cdk8s#qq.com`
 - 微信公众号
 
-![公众号](http://img.gitnavi.com/markdown/cdk8s_qr_300px.png)
+![公众号](https://openfilecdn.upupmo.com/upupmo-article/old-gitnavi/cdk8s_qr_300px.png)
 
 
 ## 忧伤
 
-![功归一篑](http://img.gitnavi.com/markdown/build-railway.png)
+![功归一篑](https://openfilecdn.upupmo.com/upupmo-article/old-gitnavi/build-railway.png)
 
 
