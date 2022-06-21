@@ -1,7 +1,7 @@
 
 # 【从开公司到开发全平台产品】6.基于 YApi 的前后端对接实践-UPUPMO
 
-- 本文视频版已发到 Bilibili：<https://xxxxxxxxx>
+- 本文视频版已发到 Bilibili：<https://www.bilibili.com/video/BV1zT411G7ih/>
 - 大家好，我是 UPUPMO.com 的作者 Meek，欢迎观看《从开公司到开发全平台产品》系列。
 - 希望通过该系列可以帮助新手，快速了解全栈软件产品的一些思路、应用。
 - 如果你心中有创意，也想独立开发产品，可以在视频或文章的最后，查看联系信息加我好友。
