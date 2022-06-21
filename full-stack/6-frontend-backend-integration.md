@@ -123,7 +123,7 @@
 
 ## 5. 我的 YApi 开源生成器介绍
 
-- GitHub 项目地址如下，欢迎观看：[GitHub](xxxxx)
+- GitHub 项目地址如下，欢迎观看：[GitHub](https://github.com/cdk8s/sculptor-boot-generator-yapi)
 - 目前我只开放了以下 2 部分，其他功能暂时不对外公布，想要了解更多可以观看下个章节。
 - 接下来我们分别演示如下功能，至于如何实现大家自己看代码，并不复杂：
 
