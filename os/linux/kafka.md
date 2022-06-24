@@ -118,6 +118,7 @@ services:
     restart: always
     ports:
       - 9092:9092
+      - 9999:9999
     environment:
       HOSTNAME_COMMAND: "docker info | grep ^Name: | cut -d' ' -f 2"
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
@@ -127,6 +128,8 @@ services:
       KAFKA_PORT: 9092
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'true'
       KAFKA_LOG_RETENTION_HOURS: 168
+      JMX_PORT: 9999
+      KAFKA_JMX_OPTS: "-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Djava.rmi.server.hostname=192.168.31.109 -Dcom.sun.management.jmxremote.rmi.port=9999"
     volumes:
       - /Users/meek/docker/kafka:/kafka
       - /etc/localtime:/etc/localtime
@@ -140,6 +143,7 @@ services:
 - 访问：<http://127.0.0.1:9000>
 - 测试：
     - 进入 kafka 容器：`docker exec -it kafka_node1 /bin/bash`
+    - 验证 jmx 是否开启成功：打开 jconsole，输入：`192.168.31.109:9999` 没有账号密码，直接连接
     - 根据官网 Dockerfile 说明，kafka home 应该是：`cd /opt/kafka`
     - 创建 topic 命令：`bin/kafka-topics.sh --create --zookeeper zookeeper:2181 --replication-factor 1 --partitions 1 --topic my-topic-test`
     - 查看 topic 命令：`bin/kafka-topics.sh --list --zookeeper zookeeper:2181`
@@ -151,6 +155,67 @@ services:
 
 
 ----------------------------------------------------------------------------------------------
+
+## Kafka 常用命令
+
+```
+创建 Topic
+参数 --topic 指定 Topic 名，--partitions 指定分区数，--replication-factor 指定备份数：
+/usr/local/kafka/bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic test
+如果 kafka 目录在 zk 中的子目录，则需要也配置上：
+/usr/local/kafka/bin/kafka-topics.sh --create --zookeeper localhost:2181/kafka --replication-factor 1 --partitions 1 --topic test
+
+列出所有 Topic
+/usr/local/kafka/bin/kafka-topics.sh --list --zookeeper localhost:2181 
+
+查看具体 Topic
+/usr/local/kafka/bin/kafka-topics.sh --describe --zookeeper localhost:2181 --topic test 
+
+查看 topic 指定分区 offset 的最大值或最小值（time 为 -1 时表示最大值，为 -2 时表示最小值）
+/usr/local/kafka/bin/kafka-run-class.sh kafka.tools.GetOffsetShell --topic test --time -1 --broker-list 127.0.0.1:9092 --partitions 0 
+
+
+删除 Topic
+/usr/local/kafka/bin/kafka-topics.sh --zookeeper localhost:2181 --topic test --delete 
+
+
+生产消息
+/usr/local/kafka/bin/kafka-console-producer.sh --broker-list localhost:9092 --topic test 
+
+查看消费者 Group 列表
+/usr/local/kafka/bin/kafka-consumer-groups.sh --bootstrap-server localhost:9092 --list
+
+查看指定 Group 详情
+/usr/local/kafka/bin/kafka-consumer-groups.sh --bootstrap-server localhost:9092 --group test_group --describe
+
+消费消息，从头开始
+/usr/local/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test --from-beginning
+消费消息，从尾部开始取数据，必需要指定分区：
+/usr/local/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test --offset latest --partition 0
+消费消息，从尾部开始取数据，取指定个数
+/usr/local/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test --offset latest --partition 0 --max-messages 10
+
+指定 Group 进行消费
+/usr/local/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test -group test_group --from-beginning
+
+删除 Group 中 Topic
+/usr/local/kafka/bin/kafka-consumer-groups.sh --bootstrap-server localhost:9092 --group test_group --topic test --delete
+
+删除 Group
+/usr/local/kafka/bin/kafka-consumer-groups.sh --bootstrap-server localhost:9092 --group test_group --delete
+
+
+平衡 leader
+/usr/local/kafka/bin/kafka-preferred-replica-election.sh --bootstrap-server localhost:9092
+
+自带压测工具
+/usr/local/kafka/bin/kafka-producer-perf-test.sh --topic test --num-records 100 --record-size 1 --throughput 100 --producer-props bootstrap.servers=localhost:9092 
+
+```
+
+
+----------------------------------------------------------------------------------------------
+
 
 
 ## Docker 多机多实例部署（外网无法访问）
@@ -394,12 +459,19 @@ Linux、macos：
 
 配置好 JAVA_HOME
 
+配置 kafka JMX 可以监听消费者情况
+在 kafka 启动脚本 kafka-server-start.sh 增加一句：
+export JMX_PORT="9999"
+
+
 解压：
 tar -zxvf kafka-eagle-bin-2.1.0.tar.gz
 
 配置 KE_HOME：
 export KE_HOME=/Users/meek/my-software/efak-web-2.1.0
 export PATH=$PATH:$KE_HOME/bin
+
+
 
 修改配置文件给单机使用，使用 MySQL 存储：
 
@@ -424,7 +496,7 @@ efak.cluster.mode.status=master
 efak.worknode.master.host=localhost
 efak.worknode.port=8085
 
-# kafka 默认没有开启，所以配不配这个都无所谓
+# kafka 默认没有开启 jmx，记得开启，可以不需要账号密码，只要开放好 9999 端口即可
 cluster1.efak.jmx.acl=false
 cluster1.efak.jmx.user=keadmin
 cluster1.efak.jmx.password=keadmin123
@@ -468,6 +540,23 @@ admin
 123456
 默认密码可以进入 UI 后，点击右上角：Reset 进行修改。也可以通过 MySQL 直接修改。
 
+重点关注：
+http://127.0.0.1:8048/topic/list 可以看到有哪些 topic，以及对应有哪些消费组，具体到某个 topi 详情页的 LogSize 字段表示有多少条数据，消费组下 Lag（滞后，未消费的意思）值是多少
+http://127.0.0.1:8048/consumers 可以看到有哪些消费者节点，叫什么组名，消费哪些 topic，当前消费到 Offset 的值是什么
+
+
+KSQL 格式：
+有多个分区支持在多个分区中查询，
+可以查询出所有不管是已消费、未消费的所有消息
+支持模糊查询，
+一次最多查询5000条记录，要查询全量只能通过 kafka 原始命令行，建议通过 offset 字段分批查也行。
+select * from `my-topic-test` where `partition` in (0) and msg like '%链接%' limit 10
+select * from `my-topic-test` where `partition` in (0,1,2) and msg like '%链接%' limit 10
+select * from `my-topic-test` where `partition` in (0) and `offset` in (1000) limit 10
+select * from `my-topic-test` where `partition` in (0) and `offset` > 4000 limit 10
+select * from `my-topic-test` where `partition` in (0) and `offset` > 4000 and `date` > '2022-06-25 00:51:28' limit 10
+select * from `my-topic-test` where `partition` in (0) and `timespan` > 1656089490855 limit 10
+select * from `my-topic-test` where `partition` in (0) and `timespan` > 1656089490855 and `timespan` < 1656089499579 limit 10
 ```
 
 
