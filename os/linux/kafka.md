@@ -88,14 +88,15 @@ Topic:kafka-all    PartitionCount:6    ReplicationFactor:3    Configs:
 ----------------------------------------------------------------------------------------------
 
 
-## Docker 单个实例部署（2.7.1）
+## Docker 单个实例部署（2.8.1）
 
 - 注意 Spring Boot 的要求：<https://spring.io/projects/spring-kafka>
 - 作者 [github](https://github.com/wurstmeister/kafka-docker) 看下 tag 目录，切换不同 tag，然后看下 Dockerfile 里面的 kafka 版本号
+- 作者 [docker hub](https://hub.docker.com/r/wurstmeister/kafka/tags) 看下 tag 有 kafka 版本号
 - 这里的 kafka 对外网暴露端口是 9094，内网端口是 9092
 
 ```
-我宿主机 ip 为：192.168.31.207
+我宿主机 ip 为：192.168.31.109
 先创建目录：mkdir -p ~/docker/kafka ~/docker/zookeeper/data
 vim ~/docker/docker-compose-kafka.yml
 
@@ -111,7 +112,7 @@ services:
       - 2181:2181
 
   kafka_node1:
-    image: wurstmeister/kafka:2.13-2.7.1
+    image: wurstmeister/kafka:2.13-2.8.1
     container_name: kafka_node1
     restart: always
     ports:
@@ -119,7 +120,7 @@ services:
     environment:
       HOSTNAME_COMMAND: "docker info | grep ^Name: | cut -d' ' -f 2"
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://192.168.31.207:9092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://192.168.31.109:9092
       KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
       KAFKA_ADVERTISED_PORT: 9094
       KAFKA_PORT: 9092
