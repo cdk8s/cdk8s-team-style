@@ -43,12 +43,13 @@
 	- Replication-factor：副本。假设有 3 个 Broker 的情况下，当副本为 3 的时候每个 Partition 会在每个 Broker 都会存有一份，目的主要是容错。
 		- 其中有一个 Leader。
 		- 如果你只有一个 Broker，但是创建 Topic 的时候指定 Replication-factor 为 3，则会报错
-	- Consumer Group：每个 Consumer 属于一个特定的 Consumer Group（可为每个 Consumer 指定 group name，若不指定 group name 则属于默认的 group）一般一个业务系统集群指定同一个一个 group id，然后一个业务系统集群只能一个节点来消费同一个消息。
-		- Consumer Group 信息存储在 zookeeper 中，需要通过 zookeeper 的客户端来查看和设置
-		- 如果某 Consumer Group 中 consumer 数量少于 partition 数量，则至少有一个 consumer 会消费多个 partition 的数据
-		- 如果 consumer 的数量与 partition 数量相同，则正好一个 consumer 消费一个 partition 的数据
-		- 如果 consumer 的数量多于 partition 的数量时，会有部分 consumer 无法消费该 topic 下任何一条消息。
-		- 具体实验可以看这篇文章：[Kafka深度解析](http://www.jasongj.com/2015/01/02/Kafka%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90/)
+	- Consumer Group：每个 Consumer 属于一个特定的 Consumer Group（可为每个 Consumer 指定 group name，若不指定 group name 则属于默认的 group）一般一个业务系统集群指定同一个 group id，然后一个业务系统集群只能一个节点来消费同一个消息。
+        - Consumer Group 信息存储在 zookeeper 中，需要通过 zookeeper 的客户端来查看和设置
+        - 如果某 Consumer Group 中 consumer 数量少于 partition 数量，则至少有一个 consumer 会消费多个 partition 的数据
+        - 如果 consumer 的数量与 partition 数量相同，则正好一个 consumer 消费一个 partition 的数据
+        - 如果 consumer 的数量多于 partition 的数量时，会有部分 consumer 无法消费该 topic 下任何一条消息。
+        - 如果想重复消费，可以创建不同的消费者组，订阅相同的 topic
+        - 具体实验可以看这篇文章：[Kafka深度解析](http://www.jasongj.com/2015/01/02/Kafka%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90/)
 	- Record：消息数据本身，由一个 key、value、timestamp 组成
 - 业界常用的 docker 镜像：
 	- [wurstmeister/kafka-docker（不断更新，优先）](https://github.com/wurstmeister/kafka-docker/)
@@ -378,13 +379,116 @@ wurstmeister/kafka:latest
 - 可以参考：[Kafka的SASL/PLAIN认证配置说明](http://www.2bowl.info/kafka%e7%9a%84saslplain%e8%ae%a4%e8%af%81%e9%85%8d%e7%bd%ae%e8%af%b4%e6%98%8e/)
 
 
-#### Kafka 单纯监控 KafkaOffsetMonitor
+
+-------------------------------------------------------------------
+
+## GUI 工具
+
+
+#### EFAK（以前叫做 Kafka Eagle）
+
+- 官网：<https://github.com/smartloli/EFAK>
+
+```
+Linux、macos：
+
+配置好 JAVA_HOME
+
+解压：
+tar -zxvf kafka-eagle-bin-2.1.0.tar.gz
+
+配置 KE_HOME：
+export KE_HOME=/Users/meek/my-software/efak-web-2.1.0
+export PATH=$PATH:$KE_HOME/bin
+
+修改配置文件给单机使用，使用 MySQL 存储：
+
+DROP DATABASE IF EXISTS `ke`;
+CREATE DATABASE IF NOT EXISTS `ke` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci;
+USE `ke`;
+
+vim /Users/meek/my-software/efak-web-2.1.0/conf/system-config.properties
+
+
+efak.zk.cluster.alias=cluster1
+cluster1.zk.list=192.168.31.109:2181
+cluster1.zk.acl.enable=false
+cluster1.zk.acl.schema=digest
+cluster1.zk.acl.username=test
+cluster1.zk.acl.password=test123
+cluster1.efak.broker.size=20
+kafka.zk.limit.size=16
+efak.webui.port=8048
+efak.distributed.enable=false
+efak.cluster.mode.status=master
+efak.worknode.master.host=localhost
+efak.worknode.port=8085
+
+# kafka 默认没有开启，所以配不配这个都无所谓
+cluster1.efak.jmx.acl=false
+cluster1.efak.jmx.user=keadmin
+cluster1.efak.jmx.password=keadmin123
+cluster1.efak.jmx.ssl=false
+cluster1.efak.jmx.truststore.location=/data/ssl/certificates/kafka.truststore
+cluster1.efak.jmx.truststore.password=ke123456
+
+cluster1.efak.offset.storage=kafka
+cluster1.efak.jmx.uri=service:jmx:rmi:///jndi/rmi://%s/jmxrmi
+efak.metrics.charts=true
+efak.metrics.retain=15
+efak.sql.topic.records.max=5000
+efak.sql.topic.preview.records.max=10
+efak.topic.token=keadmin
+cluster1.efak.sasl.enable=false
+cluster1.efak.sasl.protocol=SASL_PLAINTEXT
+cluster1.efak.sasl.mechanism=SCRAM-SHA-256
+cluster1.efak.sasl.jaas.config=org.apache.kafka.common.security.scram.ScramLoginModule required username="kafka" password="kafka-eagle";
+cluster1.efak.sasl.client.id=
+cluster1.efak.blacklist.topics=
+cluster1.efak.sasl.cgroup.enable=false
+cluster1.efak.sasl.cgroup.topics=
+
+# 修改自己的 MySQL 连接
+efak.driver=com.mysql.cj.jdbc.Driver
+efak.url=jdbc:mysql://127.0.0.1:3306/ke?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
+efak.username=root
+efak.password=123456
+
+
+
+启动：
+cd ${KE_HOME}/bin
+chmod +x ke.sh 
+ke.sh start
+ke.sh stop
+
+
+访问：http://127.0.0.1:8048
+admin
+123456
+默认密码可以进入 UI 后，点击右上角：Reset 进行修改。也可以通过 MySQL 直接修改。
+
+```
+
+
+
+#### LogiKM
+
+- 官网：<https://github.com/didi/LogiKM>
+
+#### kafkaUI-lite 管理 Kafka
+
+- 项目地址：<https://gitee.com/freakchicken/kafka-ui-lite>
+- 它的 docker 是无效的，所以建议直接用 tar 运行
+
+
+#### Kafka 单纯监控 KafkaOffsetMonitor（不推荐）
 
 - Github 官网：<https://github.com/quantifind/KafkaOffsetMonitor>
 	- README 带了下载地址和运行命令
 	- 只是已经很久不更新了
 
-#### 部署 kafka-manager
+#### 部署 kafka-manager（不推荐）
 
 - Github 官网：<https://github.com/yahoo/kafka-manager>
 	- 注意官网说明的版本支持
@@ -393,10 +497,9 @@ wurstmeister/kafka:latest
 - Kafka manager 是一款管理 + 监控的工具，比较重
 
 
-## kafkaUI-lite 管理 Kafka
 
-- 项目地址：<https://gitee.com/freakchicken/kafka-ui-lite>
-- 它的 docker 是无效的，所以建议直接用 tar 运行
+
+-------------------------------------------------------------------
 
 ```
 请下载kafka-ui-lite.tar.gz包并解压
