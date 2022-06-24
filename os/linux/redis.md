@@ -704,6 +704,15 @@ spec:
     app: sculptor-boot-redis
 ```
 
+-------------------------------------------------------------------
+
+## GUI 工具
+
+- Another Redis Desktop Manager（开源、跨平台）：<https://github.com/qishibo/AnotherRedisDesktopManager>
+- RDM（收费、跨平台）
+
+
+
 
 ## 资料
 
