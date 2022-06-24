@@ -1120,6 +1120,17 @@ POST /product_index/_doc/3/_update
 
 通过 ID 删除：DELETE /product_index/_doc/3，本质：标记为 deleted，等数据越来越大的情况 Elasticsearch 才去物理删除。
 
+批量插入：
+POST /product_index/_bulk
+{ "index" : { "_id" : "100001" } }
+{ "post_date" : "2018-12-01 10:00:00", "request_num" :  1 }
+{ "index" : { "_id" : "100002" } }
+{ "post_date" : "2018-12-01 10:00:05", "request_num" :  2 }
+
+- 批量删除
+POST /product_index/_bulk
+{ "delete": { "_id": "100001" } }
+{ "delete": { "_id": "100002" } }
 ```
 
 -------------------------------------------------------------------
