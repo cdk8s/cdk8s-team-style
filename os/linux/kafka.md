@@ -48,7 +48,7 @@
         - 如果某 Consumer Group 中 consumer 数量少于 partition 数量，则至少有一个 consumer 会消费多个 partition 的数据
         - 如果 consumer 的数量与 partition 数量相同，则正好一个 consumer 消费一个 partition 的数据
         - 如果 consumer 的数量多于 partition 的数量时，会有部分 consumer 无法消费该 topic 下任何一条消息。
-        - 如果想重复消费，可以创建不同的消费者组，订阅相同的 topic。则新的消费组运行起来后，topic 中的所有历史数据都会从头开始消费一遍（也可以指定 offset 消费）
+        - 如果想重复消费，可以创建不同的消费者组，订阅相同的 topic。则新的消费组运行起来后，topic 中的所有历史数据都会从头开始消费一遍（如果 offset 较小）
         - 具体实验可以看这篇文章：[Kafka深度解析](http://www.jasongj.com/2015/01/02/Kafka%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90/)
 	- Record：消息数据本身，由一个 key、value、timestamp 组成
 - 业界常用的 docker 镜像：
