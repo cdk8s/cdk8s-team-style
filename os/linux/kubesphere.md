@@ -827,12 +827,19 @@ lCm87ItqaUwPdyWQbKh2ESRZ38r+g5TYbJm3Y8nOppHTpGw5NiBi
 - 配置外网访问
     - 官网指导：<https://v2-1.docs.kubesphere.io/docs/zh-CN/project-setting/project-gateway/>
     - 项目管理员在 `项目设置 > 高级设置` 中设置外网访问方式：<http://192.168.31.137:30880/cdk8s-workspace/clusters/default/projects/cdk8s-project1/advanced>
-    - NodePort: 此方式网关可以通过工作节点对应的端口来访问服务。
+    - ClusterIP：是 Kubernetes 的默认服务。它给你一个集群内的服务，集群内的其它应用都可以访问该服务。集群外部无法访问它。
+    - NodePort: 此方式网关可以通过工作节点对应的端口来访问服务，是用于引导外部流量到你的服务的最原始方式
         - 生成的两个端口，分别是 HTTP 协议的端口和 HTTPS 协议的端口，外网可通过 EIP:NodePort 或 Hostname:NodePort 来访问服务
-        - 这里我们记下来的端口：http:31499; https:31592（等下会用到两个端口）
-    - LoadBalancer: 此方式网关可以通过统一的一个外网 IP 来访问。
+        - 这里我们记下来的端口：http:31499; https:31592（等下会用到两个端口，一般这两个端口都是 K8S 来生成，不推荐自己维护）
+    - LoadBalancer: 此方式网关可以通过统一的一个外网 IP 来访问，是暴露服务到 internet 的标准方式
+        - 它将给你一个单独的 IP 地址，转发所有流量到你的服务，所有通往你指定的端口的流量都会被转发到对应的服务。它没有过滤条件，没有路由等。
+        - 这意味着你几乎可以发送任何种类的流量到该服务，像 HTTP，TCP，UDP，Websocket，gRPC 或其它任意种类。
+        - 这个方式的最大缺点是每一个用 LoadBalancer 暴露的服务都会有它自己的 IP 地址，每个用到的 LoadBalancer 都需要一个付费 IP，这将是非常昂贵的。
         - 由于使用 Load Balancer 需要在安装前配置与安装与云服务商对接的 cloud-controller-manage 插件，参考 安装负载均衡器插件 来安装和使用负载均衡器插件。
             - 安装负载均衡器插件：<https://v2-1.docs.kubesphere.io/docs/zh-CN/installation/qingcloud-lb>
+    - Ingress 是暴露服务的最强大方式，但同时也是最复杂的。Ingress 控制器有各种类型，包括 Nginx，Istio，等等。它还有各种插件，比如 cert-manager，它可以为你的服务自动提供 SSL 证书。
+        - 它处于多个服务的前端，扮演着“智能路由”或者集群入口的角色
+        - 如果你想要使用同一个 IP 暴露多个服务，这些服务都是使用相同的七层协议（典型如 HTTP），那么Ingress 就是最有用的。 
 - 创建第一个无状态服务：<http://192.168.31.137:30880/cdk8s-workspace/clusters/default/projects/cdk8s-project1/services>
     - 选择 `无状态服务`
     - 填写基本信息
