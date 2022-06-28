@@ -829,6 +829,7 @@ lCm87ItqaUwPdyWQbKh2ESRZ38r+g5TYbJm3Y8nOppHTpGw5NiBi
     - 项目管理员在 `项目设置 > 高级设置` 中设置外网访问方式：<http://192.168.31.137:30880/cdk8s-workspace/clusters/default/projects/cdk8s-project1/advanced>
     - ClusterIP：是 Kubernetes 的默认服务。它给你一个集群内的服务，集群内的其它应用都可以访问该服务。集群外部无法访问它。
     - NodePort: 此方式网关可以通过工作节点对应的端口来访问服务，是用于引导外部流量到你的服务的最原始方式
+        - 在ClusterIP基础上暴露出一个随机端口至外部[NodeIP]:[NodePort]，可让外部进行访问，默认端口范围30000~32767
         - 生成的两个端口，分别是 HTTP 协议的端口和 HTTPS 协议的端口，外网可通过 EIP:NodePort 或 Hostname:NodePort 来访问服务
         - 这里我们记下来的端口：http:31499; https:31592（等下会用到两个端口，一般这两个端口都是 K8S 来生成，不推荐自己维护）
     - LoadBalancer: 此方式网关可以通过统一的一个外网 IP 来访问，是暴露服务到 internet 的标准方式
