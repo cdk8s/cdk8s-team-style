@@ -17,6 +17,38 @@
 - Docker 官网：<https://hub.docker.com/_/mysql/>
 
 
+## MySQL 日志介绍
+
+```
+MySQL中存在着以下几种日志：重写日志（redo log）、回滚日志（undo log）、二进制日志（bin log）、错误日志（error log）、慢查询日志（slow query log）、一般查询日志（general log）。
+MySQL中的数据变化会体现在上面这些日志中，比如事务操作会体现在redo log、undo log以及bin log中，数据的增删改查会体现在 binlog 中。
+
+=================================
+查询 error_log 配置：show variables like "%log_error%";
+启动配置：
+log-error=/home/data/mysql/log/mysqld.log
+=================================
+查询 slow_query_log 配置： show variables like "%slow_query%";
+启动配置：
+#是否开启慢查询日志，0关闭，1开启
+slow_query_log = 1
+#慢查询日志地址（5.6及以上版本）
+slow_query_log_file = /home/data/mysql/log/mysql-slow-query.log
+#慢查询日志阈值，指超过阈值时间的SQL会被记录，单位秒
+long_query_time = 2
+#表示未走索引的SQL也会被记录
+log_queries_not_using_indexes
+=================================
+查询 general_log 配置：show variables like '%general_log%';
+# general log 记录了客户端连接信息以及执行的SQL语句信息，默认是 off，该记录消耗比较大
+general_log = on
+general_log_file = /home/data/mysql/log/mysql-general.log
+
+
+以上配置修改到 /etc/my.cnf 然后重启服务：systemctl restart mysqld.service
+```
+
+
 ## Docker 安装 MySQL 8.0.x（不带挂载）
 
 ```
@@ -942,3 +974,4 @@ drop database myDbName;
 ## 资料
 
 - <http://www.cnblogs.com/xiongpq/p/3384681.html>
+- <https://juejin.cn/post/7077577452372885535>
