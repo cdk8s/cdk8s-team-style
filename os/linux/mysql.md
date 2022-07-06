@@ -23,6 +23,7 @@
 MySQL中存在着以下几种日志：重写日志（redo log）、回滚日志（undo log）、二进制日志（bin log）、错误日志（error log）、慢查询日志（slow query log）、一般查询日志（general log）。
 MySQL中的数据变化会体现在上面这些日志中，比如事务操作会体现在redo log、undo log以及bin log中，数据的增删改查会体现在 binlog 中。
 
+以下基于 MySQL8 的配置：
 =================================
 查询 error_log 配置：show variables like "%log_error%";
 启动配置：
