@@ -27,6 +27,8 @@ MySQL中的数据变化会体现在上面这些日志中，比如事务操作会
 =================================
 查询 error_log 配置：show variables like "%log_error%";
 启动配置：
+# 打印死锁信息
+innodb_print_all_deadlocks = 1
 log-error=/home/data/mysql/log/mysqld.log
 =================================
 查询 slow_query_log 配置： show variables like "%slow_query%";
