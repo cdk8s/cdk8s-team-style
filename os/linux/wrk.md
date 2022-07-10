@@ -22,6 +22,7 @@ yum install wrk
 wrk -v
 
 发起最简单请求
+使用4个线程，并保持20个HTTP连接，连续测试10秒
 wrk -t4 -c20 -d10s --latency --timeout 10s http://www.qq.com
 
 结果：
