@@ -23,57 +23,57 @@
 
 - 官网：<https://kafka.apache.org/>
 - Github：<https://github.com/apache/kafka>
-	- 主要是由 Java 和 Scala 开发
+    - 主要是由 Java 和 Scala 开发
 - 官网下载：<https://kafka.apache.org/downloads>
 - 当前最新稳定版本（201803）：**1.0.1**
 - 官网 quickstart：<https://kafka.apache.org/quickstart>
 - 运行的机子不要小于 2G 内存
 - Kafka 流行的主要原因：
-	- 支持常见的发布订阅功能
-	- 分布式
-	- 高吞吐量（听说：普通单机也支持每秒 100000 条消息的传输）
-	- 磁盘数据持久化，消费者 down 后，重新 up 的时候可以继续接收前面未接收到的消息
-	- 支持流数据处理，常见于大数据
+    - 支持常见的发布订阅功能
+    - 分布式
+    - 高吞吐量（听说：普通单机也支持每秒 100000 条消息的传输）
+    - 磁盘数据持久化，消费者 down 后，重新 up 的时候可以继续接收前面未接收到的消息
+    - 支持流数据处理，常见于大数据
 - 核心概念：
-	- Producer：生产者（业务系统），负责发布消息到 broker
-	- Consumer：消费者（业务系统），向 broker 读取消息的客户端
-	- Broker：可以理解为：存放消息的管道（kafka 软件节点本身）
-	- Topic：可以理解为：消息主题、消息标签、消息通道、消息队列（物理上不同 Topic 的消息分开存储，根据 Partition 参数决定一个 Topic 的消息保存于一个或多个 broker 上。作为使用者，不用关心 Topic 实际物理存储地方。）
-	- Partition：是物理上的概念，每个 Topic 包含一个或多个 Partition。一般有几个 Broker，填写分区最好是等于大于节点值。分区目的主要是数据分片，解决水平扩展、高吞吐量。当 Producer 生产消息的时候，消息会被算法计算后分配到对应的分区，Consumer 读取的时候算法也会帮我们找到消息所在分区，这是内部实现的，应用层面不用管。
-	- Replication-factor：副本。假设有 3 个 Broker 的情况下，当副本为 3 的时候每个 Partition 会在每个 Broker 都会存有一份，目的主要是容错。
-		- 其中有一个 Leader。
-		- 如果你只有一个 Broker，但是创建 Topic 的时候指定 Replication-factor 为 3，则会报错
-	- **（重要）** Consumer Group：每个 Consumer 属于一个特定的 Consumer Group（可为每个 Consumer 指定 group name，若不指定 group name 则属于默认的 group）一般一个业务系统集群指定同一个 group id，然后一个业务系统集群只能一个节点来消费同一个消息。
+    - Producer：生产者（业务系统），负责发布消息到 broker
+    - Consumer：消费者（业务系统），向 broker 读取消息的客户端
+    - Broker：可以理解为：存放消息的管道（kafka 软件节点本身）
+    - Topic：可以理解为：消息主题、消息标签、消息通道、消息队列（物理上不同 Topic 的消息分开存储，根据 Partition 参数决定一个 Topic 的消息保存于一个或多个 broker 上。作为使用者，不用关心 Topic 实际物理存储地方。）
+    - Partition：是物理上的概念，每个 Topic 包含一个或多个 Partition。一般有几个 Broker，填写分区最好是等于大于节点值。分区目的主要是数据分片，解决水平扩展、高吞吐量。当 Producer 生产消息的时候，消息会被算法计算后分配到对应的分区，Consumer 读取的时候算法也会帮我们找到消息所在分区，这是内部实现的，应用层面不用管。
+    - Replication-factor：副本。假设有 3 个 Broker 的情况下，当副本为 3 的时候每个 Partition 会在每个 Broker 都会存有一份，目的主要是容错。
+        - 其中有一个 Leader。
+        - 如果你只有一个 Broker，但是创建 Topic 的时候指定 Replication-factor 为 3，则会报错
+    - **（重要）** Consumer Group：每个 Consumer 属于一个特定的 Consumer Group（可为每个 Consumer 指定 group name，若不指定 group name 则属于默认的 group）一般一个业务系统集群指定同一个 group id，然后一个业务系统集群只能一个节点来消费同一个消息。
         - Consumer Group 信息存储在 zookeeper 中，需要通过 zookeeper 的客户端来查看和设置
         - 如果某 Consumer Group 中 consumer 数量少于 partition 数量，则至少有一个 consumer 会消费多个 partition 的数据
         - 如果 consumer 的数量与 partition 数量相同，则正好一个 consumer 消费一个 partition 的数据
         - 如果 consumer 的数量多于 partition 的数量时，会有部分 consumer 无法消费该 topic 下任何一条消息。
         - 如果想重复消费，可以创建不同的消费者组，订阅相同的 topic。当新的消费组运行起来后，topic 中的所有历史数据都会从头开始消费一遍
         - 具体实验可以看这篇文章：[Kafka深度解析](http://www.jasongj.com/2015/01/02/Kafka%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90/)
-	- Record：消息数据本身，由一个 key、value、timestamp 组成
+    - Record：消息数据本身，由一个 key、value、timestamp 组成
 - 业界常用的 docker 镜像：
-	- [wurstmeister/kafka-docker（不断更新，优先）](https://github.com/wurstmeister/kafka-docker/)
-	- Spring 项目选用依赖包的时候，对于版本之间的关系可以看这里：<http://projects.spring.io/spring-kafka/>
-		- 目前（201803） 
-		- spring boot 2.0 以上基础框架版本，kafka 版本 1.0.x，推荐使用：spring-kafka 2.1.4.RELEASE
-		- spring boot 2.0 以下基础框架版本，kafka 版本 0.11.0.x, 1.0.x，推荐使用：spring-kafka 1.3.3.RELEASE
+    - [wurstmeister/kafka-docker（不断更新，优先）](https://github.com/wurstmeister/kafka-docker/)
+    - Spring 项目选用依赖包的时候，对于版本之间的关系可以看这里：<http://projects.spring.io/spring-kafka/>
+        - 目前（201803）
+        - spring boot 2.0 以上基础框架版本，kafka 版本 1.0.x，推荐使用：spring-kafka 2.1.4.RELEASE
+        - spring boot 2.0 以下基础框架版本，kafka 版本 0.11.0.x, 1.0.x，推荐使用：spring-kafka 1.3.3.RELEASE
 - 官网 quickstart 指导：<https://kafka.apache.org/quickstart>
 - 常用命令：
-	- wurstmeister/kafka-docker 容器中 kafka home：`cd /opt/kafka`
-	- 假设我的 zookeeper 地址：`10.135.157.34:2181`，如果你有多个节点用逗号隔开
-	- 列出所有 topic：`bin/kafka-topics.sh --list --zookeeper 10.135.157.34:2181`
-	- 创建 topic：`bin/kafka-topics.sh --create --topic kafka-test-topic-1 --partitions 3 --replication-factor 1 --zookeeper 10.135.157.34:2181`
-		- 创建名为 kafka-test-topic-1 的 topic，3个分区分别存放数据，数据备份总共 2 份
-	- 查看特定 topic 的详情：`bin/kafka-topics.sh --describe --topic kafka-test-topic-1 --zookeeper 10.135.157.34:2181`
-	- 删除 topic：`bin/kafka-topics.sh --delete --topic kafka-test-topic-1 --zookeeper 10.135.157.34:2181`
-	- 更多命令可以看：<http://orchome.com/454>
+    - wurstmeister/kafka-docker 容器中 kafka home：`cd /opt/kafka`
+    - 假设我的 zookeeper 地址：`10.135.157.34:2181`，如果你有多个节点用逗号隔开
+    - 列出所有 topic：`bin/kafka-topics.sh --list --zookeeper 10.135.157.34:2181`
+    - 创建 topic：`bin/kafka-topics.sh --create --topic kafka-test-topic-1 --partitions 3 --replication-factor 1 --zookeeper 10.135.157.34:2181`
+        - 创建名为 kafka-test-topic-1 的 topic，3个分区分别存放数据，数据备份总共 2 份
+    - 查看特定 topic 的详情：`bin/kafka-topics.sh --describe --topic kafka-test-topic-1 --zookeeper 10.135.157.34:2181`
+    - 删除 topic：`bin/kafka-topics.sh --delete --topic kafka-test-topic-1 --zookeeper 10.135.157.34:2181`
+    - 更多命令可以看：<http://orchome.com/454>
 - 假设 topic 详情的返回信息如下：
-	- `PartitionCount:6`：分区为 6 个
-	- `ReplicationFactor:3`：副本为 3 个
-	- `Partition: 0 Leader: 3`：Partition 下标为 0 的主节点是 broker.id=3
-		- 当 Leader down 掉之后，其他节点会选举中一个新 Leader
-	- `Replicas: 3,1,2`：在 `Partition: 0` 下共有 3 个副本，broker.id 分别为 3,1,2
-	- `Isr: 3,1,2`：在 `Partition: 0` 下目前存活的 broker.id 分别为 3,1,2
+    - `PartitionCount:6`：分区为 6 个
+    - `ReplicationFactor:3`：副本为 3 个
+    - `Partition: 0 Leader: 3`：Partition 下标为 0 的主节点是 broker.id=3
+        - 当 Leader down 掉之后，其他节点会选举中一个新 Leader
+    - `Replicas: 3,1,2`：在 `Partition: 0` 下共有 3 个副本，broker.id 分别为 3,1,2
+    - `Isr: 3,1,2`：在 `Partition: 0` 下目前存活的 broker.id 分别为 3,1,2
 
 ```
 Topic:kafka-all    PartitionCount:6    ReplicationFactor:3    Configs:
@@ -221,13 +221,13 @@ services:
 ## Docker 多机多实例部署（外网无法访问）
 
 - 三台机子：
-	- 内网 ip：`172.24.165.129`，外网 ip：`47.91.22.116`
-	- 内网 ip：`172.24.165.130`，外网 ip：`47.91.22.124`
-	- 内网 ip：`172.24.165.131`，外网 ip：`47.74.6.138`
+    - 内网 ip：`172.24.165.129`，外网 ip：`47.91.22.116`
+    - 内网 ip：`172.24.165.130`，外网 ip：`47.91.22.124`
+    - 内网 ip：`172.24.165.131`，外网 ip：`47.74.6.138`
 - 修改三台机子 hostname：
-	- 节点 1：`hostnamectl --static set-hostname youmeekhost1`
-	- 节点 2：`hostnamectl --static set-hostname youmeekhost2`
-	- 节点 3：`hostnamectl --static set-hostname youmeekhost3`
+    - 节点 1：`hostnamectl --static set-hostname youmeekhost1`
+    - 节点 2：`hostnamectl --static set-hostname youmeekhost2`
+    - 节点 3：`hostnamectl --static set-hostname youmeekhost3`
 - 三台机子的 hosts 都修改为如下内容：`vim /etc/hosts`
 
 ```
@@ -425,17 +425,17 @@ wurstmeister/kafka:latest
 #### Kafka 集群测试
 
 - 在 kafka1 上测试：
-	- 进入 kafka1 容器：`docker exec -it kafka1 /bin/bash`
-	- 根据官网 Dockerfile 说明，kafka home 应该是：`cd /opt/kafka`
-	- 创建 topic 命令：`bin/kafka-topics.sh --create --zookeeper youmeekhost1:2181,youmeekhost2:2181,youmeekhost3:2181 --replication-factor 3 --partitions 3 --topic my-topic-test`
-	- 查看 topic 命令：`bin/kafka-topics.sh --list --zookeeper youmeekhost1:2181,youmeekhost2:2181,youmeekhost3:2181`
-	- 给 topic 发送消息命令：`bin/kafka-console-producer.sh --broker-list youmeekhost1:9092 --topic my-topic-test`，然后在出现交互输入框的时候输入你要发送的内容
+    - 进入 kafka1 容器：`docker exec -it kafka1 /bin/bash`
+    - 根据官网 Dockerfile 说明，kafka home 应该是：`cd /opt/kafka`
+    - 创建 topic 命令：`bin/kafka-topics.sh --create --zookeeper youmeekhost1:2181,youmeekhost2:2181,youmeekhost3:2181 --replication-factor 3 --partitions 3 --topic my-topic-test`
+    - 查看 topic 命令：`bin/kafka-topics.sh --list --zookeeper youmeekhost1:2181,youmeekhost2:2181,youmeekhost3:2181`
+    - 给 topic 发送消息命令：`bin/kafka-console-producer.sh --broker-list youmeekhost1:9092 --topic my-topic-test`，然后在出现交互输入框的时候输入你要发送的内容
 - 在 kafka2 上测试：
-	- 进入 kafka2 容器：`docker exec -it kafka2 /bin/bash`
-	- 接受消息：`cd /opt/kafka && bin/kafka-console-consumer.sh --bootstrap-server youmeekhost2:9092 --topic my-topic-test --from-beginning`
+    - 进入 kafka2 容器：`docker exec -it kafka2 /bin/bash`
+    - 接受消息：`cd /opt/kafka && bin/kafka-console-consumer.sh --bootstrap-server youmeekhost2:9092 --topic my-topic-test --from-beginning`
 - 在 kafka3 上测试：
-	- 进入 kafka3 容器：`docker exec -it kafka3 /bin/bash`
-	- 接受消息：`cd /opt/kafka && bin/kafka-console-consumer.sh --bootstrap-server youmeekhost3:9092 --topic my-topic-test --from-beginning`
+    - 进入 kafka3 容器：`docker exec -it kafka3 /bin/bash`
+    - 接受消息：`cd /opt/kafka && bin/kafka-console-consumer.sh --bootstrap-server youmeekhost3:9092 --topic my-topic-test --from-beginning`
 - 如果 kafka1 输入的消息，kafka2 和 kafka3 能收到，则表示已经成功。
 
 
@@ -464,8 +464,8 @@ Linux、macos：
 export JMX_PORT="9999"
 
 
-解压：
-tar -zxvf kafka-eagle-bin-2.1.0.tar.gz
+下载地址：https://github.com/smartloli/kafka-eagle-bin/tags
+解压 tar -zxvf kafka-eagle-bin-2.1.0.tar.gz
 
 配置 KE_HOME：
 export KE_HOME=/Users/meek/my-software/efak-web-2.1.0
@@ -481,7 +481,7 @@ USE `ke`;
 
 vim /Users/meek/my-software/efak-web-2.1.0/conf/system-config.properties
 
-
+# efak 支持一个软件管理多个 kafka 集群，有多个可以这样写：efak.zk.cluster.alias=cluster1,cluster2,cluster3，后面的集群配置依次 cluster1 内容进行补充
 efak.zk.cluster.alias=cluster1
 cluster1.zk.list=192.168.31.109:2181
 cluster1.zk.acl.enable=false
@@ -574,13 +574,13 @@ select * from `my-topic-test` where `partition` in (0) and `timespan` > 16560894
 #### Kafka 单纯监控 KafkaOffsetMonitor（不推荐）
 
 - Github 官网：<https://github.com/quantifind/KafkaOffsetMonitor>
-	- README 带了下载地址和运行命令
-	- 只是已经很久不更新了
+    - README 带了下载地址和运行命令
+    - 只是已经很久不更新了
 
 #### 部署 kafka-manager（不推荐）
 
 - Github 官网：<https://github.com/yahoo/kafka-manager>
-	- 注意官网说明的版本支持
+    - 注意官网说明的版本支持
 - 节点 1（没成功）：`docker run -d --name=kafka-manager1 --restart=always -p 9000:9000 -e ZK_HOSTS="youmeekhost1:2181,youmeekhost2:2181,youmeekhost3:2181" sheepkiller/kafka-manager:latest`
 - 源码类安装可以看：[Kafka监控工具—Kafka Manager](http://www.2bowl.info/kafka%e7%9b%91%e6%8e%a7%e5%b7%a5%e5%85%b7-kafka-manager/)
 - Kafka manager 是一款管理 + 监控的工具，比较重
