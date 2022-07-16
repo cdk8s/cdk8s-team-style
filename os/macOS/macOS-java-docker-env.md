@@ -131,6 +131,19 @@ export PATH
 ```
 
 
+## MySQL 5.8
+
+```
+新版本设置初始化密码必须八位数以上
+
+打开：`系统偏好设置 -- 底部的 MySQL -- 点击：Start MySQL Server` 启动 MySQL
+
+
+通过 navicat 连接后，输入：
+ALTER user 'root'@'localhost' IDENTIFIED BY '123456';
+
+```
+
 ## MySQL 5.7
 
 - 官网下载 MySQL：<http://dev.mysql.com/downloads/mysql/>
