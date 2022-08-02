@@ -300,6 +300,8 @@ https://grafana.com/grafana/dashboards/7362
 
 - <https://blog.csdn.net/zhuyu19911016520/article/details/88411371>
 
+
+
 ----------------------------------------------------------------------------------------------
 
 
@@ -450,6 +452,75 @@ irate(http_requests_total[5m])
 
 irate和rate都会用于计算某个指标在一定时间间隔内的变化速率。但是它们的计算方法有所不同：irate取的是在指定时间范围内的最近两个数据点来算速率，而rate会取指定时间范围内所有数据点，算出一组速率，然后取平均值作为结果。
 所以官网文档说：irate适合快速变化的计数器（counter），而rate适合缓慢变化的计数器（counter）。
+```
+
+
+
+----------------------------------------------------------------------------------------------
+
+## Nginx 反向代理
+
+```
+// 直接配置 server 域名的情况下
+location / {
+    auth_basic   "please input you user name and password";
+    auth_basic_user_file    /opt/nginx-auth/passwd.db;
+
+    proxy_pass http://127.0.0.1:9090;
+    proxy_redirect off;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+}
+
+
+// 配置路径域名的情况下：
+需要在 Prometheus 的启动参数加上：--web.external-url = myPrometheus
+location /myPrometheus/ {
+    rewrite ^/myPrometheus(.*)$ $1 break;
+
+    auth_basic   "please input you user name and password";
+    auth_basic_user_file    /opt/nginx-auth/passwd.db;
+
+    proxy_pass http://127.0.0.1:9090;
+    proxy_redirect off;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+}
+
+```
+
+
+----------------------------------------------------------------------------------------------
+
+## API 接口
+
+- 官网文档：<https://prometheus.io/docs/prometheus/latest/querying/api/>
+
+```
+GET /api/v1/query
+POST /api/v1/query
+URL query parameters:
+    query=<string>: Prometheus expression query string.
+    time=<rfc3339 | unix_timestamp>: Evaluation timestamp. Optional.
+    timeout=<duration>: Evaluation timeout. Optional. Defaults to and is capped by the value of the -query.timeout flag.
+
+
+GET /api/v1/query_range
+POST /api/v1/query_range
+    URL query parameters:
+    query=<string>: Prometheus expression query string.
+    start=<rfc3339 | unix_timestamp>: Start timestamp, inclusive.
+    end=<rfc3339 | unix_timestamp>: End timestamp, inclusive.
+    step=<duration | float>: Query resolution step width in duration format or float number of seconds.
+    timeout=<duration>: Evaluation timeout. Optional. Defaults to and is capped by the value of the -query.timeout flag.
+
+
+推荐使用 POST，请求头加：Content-Type: application/x-www-form-urlencoded
+可以避免 GET 过大查询参数字符限制
 ```
 
 
