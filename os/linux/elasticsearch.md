@@ -31,6 +31,7 @@ xpack.ml.enabled: false
 - `vim ~/docker/elasticsearch-7.9.3/elasticsearch-7.9.3-docker.yml`，内容如下
 - 下载 ik 分词（版本必须和 Elasticsearch 版本对应，包括小版本号）：<https://github.com/medcl/elasticsearch-analysis-ik/tags>
 - 下载 pinyin 分词（版本必须和 Elasticsearch 版本对应，包括小版本号）：<https://github.com/medcl/elasticsearch-analysis-pinyin/tags>
+  - 百度云下载（提取码: 5t5m）：<https://pan.baidu.com/s/1CONDXhTZ7Khn3Lohh9clog>
 - 把 ik 解压到如下目录：`/Users/meek/docker/elasticsearch-7.9.3/elasticsearch-analysis-ik-7.9.3`
 - 把 pinyin 解压到如下目录：`/Users/meek/docker/elasticsearch-7.9.3/elasticsearch-analysis-pinyin-7.9.3`
 
@@ -66,6 +67,7 @@ services:
 
 - 启动：`docker-compose -f ~/docker/elasticsearch-7.9.3/elasticsearch-7.9.3-docker.yml -p elasticsearch_7.9.3 up -d`
 - Elasticsearch Head 插件地址：<https://chrome.google.com/webstore/detail/ffmkiejjmecolpfloofpjologoblkegm>
+- Elasticsearch Elasticvue 插件地址：<https://microsoftedge.microsoft.com/addons/detail/elasticvue/geifniocjfnfilcbeloeidajlfmhdlgo>
 - 打开 Head 插件，选择 `复合查询` 测试：
 
 
