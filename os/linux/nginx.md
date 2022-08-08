@@ -55,7 +55,7 @@ http {
     
     server {
         listen            80;
-        server_name       192.168.31.207 mytestabcdef.com;
+        server_name       192.168.1.40 mynginx.cdk8s.com;
     
         location / {
           root            /usr/share/nginx/html;
