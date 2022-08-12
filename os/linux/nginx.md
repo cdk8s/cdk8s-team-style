@@ -1081,6 +1081,19 @@ server {
 
 ```
 
+### 配置 JSON 数据返回
+
+
+```
+#配置json格式返回
+location ~ ^/get_json {
+  default_type application/json;
+  return 200 '{"code": 0,"messge":"注册成功","data":[]}';
+}
+
+
+```
+
 
 
 ### root 和 alias
