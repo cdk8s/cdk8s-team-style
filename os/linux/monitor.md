@@ -356,6 +356,7 @@ Average:        0     24841   39.92    3.99    0.00   43.91     -  java
 - 如果所以你内存大，可以考虑把 swap 分区改得小点或者直接关掉。
 - 但是，如果是用的云主机，一般是没交换分区的，`free -g` 中的 Swap 都是 0。
 - 查看内存使用命令：
+	- `free -h` 如果还没到 GB 级别则显示 M，如果是 GB 级别则显示 G
 	- 以 M 为容量单位展示数据：`free -m`
 	- 以 G 为容量单位展示数据：`free -g`
 	- CentOS 6 和 CentOS 7 展示出来的数据有差别，CentOS 7 比较容易看，比如下面的数据格式是 CentOS 7 的 `free -g`：
@@ -382,6 +383,23 @@ Total:       16080      15919        160
 ```
 
 - 以上的结果重点关注是：`-/+ buffers/cache`，这一行代表实际使用情况。
+
+#### 查看 buff/cache 的具体使用情况
+
+```
+使用 hcahce：https://github.com/silenceshell/hcache
+下载：wget https://silenceshell-1255345740.cos.ap-shanghai.myqcloud.com/hcache
+chmod 755 hcache && mv hcache /usr/local/bin/
+
+全局显示10个最大的被缓存文件（）
+hcache --top 10
+
+接着通过 lsof file_name 命令得到当前所开启该文件的所有进程信息：
+lsof /opt/jar/sculptor-boot-biz.jar
+
+```
+
+
 
 #### 查看具体某个进程的内存占用
 
