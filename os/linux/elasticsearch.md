@@ -48,7 +48,7 @@ services:
       - "discovery.type=single-node"
       - "network.host=0.0.0.0"
       - "http.host=0.0.0.0"
-      - "xpack.security.enabled=false"
+      - "xpack.security.enabled=true"
     ulimits:
       memlock:
         soft: -1
@@ -66,6 +66,30 @@ services:
 ```
 
 - 启动：`docker-compose -f ~/docker/elasticsearch-7.9.3/elasticsearch-7.9.3-docker.yml -p elasticsearch_7.9.3 up -d`
+- 设置密码：
+
+```
+进入 docker 中的 elasticsearch中，设置密码：
+docker exec -it elasticsearch-7.9.3 /bin/bash
+/usr/share/elasticsearch/bin/elasticsearch-setup-passwords interactive
+根据终端提示，会让你依次设置用户：elastic、apm_system、kibana_system、logstash_system、beats_system、remote_monitoring_user 的密码，所以整个过程比较多。
+
+测试：
+不输入密码，理论上会报错
+curl http://127.0.0.1:9200
+输入正确密码，返回集群信息：
+curl -u "elastic:123456" http://127.0.0.1:9200
+
+
+修改密码：
+格式：curl -u elastic -H "Content-Type: application/json" -X POST "http://127.0.0.1:9200/_xpack/security/user/用户名/_password" --data '{"password":"新密码"}'
+示例：curl -u elastic -H "Content-Type: application/json" -X POST "http://127.0.0.1:9200/_xpack/security/user/elastic/_password" --data '{"password":"1234567"}'
+回车后会让你输入旧密码，输入正确后，会自动修改密码。
+
+测试是否成功：
+curl -u "elastic:1234567" http://127.0.0.1:9200
+```
+
 - Elasticsearch Head 插件地址：<https://chrome.google.com/webstore/detail/ffmkiejjmecolpfloofpjologoblkegm>
 - Elasticsearch Elasticvue 插件地址：<https://microsoftedge.microsoft.com/addons/detail/elasticvue/geifniocjfnfilcbeloeidajlfmhdlgo>
 - 打开 Head 插件，选择 `复合查询` 测试：
