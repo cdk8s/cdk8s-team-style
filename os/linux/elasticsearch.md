@@ -88,6 +88,24 @@ curl -u "elastic:123456" http://127.0.0.1:9200
 
 测试是否成功：
 curl -u "elastic:1234567" http://127.0.0.1:9200
+
+查看 license：
+curl -u "elastic:123456" http://127.0.0.1:9200/_license
+
+关于 license 官网说明：https://www.elastic.co/cn/subscriptions
+JDBC 直连客户端开源是不能使用的。
+
+所以我们需要先改为 30 天试用版：
+发起一个 POST 请求：
+curl --location --request POST -u "elastic:123456" 'http://127.0.0.1:9200/_license/start_trial?acknowledge=true&pretty' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "acknowledged" : true,
+  "trial_was_started" : true,
+  "type" : "trial"
+}'
+
+这样 DBeaver 才可以直连 Elasticsearch
 ```
 
 - Elasticsearch Head 插件地址：<https://chrome.google.com/webstore/detail/ffmkiejjmecolpfloofpjologoblkegm>
