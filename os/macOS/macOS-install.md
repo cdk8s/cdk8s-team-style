@@ -619,6 +619,31 @@ layout 1, 2, 3, 4, 5, 7, 12, 15, 16, 17, 18, 20, 22, 23, 28, 31, 32, 90, 92, 97,
 - <https://github.com/cdk8s/cdk8s-team-style/blob/master/os/macOS/macOS-basic.md>
 - 然后清除 DNS 缓存：`sudo killall -HUP mDNSResponder`
 
+
+#### 12.6 增加显卡温度监控
+
+- 因为 从 Radeon VII 开始，Apple 停止直接查看显卡温度的功能，我们需要加载额外的第三方 kexts 来显示温度。
+- RadeonSensor 就是目前最流行的项目：<https://github.com/aluveitie/RadeonSensor>
+- 下载最新的 Release 版本：<https://github.com/aluveitie/RadeonSensor/tags>
+
+```
+打开 OpenCore Configurator，挂载 EFI
+把下载到的 kexts 文件放到 /EFI/OC/Kexts 目录下
+SMCRadeonGPU.kext
+RadeonSensor.kext
+
+使用 OpenCore Configurator 打开 /EFI/OC/config.plist 配置文件，选择左侧：`Kernel-内核设置
+把刚刚的两个 kext 拖动到 `Kernel-内核设置` 的 `添加` 窗口下，确保 Enabled 是勾选状态，然后保存 config.plist 重启电脑
+然后就可以通过 iStat Meuns 看到显卡温度了
+```
+
+#### 12.7 显卡超过 60 度后还是没有开启转速
+
+- 一般现在的显卡到是 60 度就会自动开启转速，但是有时候还是会出现没有开启转速的情况，这时候我们可以通过修改显卡的配置文件来解决这个问题。
+- 可以通过玩大型游戏（比如：海岛大亨）来升温触发显卡转速，看下是否达到 60 度后自动开启转速
+- 可以参考这个视频：<https://www.bilibili.com/video/BV1WT411A72F>
+
+
 -------------------------------------------------------------------
 
 ## 13. 特别注意事项说明
