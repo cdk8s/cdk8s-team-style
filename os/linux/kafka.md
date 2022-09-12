@@ -47,7 +47,7 @@
         - Consumer Group 信息存储在 zookeeper 中，需要通过 zookeeper 的客户端来查看和设置
         - 如果某 Consumer Group 中 consumer 数量少于 partition 数量，则至少有一个 consumer 会消费多个 partition 的数据
         - 如果 consumer 的数量与 partition 数量相同，则正好一个 consumer 消费一个 partition 的数据
-        - 如果 consumer 的数量多于 partition 的数量时，会有部分 consumer 无法消费该 topic 下任何一条消息。
+        - 如果 consumer 的数量多于 partition 的数量时，会有部分 consumer 无法消费该 topic 下任何一条消息。所以，如果想要让消费者加快消费，可以在 Spring Boot 注解上指定要消费的分区，这样可以让多个消费者分别消费相同 topic 下不同分区的数据
         - 如果想重复消费，可以创建不同的消费者组，订阅相同的 topic。当新的消费组运行起来后，topic 中的所有历史数据都会从头开始消费一遍
         - 具体实验可以看这篇文章：[Kafka深度解析](http://www.jasongj.com/2015/01/02/Kafka%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90/)
     - Record：消息数据本身，由一个 key、value、timestamp 组成
@@ -66,6 +66,9 @@
         - 创建名为 kafka-test-topic-1 的 topic，3个分区分别存放数据，数据备份总共 2 份
     - 查看特定 topic 的详情：`bin/kafka-topics.sh --describe --topic kafka-test-topic-1 --zookeeper 10.135.157.34:2181`
     - 删除 topic：`bin/kafka-topics.sh --delete --topic kafka-test-topic-1 --zookeeper 10.135.157.34:2181`
+      - 默认使用 kafka-topics --delete 命令删除topic时并没有真正的删除，而是把topic标记为：“marked for deletion”，导致重新创建相同名称的Topic时报错“already exists”。
+      - 默认情况下Kafka是禁用了删除Topic的操作，所以在执行Topic删除的时候只是将删除的Topic标记为“marked for deletion”状态。可以通过修改Kafka服务的配置参数启用。
+      - 如果要真正删除topic，需要同时考虑删除 zookpeer 中的数据
     - 更多命令可以看：<http://orchome.com/454>
 - 假设 topic 详情的返回信息如下：
     - `PartitionCount:6`：分区为 6 个
