@@ -456,6 +456,7 @@ wurstmeister/kafka:latest
 #### EFAK（以前叫做 Kafka Eagle）
 
 - 官网：<https://github.com/smartloli/EFAK>
+- Kafka 集群较小的情况下，用单节点部署即可，如果集群较大，可以考虑分布式部署。具体可以参考：[Kafka Eagle分布式模式](https://www.cnblogs.com/smartloli/p/15732794.html)
 
 ```
 Linux、macos：
@@ -486,6 +487,8 @@ vim /Users/meek/my-software/efak-web-2.1.0/conf/system-config.properties
 
 # efak 支持一个软件管理多个 kafka 集群，有多个可以这样写：efak.zk.cluster.alias=cluster1,cluster2,cluster3，后面的集群配置依次 cluster1 内容进行补充
 efak.zk.cluster.alias=cluster1
+# 多个 zk 可以这样写：
+# cluster1.zk.list=192.168.31.109:2181,192.168.31.108:2181,192.168.31.107:2181
 cluster1.zk.list=192.168.31.109:2181
 cluster1.zk.acl.enable=false
 cluster1.zk.acl.schema=digest
