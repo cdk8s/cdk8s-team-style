@@ -1069,6 +1069,60 @@ S0     S1     E      O      M     CCS    YGC     YGCT    FGC    FGCT     GCT
 	- 重新设置最大连接数：`set GLOBAL max_connections=300`
 
 
+-------------------------------------------------------------------
+
+## 排查网络请求问题：curl
+
+
+#### curl 查看完整网络请求信息
+
+```
+命令：curl -v https://www.baidu.com
+
+* About to connect() to www.baidu.com port 443 (#0)
+*   Trying 14.215.177.39...
+* Connected to www.baidu.com (14.215.177.39) port 443 (#0)
+* Initializing NSS with certpath: sql:/etc/pki/nssdb
+*   CAfile: /etc/pki/tls/certs/ca-bundle.crt
+  CApath: none
+* SSL connection using TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+* Server certificate:
+*       subject: CN=baidu.com,O="Beijing Baidu Netcom Science Technology Co., Ltd",OU=service operation department,L=beijing,ST=beijing,C=CN
+*       start date: 7月 05 05:16:02 2022 GMT
+*       expire date: 8月 06 05:16:01 2023 GMT
+*       common name: baidu.com
+*       issuer: CN=GlobalSign RSA OV SSL CA 2018,O=GlobalSign nv-sa,C=BE
+---- 请求头和信息 ----
+> GET / HTTP/1.1
+> User-Agent: curl/7.29.0
+> Host: www.baidu.com
+> Accept: */*
+>
+---- 响应头和信息 ----
+< HTTP/1.1 200 OK
+< Accept-Ranges: bytes
+< Cache-Control: private, no-cache, no-store, proxy-revalidate, no-transform
+< Connection: keep-alive
+< Content-Length: 2443
+< Content-Type: text/html
+< Date: Fri, 16 Sep 2022 13:43:05 GMT
+< Etag: "58860402-98b"
+< Last-Modified: Mon, 23 Jan 2017 13:24:18 GMT
+< Pragma: no-cache
+< Server: bfe/1.0.8.18
+< Set-Cookie: BDORZ=27315; max-age=86400; domain=.baidu.com; path=/
+<
+<!DOCTYPE html>
+<!--STATUS OK--><html> <head><meta http-equiv=content-type content=text/html;charset=utf-8><meta...</div> </body> </html>
+* Connection #0 to host www.baidu.com left intact
+```
+
+
+-------------------------------------------------------------------
+
+
+
+
 
 ## 参考资料
 

@@ -16,7 +16,7 @@
 ## 如果你用 Spring Data Redis 依赖请注意
 
 - 请先看官网最新支持到哪个版本的依赖：<https://docs.spring.io/spring-data/data-redis/docs/current/reference/html/#new-features>
-	- 查看锚点为：`New in Spring Data Redis` 的内容
+    - 查看锚点为：`New in Spring Data Redis` 的内容
 -  目前 Spring Data Redis 采用 lettuce
     - lettuce 官网对应 Redis 版本说明：<https://github.com/lettuce-io/lettuce-core/wiki/Lettuce-Versions>
 
@@ -455,14 +455,14 @@ aof-rewrite-incremental-fsync yes
 
 - 赋权：`chmod -R 777 ~/docker/redis-to-cluster/`
 - 运行 6 个节点：
-	- `docker run -it -d --name redis-to-cluster-1 -p 5001:6379 -v ~/docker/redis-to-cluster/config/redis.conf:/usr/redis/redis.conf --net=net-redis-to-cluster --ip 172.19.0.2 redis-to-cluster:3.2.3 bash`
-	- `docker run -it -d --name redis-to-cluster-2 -p 5002:6379 -v ~/docker/redis-to-cluster/config/redis.conf:/usr/redis/redis.conf --net=net-redis-to-cluster --ip 172.19.0.3 redis-to-cluster:3.2.3 bash`
-	- `docker run -it -d --name redis-to-cluster-3 -p 5003:6379 -v ~/docker/redis-to-cluster/config/redis.conf:/usr/redis/redis.conf --net=net-redis-to-cluster --ip 172.19.0.4 redis-to-cluster:3.2.3 bash`
-	- `docker run -it -d --name redis-to-cluster-4 -p 5004:6379 -v ~/docker/redis-to-cluster/config/redis.conf:/usr/redis/redis.conf --net=net-redis-to-cluster --ip 172.19.0.5 redis-to-cluster:3.2.3 bash`
-	- `docker run -it -d --name redis-to-cluster-5 -p 5005:6379 -v ~/docker/redis-to-cluster/config/redis.conf:/usr/redis/redis.conf --net=net-redis-to-cluster --ip 172.19.0.6 redis-to-cluster:3.2.3 bash`
-	- `docker run -it -d --name redis-to-cluster-6 -p 5006:6379 -v ~/docker/redis-to-cluster/config/redis.conf:/usr/redis/redis.conf --net=net-redis-to-cluster --ip 172.19.0.7 redis-to-cluster:3.2.3 bash`
+    - `docker run -it -d --name redis-to-cluster-1 -p 5001:6379 -v ~/docker/redis-to-cluster/config/redis.conf:/usr/redis/redis.conf --net=net-redis-to-cluster --ip 172.19.0.2 redis-to-cluster:3.2.3 bash`
+    - `docker run -it -d --name redis-to-cluster-2 -p 5002:6379 -v ~/docker/redis-to-cluster/config/redis.conf:/usr/redis/redis.conf --net=net-redis-to-cluster --ip 172.19.0.3 redis-to-cluster:3.2.3 bash`
+    - `docker run -it -d --name redis-to-cluster-3 -p 5003:6379 -v ~/docker/redis-to-cluster/config/redis.conf:/usr/redis/redis.conf --net=net-redis-to-cluster --ip 172.19.0.4 redis-to-cluster:3.2.3 bash`
+    - `docker run -it -d --name redis-to-cluster-4 -p 5004:6379 -v ~/docker/redis-to-cluster/config/redis.conf:/usr/redis/redis.conf --net=net-redis-to-cluster --ip 172.19.0.5 redis-to-cluster:3.2.3 bash`
+    - `docker run -it -d --name redis-to-cluster-5 -p 5005:6379 -v ~/docker/redis-to-cluster/config/redis.conf:/usr/redis/redis.conf --net=net-redis-to-cluster --ip 172.19.0.6 redis-to-cluster:3.2.3 bash`
+    - `docker run -it -d --name redis-to-cluster-6 -p 5006:6379 -v ~/docker/redis-to-cluster/config/redis.conf:/usr/redis/redis.conf --net=net-redis-to-cluster --ip 172.19.0.7 redis-to-cluster:3.2.3 bash`
 - 配置 redis-to-cluster-1 节点：`docker exec -it redis-to-cluster-1 bash`
-	- 启动容器的 redis：`/usr/redis/src/redis-server /usr/redis/redis.conf`
+    - 启动容器的 redis：`/usr/redis/src/redis-server /usr/redis/redis.conf`
 - 其他 5 个节点一样进行启动。
 
 #### 创建 Cluster 集群（通过 redis-trib.rb）
@@ -472,8 +472,8 @@ aof-rewrite-incremental-fsync yes
 - `cp /usr/redis/src/redis-trib.rb /usr/redis/cluster/`
 - `cd /usr/redis/cluster/`
 - 创建 Cluster 集群（会有交互）（镜像中已经安装了 ruby 了）：`./redis-trib.rb create --replicas 1 172.19.0.2:6379 172.19.0.3:6379 172.19.0.4:6379 172.19.0.5:6379 172.19.0.6:6379 172.19.0.7:6379`
-	- `--replicas 1` 表示为每个主节点创建一个从节点
-	- 如果正常的话，会出现下面内容：
+    - `--replicas 1` 表示为每个主节点创建一个从节点
+    - 如果正常的话，会出现下面内容：
 
 ```
 >>> Creating cluster
@@ -525,19 +525,19 @@ M: 5d0fe968559af3035d8d64ab598f2841e5f3a059 172.19.0.7:6379
 ```
 
 - 连接集群测试：
-	- 进入随便一个节点：`docker exec -it redis-to-cluster-1 bash`
-	- `/usr/redis/src/redis-cli -c`
-	- 查看集群情况：`cluster nodes`
-	- 写入数据：`set myKey myValue`，如果成功会返回：`Redirected to slot [16281] located at 172.19.0.4:6379`，可以推断它是 redis-to-cluster-3 容器
-	- 暂定掉 redis-to-cluster-3 容器：`docker pause redis-to-cluster-3`
-	- 重新连接：`/usr/redis/src/redis-cli -c`
-	- 查看集群情况：`cluster nodes`
-	- 获取值：`get myKey`
-	- 重新启动 redis-to-cluster-3：`docker unpause redis-to-cluster-3`
-	- 查看集群情况：`cluster nodes`
+    - 进入随便一个节点：`docker exec -it redis-to-cluster-1 bash`
+    - `/usr/redis/src/redis-cli -c`
+    - 查看集群情况：`cluster nodes`
+    - 写入数据：`set myKey myValue`，如果成功会返回：`Redirected to slot [16281] located at 172.19.0.4:6379`，可以推断它是 redis-to-cluster-3 容器
+    - 暂定掉 redis-to-cluster-3 容器：`docker pause redis-to-cluster-3`
+    - 重新连接：`/usr/redis/src/redis-cli -c`
+    - 查看集群情况：`cluster nodes`
+    - 获取值：`get myKey`
+    - 重新启动 redis-to-cluster-3：`docker unpause redis-to-cluster-3`
+    - 查看集群情况：`cluster nodes`
 - Spring Boot 项目 Docker 容器访问 RedisCluster
-	- application.yml 配置的 IP 地址：172.19.0.2 等
-	- docker 容器启动增加 `--net=host` 使用宿主机网络
+    - application.yml 配置的 IP 地址：172.19.0.2 等
+    - docker 容器启动增加 `--net=host` 使用宿主机网络
 
 -------------------------------------------------------------------
 
@@ -572,7 +572,7 @@ M: 5d0fe968559af3035d8d64ab598f2841e5f3a059 172.19.0.7:6379
 ## Redis Info
 
 - 客户端下命令行：`info`
-	- 参考：<http://redisdoc.com/server/info.html>
+    - 参考：<http://redisdoc.com/server/info.html>
 
 ```
 server 部分记录了 Redis 服务器的信息，它包含以下域：
@@ -595,26 +595,46 @@ lru_clock : 以分钟为单位进行自增的时钟，用于 LRU 管理
 connected_clients : 已连接客户端的数量（不包括通过从属服务器连接的客户端）（常用）
 client_longest_output_list : 当前连接的客户端当中，最长的输出列表
 client_longest_input_buf : 当前连接的客户端当中，最大输入缓存
-blocked_clients : 正在等待阻塞命令（BLPOP、BRPOP、BRPOPLPUSH）的客户端的数量
+blocked_clients : 正在等待阻塞命令（BLPOP、BRPOP、BRPOPLPUSH）的客户端的数量（常用）
 
 
-used_memory : 由 Redis 分配器分配的内存总量，以字节（byte）为单位（常用）
-used_memory_human : 以人类可读的格式返回 Redis 分配的内存总量（常用）
-used_memory_rss : 从操作系统的角度，返回 Redis 已分配的内存总量（俗称常驻集大小）。这个值和 top 、 ps 等命令的输出一致。（常用）
-used_memory_peak : Redis 的内存消耗峰值（以字节为单位）（常用）
-used_memory_peak_human : 以人类可读的格式返回 Redis 的内存消耗最高峰值（常用）
+used_memory_human :Redis此时分配的内存总量(byte)，包含redis进程内部的开销和数据占用的内存，也包括了客户端的查询缓冲区，随着缓冲区内存使用的增长，used_memory的值也会变大（常用，常用）
+    如果发现 used_memory 比 maxmemory 大得多，就证明客户端查询缓冲区出现了异常
+    如果 used_memory – slave_output_buffer_size – mem_aof_buffer 的值是否超过了 maxmemory，就会发生 OOM 异常
+used_memory_rss_human：向操作系统申请的内存大小（即常驻内存）这个值和 top 、 ps 等命令的输出一致，一般比 used_memory_human 值大。（常用，常用）
+used_memory_peak_human : Redis 的内存消耗峰值（常用，常用）
+used_memory_peak_perc：used_memory_peak / used_memory 的百分比，峰值内存占用的内存百分比（常用）
 used_memory_lua : Lua 引擎所使用的内存大小（以字节为单位）（常用）
-mem_fragmentation_ratio : used_memory_rss 和 used_memory 之间的比率
-mem_allocator : 在编译时指定的， Redis 所使用的内存分配器。可以是 libc 、 jemalloc 或者 tcmalloc 。
-used_memory_rss_human：系统给redis分配的内存（即常驻内存）（常用）
-used_memory_lua_human : 系统内存大小（常用）
+used_memory_dataset：数据占用的内存大小(used_memory - used_memory_overhead)（常用）
+used_memory_dataset_perc：数据占用的内存大小百分比，数据占用的内存大小百分比,(used_memory_dataset / (used_memory - used_memory_startup))*100%（常用）
+used_memory_overhead: Redis维护数据集的内部机制所需的内存开销,包括所有客户端输出缓冲区、查询缓冲区、AOF重写缓冲区和主从复制的backlog
+maxmemory_human：最大内存限制，设置为 0 表示不限制，如果没有开启 AOF，可以设置为 0，如果开启了 AOF 可以设置为机子内存的 45% 大小（常用，常用）
+maxmemory_policy: 内存管理策略（常用，常用）
+mem_fragmentation_ratio : 碎片率(used_memory_rss / used_memory),正常(1,1.6),大于比例说明内存碎片严重，需要进行内存整理（常用，常用）
 expired_keys : 过期的的键数量（常用）
-evicted_keys : 因为最大内存容量限制而被驱逐（evict）的键数量（常用）
-used_cpu_sys_children : Redis 后台进程在 内核态 消耗的 CPU（常用）
-used_cpu_user_children : Redis 后台进程在 用户态 消耗的 CPU（常用）
-
+mem_aof_buffer: AOF使用内存
+evicted_keys : 因为最大内存容量限制而被驱逐（evict）的键数量（常用，常用）
 total_connections_received: 服务器已接受过的连接总数（常用）
 total_commands_processed: 服务器已处理的命令总数（常用）
+
+请注意：
+maxmemory_human 定义了的最大大小(即 used_memory_dataset 的上限)，而 used_memory_rss_human 是从操作系统的角度分配给 Redis 的实际内存。 
+used_memory_rss_human 包括数据、服务器的所有开销(例如数据结构、缓冲区等)，并且可能是碎片化的。
+这意味着当您的 used_memory_dataset 达到 maxmemory_human 时，used_memory_rss_human 可能会明显大于 maxmemory_human
+
+
+used_cpu_user：redis进程指令在用户态所消耗的cpu时间，该值为累计值（秒）
+used_cpu_sys:redis进程指令在核心态所消耗的cpu时间，该值为累计值（秒）
+used_cpu_sys_children:redis后台进程指令在用户态所消耗的cpu时间，该值为累计值（秒）
+used_cpu_sys_children：redis后台进程指令在核心态所消耗的cpu时间，该值为累计值（秒）
+对于Redis的开发者（社区贡献者），可以通过这个信息来看到Redis运行情况，即启动一段时间或者执行某个命令一段时间之后分别耗费在内核或者用户态的时间。
+user_cpu_sys 和user_cpu_sys_children的区别比较明显，一个是Redis主进程消耗，一个是后台进程消耗（后台包括RDB文件的消耗，master，slave同步产生的消耗等等）
+
+
+模拟压测：
+bin/redis-benchmark -q -d 1024000 -n 10000 -r 2500 -t set
+往Redis中导入大量的数据，之后你再用INFO MEMORY命令查看内存信息，会发现used_memory_human的值增大，甚至比maxmemory大（前提你的maxmemory不是设置为0）。之后再继续往Redis里写数据，发生OOM问题，Redis进程被杀死（可以在redis-server进程日志中看到输出“killed”）。
+
 ```
 
 
@@ -623,8 +643,8 @@ total_commands_processed: 服务器已处理的命令总数（常用）
 - 默认安装包下就自带
 - 官网文档：<https://redis.io/topics/benchmarks>
 - 运行：`redis-benchmark -q -n 100000`
-	- `-q` 表示 quiet 安静执行，结束后直接输出结果即可
-	- `-n 100000` 请求 10 万次
+    - `-q` 表示 quiet 安静执行，结束后直接输出结果即可
+    - `-n 100000` 请求 10 万次
 
 ```
 PING_INLINE: 62189.05 requests per second
