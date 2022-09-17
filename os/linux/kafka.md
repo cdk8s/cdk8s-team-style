@@ -803,6 +803,19 @@ bin/kafka-reassign-partitions.sh --bootstrap-server header1:9092,worker1:9092,wo
 
 ----------------------------------------------------------------------------------------------
 
+## 增加分区数（只能增加不能减少）
+
+```
+单个 topic 扩容：
+bin/kafka-topics.sh --bootstrap-server header1:9092,worker1:9092,worker2:9092 --topic myTopicName3 --alter --partitions 6
+
+匹配符方式扩容：
+bin/kafka-topics.sh --bootstrap-server header1:9092,worker1:9092,worker2:9092 --topic ".*?" --alter --partitions 6
+```
+
+
+----------------------------------------------------------------------------------------------
+
 ## 消息不丢失保证
 
 ```
