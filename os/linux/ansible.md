@@ -16,7 +16,7 @@
 
 - 官网说明：<https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html>
 - CentOS：`sudo yum install -y ansible`
-	- 查看版本：`ansible --version`
+    - 查看版本：`ansible --version`
 - 注意：默认用的是 python2 的环境。如果你是 python3：
 ```
 pip3 install ansible
@@ -44,9 +44,9 @@ ansible.cfg (脚本所在当前目录下)
 #### 配置远程主机地址 (Ansible 称这些地址为 Inventory)
 
 - 假设我有 3 台机子：
-	- 192.168.0.223
-	- 192.168.0.70
-	- 192.168.0.103
+    - 192.168.0.223
+    - 192.168.0.70
+    - 192.168.0.103
 - 官网对此的配置说明：<https://docs.ansible.com/ansible/latest/user_guide/intro_inventory.html#hosts-and-groups>
 
 ###### 给这三台机子设置免密登录的情况（一般推荐方式）
@@ -287,7 +287,7 @@ PLAY RECAP *********************************************************************
 
 
 
-#### 部署 JDK 
+#### 部署 JDK
 
 - 创建脚本文件：`vim /opt/jdk8-playbook.yml`
 
@@ -326,7 +326,7 @@ PLAY RECAP *********************************************************************
 
 
 
-#### 部署 Hadoop 集群 
+#### 部署 Hadoop 集群
 
 - 创建脚本文件：`vim /opt/hadoop-playbook.yml`
 - 刚学 Ansible，不好动配置文件，所以就只保留环境部分的设置，其他部分自行手工~
@@ -421,7 +421,7 @@ PLAY RECAP *********************************************************************
 设置环境变量
 - name: set KAFKA_HOME
   blockinfile:
-    path: /root/.bashrc
+    path: "/root/.bashrc"
     marker: "#{mark} kafka ENV"
     block: |
       export KAFKA_HOME={{ home_path }}
@@ -431,16 +431,16 @@ PLAY RECAP *********************************************************************
 
 
 暂停执行
-- name: Pause for wait start
+- name: Pause 30 seconds for wait start
   pause:
     seconds: 10
 
 
 打印 shell 脚本执行输出到终端的结果信息出来
 tasks:
-- shell: "sh {{bin_path}}/zkServer.sh status"
-  register: printresult
-- debug: msg={{ printresult.stdout }}
+  - shell: "sh {{bin_path}}/zkServer.sh status"
+    register: printresult
+  - debug: msg={{ printresult.stdout }}
 
 
 yum 卸载
@@ -481,7 +481,7 @@ yum 安装并监控执行结果
   args:
     chdir: /opt/software/centos7.9-nginx
   with_items:
-     - yum localinstall -y *.rpm
+     - "yum localinstall -y *.rpm"
 
 
 创建目录
@@ -490,15 +490,15 @@ yum 安装并监控执行结果
     path: "{{ item }}"
     state: directory
   with_items:
-    - /usr/local/redis/config
-    - /home/data/redis/log
-    - /home/data/redis/dir
+    - "/usr/local/redis/config"
+    - "/home/data/redis/log"
+    - "/home/data/redis/dir"
 
 
 创建文件
 - name: create json file
   file:
-    path=/etc/docker/{{ item }}
+    path="/etc/docker/{{ item }}"
     state=touch
     mode=777
   with_items:
@@ -508,27 +508,27 @@ yum 安装并监控执行结果
 复制文件到指定目录
 - name: copy jdk
   copy:
-    src=/opt/software/jdk-8u261-linux-x64.tar.gz
-    dest=/usr/local
+    src="/opt/software/jdk-8u261-linux-x64.tar.gz"
+    dest="/usr/local"
 
 备份配置文件
 - name: copy config file
   copy:
-    src=/etc/my.cnf
-    dest=/etc/my.cnf.back
+    src="/etc/my.cnf"
+    dest="/etc/my.cnf.back"
 
 
 删除文件
 - name: remove tar.gz file
   file:
-    path: /opt/software/jdk-8u261-linux-x64.tar.gz
+    path: "/opt/software/jdk-8u261-linux-x64.tar.gz"
     state: absent
 
 
 替换某一行
 - name: replace zshrc update
   lineinfile:
-    path: /root/.zshrc
+    path: "/root/.zshrc"
     regexp: '^# DISABLE_AUTO_UPDATE'
     line: DISABLE_AUTO_UPDATE="true"
 
@@ -536,7 +536,7 @@ yum 安装并监控执行结果
 在文件尾部追加内容
 - name: set config
   blockinfile:
-    path: /etc/docker/daemon.json
+    path: "/etc/docker/daemon.json"
     marker: ""
     block: |
       {
@@ -552,17 +552,17 @@ yum 安装并监控执行结果
 常用的复制、删除、创建、添加内容一套方案 start
 - name: copy ntp.conf
   copy:
-    src=/etc/ntp.conf
-    dest=/etc/ntp.conf.back
+    src="/etc/ntp.conf"
+    dest="/etc/ntp.conf.back"
 
 - name: remove ntp.conf
   file:
-    path: /etc/ntp.conf
+    path: "/etc/ntp.conf"
     state: absent
 
 - name: create ntp.conf
   file:
-    path=/etc/{{ item }}
+    path="/etc/{{ item }}"
     state=touch
     mode=777
   with_items:
@@ -570,7 +570,7 @@ yum 安装并监控执行结果
 
 - name: set ntp.conf
   blockinfile:
-    path: /etc/ntp.conf
+    path: "/etc/ntp.conf"
     marker: ""
     block: |
       ntp1.aliyun.com
