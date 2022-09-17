@@ -727,6 +727,82 @@ kafka中的数据是有序的吗
 
 ----------------------------------------------------------------------------------------------
 
+## 扩容集群
+
+```
+官网链接：https://kafka.apache.org/documentation/#basic_ops_cluster_expansion
+找到：Expanding your cluster 相关字眼
+
+向Kafka集群添加服务器是很简单的，分配给它们一个唯一的broker id并且在新服务器上启动Kafka服务器就可以了。但是这些新服务器却不能被自动分配数据分区（partition），
+所以除非partition被移动到这些服务器上，否者这些服务器直到新建topic的时候才会发挥作用。所以，通常情况下当你添加服务器到你的集群中时，你都希望迁移一些已经存在的数据到这些服务器上。
+迁移数据的的过程是手动启动的，但是执行是自动化的。内在过程就是Kafka将这些新服务器添加作为它们正在迁移的partition的follower并且允许它全部复制这个分区中已存在的数据。当新服务器完全复制此分区的内容并加入同步副本时，现有副本之一将删除其分区的数据。
+重新分配分区工具（partition reassignment tool）可以被用来在brokers间移动partition。理想的partition分配会确保跨broker的均匀的数据负载和分区大小。重新分配分区工具并没有自动获取Kafka集群中的数据分布信息并均衡负载的能力。因此，管理员必须清楚要移动哪些topic或partition。
+重新分配分区工具有以下三种互斥的运行模式：
+generate：在这种模式下，给出topic列表和broker列表，分区工具将生成一个候选的分区方案用来将指定topic的所有分区移动到新broker上。这个选项仅仅提供了一种通过给出的topic列表和broker列表生成分区重新分配方案的简便方式。
+execute：这种模式下，分区工具将根据用户提供的重新分区方案开始重新分区（使用 -- --reassignment-json-file ）。这个选项既可以执行管理员手写的重新分区文件也可以执行通过--generate命令生成的重新分区文件。
+verify：这种模式下，分区工具验证上次执行-generate以来被重新分区的所有partition的状态。这些状态可能是successfully completed（成功完成）, failed（失败）或in progress（进行中）
+
+
+使用迁移工具：
+写个json 文件：topics-to-move.json，表示你要把 topic 为 foo1、foo2 迁移
+{"topics": [{"topic": "foo1"}, {"topic": "foo2"}], "version":1 }
+
+具体要迁移到哪几个节点需要这样写，让 kafka 给你做个方案，我要迁移到 broker id 为 5 和 6 的机子上
+bin/kafka-reassign-partitions.sh --bootstrap-server header1:9092,worker1:9092,worker2:9092 --topics-to-move-json-file topics-to-move.json --broker-list "5,6" --generate
+工具可能这样显示：
+
+你当前分区的情况是这样：Current partition replica assignment
+{"version":1, "partitions":[{"topic":"foo1","partition":0,"replicas":[2,1]},
+            {"topic":"foo1","partition":1,"replicas":[1,3]},
+            {"topic":"foo1","partition":2,"replicas":[3,4]},
+            {"topic":"foo2","partition":0,"replicas":[4,2]},
+            {"topic":"foo2","partition":1,"replicas":[2,1]},
+            {"topic":"foo2","partition":2,"replicas":[1,3]}]
+}
+
+迁移完会变成这样：Proposed partition reassignment configuration
+{"version":1,
+"partitions":[{"topic":"foo1","partition":0,"replicas":[6,5]},
+            {"topic":"foo1","partition":1,"replicas":[5,6]},
+            {"topic":"foo1","partition":2,"replicas":[6,5]},
+            {"topic":"foo2","partition":0,"replicas":[5,6]},
+            {"topic":"foo2","partition":1,"replicas":[6,5]},
+            {"topic":"foo2","partition":2,"replicas":[5,6]}]
+}
+
+你确定方案没问题后，那就生成要执行的方案 json 文件：expand-cluster-reassignment.json
+bin/kafka-reassign-partitions.sh --bootstrap-server header1:9092,worker1:9092,worker2:9092 --reassignment-json-file expand-cluster-reassignment.json --execute
+
+
+有了 expand-cluster-reassignment.json 文件，我们开始迁移：
+bin/kafka-reassign-partitions.sh --bootstrap-server header1:9092,worker1:9092,worker2:9092 --reassignment-json-file expand-cluster-reassignment.json --verify
+ 
+也可以自己定义迁移方案，具体就看官网说明，一般没必要。
+```
+
+
+----------------------------------------------------------------------------------------------
+
+## 增加副本数
+
+```
+官网链接：https://kafka.apache.org/documentation/#basic_ops_cluster_expansion
+找到：Increasing replication factor 相关字眼
+
+
+穿件文件：increase-replication-factor.json，表示希望 foo 的 topic 可以增加副本到 broker id 为 5、6、7 的机子上
+{"version":1, "partitions":[{"topic":"foo","partition":0,"replicas":[5,6,7]}]}
+
+执行这个看下kafka 推荐给的方案，可能它认为你主要拷贝到 5 机子上就行了，你确定方案没问题后，那就生成要执行的方案 json 文件：increase-replication-factor.json
+bin/kafka-reassign-partitions.sh --bootstrap-server header1:9092,worker1:9092,worker2:9092 --reassignment-json-file increase-replication-factor.json --execute
+
+最终执行 increase-replication-factor.json 方案
+bin/kafka-reassign-partitions.sh --bootstrap-server header1:9092,worker1:9092,worker2:9092 --reassignment-json-file increase-replication-factor.json --verify
+```
+
+
+----------------------------------------------------------------------------------------------
+
 ## 消息不丢失保证
 
 ```
