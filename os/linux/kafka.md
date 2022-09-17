@@ -35,11 +35,13 @@
     - 磁盘数据持久化，消费者 down 后，重新 up 的时候可以继续接收前面未接收到的消息
     - 支持流数据处理，常见于大数据
 - 核心概念：
+    - 在kafka中，每个主题可以有多个分区，每个分区又可以有多个副本。这多个副本中，只有一个是leader，而其他的都是follower副本。仅有leader副本可以对外提供服务。多个follower副本通常存放在和leader副本不同的broker中。通过这样的机制实现了高可用，当某台机器挂掉后，其他follower副本也能迅速”转正“，开始对外提供服务
     - Producer：生产者（业务系统），负责发布消息到 broker
     - Consumer：消费者（业务系统），向 broker 读取消息的客户端
     - Broker：可以理解为：存放消息的管道（kafka 软件节点本身）
     - Topic：可以理解为：消息主题、消息标签、消息通道、消息队列（物理上不同 Topic 的消息分开存储，根据 Partition 参数决定一个 Topic 的消息保存于一个或多个 broker 上。作为使用者，不用关心 Topic 实际物理存储地方。）
     - Partition：是物理上的概念，每个 Topic 包含一个或多个 Partition。一般有几个 Broker，填写分区最好是等于大于节点值。分区目的主要是数据分片，解决水平扩展、高吞吐量。当 Producer 生产消息的时候，消息会被算法计算后分配到对应的分区，Consumer 读取的时候算法也会帮我们找到消息所在分区，这是内部实现的，应用层面不用管。
+      - 分区越多，所需要消耗的资源就越多。甚至如果足够大的时候，还会触发到操作系统的一些参数限制。比如linux中的文件描述符限制，一般在创建线程，创建socket，打开文件的场景下，linux默认的文件描述符参数，只有1024，超过则会报错。
     - Replication-factor：副本。假设有 3 个 Broker 的情况下，当副本为 3 的时候每个 Partition 会在每个 Broker 都会存有一份，目的主要是容错。
         - 其中有一个 Leader。
         - 如果你只有一个 Broker，但是创建 Topic 的时候指定 Replication-factor 为 3，则会报错
@@ -613,45 +615,90 @@ sh bin/kafkaUI.sh stop
 
 ----------------------------------------------------------------------------------------------
 
+## Kafka 常见问题
 
 ```
-- hosts: header1
-  remote_user: root
-  tasks:
-    - debug:
-        msg:
-          - "启动命令：sh /usr/local/kafka_2.11-2.4.1/bin/kafka-server-start.sh -daemon /usr/local/kafka_2.11-2.4.1/config/server.properties"
-          - "停止命令：sh /usr/local/kafka_2.11-2.4.1/bin/kafka-server-stop.sh"
-          - "查看所有topic：sh /usr/local/kafka_2.11-2.4.1/bin/kafka-topics.sh --zookeeper header1:2181,worker1:2181,worker2:2181/kafka --list"
-          - "查看指定topic：sh /usr/local/kafka_2.11-2.4.1/bin/kafka-topics.sh --zookeeper header1:2181,worker1:2181,worker2:2181/kafka --describe --topic myTopicName"
-          - "创建指定topic，topic 命名不能有下划线、点：sh /usr/local/kafka_2.11-2.4.1/bin/kafka-topics.sh --zookeeper header1:2181,worker1:2181,worker2:2181/kafka --create --replication-factor 3 --partitions 2 --topic myTopicName"
-          - "删除指定topic：sh /usr/local/kafka_2.11-2.4.1/bin/kafka-topics.sh --zookeeper header1:2181,worker1:2181,worker2:2181/kafka --delete --topic myTopicName"
-          - "发送消息：sh /usr/local/kafka_2.11-2.4.1/bin/kafka-console-producer.sh --broker-list header1:9092,worker1:9092,worker2:9092 --topic myTopicName"
-          - "接收消息，只接收当前的：sh /usr/local/kafka_2.11-2.4.1/bin/kafka-console-consumer.sh --bootstrap-server header1:9092,worker1:9092,worker2:9092 --topic myTopicName"
-          - "接收消息，包括前面的消息：sh /usr/local/kafka_2.11-2.4.1/bin/kafka-console-consumer.sh --bootstrap-server header1:9092,worker1:9092,worker2:9092 --from-beginning --topic myTopicName"
-          - "修改分区数：sh /usr/local/kafka_2.11-2.4.1/bin/kafka-topics.sh --zookeeper header1:2181,worker1:2181,worker2:2181/kafka --alter --topic myTopicName --partitions 6"
-    - debug:
-        msg:
-          - "查看当前消费者列表：sh /usr/local/kafka_2.11-2.4.1/bin/kafka-consumer-groups.sh --bootstrap-server header1:9092,worker1:9092,worker2:9092 --list"
-          - "根据消费者名查看当前消费情况：sh /usr/local/kafka_2.11-2.4.1/bin/kafka-consumer-groups.sh --bootstrap-server header1:9092,worker1:9092,worker2:9092 --describe --group 前面的查询出的消费者"
-    - debug:
-        msg:
-          - "生产者压力测试：sh /usr/local/kafka_2.11-2.4.1/bin/kafka-producer-perf-test.sh  --topic myTopicName --record-size 100 --num-records 100000 --throughput -1 --producer-props bootstrap.servers=header1:9092,worker1:9092,worker2:9092"
-          - "参数：record-size是一条信息有多大，单位是字节"
-          - "参数：num-records是总共发送多少条信息。"
-          - "参数：throughput 是每秒多少条信息，设成-1，表示不限流，可测出生产者最大吞吐量"
-          - "测试结果：100000 records sent, 92764.378479 records/sec (8.85 MB/sec), 161.54 ms avg latency, 688.00 ms max latency, 15 ms 50th, 626 ms 95th, 678 ms 99th, 687 ms 99.9th"
-          - "测试结果表示：一共写入10w条消息，吞吐量为 8.85 MB/sec，每次写入的平均延迟为 161.54 ms 毫秒，最大的延迟为 688.00 毫秒"
-    - debug:
-        msg:
-          - "消费者压力测试：sh /usr/local/kafka_2.11-2.4.1/bin/kafka-consumer-perf-test.sh --broker-list header1:9092,worker1:9092,worker2:9092 --topic myTopicName --fetch-size 10000 --messages 100000 --threads 1"
-          - "参数：fetch-size 指定每次fetch的数据的大小"
-          - "参数：messages 总共要消费的消息个数"
-          - "测试结果：2021-07-10 01:37:13:088, 2021-07-10 01:37:13:601, 9.5436, 18.6036, 100075, 195077.9727, 1625852233293, -1625852232780, -0.0000, -0.0001"
-          - "测试结果表示：开始测试时间，测试结束数据，共消费数据 9.5436MB，吞吐量 18.6036MB/s，共消费 100075 条，平均每秒消费 195077.9727 条"
-    - debug:
-        msg: "kafka 监控工具：https://www.kafka-eagle.org/index.html"
+Broker参数配置(server.properties)
+kafka日志保存时间
+log.retention.hours=72
+默认为7天,生产环境建议3天.
+
+日志清理保存的策略只有delete和compact两种
+log.cleanup.policy=delete
+#启用删除策略
+log.cleanup.policy=compact
+#启用压缩策略
+1.delete(直接删除过期数据)
+2.compact
+删除方式：对于相同key的不同数据，只保留最后一条。
+在实时计算下，一些数据可能经过了一天的聚合，要重算需要花费很多的时间。此时使用压缩策略，可以直接从kafka中读取。
+
+
+2.replica副本
+default.replication.factor=1 
+#设置副本1个
+ 
+3.网络通信延时
+replica.socket.timeout.ms=30000
+#当集群之间的网络不稳定时,调大该参数
+replica.lag.time.max.ms=600000
+#follower落后leader10min，会踢出ISR集合。
+#如果网络不好,或者kafka压力较大,会出现节点从ISR到OSR再到ISR,然后会频繁复制副本,导致集群压力更大,此时可以调大该参数.
+
+
+Producer优化(producer.properties)
+
+compression.type=none  
+#可选：gzip snappy lz4
+#默认发送不进行压缩，推荐配置一种合适的压缩算法，可以大幅度的减缓网络压力和Broker的存储压力
+
+
+kafka内存调整(kafka-server-start.sh)
+export KAFAK_HEAP_OPTS="-Xms4g -Xmx4g"
+
+
+
+kafka对于消息体大小默认为单条最大值为1M，但生产中，常常出现一条消息大于1M，如果不对kafka进行配置，则会出现生产者无法将消息推送到kafka或消费者无法去消费kafka里面的数据，这时我们就要对kafka进行以下配置：server.properties
+
+replica.fetch.max.bytes: 1048576  
+#broker可复制的消息的最大字节数, 默认为1M
+message.max.bytes: 1000012   
+#kafka 会接收单个消息size的最大限制， 默认为1M左右
+#注意：message.max.bytes必须小于等于replica.fetch.max.bytes，
+#     否则就会导致replica之间数据同步失败
+
+
+kafka的硬盘大小
+每天的数据量100g*2个副本*3天/70%=600g/0.7=900g
+
+
+5.kafka中数据量计算
+每天总数据量100g,每天产生1亿条日志,10000万/24/60/60=1150条/每秒
+平均每秒:1150条
+低谷每秒:50条
+高峰每秒:1150*(2-20倍)=2300条-23000条(取10000条)
+每条日志大小:0.5-2k(取1k)
+每秒多少数据量:2m-20m 10000*1k=10m
+
+如果是kafka消费能力不足,可以增加topic的分区数,并且提升消费者组的消费者数量(消费者数=分区数).(两者缺一不可).
+
+
+
+kafka中的数据是有序的吗
+单分区:分区内有序
+多分区:各分区内有序,分区间无序.
+
+
+
+如何保证数据有序
+1.问题
+我们创建了一个topic,有三个partition,生产者在写的时候,其实可以指定一个key,比如说指定了某个订单id,那么这个订单相关的数据一定会被分发到一个partition去,而且这个partition中的数据一定是有序的.在消费者从partition取数据的时候也是有序的,一直到这里顺序都是对的.
+但是我们生产中因为单线程处理比较耗时.所以有多个线程消费一个消费者拉出来的数据.这样顺序可能就乱了.我们可以启动对应的多个线程，每个线程一个list,然后具有相同key的数据都到同一个内存queue list
+
 ```
+
+
+----------------------------------------------------------------------------------------------
 
 - Spring Boot 依赖：
 
