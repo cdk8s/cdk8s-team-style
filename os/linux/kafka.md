@@ -458,6 +458,7 @@ wurstmeister/kafka:latest
 #### EFAK（以前叫做 Kafka Eagle）
 
 - 官网：<https://github.com/smartloli/EFAK>
+- 202209 最新版本为：3.0.1 并不好用，不推荐升级
 - Kafka 集群较小的情况下，用单节点部署即可，如果集群较大，可以考虑分布式部署。具体可以参考：[Kafka Eagle分布式模式](https://www.cnblogs.com/smartloli/p/15732794.html)
 
 ```
