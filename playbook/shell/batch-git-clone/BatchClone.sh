@@ -11,7 +11,7 @@ if [ ! -x "$dir" ]; then
 echo "= Creating: project in ${wd} ="
 
 echo "- Running: git clone ${path} -"
-git clone "${path}"
+git clone --depth=1 "${path}"
 echo "= Successfully cloned ${path} ="
 fi
 done
