@@ -125,6 +125,8 @@ docker run -p 3306:3306 \
     - opt 是宿主机的目录，不是 docker 容器里面的目录
 	- 备份：`docker exec cloud-mysql /usr/bin/mysqldump -u root --password=123456 DATABASE_Name > /opt/backup.sql`
 	- 还原：`docker exec -i cloud-mysql /usr/bin/mysql -u root --password=123456 DATABASE_Name < /opt/backup.sql`
+- 最大连接数 max_connections 的合理配置:
+  - 查看历史以来用过的最大连接数: `show global status like 'max_used_connections'` 得到的值 / 0.8 = max_connections 最合适值
 
 -------------------------------------------------------------------
 
