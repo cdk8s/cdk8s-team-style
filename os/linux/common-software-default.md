@@ -54,10 +54,19 @@ sudo apt -f install
 #### VSCode
 
 ```
-新安装的 vscode deb 包默认已经可以在终端中直接使用 code 命令了，功能也更加齐全
-卸载默认的 code-oss，下载最新的
-查看已安装情况：apt list | grep code-oss
-卸载： sudo apt remove --purge code-oss
+官网说明：https://code.visualstudio.com/docs/setup/linux
+
+sudo apt-get install wget gpg
+wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
+sudo install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg
+arm架构：sudo sh -c 'echo "deb [arch=arm64 signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
+x64架构：sudo sh -c 'echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
+rm -f packages.microsoft.gpg
+
+sudo apt install apt-transport-https
+sudo apt update
+sudo apt install code
+
 
 ```
 
@@ -145,8 +154,22 @@ sudo apt install hardinfo
 
 -------------------------------------------------------------------
 
-## YUM 类系统（CentOS）
+## YUM 类系统（CentOS、Fedora、openSUSE）
 
 
 
+#### VSCode
+
+```
+官网说明：https://code.visualstudio.com/docs/setup/linux
+
+sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
+sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
+
+dnf check-update
+sudo dnf install code
+
+yum check-update
+sudo yum install code
+```
 
