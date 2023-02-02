@@ -105,6 +105,7 @@ export JIRA_HOME
 
 #### 运行
 
+- 如果有需求，可以修改端口：`vim /usr/local/atlassian-jira-software-8.20.17-standalone/conf/server.xml`
 - 启动：`sh /usr/local/atlassian-jira-software-8.4.1-standalone/bin/start-jira.sh`
 - 停止：`sh /usr/local/atlassian-jira-software-8.4.1-standalone/bin/stop-jira.sh`
     - `ps -ef | grep java`
