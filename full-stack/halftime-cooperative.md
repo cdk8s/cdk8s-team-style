@@ -80,7 +80,7 @@
 ![img](https://openfilecdn.upupmo.com/upupmo-article/2022/baiduyun.png)
 
 ```
-支持协助开发一个后端、一个 PC 端、一个 Chrome 扩展、一个 H5 端、一个微信小程序（原生）、一个 Android 端（Flutter）、一个 iOS 端（Flutter）、一个桌面端（Electron）
+支持协助开发一个后端、一个 PC 端（Nuxt.js）、一个 Chrome 扩展、一个 H5 端（uni-app）、一个微信小程序（uni-app）、一个 Android 端（Flutter）、一个 iOS 端（Flutter）、一个桌面端（Electron）
 
 除了协助各端产品开发，还有一些其他支持：
 1. 提供各端基础架构、工具链支持
