@@ -49,11 +49,12 @@
 - 跌打损伤
     - 这里假设的是你没有皮外伤的前提，有皮外伤，要先处理皮外伤，并且注意下面这些药是否可以对在皮外伤处进行涂抹（一般是不行）
     - 没有皮外伤的情况下，受伤24小时内用冷敷，24小时后用药膏推拿，让它发热。
+    - 非甾体类抗炎镇痛药是一类不含有甾体结构的解热镇痛抗炎药，它们通过抑制前列腺素合成酶来消除炎症和减轻疼痛1。非甾体类抗炎镇痛药主要包括水杨酸类、乙酰苯胺类、丙酸类、氧芴类、吡唑啉酮类等。
+    - 非甾体类抗炎镇痛药常用于治疗关节炎、滑囊炎、肌腱炎、经期痉挛、扭伤等14。
     - [扶他林](https://search.jd.com/Search?keyword=扶他林&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=ddffefd96a4545818389cda5dc08d178-p_276666007&abt=3)，**缓解肌肉、软组织的扭伤、拉伤、挫伤、劳损、腰背部损伤引起的疼痛以及关节疼痛等**
     - [曼秀雷敦 复方水杨酸甲酯乳膏](https://search.jd.com/Search?keyword=曼秀雷敦%20复方水杨酸甲酯乳膏&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=a0d980109c3b42beab6f4b54d143b14d-p_276666007&abt=3)，**用于缓解扭伤、挫伤、拉伤、劳损等引起的肌肉、筋膜炎，创伤性关节滑膜炎及韧带损伤等引起的局部肿胀和疼痛**
-    - [正红花油](https://search.jd.com/Search?keyword=正红花油&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=d7350f468b5e47f0aef295773d87c122-p_276666007&abt=3)
-    - [跌打万花油](https://search.jd.com/Search?keyword=跌打万花油&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=90c60dfe3fb74d269b365d3c65d93c01-p_276666007&abt=3)
 	- [黄道益](https://search.jd.com/Search?keyword=黄道益&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=6d8cebf5d65a475e86e76db2674b5c16-p_276666007&abt=3)
+	- [氟比洛芬凝胶贴膏](https://search.jd.com/Search?keyword=氟比洛芬凝胶贴膏&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=6d8cebf5d65a475e86e76db2674b5c16-p_276666007&abt=3)
 - 中暑
     - 避免高温作业，用冰冷水降温。
     - 不要喝纯水，可以喝一些补液盐水。
