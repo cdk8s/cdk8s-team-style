@@ -981,16 +981,29 @@ location / {
 
 }
 
+# 保留 /user 路径转发到后台（proxy_pass 有一个斜杠结尾）
 location /user {
-
+    proxy_pass http://127.0.0.1/;
 }
 
+# 保留 /user 路径转发到后台（proxy_pass 没有一个斜杠结尾）
 location = /user {
-
+    proxy_pass http://127.0.0.1;
 }
 
+# 保留 /user 路径转发到后台（proxy_pass 没有一个斜杠结尾）
 location /user/ {
+    proxy_pass http://127.0.0.1;
+}
 
+# 保留 /user 路径转发到后台
+location /user/ {
+    proxy_pass http://127.0.0.1/user/;
+}
+
+# 不保留 /user 路径转发到后台（proxy_pass 多了一个斜杠结尾，并且 location 也要斜杠结尾）
+location /user/ {
+    proxy_pass http://127.0.0.1/;
 }
 
 location ^~ /user/ {
