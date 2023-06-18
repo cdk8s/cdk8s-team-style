@@ -737,8 +737,13 @@ http {
 ## WebSocket 配置
 
 ```
-location ^~ /sculptor-boot-backend/webSocket {
+比如使用的 netty 构建的 websocket，设置了独立的端口 9876
+配置连接地址：wss://api.baidu.com/websocket?token=123456789
+
+location /websocket {
     proxy_pass http://127.0.0.1:9876;
+    
+    # websocket 必须配置以下3个参数
     proxy_http_version 1.1;
     proxy_set_header Upgrade $http_upgrade;
     proxy_set_header Connection "upgrade";
@@ -750,6 +755,8 @@ location ^~ /sculptor-boot-backend/webSocket {
     proxy_set_header X-Forwarded-Proto $scheme;
     proxy_read_timeout 600s;
 }
+
+
 ```
 
 
