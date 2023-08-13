@@ -157,7 +157,7 @@ drwxr-xr-x. 5 root root 4096 3月 26 10:57，其中最前面的 d 表示这是�
 	- `ps -ef|grep --color java`，高亮显示当前系统中有关 java 的所有进程
     - `ps -e -o pid,stime,time,cmd --sort=start_time` 根据启动时间排序显示进程
       - `-e 显示所有进程`
-      - `-o pid,stime,time,cmd: 指定输出的格式，包括进程ID、启动时间、已运行时间、和命令行。`
+      - `-o pid,stime,time,comm,cmd: 指定输出的格式，包括进程ID、启动时间、已运行时间、进程名、执行命令`
       - `--sort=start_time: 根据启动时间进行排序。`
 
 - `kill`
