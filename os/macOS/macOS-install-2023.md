@@ -537,36 +537,61 @@ python3 ./macrecovery.py -b Mac-4B682C642B45593E -m 00000000000000000 download
 
 ```
 Fast Boot（在 boot 栏，有的也叫做 BIOS 栏）
+    B360 主板：BIOS
 Secure Boot Enable（在 boot 栏，或者 Favorites 栏）
+    B360 主板：BIOS > Secure Boot
 Secure Boot Mode 》custom
+    B360 主板：BIOS > Secure Boot
 Security Device Support（在 settings 》Miscellaneous 》Trusted Computing 栏，我要求的）
+    B360 主板：Peripherals > Trusted Computing
 Serial/COM Port（在 settings 》IO Ports 》Super IO 栏，有的在 Peripherals 栏）
+    B360 主板：Peripherals > Super IO Configuration
 Parallel Port（在 settings 栏，有的没这个）
+    B360 主板：没有这个
 VT-d（在 Tweaker 》Advanced CPU，我们前面 DisableIoMapper 设置了true，所以这个可以不禁用）
-CSM Support（在 boot 栏，或者 Favorites 栏）
+    B360 主板：Chipset
+CSM Support（在 boot 栏或者BIOS，或者 Favorites 栏）
+    B360 主板：BIOS
 Thunderbolt（雷电接口，比较新的机子有）
 Platform Power Management（在 settings 栏）
+    B360 主板：Power
 Intel SGX(SW Guard Extensions)（在 settings 》Miscellaneous 栏）
-Intel Platform Trust(PPT)（在 settings 》Miscellaneous 栏）
+    B360 主板：Peripherals
+Intel Platform Trust(PPT、PTT)（在 settings 》Miscellaneous 栏）
+    B360 主板：Peripherals
 CFG Lock （在 boot 栏，有的主板没有这个选项，这个跟文章上部分配置中的 AppleXcpmCfgLock 参数有关，具体看上面说明）
+    B360 主板：BIOS
 ```
 
 #### 9.2 以下都要开启（Enable）
 
 ```
 VT-x（在 Chipset 栏，有的叫做 intel Virtualization Technology，有的没有）
+    B360 主板：没有这个
 Extreme Memory Profile（有的叫做 X.M.P，设置为 enable 或者 profile1，表示对内存不锁频）
+    B360 主板：M.I.T 》Advanced Frequency Settings
 Intel Turbo Boost Technology（在 tweaker 栏，有的叫做M.I.T）
-Above 4G decoding（在 settings 》IO Ports 栏，注意对于 2020 之后的一些主板，当你开启 Above 4G decoding 之后，Resizable BAR Support 应该设置为 Disabled，比如 z490 系列的主板）
+    B360 主板：M.I.T 》Advanced Frequency Settings 》Advanced CPU Core Settings 》Hyper-Threading Technology
 Hyper-Threading（在 M.I.T 》Advanced Frequency Settings 》Advanced CPU Core Settings 》Hyper-Threading Technology。有的主板是 Tweaker 》Advance CPU Settings）
+    B360 主板：M.I.T 》Advanced Frequency Settings 》Advanced CPU Core Settings 》Hyper-Threading Technology
+Above 4G decoding（在 settings 》IO Ports 栏，注意对于 2020 之后的一些主板，当你开启 Above 4G decoding 之后，Resizable BAR Support 应该设置为 Disabled，比如 z490 系列的主板）
+    B360 主板：Chipset
 Execute Disable Bit（大多数主板没有这个）
 EHCI/XHCI Hand-off（在 settings 栏，USB 选项里面）
+    B360 主板：Peripherals > USB Configuration
 OS type 设置为 Windows 8.1/10 UEFI Mode（在 boot 栏，有的不叫做这个，如果有一些 win10，win7 可以选择的话那就直接选择 win10 也算.如果是有 WINDOWS 8.1/10 WHQL 就直接选这个带 WHQL 的）
-Internal Graphics（在 settings 》IO Ports 栏，有的在 Chipset，这个是核显要启动）
+    B360 主板：BIOS
+Internal Graphics（在 settings 》IO Ports 栏，有的在 Chipset，这个是核显要启动，配置完要保存重启电脑后下面的选项才可以看到 DVMT Total Memory Size、DVMT Pre-Allocated）
+    B360 主板：Chipset
 DVMT Pre-Allocated(iGPU Memory) 设置为 256M（在 settings 栏，有的没有，原因看下面那段文字）
+    B360 主板：Chipset
 SATA Controllerl（在 boot 栏，或者 Favorites 栏）
+    B360 主板：Peripherals > SATA And RST Configuration
 SATA Mode: AHCI（在 settings 栏）
+    B360 主板：Peripherals > SATA And RST Configuration
 Security Option 设置为 System（在 Boot 栏）
+    B360 主板：BIOS
+
 
 
 其中在 BIOS 中加载核显最为复杂，步骤较多，在这里进行强调。
