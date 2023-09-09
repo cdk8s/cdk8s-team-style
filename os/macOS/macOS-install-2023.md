@@ -104,7 +104,7 @@ CPU：Intel i9-10900k、Intel i7-8700k、Intel i7-8700
   - 官网是先格式化优盘，然后下载镜像，然后在优盘中修改 EFI 文件，我觉得不对。应该是现在本地硬盘上修改 EFI 再放入优盘。所以我顺序调换了一下。
 - 准备 Python3 环境
   - 下载地址：<https://www.python.org/downloads/>
-  - 安装的时候记得勾选添加系统变量到 path
+  - 安装的时候记得勾选添加系统变量到 path：Add Python to environment variables
 - 准备 ProperTree 工具
   - 下载 ProperTree 编辑器软件（官网要求不要使用 OpenCore Configurator）
   - 下载地址：<https://github.com/corpnewt/ProperTree>
