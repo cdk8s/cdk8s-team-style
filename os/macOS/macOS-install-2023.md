@@ -160,7 +160,7 @@ CPU：Intel i9-10900k、Intel i7-8700k、Intel i7-8700
 - 后面补充：增加显卡温度监控
 - 因为 从 Radeon VII 开始，Apple 停止直接查看显卡温度的功能，我们需要加载额外的第三方 kexts 来显示温度。
 - RadeonSensor 就是目前最流行的项目：<https://github.com/aluveitie/RadeonSensor>
-- 下载最新的 Release 版本：<https://github.com/aluveitie/RadeonSensor/tags>
+- 下载最新的 Release 版本（点击 Downloads 按钮）：<https://github.com/aluveitie/RadeonSensor/tags>
 
 ```
 把下载到的 kexts 文件放到 /EFI/OC/Kexts 目录下
@@ -227,6 +227,26 @@ RadeonSensor.kext
 #### 5.11 USB 驱动定制（必须，很繁琐，需要认真看多次）
 
 - 2023-09 更新，现在官网有新的工具和适配方法：<https://dortania.github.io/OpenCore-Install-Guide/ktext.html#usb>
+
+```
+从 Release 下载 Windows.exe 工具
+运行后会出现一个命令行交互界面，选择：Discover Ports，然后不要关掉终端，
+找个 USB 优盘，插入到各个接口中，插入后 5 秒不要动，等它识别到再拔出来换下一个，直到所有端口识别到。
+如果是 typec 接口，正反面交换插入
+
+全部识别到后，输入 B 回车返回主菜单，接着选择：Select Ports and Build Kext
+输入 K 回车即可导出 UTBMap.kext，一般保存到同级目录
+
+接着再下载 USBToolBox.kext，把这两个都放在 kext 目录下
+
+配置的时候去掉勾选：XhciPortLimit
+
+不错的文章： apple.sqlsec.com
+
+
+```
+
+
 - 2022-05 旧的内容
 ```
 - 先确定自己属于哪个 SMBOIS 平台，大家可以学习我以下方式来确认自己属于哪个值。
