@@ -1,3 +1,16 @@
+```
+如果你主板有这个选项，那主板上的该配置需要设置为 Disable，然后这里的配置 AppleXcpmCfgLock 要设置为 false。
+如果你的主板 BIOS 没有这个选项，那 AppleXcpmCfgLock 要设置为 true。
+Quirks 下的 AppleXcpmCfgLock 是要设置为 true 或者 false 取决于你主板 BIOS 是否有一个 CFG Lock 选项
+
+
+引导类型选择：非可引导
+分区类型：GPT
+目标系统类型：BIOS 或 UEFI
+文件系统：Large FAT32
+簇大小：32K
+```
+
 
 # 黑苹果详细安装教程-基于OpenCore官网指导-UPUPMO（macOS Monterey）
 
