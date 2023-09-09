@@ -516,6 +516,7 @@ python3 ./macrecovery.py -b Mac-FFE5EF870D7BA81A -m 00000000000000000 download
 python3 ./macrecovery.py -b Mac-4B682C642B45593E -m 00000000000000000 download
 ```
 
+- **注意**：如果你的电脑只有一个 Python3 那执行命令应该是：python ./macrecovery.py xxxxxxxxx
 - 输入完命令后，打开 Windows 任务管理器，切换到以太网选项，如果看到网络飙升就表示这时候已经开始下载镜像了。
 - 下载好会在 \OpenCore-0.9.4-RELEASE\Utilities\macrecovery 目录下看到新增两个文件：BaseSystem.chunklist、BaseSystem.dmg（614MB）（有的是 RecoveryImage 开头文件）
 - 下载完成后打开 Windows 的磁盘管理工具，
