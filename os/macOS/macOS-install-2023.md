@@ -1,6 +1,16 @@
 
 # 黑苹果详细安装教程-基于OpenCore官网指导-UPUPMO（macOS Monterey）
 
+## 特别声明
+
+```
+如果你是 12、13 代酷睿需要仿冒 10 代酷睿
+可以在 OpenCore 的 config.plist → Kernel → Emulate 添加以下内容即可：
+
+Cpuid1Data：55060A00 00000000 00000000 00000000
+Cpuid1Mask：FFFFFFFF 00000000 00000000 00000000
+```
+
 
 ## 文章大纲
 
@@ -51,6 +61,7 @@
 CPU：Intel i9-10900k、Intel i7-8700k、Intel i7-8700
 主板：技嘉 Z490M、技嘉 Z370M、技嘉 B360M
 显卡：AMD RX 6600XT、AMD RX 5600XT（免驱支持最高到 macOS12）、AMD RX 560
+硬盘：推荐尽可能是西部数码 Black 系列，支持 TRIM 比较好
 本文对 Intel 8代、10代验证有效，其他版本未测试，但是理论上 Intel 10 代以前都是有效。
 ```
 
@@ -532,6 +543,8 @@ Intel Platform Trust(PPT、PTT)（在 settings 》Miscellaneous 栏）
     B360 主板：Peripherals
 CFG Lock （在 boot 栏，有的主板没有这个选项，这个跟文章上部分配置中的 AppleXcpmCfgLock 参数有关，具体看上面说明）
     B360 主板：BIOS
+Peripherals > Network Stack Configuration > Network Stack
+Chipset > Wake on LAN Enable
 ```
 
 #### 9.2 以下都要开启（Enable）
@@ -562,7 +575,11 @@ SATA Mode: AHCI（在 settings 栏）
     B360 主板：Peripherals > SATA And RST Configuration
 Security Option 设置为 System（在 Boot 栏）
     B360 主板：BIOS
-
+USB Mass Storege Driver Support（有的主板没有）
+    B360 主板：Peripherals > USB Configuration
+Legacy USB Support（有的主板没有）
+    B360 主板：Peripherals > USB Configuration
+【集成外设】-【预设启动的显示设备】-【IGFX-核显】，有显卡用第一个卡槽值
 
 
 其中在 BIOS 中加载核显最为复杂，步骤较多，在这里进行强调。
@@ -639,7 +656,11 @@ layout 1, 2, 3, 4, 5, 7, 12, 15, 16, 17, 18, 20, 22, 23, 28, 31, 32, 90, 92, 97,
 - 安装 iStat Menus，查看系统资源监控，如CPU、内存、硬盘负载/温度可以展示
 - 安装 CPU-S，测试变频
 - 安装 VideoProc Converter，验证核显加速
-- 安装 Hackintool，在系统下面是否有显示：IGPU、GFX0 信息，如果没有 IGPU 则表示你核显没识别到。
+- 安装 Hackintool，查看以下信息：
+    - 在系统下面是否有显示：IGPU、GFX0 信息，如果没有 IGPU 则表示你核显没识别到。
+    - VDA 解码器是否是：完全支持，是的话才可以硬解
+    - 查看 GFX0 显卡是否支持 硬件加速(QE/CI)，正常值是 Yes
+    - 查看 GFX0 显卡是否支持 Metal，正常值是 Yes
 
 
 #### 11.3 最后：把 U盘 EFI 拷贝到 macOS 系统盘
@@ -712,6 +733,22 @@ layout 1, 2, 3, 4, 5, 7, 12, 15, 16, 17, 18, 20, 22, 23, 28, 31, 32, 90, 92, 97,
 - 可以通过玩大型游戏（比如：海岛大亨）来升温触发显卡转速，看下是否达到 60 度后自动开启转速
 - 可以参考这个视频：<https://www.bilibili.com/video/BV1WT411A72F>
 
+#### 12.8 开启 HiDPI
+
+- 参考文章：<https://apple.sqlsec.com/6-%E5%AE%9E%E7%94%A8%E5%A7%BF%E5%8A%BF/6-5/>
+
+```
+执行这个脚本：https://github.com/xzhih/one-key-hidpi
+国外源
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/xzhih/one-key-hidpi/master/hidpi.sh)"
+
+国内源
+sh -c "$(curl -fsSL https://html.sqlsec.com/hidpi.sh)"
+
+脚本引导的时候选择：(1)开启HIDPI 即可
+开启后，在显示器设置中，分辨率选择的时候右边有一个小的文字：(HiDPI)
+
+```
 
 -------------------------------------------------------------------
 
@@ -744,7 +781,7 @@ layout 1, 2, 3, 4, 5, 7, 12, 15, 16, 17, 18, 20, 22, 23, 28, 31, 32, 90, 92, 97,
 
 ## 特别链接集合
 
-
+- [国光的黑苹果](https://github.com/sqlsec/Hackintosh)
 - Windows 系统中准备的软件
     - 台式机&笔记本USB万能驱动.zip
     - Aida64
