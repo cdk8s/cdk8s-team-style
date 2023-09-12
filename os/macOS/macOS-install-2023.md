@@ -724,7 +724,7 @@ layout 1, 2, 3, 4, 5, 7, 12, 15, 16, 17, 18, 20, 22, 23, 28, 31, 32, 90, 92, 97,
 - 先输入：`pwpolicy -clearaccountpolicies` 进行清除密码长度限制规则
 - 再输入：`passwd` 进行更换密码 ( macOS 12 系统命令为：`security set-keychain-password`)
 - 设置网络 DNS，具体参考：
-- <https://github.com/cdk8s/cdk8s-team-style/blob/master/os/macOS/macOS-basic.md>
+- <https://github.com/cdk8s/cdk8s-team-style/blob/master/os/macOS/macOS-DNS.md>
 - 然后清除 DNS 缓存：`sudo killall -HUP mDNSResponder`
 
 
