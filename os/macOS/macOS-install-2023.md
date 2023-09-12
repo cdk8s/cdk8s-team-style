@@ -1,16 +1,3 @@
-```
-如果你主板有这个选项，那主板上的该配置需要设置为 Disable，然后这里的配置 AppleXcpmCfgLock 要设置为 false。
-如果你的主板 BIOS 没有这个选项，那 AppleXcpmCfgLock 要设置为 true。
-Quirks 下的 AppleXcpmCfgLock 是要设置为 true 或者 false 取决于你主板 BIOS 是否有一个 CFG Lock 选项
-
-
-引导类型选择：非可引导
-分区类型：GPT
-目标系统类型：BIOS 或 UEFI
-文件系统：Large FAT32
-簇大小：32K
-```
-
 
 # 黑苹果详细安装教程-基于OpenCore官网指导-UPUPMO（macOS Monterey）
 
@@ -63,7 +50,7 @@ Quirks 下的 AppleXcpmCfgLock 是要设置为 true 或者 false 取决于你主
 已经试过以下设备：
 CPU：Intel i9-10900k、Intel i7-8700k、Intel i7-8700
 主板：技嘉 Z490M、技嘉 Z370M、技嘉 B360M
-显卡：AMD RX 6600XT、AMD RX 560
+显卡：AMD RX 6600XT、AMD RX 5600XT（免驱支持最高到 macOS12）、AMD RX 560
 本文对 Intel 8代、10代验证有效，其他版本未测试，但是理论上 Intel 10 代以前都是有效。
 ```
 
@@ -124,15 +111,20 @@ CPU：Intel i9-10900k、Intel i7-8700k、Intel i7-8700
   - 下载解压，双击打开 ProperTree.bat
 - 准备 Rufus 工具
   - 下载地址：<https://rufus.ie/zh/>
-  - 准备 8GB 以上优盘，使用 Rufus 格式化为 FAT32 格式，其 Boot 设置 Non bootable
+  - 准备 8GB 以上优盘，使用 Rufus 格式化为 FAT32 格式，其设置如下
+      - 引导类型选择：非可引导
+      - 分区类型：GPT
+      - 目标系统类型：BIOS 或 UEFI
+      - 文件系统：Large FAT32
+      - 簇大小：32K
 
 #### 5.1 下载 OpenCore 并保留基础驱动
 
 - 官网文档：<https://dortania.github.io/OpenCore-Install-Guide/installer-guide/opencore-efi.html>
+- 下载地址：<https://github.com/acidanthera/OpenCorePkg/releases>
 - 在 Windows 系统下，先下载：OpenCore
   - 当前时间 2022-04 最新版为 0.7.9，后续有其他版本也是一样流程不用担心
-  - 当前时间 2023-09 最新版为 0.9.4，后续有其他版本也是一样流程不用担心
-- 下载地址：<https://github.com/acidanthera/OpenCorePkg/releases>
+  - 当前时间 2023-09 最新版为 0.9.5，后续有其他版本也是一样流程不用担心（经过测试 0.9.4 有问题，0.9.5 测试成功）
 - 解压 OpenCore 得到目录 /OpenCore-0.9.4-RELEASE
 - 先把 /OpenCore-0.9.4-RELEASE/IA32 删除掉，这个是给 32 位的机子准备的
 - 进入 /OpenCore-0.9.4-RELEASE/X64 文件夹，把里面的 EFI 文件夹复制电脑桌面，假设我们暂定给它命名为：NEW_EFI，方便区分。
@@ -163,27 +155,19 @@ CPU：Intel i9-10900k、Intel i7-8700k、Intel i7-8700
 - 下载最新的 VirtualSMC（必须，用于模拟苹果的 SMC）
 - 下载地址：<https://github.com/acidanthera/VirtualSMC/releases>
 - 解压后把 Kexts 目录下的
-- VirtualSMC.kext（必须）
-- SMCProcessor.kext 用于监控 CPU 温度（必须）
-- SMCRadeonGPU.kext 用于监控 AMD GPU 温度（必须）
-- SMCSuperIO.kext 用于监控散热器速度（必须）
-- SMCLightSensor.kext 用于环境光检测（台式机不需要）
-- SMCBatteryManager.kext 用于读取电池信息（台式机不需要）
+- 必须（AMD 显卡用户）
+    - VirtualSMC.kext
+    - SMCProcessor.kext 用于监控 CPU 温度
+    - SMCSuperIO.kext 用于监控散热器速度
+    - SMCRadeonGPU.kext 用于监控 AMD GPU 温度（通过 iStat Meuns 看到显卡温度了）
+    - RadeonSensor.kext 用于 AMD GPU 传感器
+- 非必须
+    - SMCLightSensor.kext 用于环境光检测（台式机不需要）
+    - SMCBatteryManager.kext 用于读取电池信息（台式机不需要）
 - 文件复制到 /NEW_EFI/OC/Kexts 目录下
-- 后面补充：增加显卡温度监控
-- 因为 从 Radeon VII 开始，Apple 停止直接查看显卡温度的功能，我们需要加载额外的第三方 kexts 来显示温度。
+- 因为 从 Radeon VII 开始，Apple 停止直接查看显卡温度的功能，我们需要加载额外的 RadeonSensor 来显示温度。
 - RadeonSensor 就是目前最流行的项目：<https://github.com/aluveitie/RadeonSensor>
 - 下载最新的 Release 版本（点击 Downloads 按钮）：<https://github.com/aluveitie/RadeonSensor/tags>
-
-```
-把下载到的 kexts 文件放到 /EFI/OC/Kexts 目录下
-SMCRadeonGPU.kext
-RadeonSensor.kext
-
-使用 OpenCore Configurator 打开 /EFI/OC/config.plist 配置文件，选择左侧：`Kernel-内核设置
-把刚刚的两个 kext 拖动到 `Kernel-内核设置` 的 `添加` 窗口下，确保 Enabled 是勾选状态，然后保存 config.plist 重启电脑
-然后就可以通过 iStat Meuns 看到显卡温度了
-```
 
 
 
@@ -240,27 +224,23 @@ RadeonSensor.kext
 #### 5.11 USB 驱动定制（必须，很繁琐，需要认真看多次）
 
 - 2023-09 更新，现在官网有新的工具和适配方法：<https://dortania.github.io/OpenCore-Install-Guide/ktext.html#usb>
-
+- 步骤：
 ```
-从 Release 下载 Windows.exe 工具
+从 https://github.com/USBToolBox/tool/releases 下载名字为 Windows.exe 文章
 运行后会出现一个命令行交互界面，选择：Discover Ports，然后不要关掉终端，
-找个 USB 优盘，插入到各个接口中，插入后 5 秒不要动，等它识别到再拔出来换下一个，直到所有端口识别到。
-如果是 typec 接口，正反面交换插入
+找个 USB 优盘，插入到各个接口中，插入后 5 秒不要动，等命令行中显示它识别到你插入的优盘，你再拔出来换下一个，直到所有端口识别到。
+如果是 typec 接口，正反面交换插入让它识别。
 
 全部识别到后，输入 B 回车返回主菜单，接着选择：Select Ports and Build Kext
-输入 K 回车即可导出 UTBMap.kext，一般保存到同级目录
+然后根据提示输入 K 回车即可导出 UTBMap.kext，一般会保存到 exe 软件同级目录下
 
-接着再下载 USBToolBox.kext，把这两个都放在 kext 目录下
+接着再下载这里 https://github.com/USBToolBox/kext 下载 USBToolBox.kext，把这两个都放在 kext 目录下
 
-配置的时候去掉勾选：XhciPortLimit
-
-不错的文章： apple.sqlsec.com
-
-
+配置的时候：在 Kernel 分类下的 XhciPortLimit 设置 False（下面也有再次强调，看不懂这句话配置可以直接跳过）
 ```
 
 
-- 2022-05 旧的内容
+- 2022-05 编写的旧手动配置方法
 ```
 - 先确定自己属于哪个 SMBOIS 平台，大家可以学习我以下方式来确认自己属于哪个值。
 - 我的 i7-8700k，属于 coffee-lake 架构：
@@ -323,21 +303,15 @@ RadeonSensor.kext
 
 - 首先要根据自己的 CPU 核心架构类型，选择不同的 SSDTs
 - 官网文档：<https://dortania.github.io/OpenCore-Install-Guide/ktext.html#desktop>
+- SSDT 下载地址：<https://github.com/dortania/Getting-Started-With-ACPI/tree/master/extra-files/compiled>
+    - 下载这个仓库文件，解压后把以下这些 aml 文件复制到 /NEW_EFI/OC/ACPI 目录下
+
 - 我的是 i9-10900k，属于 Comet Lake 架构，根据官网的表格（从左往右看过去），我需要用到：
 ```
 SSDT-PLUG（cpu 电源管理修正）
 SSDT-EC-USBX（usb 修正）
 SSDT-AWAC（时钟修正）
 SSDT-RHUB（官网详情页说：华硕 z490 必须加，Gigabyte and AsRock 不需要）
-```
-
-- 以上 SSDT 下载地址：<https://github.com/dortania/Getting-Started-With-ACPI/tree/master/extra-files/compiled>
-- 下载这个仓库，解压后把以下这些 aml 文件复制到 /NEW_EFI/OC/ACPI 目录下
-
-```
-SSDT-PLUG-DRTNIA.aml
-SSDT-EC-USBX-DESKTOP.aml
-SSDT-AWAC.aml
 ```
 
 - 根据官网文档，另外一台：i7-8700k 是 Coffee Lake 架构需要
@@ -347,7 +321,7 @@ SSDT-EC-USBX
 SSDT-AWAC
 SSDT-PMC（官网详情页说 Z370 的主板不需要，所以刚好省略）
 ```
-- 下载这个仓库，解压后把这些 aml 文件复制到 /NEW_EFI/OC/ACPI 目录下
+
 
 -------------------------------------------------------------------
 
@@ -376,13 +350,15 @@ SSDT-PMC（官网详情页说 Z370 的主板不需要，所以刚好省略）
 #### 7.2 在 Booter 分类
 
 - 根据官网文档里图片红框说明操作（从这里开始就不再贴图了，注意看文字）
+- Quirks 节点上有多个要配置，注意看说明
+    - 其中因为我的 B360M 主板支持配置 Resizable BAR Support，所以 ResizeAppleGpuBars 值要设置为 0
 
 #### 7.3 在 DeviceProperties 分类
 
-- 跟文档图片红框中相比，部分值是缺失的，自己需要添加，要根据图片注意类型等细节
+- 跟文档图片红框中相比，默认的值是缺失的 PciRoot(0x0)/Pci(0x2,0x0) 整个条目的，其下面有3个值都要自己添加上去，自己需要添加，要根据图片注意类型等细节
 - AAPL,ig-platform-id 的值根据文档描述：
 - 如果你是没有独立显卡的，只有核显那值要为：07009B3E 或者 00009B3E，两个只能试着来，默认用第一个值。
-- 如果你是有独立显卡，独立显卡用于驱动显示器，核显用于加速，则需要填写第三个值。
+- 如果你是有独立显卡，独立显卡用于驱动显示器，核显用于加速，则需要填写第三个值 0300913E。
 - 关于音频配置，我的主板如下：
 ```
 技嘉 Z370M 是：Realtek ALC892
@@ -404,13 +380,10 @@ layout 1, 2, 3, 4, 5, 7, 12, 15, 16, 17, 18, 20, 22, 23, 28, 31, 32, 90, 92, 97,
 
 #### 7.4 在 Kernel 分类下
 
-- 首先：需要在 Add 中，要把 Lilu.kext 放在第一个节点，VirtualSMC.kext 放在第二个节点，因为后面的驱动是依赖 Lilu 这个基础包的，Add 下其他细节就不用改了
-- 因为我们要开启主板的 VT-D，所以 DisableIoMapper 设置为 true
-- 稍后 BIOS 中就不需要禁用 VT-D 了
-- Quirks 下的 AppleXcpmCfgLock 是要设置为 true 或者 false 取决于你主板 BIOS 是否有一个 CFG Lock 选项。
-- 如果你主板有这个选项，那主板上的该配置需要设置为 Disable，然后这里的配置 AppleXcpmCfgLock 要设置为 false。
-- 如果你的主板 BIOS 没有这个选项，那 AppleXcpmCfgLock 要设置为 true。
-- XhciPortLimit：解除15个端口限制，确认USB端口完美定制的可以为false。一般为true。有USB定制的为false，因为我们定制了，所以是false
+- **首先：需要在 Add 中，要把 Lilu.kext 放在第一个节点，VirtualSMC.kext 放在第二个节点，因为后面的驱动是依赖 Lilu 这个基础包的**
+- 在 Quirks 节点上，因为我们在主板上禁用 CFG-Lock，所以 AppleXcpmCfgLock 设置为 False。如果你的主板 BIOS 没有这个选项，那 AppleXcpmCfgLock 要设置为 true。
+- 因为我们要开启主板的 VT-D，所以 DisableIoMapper 设置为 true，稍后 BIOS 中就不需要禁用 VT-D 了
+- XhciPortLimit：解除15个端口限制，确认USB端口完美定制的可以为false，或者要安装的系统大于macOS11.3。有USB定制的为false
 
 #### 7.5 在 Misc 分类下
 
@@ -418,6 +391,16 @@ layout 1, 2, 3, 4, 5, 7, 12, 15, 16, 17, 18, 20, 22, 23, 28, 31, 32, 90, 92, 97,
 - Vault 的值是字符串值 Optional，需要自己输入
 - 有一个比较特别的设置：<https://dortania.github.io/OpenCore-Install-Guide/config.plist/security.html#misc>
   - 推荐 `Misc -> Security -> SecureBootModel` 设置为 `Default`
+- 默认 OpenCore 的引导界面只有终端英文交互，不是很直观，所以我们需要给它加上 GUI
+- 指导：<https://dortania.github.io/OpenCore-Post-Install/cosmetic/gui.html>
+- 下载 Resources 目录：<https://github.com/acidanthera/OcBinaryData>
+- 把解压后的 Resources 目录覆盖 /NEW_EFI/OC/Resources  目录，
+- 然后还有几个 config 参数需要改，根据文档继续修改
+```
+Misc -> Boot -> PickerMode: External
+Misc -> Boot -> PickerAttributes: 17
+Misc -> Boot -> PickerVariant 建议为 Acidanthera\Syrah 表示使用默认主题
+```
 
 #### 7.6 在 NVRAM 分类下
 
@@ -465,18 +448,8 @@ Apple ROM 的值填写在配置文件上的： ROM
 - 最好拖动 HfsPlus.efi 节点在第一个，OpenRuntime.efi 排第二个
 
 
-#### 7.9 配置 GUI 引导界面（这里我们不考虑启动音效，可减少一些资源）
+#### 最后
 
-- 默认 OpenCore 的引导界面只有终端英文交互，不是很直观，所以我们需要给它加上 GUI
-- 指导：<https://dortania.github.io/OpenCore-Post-Install/cosmetic/gui.html>
-- 下载 Resources 目录：<https://github.com/acidanthera/OcBinaryData>
-- 把解压后的 Resources 目录覆盖 /NEW_EFI/OC/Resources  目录，
-- 然后还有几个 config 参数需要改，根据文档继续修改
-```
-Misc -> Boot -> PickerMode: External
-Misc -> Boot -> PickerAttributes: 17
-Misc -> Boot -> PickerVariant 建议为 Acidanthera\Syrah 表示使用默认主题
-```
 - 最后，保存配置文件的修改：File > Save
 - 到了这一步，算是所有配置文件调整好了
 
@@ -488,8 +461,7 @@ Misc -> Boot -> PickerVariant 建议为 Acidanthera\Syrah 表示使用默认主�
 
 ## 8. 制作启动盘（苹果官网恢复镜像）
 
-- 官网说明：
-- <https://dortania.github.io/OpenCore-Install-Guide/installer-guide/windows-install.html#downloading-macos>
+- 官网说明：<https://dortania.github.io/OpenCore-Install-Guide/installer-guide/windows-install.html#downloading-macos>
 - 进入一开始下载的 OpenCore 目录下：/OpenCore-0.9.4-RELEASE/Utilities/macrecovery/
 - 在 cmd 中 cd 到这个目录下，然后根据系统需求，执行如下命令（**注意注意注意：这几个值可能会变，请按上面官网地址查看最新文档**）
 - 这个命令表示会下载苹果恢复系统基础镜像
@@ -519,9 +491,7 @@ python3 ./macrecovery.py -b Mac-4B682C642B45593E -m 00000000000000000 download
 - **注意**：如果你的电脑只有一个 Python3 那执行命令应该是：python ./macrecovery.py xxxxxxxxx
 - 输入完命令后，打开 Windows 任务管理器，切换到以太网选项，如果看到网络飙升就表示这时候已经开始下载镜像了。
 - 下载好会在 \OpenCore-0.9.4-RELEASE\Utilities\macrecovery 目录下看到新增两个文件：BaseSystem.chunklist、BaseSystem.dmg（614MB）（有的是 RecoveryImage 开头文件）
-- 下载完成后打开 Windows 的磁盘管理工具，
-- 使用 Rufus 格式化我们的 U盘 为 FAT32 格式，（也可以使用 DiskGenius 软件把一个 U盘转换成 GUID 格式，然后分出一个区，这个区必须是 FAT32 格式）
-- 格式化完后，进入 U盘，在U盘根目录创建一个目录：`com.apple.recovery.boot`，进入该目录，把下载好的 BaseSystem.dmg、BaseSystem.chunklist 放进来
+- 使用 FAT32 格式的优盘，在U盘根目录创建一个目录：`com.apple.recovery.boot`，进入该目录，把下载好的 BaseSystem.dmg、BaseSystem.chunklist 放进来
 - **注意注意注意：接着把我们上面做好的 NEW_EFI 目录也放到U盘根目录，改名为 EFI**
 - **此时优盘根目录应该就只有两个目录：EFI、com.apple.recovery.boot**
 
@@ -548,7 +518,8 @@ Serial/COM Port（在 settings 》IO Ports 》Super IO 栏，有的在 Periphera
     B360 主板：Peripherals > Super IO Configuration
 Parallel Port（在 settings 栏，有的没这个）
     B360 主板：没有这个
-VT-d（在 Tweaker 》Advanced CPU，我们前面 DisableIoMapper 设置了true，所以这个可以不禁用）
+VT-d（在 Tweaker 》Advanced CPU）
+    我们前面 DisableIoMapper 设置了true，所以这个可以不禁用
     B360 主板：Chipset
 CSM Support（在 boot 栏或者BIOS，或者 Favorites 栏）
     B360 主板：BIOS
