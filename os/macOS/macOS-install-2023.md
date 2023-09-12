@@ -579,7 +579,8 @@ USB Mass Storege Driver Support（有的主板没有）
     B360 主板：Peripherals > USB Configuration
 Legacy USB Support（有的主板没有）
     B360 主板：Peripherals > USB Configuration
-【集成外设】-【预设启动的显示设备】-【IGFX-核显】，有显卡用第一个卡槽值
+选择独立显卡 PCIe 1 Slot
+    B360 主板：Peripherals > Initial Display Output > PCIe 1 Slot（有独立显卡的时候）
 
 
 其中在 BIOS 中加载核显最为复杂，步骤较多，在这里进行强调。
@@ -736,6 +737,7 @@ layout 1, 2, 3, 4, 5, 7, 12, 15, 16, 17, 18, 20, 22, 23, 28, 31, 32, 90, 92, 97,
 #### 12.8 开启 HiDPI
 
 - 参考文章：<https://apple.sqlsec.com/6-%E5%AE%9E%E7%94%A8%E5%A7%BF%E5%8A%BF/6-5/>
+- 一般是 4k 分辨率开启后选择 2k 这样才会有好的效果
 
 ```
 执行这个脚本：https://github.com/xzhih/one-key-hidpi
