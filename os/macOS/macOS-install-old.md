@@ -1,16 +1,6 @@
 
 # 黑苹果详细安装教程-基于OpenCore官网指导-UPUPMO（macOS Monterey）
 
-## 特别声明
-
-```
-如果你是 12、13 代酷睿需要仿冒 10 代酷睿
-可以在 OpenCore 的 config.plist → Kernel → Emulate 添加以下内容即可：
-
-Cpuid1Data：55060A00 00000000 00000000 00000000
-Cpuid1Mask：FFFFFFFF 00000000 00000000 00000000
-```
-
 
 ## 文章大纲
 
@@ -60,8 +50,7 @@ Cpuid1Mask：FFFFFFFF 00000000 00000000 00000000
 已经试过以下设备：
 CPU：Intel i9-10900k、Intel i7-8700k、Intel i7-8700
 主板：技嘉 Z490M、技嘉 Z370M、技嘉 B360M
-显卡：AMD RX 6600XT、AMD RX 5600XT（免驱支持最高到 macOS12）、AMD RX 560
-硬盘：推荐尽可能是西部数码 Black 系列，支持 TRIM 比较好
+显卡：AMD RX 6600XT、AMD RX 560
 本文对 Intel 8代、10代验证有效，其他版本未测试，但是理论上 Intel 10 代以前都是有效。
 ```
 
@@ -107,80 +96,46 @@ CPU：Intel i9-10900k、Intel i7-8700k、Intel i7-8700
 
 -------------------------------------------------------------------
 
-## 5. 配置 EFI 驱动（配置基础的 OpenCore Files）
+## 5. 配置 EFI 驱动
 
 
-- 官网教程写得非常好，即使你英文不好也要先翻译快速过下
-  - <https://dortania.github.io/OpenCore-Install-Guide/installer-guide/>
-  - 官网是先格式化优盘，然后下载镜像，然后在优盘中修改 EFI 文件，我觉得不对。应该是现在本地硬盘上修改 EFI 再放入优盘。所以我顺序调换了一下。
-- 准备 Python3 环境
-  - 下载地址：<https://www.python.org/downloads/>
-  - 安装的时候记得勾选添加系统变量到 path：Add Python to environment variables
-- 准备 ProperTree 工具
-  - 下载 ProperTree 编辑器软件（官网要求不要使用 OpenCore Configurator）
-  - 下载地址：<https://github.com/corpnewt/ProperTree>
-  - 下载解压，双击打开 ProperTree.bat
-- 准备 Rufus 工具
-  - 下载地址：<https://rufus.ie/zh/>
-  - 准备 8GB 以上优盘，使用 Rufus 格式化为 FAT32 格式，其设置如下
-      - 引导类型选择：非可引导
-      - 分区类型：GPT
-      - 目标系统类型：BIOS 或 UEFI
-      - 文件系统：Large FAT32
-      - 簇大小：32K
+- 官网教程写得非常好，即使你英文不好也要先翻译快速过下：
+- <https://dortania.github.io/OpenCore-Install-Guide/installer-guide/opencore-efi.html>
+- <https://dortania.github.io/OpenCore-Install-Guide/ktext.html>
+
 
 #### 5.1 下载 OpenCore 并保留基础驱动
 
-- 官网文档：<https://dortania.github.io/OpenCore-Install-Guide/installer-guide/opencore-efi.html>
-- 下载地址：<https://github.com/acidanthera/OpenCorePkg/releases>
-- 在 Windows 系统下，先下载：OpenCore
-  - 当前时间 2022-04 最新版为 0.7.9，后续有其他版本也是一样流程不用担心
-  - 当前时间 2023-09 最新版为 0.9.5，后续有其他版本也是一样流程不用担心（经过测试 0.9.4 有问题，0.9.5 测试成功）
-- 解压 OpenCore 得到目录 /OpenCore-0.9.4-RELEASE
-- 先把 /OpenCore-0.9.4-RELEASE/IA32 删除掉，这个是给 32 位的机子准备的
-- 进入 /OpenCore-0.9.4-RELEASE/X64 文件夹，把里面的 EFI 文件夹复制电脑桌面，假设我们暂定给它命名为：NEW_EFI，方便区分。
-- 接着把 /OpenCore-0.9.4-RELEASE/Docs 下的 Sample.plist 文件复制到 NEW_EFI/OC 的目录下，并改名为 config.plist
-- 接着把 /NEW_EFI/OC/Drivers 下的所有默认文件删除掉，只留下 OpenRuntime.efi、ResetNvramEntry.efi、OpenCanopy.efi（OpenCanopy 是用于 GUI 展示，非必须，但是先建议按我的来）
-  - ResetNvramEntry.efi 是用于在系统启动菜单中添加一个 Reset NVRAM 按钮
-  - Reset NVRAM 的作用是：它存储了音量、时间、键盘和鼠标偏好、显示屏分辨率、启动磁盘选择、时区，以及最近的内核崩溃信息等信息，有时候可以解决一些乱七八糟问题
+- 在 Windows 系统下，先下载：OpenCore（当前时间 2022-04 最新版为 0.7.9，后续有其他版本也是一样流程不用担心）
+- <https://github.com/acidanthera/OpenCorePkg/releases>
+- 解压 OpenCore，进入 x64 文件夹，把里面的 EFI 文件夹复制桌面，假设我们暂定给它命名为：NEW_EFI，方便区分。
+- 接着把 /OpenCore-0.7.9-RELEASE/Docs 下的 Sample.plist 文件复制到 NEW_EFI/OC 的目录下，并改名为 config.plist
+- 接着把 /NEW_EFI/OC/Drivers 下的所有默认文件删除掉，只留下 OpenRuntime.efi、OpenCanopy.efi（OpenCanopy 是用于 GUI 展示，非必须，但是先建议按我的来）
 - 接着把 /NEW_EFI/OC/Tools 下的所有默认文件删除掉
-- 以上这些 EFI 为什么不要官网文档有解释：<https://dortania.github.io/OpenCore-Install-Guide/installer-guide/opencore-efi.html>
-- 以及下面要讲的更多配置，官网也有解释：<https://dortania.github.io/OpenCore-Install-Guide/ktext.html#firmware-drivers>
 
-#### 5.2 HfsPlus 固件驱动
+#### 5.2 HfsPlus 驱动
 
 - 下载最新的 HfsPlus.efi（必须，用于对 HFS 文件系统支持）
-- 下载地址：<https://github.com/acidanthera/OcBinaryData/blob/master/Drivers>
+- 下载地址：<https://github.com/acidanthera/OcBinaryData/tree/master/Drivers>
 - 放到 /NEW_EFI/OC/Drivers 目录下
 
-
-#### 5.3 Lilu 驱动
-
-- 对于 Kexts 类型的驱动，官网提供了专门的下载站，优先考虑从这里瞎子啊：<https://dortania.github.io/builds/?viewall=true>
-- 下载最新的 Lilu（必须，基础库）
-- 下载地址：<https://github.com/acidanthera/Lilu/releases>
-- 解压后把 Kexts 目录下的 Lilu.kext 文件复制到 /NEW_EFI/OC/Kexts 目录下
-
-#### 5.4 VirtualSMC 驱动
+#### 5.3 VirtualSMC 驱动
 
 - 下载最新的 VirtualSMC（必须，用于模拟苹果的 SMC）
 - 下载地址：<https://github.com/acidanthera/VirtualSMC/releases>
 - 解压后把 Kexts 目录下的
-- 必须（AMD 显卡用户）
-    - VirtualSMC.kext
-    - SMCProcessor.kext 用于监控 CPU 温度
-    - SMCSuperIO.kext 用于监控散热器速度
-    - SMCRadeonGPU.kext 用于监控 AMD GPU 温度（通过 iStat Meuns 看到显卡温度了）
-    - RadeonSensor.kext 用于 AMD GPU 传感器
-- 非必须
-    - SMCLightSensor.kext 用于环境光检测（台式机不需要）
-    - SMCBatteryManager.kext 用于读取电池信息（台式机不需要）
+- VirtualSMC.kext
+- SMCProcessor.kext 用于监控 cpu 温度
+- SMCSuperIO.kext 用于监控散热器速度
+- SMCLightSensor.kext 用于环境光检测，台式机不需要
+- SMCBatteryManager.kext 用于读取电池信息，台式机不需要
 - 文件复制到 /NEW_EFI/OC/Kexts 目录下
-- 因为 从 Radeon VII 开始，Apple 停止直接查看显卡温度的功能，我们需要加载额外的 RadeonSensor 来显示温度。
-- RadeonSensor 就是目前最流行的项目：<https://github.com/aluveitie/RadeonSensor>
-- 下载最新的 Release 版本（点击 Downloads 按钮）：<https://github.com/aluveitie/RadeonSensor/tags>
 
+#### 5.4 Lilu 驱动
 
+- 下载最新的 Lilu（必须，基础库）
+- 下载地址：<https://github.com/acidanthera/Lilu/releases>
+- 解压后把 Kexts 目录下的 Lilu.kext 文件复制到 /NEW_EFI/OC/Kexts 目录下
 
 #### 5.5 显卡驱动
 
@@ -188,20 +143,18 @@ CPU：Intel i9-10900k、Intel i7-8700k、Intel i7-8700
 - 下载地址：<https://github.com/acidanthera/WhateverGreen/releases>
 - 解压后把 Kexts 目录下的 WhateverGreen.kext 文件复制到 /NEW_EFI/OC/Kexts 目录下
 
+#### 5.6 固态硬盘驱动
 
-#### 5.6 声卡驱动
+- 不推荐海力士，镁光，Intel 牌子。
+- 下载最新的 NVMeFix
+- 下载地址：<https://github.com/acidanthera/NVMeFix/releases>
+- 解压后把 Kexts 目录下的 NVMeFix.kext 文件复制到 /NEW_EFI/OC/Kexts 目录下
+
+#### 5.7 声卡驱动
 
 - 下载最新的 AppleALC
 - 下载地址：<https://github.com/acidanthera/AppleALC/releases>
 - 解压后把 Kexts 目录下的 AppleALC.kext 文件复制到 /NEW_EFI/OC/Kexts 目录下
-
-
-#### 5.7 非苹果品牌的 SSD 硬盘驱动
-
-- 固态硬盘不推荐海力士，镁光，Intel 牌子。
-- 下载最新的 NVMeFix
-- 下载地址：<https://github.com/acidanthera/NVMeFix/releases>
-- 解压后把 Kexts 目录下的 NVMeFix.kext 文件复制到 /NEW_EFI/OC/Kexts 目录下
 
 #### 5.8 网卡驱动
 
@@ -234,25 +187,6 @@ CPU：Intel i9-10900k、Intel i7-8700k、Intel i7-8700
 
 #### 5.11 USB 驱动定制（必须，很繁琐，需要认真看多次）
 
-- 2023-09 更新，现在官网有新的工具和适配方法：<https://dortania.github.io/OpenCore-Install-Guide/ktext.html#usb>
-- 步骤：
-```
-从 https://github.com/USBToolBox/tool/releases 下载名字为 Windows.exe 文章
-运行后会出现一个命令行交互界面，选择：Discover Ports，然后不要关掉终端，
-找个 USB 优盘，插入到各个接口中，插入后 5 秒不要动，等命令行中显示它识别到你插入的优盘，你再拔出来换下一个，直到所有端口识别到。
-如果是 typec 接口，正反面交换插入让它识别。
-
-全部识别到后，输入 B 回车返回主菜单，接着选择：Select Ports and Build Kext
-然后根据提示输入 K 回车即可导出 UTBMap.kext，一般会保存到 exe 软件同级目录下
-
-接着再下载这里 https://github.com/USBToolBox/kext 下载 USBToolBox.kext，把这两个都放在 kext 目录下
-
-配置的时候：在 Kernel 分类下的 XhciPortLimit 设置 False（下面也有再次强调，看不懂这句话配置可以直接跳过）
-```
-
-
-- 2022-05 编写的旧手动配置方法
-```
 - 先确定自己属于哪个 SMBOIS 平台，大家可以学习我以下方式来确认自己属于哪个值。
 - 我的 i7-8700k，属于 coffee-lake 架构：
 - 打开网站：<https://dortania.github.io/OpenCore-Install-Guide/config.plist/coffee-lake.html#platforminfo>
@@ -261,6 +195,10 @@ CPU：Intel i9-10900k、Intel i7-8700k、Intel i7-8700
 - 打开网站：<https://dortania.github.io/OpenCore-Install-Guide/config.plist/comet-lake.html#platforminfo>
 - 查看官网得到的 SMBOIS 结果是：iMac20,2
 - 接着下载我文章底部提供的这个配置文件：`台式机&笔记本USB万能驱动.zip` 先解压到本地。
+- 下载 ProperTree 编辑器软件
+- 下载地址：<https://github.com/corpnewt/ProperTree>
+- 下载解压，双击打开 ProperTree.bat，首次打开会提示正在自动下载 Python 环境，失败了就多来几次。
+- 如果一直下载不下来，就自己根据 bash 中提示的 Python 版本，自己到 Python 官网下载一个 exe 安装包，自己手动安装 Python， 安装的时候记得勾选添加系统变量到 path。
 - 接着用双击打开 ProperTree.bat，选择 `File 》 Open 》 刚解压目录\台式机USB万能驱动\USBMap.kext\Contents\info.plist`
 - 在 ProperTree 的 IOKitPersonalities 节点下面，找到属于我们的 SMBOIS 的值。
 - 比如我的  i7-8700k 是：iMac19,1-XHC，然后其他的都删除掉。
@@ -272,17 +210,17 @@ CPU：Intel i9-10900k、Intel i7-8700k、Intel i7-8700
 - `ACPI(_SB_)#ACPI(PCI0)#ACPI(XHC_)#ACPI(RHUB)#ACPI(SS05)`
 - 取最后一个关键字：SS05，然后我们要拿笔记下来这个 USB 口叫做 SS05 名字
 - 接着我们拔掉 U盘，再换一个 USB3.0 口，按照以上方法（一定不要插 USB2.0 的口），记下来它叫啥名字，最后我的主板得到的数据如下，所有 USB3.0 的口从上往下、从左往右布局上看：
-
+```
 第1排左第1个 = SS03
 第1排左第2个 = SS04
 第2排左第1个 = SS01
 第3排左第1个 = SS05
 第3排左第2个 = SS06
 机箱前面板 USB3.0 口 = SS07
-
+```
 
 - 接着我们用 USB2.0 的 U盘（没有 USB 2.0 的 U盘可以用 USB 接口的鼠标等设备），接着依次插入 USB3.0、USB2.0 所有的口，最终得到结果是：
-
+```
 第1排左第1个 = HS03
 第1排左第2个 = HS04
 第2排左第1个 = HS01
@@ -291,7 +229,7 @@ CPU：Intel i9-10900k、Intel i7-8700k、Intel i7-8700
 机箱前面板 USB3.0 口 = HS07
 机箱前面板 USB2.0 口 = HS10
 统计数据看起来好像只是把 SS 改为了 HS，大家还是以自己的为准。
-
+```
 
 - 接着我们回到 ProperTree 软件，
 - 在 `IOKitPersonalities 》 iMac19,1-XHC 》 IOProviderMergeProperties 》ports` 节点下面
@@ -299,12 +237,12 @@ CPU：Intel i9-10900k、Intel i7-8700k、Intel i7-8700
 - 有插 USB 供电的蓝牙设备的也要统计下自己的值是什么，然后保留下来别删除，然后在其 UsbConnector 属性值还要改为：255。默认的值是 3
 - 接着可以保存编辑的文件了。
 - 接着将 USBMap.kext 放在 /NEW_EFI/OC/KEXT 文件夹下
-```
+
 
 #### 5.12 其他特殊主板要求
 
 - 根据官网说明：<https://dortania.github.io/OpenCore-Install-Guide/ktext.html#usb>
-- **部分主板还需要这个：XHCI-unsupported，包括我的 B360M**
+- 部分主板还需要这个：XHCI-unsupported，包括我的 B360M。
 - 下载地址：<https://github.com/RehabMan/OS-X-USB-Inject-All>
 - 解压后放在，放在 /NEW_EFI/OC/KEXT 文件夹下
 
@@ -314,15 +252,21 @@ CPU：Intel i9-10900k、Intel i7-8700k、Intel i7-8700
 
 - 首先要根据自己的 CPU 核心架构类型，选择不同的 SSDTs
 - 官网文档：<https://dortania.github.io/OpenCore-Install-Guide/ktext.html#desktop>
-- SSDT 下载地址：<https://github.com/dortania/Getting-Started-With-ACPI/tree/master/extra-files/compiled>
-    - 下载这个仓库文件，解压后把以下这些 aml 文件复制到 /NEW_EFI/OC/ACPI 目录下
-
 - 我的是 i9-10900k，属于 Comet Lake 架构，根据官网的表格（从左往右看过去），我需要用到：
 ```
 SSDT-PLUG（cpu 电源管理修正）
 SSDT-EC-USBX（usb 修正）
 SSDT-AWAC（时钟修正）
 SSDT-RHUB（官网详情页说：华硕 z490 必须加，Gigabyte and AsRock 不需要）
+```
+
+- 以上 SSDT 下载地址：<https://github.com/dortania/Getting-Started-With-ACPI/tree/master/extra-files/compiled>
+- 下载这个仓库，解压后把以下这些 aml 文件复制到 /NEW_EFI/OC/ACPI 目录下
+
+```
+SSDT-PLUG-DRTNIA.aml
+SSDT-EC-USBX-DESKTOP.aml
+SSDT-AWAC.aml
 ```
 
 - 根据官网文档，另外一台：i7-8700k 是 Coffee Lake 架构需要
@@ -332,7 +276,7 @@ SSDT-EC-USBX
 SSDT-AWAC
 SSDT-PMC（官网详情页说 Z370 的主板不需要，所以刚好省略）
 ```
-
+- 下载这个仓库，解压后把这些 aml 文件复制到 /NEW_EFI/OC/ACPI 目录下
 
 -------------------------------------------------------------------
 
@@ -348,7 +292,6 @@ SSDT-PMC（官网详情页说 Z370 的主板不需要，所以刚好省略）
 - 选择 `File 》Open 》/NEW_EFI/OC/config.plist 文件`
 - 打开后，接着：
 - 选择 `File 》OC Clean Snapshot 》/NEW_EFI/OC 文件夹`，它会自动识别里面内容
-- 如果软件弹窗提示：`Disable the following kexts with Duplicate CFBundleIdentifiers?` 请按 Yes
 
 
 #### 7.1 在 ACPI 分类
@@ -361,15 +304,13 @@ SSDT-PMC（官网详情页说 Z370 的主板不需要，所以刚好省略）
 #### 7.2 在 Booter 分类
 
 - 根据官网文档里图片红框说明操作（从这里开始就不再贴图了，注意看文字）
-- Quirks 节点上有多个要配置，注意看说明
-    - 其中因为我的 B360M 主板支持配置 Resizable BAR Support，所以 ResizeAppleGpuBars 值要设置为 0
 
 #### 7.3 在 DeviceProperties 分类
 
-- 跟文档图片红框中相比，默认的值是缺失的 PciRoot(0x0)/Pci(0x2,0x0) 整个条目的，其下面有3个值都要自己添加上去，自己需要添加，要根据图片注意类型等细节
+- 跟文档图片红框中相比，部分值是缺失的，自己需要添加，要根据图片注意类型等细节
 - AAPL,ig-platform-id 的值根据文档描述：
 - 如果你是没有独立显卡的，只有核显那值要为：07009B3E 或者 00009B3E，两个只能试着来，默认用第一个值。
-- 如果你是有独立显卡，独立显卡用于驱动显示器，核显用于加速，则需要填写第三个值 0300913E。
+- 如果你是有独立显卡，独立显卡用于驱动显示器，核显用于加速，则需要填写第三个值。
 - 关于音频配置，我的主板如下：
 ```
 技嘉 Z370M 是：Realtek ALC892
@@ -391,27 +332,18 @@ layout 1, 2, 3, 4, 5, 7, 12, 15, 16, 17, 18, 20, 22, 23, 28, 31, 32, 90, 92, 97,
 
 #### 7.4 在 Kernel 分类下
 
-- **首先：需要在 Add 中，要把 Lilu.kext 放在第一个节点，VirtualSMC.kext 放在第二个节点，因为后面的驱动是依赖 Lilu 这个基础包的**
-- 在 Quirks 节点上，因为我们在主板上禁用 CFG-Lock，所以 AppleXcpmCfgLock 设置为 False。如果你的主板 BIOS 没有这个选项，那 AppleXcpmCfgLock 要设置为 true。
-- 因为我们要开启主板的 VT-D，所以 DisableIoMapper 设置为 true，稍后 BIOS 中就不需要禁用 VT-D 了
-- XhciPortLimit：解除15个端口限制，确认USB端口完美定制的可以为false，或者要安装的系统大于macOS11.3。有USB定制的为false
+- 首先：需要在 Add 中，要把 Lilu.kext 放在第一个节点，VirtualSMC.kext 放在第二个节点，因为后面的驱动是依赖 Lilu 这个基础包的，Add 下其他细节就不用改了
+- 因为我们要开启主板的 VT-D，所以 DisableIoMapper 设置为 true
+- 稍后 BIOS 中就不需要禁用 VT-D 了
+- Quirks 下的 AppleXcpmCfgLock 是要设置为 true 或者 false 取决于你主板 BIOS 是否有一个 CFG Lock 选项。
+- 如果你主板有这个选项，那主板上的该配置需要设置为 Disable，然后这里的配置 AppleXcpmCfgLock 要设置为 false。
+- 如果你的主板 BIOS 没有这个选项，那 AppleXcpmCfgLock 要设置为 true。
+- XhciPortLimit：解除15个端口限制，确认USB端口完美定制的可以为false。一般为true。有USB定制的为false，因为我们定制了，所以是false
 
 #### 7.5 在 Misc 分类下
 
 - 根据图片说明操作即可，如果有些红框的值你配置是没有的，就自己添加
 - Vault 的值是字符串值 Optional，需要自己输入
-- 有一个比较特别的设置：<https://dortania.github.io/OpenCore-Install-Guide/config.plist/security.html#misc>
-  - 推荐 `Misc -> Security -> SecureBootModel` 设置为 `Default`
-- 默认 OpenCore 的引导界面只有终端英文交互，不是很直观，所以我们需要给它加上 GUI
-- 指导：<https://dortania.github.io/OpenCore-Post-Install/cosmetic/gui.html>
-- 下载 Resources 目录：<https://github.com/acidanthera/OcBinaryData>
-- 把解压后的 Resources 目录覆盖 /NEW_EFI/OC/Resources  目录，
-- 然后还有几个 config 参数需要改，根据文档继续修改
-```
-Misc -> Boot -> PickerMode: External
-Misc -> Boot -> PickerAttributes: 17
-Misc -> Boot -> PickerVariant 建议为 Acidanthera\Syrah 表示使用默认主题
-```
 
 #### 7.6 在 NVRAM 分类下
 
@@ -459,52 +391,49 @@ Apple ROM 的值填写在配置文件上的： ROM
 - 最好拖动 HfsPlus.efi 节点在第一个，OpenRuntime.efi 排第二个
 
 
-#### 最后
+#### 7.9 配置 GUI 引导界面（这里我们不考虑启动音效，可减少一些资源）
 
+- 默认 OpenCore 的引导界面只有终端英文交互，不是很直观，所以我们需要给它加上 GUI
+- 指导：<https://dortania.github.io/OpenCore-Post-Install/cosmetic/gui.html>
+- 下载 Resources 目录：<https://github.com/acidanthera/OcBinaryData>
+- 把解压后的 Resources 目录覆盖 /NEW_EFI/OC/Resources  目录，
+- 然后还有几个 config 参数需要改，根据文档继续修改
+```
+Misc -> Boot -> PickerMode: External
+Misc -> Boot -> PickerAttributes: 17
+Misc -> Boot -> PickerVariant 建议为 Acidanthera\Syrah 表示使用默认主题
+```
 - 最后，保存配置文件的修改：File > Save
 - 到了这一步，算是所有配置文件调整好了
 
 
-
 -------------------------------------------------------------------
-
-
 
 ## 8. 制作启动盘（苹果官网恢复镜像）
 
-- 官网说明：<https://dortania.github.io/OpenCore-Install-Guide/installer-guide/windows-install.html#downloading-macos>
-- 进入一开始下载的 OpenCore 目录下：/OpenCore-0.9.4-RELEASE/Utilities/macrecovery/
+- 官网说明：
+- <https://dortania.github.io/OpenCore-Install-Guide/installer-guide/winblows-install.html#downloading-macos>
+- 进入一开始下载的 OpenCore 目录下：/OpenCore-0.7.9-RELEASE/Utilities/macrecovery/
 - 在 cmd 中 cd 到这个目录下，然后根据系统需求，执行如下命令（**注意注意注意：这几个值可能会变，请按上面官网地址查看最新文档**）
 - 这个命令表示会下载苹果恢复系统基础镜像
 
 ```
-# High Sierra (10.13)
-python3 ./macrecovery.py -b Mac-7BA5B2D9E42DDD94 -m 00000000000J80300 download
-python3 ./macrecovery.py -b Mac-BE088AF8C5EB4FA2 -m 00000000000J80300 download
+Monterey (12)
+python ./macrecovery.py -b Mac-E43C1C25D4880AD6 -m 00000000000000000 download
 
-# Mojave (10.14)
-python3 ./macrecovery.py -b Mac-7BA5B2DFE22DDD8C -m 00000000000KXPG00 download
+Big Sur (11)
+python ./macrecovery.py -b Mac-42FD25EABCABB274 -m 00000000000000000 download
 
-# Catalina (10.15)
-python3 ./macrecovery.py -b Mac-00BE6ED71E35EB86 -m 00000000000000000 download
-
-# Big Sur (11)
-python3 ./macrecovery.py -b Mac-42FD25EABCABB274 -m 00000000000000000 download
-
-# Monterey (12)
-python3 ./macrecovery.py -b Mac-FFE5EF870D7BA81A -m 00000000000000000 download
-
-# Latest version
-# ie. Ventura (13)
-python3 ./macrecovery.py -b Mac-4B682C642B45593E -m 00000000000000000 download
+Catalina (10.15)
+python ./macrecovery.py -b Mac-00BE6ED71E35EB86 -m 00000000000000000 download
 ```
 
-- **注意**：如果你的电脑只有一个 Python3 那执行命令应该是：python ./macrecovery.py xxxxxxxxx
 - 输入完命令后，打开 Windows 任务管理器，切换到以太网选项，如果看到网络飙升就表示这时候已经开始下载镜像了。
-- 下载好会在 \OpenCore-0.9.4-RELEASE\Utilities\macrecovery 目录下看到新增两个文件：BaseSystem.chunklist、BaseSystem.dmg（614MB）（有的是 RecoveryImage 开头文件）
-- 使用 FAT32 格式的优盘，在U盘根目录创建一个目录：`com.apple.recovery.boot`，进入该目录，把下载好的 BaseSystem.dmg、BaseSystem.chunklist 放进来
+- 下载好会在 \OpenCore-0.7.9-RELEASE\Utilities\macrecovery 目录下看到新增两个文件：BaseSystem.chunklist、BaseSystem.dmg（614MB）
+- 下载完成后打开 Windows 的磁盘管理工具，
+- 格式化我们的 U盘 为 FAT32 格式，（如果windows 右键没有出现 FAT32 选项，则可以打开 DiskGenius 软件把一个 U盘转换成 GUID 格式，然后分出一个区，这个区必须是 FAT32 格式）
+- 格式化完后，进入 U盘，在U盘根目录创建一个目录：`com.apple.recovery.boot`，进入该目录，把下载好的 BaseSystem.dmg、BaseSystem.chunklist 放进来
 - **注意注意注意：接着把我们上面做好的 NEW_EFI 目录也放到U盘根目录，改名为 EFI**
-- **此时优盘根目录应该就只有两个目录：EFI、com.apple.recovery.boot**
 
 
 -------------------------------------------------------------------
@@ -518,69 +447,36 @@ python3 ./macrecovery.py -b Mac-4B682C642B45593E -m 00000000000000000 download
 
 ```
 Fast Boot（在 boot 栏，有的也叫做 BIOS 栏）
-    B360 主板：BIOS
 Secure Boot Enable（在 boot 栏，或者 Favorites 栏）
-    B360 主板：BIOS > Secure Boot
 Secure Boot Mode 》custom
-    B360 主板：BIOS > Secure Boot
 Security Device Support（在 settings 》Miscellaneous 》Trusted Computing 栏，我要求的）
-    B360 主板：Peripherals > Trusted Computing
 Serial/COM Port（在 settings 》IO Ports 》Super IO 栏，有的在 Peripherals 栏）
-    B360 主板：Peripherals > Super IO Configuration
 Parallel Port（在 settings 栏，有的没这个）
-    B360 主板：没有这个
-VT-d（在 Tweaker 》Advanced CPU）
-    我们前面 DisableIoMapper 设置了true，所以这个可以不禁用
-    B360 主板：Chipset
-CSM Support（在 boot 栏或者BIOS，或者 Favorites 栏）
-    B360 主板：BIOS
+VT-d（在 Tweaker 》Advanced CPU，我们前面 DisableIoMapper 设置了true，所以这个可以不禁用）
+CSM Support（在 boot 栏，或者 Favorites 栏）
 Thunderbolt（雷电接口，比较新的机子有）
 Platform Power Management（在 settings 栏）
-    B360 主板：Power
 Intel SGX(SW Guard Extensions)（在 settings 》Miscellaneous 栏）
-    B360 主板：Peripherals
-Intel Platform Trust(PPT、PTT)（在 settings 》Miscellaneous 栏）
-    B360 主板：Peripherals
+Intel Platform Trust(PPT)（在 settings 》Miscellaneous 栏）
 CFG Lock （在 boot 栏，有的主板没有这个选项，这个跟文章上部分配置中的 AppleXcpmCfgLock 参数有关，具体看上面说明）
-    B360 主板：BIOS
-Peripherals > Network Stack Configuration > Network Stack
-Chipset > Wake on LAN Enable
 ```
 
 #### 9.2 以下都要开启（Enable）
 
 ```
 VT-x（在 Chipset 栏，有的叫做 intel Virtualization Technology，有的没有）
-    B360 主板：没有这个
 Extreme Memory Profile（有的叫做 X.M.P，设置为 enable 或者 profile1，表示对内存不锁频）
-    B360 主板：M.I.T 》Advanced Frequency Settings
 Intel Turbo Boost Technology（在 tweaker 栏，有的叫做M.I.T）
-    B360 主板：M.I.T 》Advanced Frequency Settings 》Advanced CPU Core Settings 》Hyper-Threading Technology
-Hyper-Threading（在 M.I.T 》Advanced Frequency Settings 》Advanced CPU Core Settings 》Hyper-Threading Technology。有的主板是 Tweaker 》Advance CPU Settings）
-    B360 主板：M.I.T 》Advanced Frequency Settings 》Advanced CPU Core Settings 》Hyper-Threading Technology
 Above 4G decoding（在 settings 》IO Ports 栏，注意对于 2020 之后的一些主板，当你开启 Above 4G decoding 之后，Resizable BAR Support 应该设置为 Disabled，比如 z490 系列的主板）
-    B360 主板：Chipset
+Hyper-Threading（在 M.I.T 》Advanced Frequency Settings 》Advanced CPU Core Settings 》Hyper-Threading Technology。有的主板是 Tweaker 》Advance CPU Settings）
 Execute Disable Bit（大多数主板没有这个）
 EHCI/XHCI Hand-off（在 settings 栏，USB 选项里面）
-    B360 主板：Peripherals > USB Configuration
 OS type 设置为 Windows 8.1/10 UEFI Mode（在 boot 栏，有的不叫做这个，如果有一些 win10，win7 可以选择的话那就直接选择 win10 也算.如果是有 WINDOWS 8.1/10 WHQL 就直接选这个带 WHQL 的）
-    B360 主板：BIOS
-Internal Graphics（在 settings 》IO Ports 栏，有的在 Chipset，这个是核显要启动，配置完要保存重启电脑后下面的选项才可以看到 DVMT Total Memory Size、DVMT Pre-Allocated）
-    B360 主板：Chipset
+Internal Graphics（在 settings 》IO Ports 栏，有的在 Chipset，这个是核显要启动）
 DVMT Pre-Allocated(iGPU Memory) 设置为 256M（在 settings 栏，有的没有，原因看下面那段文字）
-    B360 主板：Chipset
 SATA Controllerl（在 boot 栏，或者 Favorites 栏）
-    B360 主板：Peripherals > SATA And RST Configuration
 SATA Mode: AHCI（在 settings 栏）
-    B360 主板：Peripherals > SATA And RST Configuration
 Security Option 设置为 System（在 Boot 栏）
-    B360 主板：BIOS
-USB Mass Storege Driver Support（有的主板没有）
-    B360 主板：Peripherals > USB Configuration
-Legacy USB Support（有的主板没有）
-    B360 主板：Peripherals > USB Configuration
-选择独立显卡 PCIe 1 Slot
-    B360 主板：Peripherals > Initial Display Output > PCIe 1 Slot（有独立显卡的时候）
 
 
 其中在 BIOS 中加载核显最为复杂，步骤较多，在这里进行强调。
@@ -657,11 +553,7 @@ layout 1, 2, 3, 4, 5, 7, 12, 15, 16, 17, 18, 20, 22, 23, 28, 31, 32, 90, 92, 97,
 - 安装 iStat Menus，查看系统资源监控，如CPU、内存、硬盘负载/温度可以展示
 - 安装 CPU-S，测试变频
 - 安装 VideoProc Converter，验证核显加速
-- 安装 Hackintool，查看以下信息：
-    - 在系统下面是否有显示：IGPU、GFX0 信息，如果没有 IGPU 则表示你核显没识别到。
-    - VDA 解码器是否是：完全支持，是的话才可以硬解
-    - 查看 GFX0 显卡是否支持 硬件加速(QE/CI)，正常值是 Yes
-    - 查看 GFX0 显卡是否支持 Metal，正常值是 Yes
+- 安装 Hackintool，在系统下面是否有显示：IGPU、GFX0 信息，如果没有 IGPU 则表示你核显没识别到。
 
 
 #### 11.3 最后：把 U盘 EFI 拷贝到 macOS 系统盘
@@ -724,9 +616,26 @@ layout 1, 2, 3, 4, 5, 7, 12, 15, 16, 17, 18, 20, 22, 23, 28, 31, 32, 90, 92, 97,
 - 先输入：`pwpolicy -clearaccountpolicies` 进行清除密码长度限制规则
 - 再输入：`passwd` 进行更换密码 ( macOS 12 系统命令为：`security set-keychain-password`)
 - 设置网络 DNS，具体参考：
-- <https://github.com/cdk8s/cdk8s-team-style/blob/master/os/macOS/macOS-DNS.md>
+- <https://github.com/cdk8s/cdk8s-team-style/blob/master/os/macOS/macOS-basic.md>
 - 然后清除 DNS 缓存：`sudo killall -HUP mDNSResponder`
 
+
+#### 12.6 增加显卡温度监控
+
+- 因为 从 Radeon VII 开始，Apple 停止直接查看显卡温度的功能，我们需要加载额外的第三方 kexts 来显示温度。
+- RadeonSensor 就是目前最流行的项目：<https://github.com/aluveitie/RadeonSensor>
+- 下载最新的 Release 版本：<https://github.com/aluveitie/RadeonSensor/tags>
+
+```
+打开 OpenCore Configurator，挂载 EFI
+把下载到的 kexts 文件放到 /EFI/OC/Kexts 目录下
+SMCRadeonGPU.kext
+RadeonSensor.kext
+
+使用 OpenCore Configurator 打开 /EFI/OC/config.plist 配置文件，选择左侧：`Kernel-内核设置
+把刚刚的两个 kext 拖动到 `Kernel-内核设置` 的 `添加` 窗口下，确保 Enabled 是勾选状态，然后保存 config.plist 重启电脑
+然后就可以通过 iStat Meuns 看到显卡温度了
+```
 
 #### 12.7 显卡超过 60 度后还是没有开启转速
 
@@ -734,23 +643,6 @@ layout 1, 2, 3, 4, 5, 7, 12, 15, 16, 17, 18, 20, 22, 23, 28, 31, 32, 90, 92, 97,
 - 可以通过玩大型游戏（比如：海岛大亨）来升温触发显卡转速，看下是否达到 60 度后自动开启转速
 - 可以参考这个视频：<https://www.bilibili.com/video/BV1WT411A72F>
 
-#### 12.8 开启 HiDPI
-
-- 参考文章：<https://apple.sqlsec.com/6-%E5%AE%9E%E7%94%A8%E5%A7%BF%E5%8A%BF/6-5/>
-- 一般是 4k 分辨率开启后选择 2k 这样才会有好的效果
-
-```
-执行这个脚本：https://github.com/xzhih/one-key-hidpi
-国外源
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/xzhih/one-key-hidpi/master/hidpi.sh)"
-
-国内源
-sh -c "$(curl -fsSL https://html.sqlsec.com/hidpi.sh)"
-
-脚本引导的时候选择：(1)开启HIDPI 即可
-开启后，在显示器设置中，分辨率选择的时候右边有一个小的文字：(HiDPI)
-
-```
 
 -------------------------------------------------------------------
 
@@ -783,7 +675,7 @@ sh -c "$(curl -fsSL https://html.sqlsec.com/hidpi.sh)"
 
 ## 特别链接集合
 
-- [国光的黑苹果](https://github.com/sqlsec/Hackintosh)
+
 - Windows 系统中准备的软件
     - 台式机&笔记本USB万能驱动.zip
     - Aida64
