@@ -1167,6 +1167,31 @@ location /aa/ {
 }
 ```
 
+### 重定向到另外一个域名
+
+
+```
+server {
+    listen       80;
+    server_name  xxxxx.com www.xxxxx.com;
+    return 301 $scheme://www.abccccc.com$request_uri;
+}
+
+# https 的必须配置证书，不然无法重定向
+server {
+    listen 443 ssl;
+    ssl_certificate     /opt/ssl_key/www.xxxxx.com.pem;
+    ssl_certificate_key /opt/ssl_key/www.xxxxx.com.key;
+    ssl_session_timeout 5m;
+    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+    ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:HIGH:!aNULL:!MD5:!RC4:!DHE;
+    ssl_prefer_server_ciphers on;
+
+    server_name  xxxxx.com www.xxxxx.com;
+    return 301 $scheme://www.abccccc.com$request_uri;
+}  
+
+```
 
 
 -------------------------------------------------------------------
