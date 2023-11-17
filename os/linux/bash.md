@@ -135,10 +135,12 @@ drwxr-xr-x. 5 root root 4096 3月 26 10:57，其中最前面的 d 表示这是�
 	- `echo > aa.txt`，清空 aa.txt 文件内容（类似的还有：`: > aa.txt`，其中 : 是一个占位符, 不产生任何输出）
 - `unset $JAVA_HOME`，删除指定的环境变量
 - `ln -s /opt/data /opt/logs/data`，表示给 /opt/logs 目录下创建一个名为 data 的软链接，该软链接指向到 /opt/data
+- `more` 查看文件内容，按空格显示下一屏，按回车向下移动一行。
 - `grep`
 	- `shell grep -H '安装' *.sh`，查找当前目录下所有 sh 类型文件中，文件内容包含 `安装` 的当前行内容
 	- `grep 'test' java*`，显示当前目录下所有以 java 开头的文件中包含 test 的行
 	- `grep 'test' spring.ini docker.sh`，显示当前目录下 spring.ini docker.sh 两个文件中匹配 test 的行
+    - `grep -B 100 -A 200 "测试句子" info.log | more` 寻找文件中某个句子，找就显示该句子前100行，和后200行的内容，把结果传给 more 展示
     - 更多参数
         - `-i` 搜索时忽略大小写
         - `-n` 显示行号
