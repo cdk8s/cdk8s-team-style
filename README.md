@@ -6,7 +6,7 @@
 
 - [从开公司到开发全平台产品（文字版）](https://github.com/cdk8s/cdk8s-team-style/blob/master/full-stack/README.md)
 - [从开公司到开发全平台产品（视频版）](https://space.bilibili.com/1765486559/channel/seriesdetail?sid=2359281)
-
+- [UPGPT - 简洁 AI 助手](https://upgpt.uptmr.com/)
 
 ## 只有上云才能撑住规模化后的发展
 
