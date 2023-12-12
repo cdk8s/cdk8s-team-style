@@ -106,4 +106,21 @@ java -jar /opt/jar/atlassian-agent.jar -p jira -m git123@qq.com -n meek -o http:
 - 参考文章：<https://blog.csdn.net/yelllowcong/article/details/79624970>
 - 因为步骤一样，所以我就不再截图了。
 
+## 重置管理员密码
+
+```
+编辑文件：
+/usr/local/atlassian-jira-software-8.13.27-standalone/bin/setenv.sh
+
+找到这个参数，然后增加后面部分内容：
+JVM_SUPPORT_RECOMMENDED_ARGS="-Datlassian.recovery.password='admin123456'"
+
+重启 jira，然后用浏览器打开JIRA页面，登陆，
+用户名：recovery_admin
+密码：刚才设置的密码
+
+这个recovery_admin是个临时的管理员，登录后修改 原来JIRA管理员的密码，或把一个新的用户授权成为JIRA管理员
+然后把刚才那个-Datlassian.recovery.password启动参数删掉，再重启JIRA
+```
+
     
