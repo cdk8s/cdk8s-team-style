@@ -37,6 +37,33 @@ brew link --overwrite --force node@14
 
 -------------------------------------------------------------------
 
+
+## 多 Node 环境
+
+- 先确保已经卸载了 brew 安装的 node、或者是 pkg 安装的 node
+
+```
+brew update
+brew install nvm
+mkdir ~/.nvm
+
+.zshrc 增加如下2个配置
+export NVM_DIR=~/.nvm
+source $(brew --prefix nvm)/nvm.sh
+
+source ~/.zshrc
+
+查看有哪些版本：nvm ls-remote
+
+nvm install v16.19.1
+nvm install v18.19.1
+
+nvm use v16.19.1
+```
+
+
+-------------------------------------------------------------------
+
 ## nrm 切换源
 
 ```
