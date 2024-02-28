@@ -76,7 +76,7 @@ nvm uninstall v21.6.2
 使用源：nrm use taobao
 
 安装 pnpm：
-npm install -g pnpm@next-7
+npm install -g pnpm
 ```
 
 -------------------------------------------------------------------
