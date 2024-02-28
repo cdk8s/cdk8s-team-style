@@ -58,6 +58,8 @@ source ~/.zshrc
 nvm install v16.19.1
 nvm install v18.19.1
 
+nvm ls
+
 nvm use v16.19.1
 ```
 
