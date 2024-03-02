@@ -1,26 +1,35 @@
 
 # macOS 下 Node.js 开发环境
 
-## Node 安装
+## 多 Node 环境
 
-- **Homebrew 方式（推荐，因为避免权限问题）**：`brew install node`
-    - 如果你不想要最新版本的 node 可以先查询已有哪些版本：`brew search node`
-    - 目前稳定版本是 14，要安装 14 可以这样做：
+- 先确保已经卸载了 brew 安装的 node、或者是 pkg 安装的 node
 
 ```
-brew install node@14
+brew update
+mkdir ~/.nvm
+brew install nvm
 
-根据安装后的提示配置环境变量：
-export PATH="/usr/local/opt/node@14/bin:$PATH"
-export LDFLAGS="-L/usr/local/opt/node@14/lib"
-export CPPFLAGS="-I/usr/local/opt/node@14/include"
+.zshrc 增加如下2个配置
+export NVM_DIR=~/.nvm
+source $(brew --prefix nvm)/nvm.sh
 
-brew link --overwrite --force node@14
+刷新 .zshrc
+source ~/.zshrc
+
+查看有哪些版本：nvm ls-remote
+
+nvm install v16.20.2
+nvm install v18.19.1
+
+nvm ls
+
+nvm use v18.19.1
+
+nvm uninstall v21.6.2
 ```
 
 
-- 其他方式：官网安装包下载：<https://nodejs.org/zh-cn/>
-    - mac 不推荐用 pkg 包安装，很容易在项目中遇到各种权限问题
 
 ## Node 卸载
 
@@ -38,33 +47,6 @@ brew link --overwrite --force node@14
 -------------------------------------------------------------------
 
 
-## 多 Node 环境
-
-- 先确保已经卸载了 brew 安装的 node、或者是 pkg 安装的 node
-
-```
-brew update
-brew install nvm
-mkdir ~/.nvm
-
-.zshrc 增加如下2个配置
-export NVM_DIR=~/.nvm
-source $(brew --prefix nvm)/nvm.sh
-
-source ~/.zshrc
-
-查看有哪些版本：nvm ls-remote
-
-nvm install v16.20.2
-nvm install v18.19.1
-
-nvm ls
-
-nvm use v18.19.1
-
-nvm uninstall v21.6.2
-```
-
 
 -------------------------------------------------------------------
 
@@ -74,9 +56,6 @@ nvm uninstall v21.6.2
 安装：npm install -g nrm
 列表源：nrm ls
 使用源：nrm use taobao
-
-安装 pnpm：
-npm install -g pnpm
 ```
 
 -------------------------------------------------------------------
@@ -85,10 +64,17 @@ npm install -g pnpm
 ## Yarn 安装
 
 - 官网说明：<https://yarnpkg.com/lang/zh-hans/docs/install/#mac-stable>
-- 先查询已有哪些版本：`brew search yarn`
-- **Homebrew 方式（推荐）**：`brew install yarn`
-- 升级：`brew upgrade yarn`
+- 安装：`npm install -g yarn`
 - 查看版本：`yarn --version`
+
+-------------------------------------------------------------------
+
+
+## pnpm 安装
+
+- 官网说明：<https://pnpm.io/installation>
+- 安装：`npm install -g pnpm`
+- 查看版本：`pnpm --version`
 
 -------------------------------------------------------------------
 
