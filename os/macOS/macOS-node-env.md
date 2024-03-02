@@ -6,6 +6,8 @@
 - 先确保已经卸载了 brew 安装的 node、或者是 pkg 安装的 node
 
 ```
+先安装：xcode-select --install
+
 brew update
 mkdir ~/.nvm
 brew install nvm
