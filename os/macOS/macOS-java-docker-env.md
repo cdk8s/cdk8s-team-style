@@ -3,7 +3,7 @@
 
 ## 修改 hosts
 
-- 先查询自己的 hostname，然后替换我的 meekdeiMac-Pro.local
+- 先查询自己的，输入命令：`hostname`，然后替换我的 meekdeiMac-Pro.local
 
 ```
 127.0.0.1   localhost
@@ -25,6 +25,7 @@
 
 - 官网下载 JDK8：<https://www.oracle.com/java/technologies/javase/javase8u211-later-archive-downloads.html>
     - jdk-8u231-macosx-x64.dmg
+    - zulu JDK：<https://www.azul.com/downloads/?package=jdk#download-openjdk>
     - 百度云（d8rj）：<https://pan.baidu.com/s/1VFAi0gpMWikTgjTQokZEhQ>
 - Java 开发环境理论上一般都是这个优先安装的。
 - 安装过程和 Windows 没啥区别，都是下一步下一步，只是比 Windows 简单，连安装路径都不需要改而已，所以这里不截图了。
@@ -75,7 +76,7 @@ sudo rm -rf /Library/Java/JavaVirtualMachines/jdk1.8.0_112.jdk
 	- `/Users/你的用户名/Library/Preferences/IntelliJIdeaXXXXXX`，用于保存你的个人配置、授权文件，等价于 Windows 下的 `config` 目录
 - IntelliJ IDEA 设置 JDK
 
-<a href= "https://openfilecdn.upupmo.com/upupmo-article/old-youmeek/Mac-IDEA-JDK.jpg" class="foobox"><img src="https://openfilecdn.upupmo.com/upupmo-article/old-youmeek/Mac-IDEA-JDK.jpg" alt="IntelliJ IDEA JDK 设置"></a>
+<a href= "https://openfilecdn.upupmo.com/upupmo-article/old-meek/Mac-IDEA-JDK.jpg" class="foobox"><img src="https://openfilecdn.upupmo.com/upupmo-article/old-meek/Mac-IDEA-JDK.jpg" alt="IntelliJ IDEA JDK 设置"></a>
 
 
 ## Maven
@@ -90,7 +91,7 @@ sudo rm -rf /Library/Java/JavaVirtualMachines/jdk1.8.0_112.jdk
 - Maven 的环境变量是要添加的，我这边可以贴一下：
 
 ``` bash
-MAVEN_HOME=/Users/youmeek/my_software/work_software/maven3.3.9
+MAVEN_HOME=/Users/meek/my_software/work_software/maven3.3.9
 PATH=$PATH:$MAVEN_HOME/bin
 export MAVEN_HOME
 export PATH
@@ -105,7 +106,7 @@ export PATH
 
 ``` bash
  # Gradle
- GRADLE_HOME=/Users/youmeek/my_software/work_software/gradle4.2
+ GRADLE_HOME=/Users/meek/my_software/work_software/gradle4.2
  PATH=$PATH:$GRADLE_HOME/bin
  export GRADLE_HOME
  export PATH
