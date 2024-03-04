@@ -1,4 +1,4 @@
-![连接WIFI.jpg](https://openfilecdn.upupmo.com/upupmo-article/mac/basic/mac-system-1-connetc-wifi.png)
+![连接WIFI.jpg](https://cdn.uptmr.com/upupmo-article/mac/basic/mac-system-1-connetc-wifi.png)
 
 - 一般大家现在都是连接无线路由器的 WiFi 网络，这样的方式最简便，也最值得推荐。具体如上图。
 - 如果你要使用有线连接，那你需要购买这个装备：

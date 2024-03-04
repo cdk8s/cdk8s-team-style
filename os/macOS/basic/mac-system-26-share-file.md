@@ -20,4 +20,4 @@
 - 点击：文件共享 > 选择要共享文件夹 > 设置对指定用户的共享权限
 - 在 Windows 上打开我的电脑，输入 `\\192.168.1.102` 回车，输入 macOS 账号密码
 
-![2016-11-20_10-46-59.jpg](https://openfilecdn.upupmo.com/upupmo-article/mac/basic/mac-system-26-share-file.png)
+![2016-11-20_10-46-59.jpg](https://cdn.uptmr.com/upupmo-article/mac/basic/mac-system-26-share-file.png)

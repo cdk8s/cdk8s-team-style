@@ -24,7 +24,7 @@
 
 ## 1. 竞品分析
 
-![3](https://openfilecdn.upupmo.com/upupmo-article/2022/competitive-product-analysis.png)
+![3](https://cdn.uptmr.com/upupmo-article/2022/competitive-product-analysis.png)
 
 #### 1.1 总结
 
@@ -34,7 +34,7 @@
 
 #### 1.2 步骤、细节
 
-![3](https://openfilecdn.upupmo.com/upupmo-article/2022/competitive-product-analysis-xmind.png)
+![3](https://cdn.uptmr.com/upupmo-article/2022/competitive-product-analysis-xmind.png)
 
 - 准备思维导图，用于制作功能点图
 - 区别：直接竞品、间接竞品、潜在竞品
@@ -91,13 +91,13 @@ XXX 产品 XXX 版本和 XXX 版本之间的变动，透露了 XXX 意图
 
 #### 2.1 客户端软件
 
-![3](https://openfilecdn.upupmo.com/upupmo-article/2022/axure-template.png)
+![3](https://cdn.uptmr.com/upupmo-article/2022/axure-template.png)
 
 - Axure，中规中矩，网络上免费模板很多，但因为不是 Web 架构，所以协同效果不好
 
 #### 2.2 网页端软件
 
-![3](https://openfilecdn.upupmo.com/upupmo-article/2022/modao-template.png)
+![3](https://cdn.uptmr.com/upupmo-article/2022/modao-template.png)
 
 - 墨刀，免费额度很低，基本等于收费。但是素材广场有很多模板可以直接使用
 - VIP 用户还可以导出安卓 APK，可以分享观看，可以多人协同
@@ -109,7 +109,7 @@ XXX 产品 XXX 版本和 XXX 版本之间的变动，透露了 XXX 意图
 
 #### 3.1 客户端软件
 
-![3](https://openfilecdn.upupmo.com/upupmo-article/2022/adobe-xd.png)
+![3](https://cdn.uptmr.com/upupmo-article/2022/adobe-xd.png)
 
 - PhotoShop
 - Sketch
@@ -118,7 +118,7 @@ XXX 产品 XXX 版本和 XXX 版本之间的变动，透露了 XXX 意图
 
 #### 3.2 网页端软件
 
-![3](https://openfilecdn.upupmo.com/upupmo-article/2022/master-go.png)
+![3](https://cdn.uptmr.com/upupmo-article/2022/master-go.png)
 
 - MasterGo
 - 蓝湖
@@ -128,7 +128,7 @@ XXX 产品 XXX 版本和 XXX 版本之间的变动，透露了 XXX 意图
 
 #### 3.3 代码设计
 
-![3](https://openfilecdn.upupmo.com/upupmo-article/2022/tailwindcss.png)
+![3](https://cdn.uptmr.com/upupmo-article/2022/tailwindcss.png)
 
 - 如果对细节要求不高的话，可以直接堆代码来代替设计。现在的 UI 框架样式美观，基础组件齐全。
 - TailwindCSS
@@ -140,7 +140,7 @@ XXX 产品 XXX 版本和 XXX 版本之间的变动，透露了 XXX 意图
 
 ## 4. 架构设计
 
-![3](https://openfilecdn.upupmo.com/upupmo-article/2022/micro-service.png)
+![3](https://cdn.uptmr.com/upupmo-article/2022/micro-service.png)
 
 #### 4.1 架构是什么
 
@@ -267,7 +267,7 @@ how much >>> 做多少？做到什么程度？数量如何？质量水平如何�
 
 #### 4.11 核心图
 
-![3](https://openfilecdn.upupmo.com/upupmo-article/2022/sequence-diagram.png)
+![3](https://cdn.uptmr.com/upupmo-article/2022/sequence-diagram.png)
 
 - 声明：不要死扣 UML 规则，比如一定要按 UML 的某某形式来画图。
 - 我们要提取这些图本身要表达什么，至于画图是用图标、文字、圆圈、椭圆等等啥根本不是重点，但是不能瞎画。
@@ -280,14 +280,14 @@ how much >>> 做多少？做到什么程度？数量如何？质量水平如何�
 
 #### 4.12 数据库设计
 
-![3](https://openfilecdn.upupmo.com/upupmo-article/2022/pdman.png)
+![3](https://cdn.uptmr.com/upupmo-article/2022/pdman.png)
 
 - 主推 Navicat Premium 16，可以直接与数据库互相转换，支持显示字段注释
 - 次推 PDManer
 
 #### 4.13 YApi 接口设计（重要）
 
-![3](https://openfilecdn.upupmo.com/upupmo-article/2022/yapi.png)
+![3](https://cdn.uptmr.com/upupmo-article/2022/yapi.png)
 
 - 这个我认为是最重要的一个环节，理由如下：
 - 后端不应该先急着写代码，而是跟着模型、前端页面开始写注释来表明开发思路，在备注中写明这个 API 接口应该是怎样的逻辑，这些会被代码生成器作为注释生成到代码里面
@@ -298,7 +298,7 @@ how much >>> 做多少？做到什么程度？数量如何？质量水平如何�
 
 #### 4.14 做好压力测试
 
-![3](https://openfilecdn.upupmo.com/upupmo-article/2022/flutter-performance.png)
+![3](https://cdn.uptmr.com/upupmo-article/2022/flutter-performance.png)
 
 - 不一定要强调测试结果要如何如何，但是至少要有数据，作为初始基准
 - 每一次底层框架升级、JDK 升级都会做相同条件的压力测试，确保这次升级是否有必要，不要听别人说怎么怎么好
@@ -309,7 +309,7 @@ how much >>> 做多少？做到什么程度？数量如何？质量水平如何�
 
 #### 4.16 做好监控
 
-![3](https://openfilecdn.upupmo.com/upupmo-article/2022/grafana.png)
+![3](https://cdn.uptmr.com/upupmo-article/2022/grafana.png)
 
 - 不管是单体、微服务都要做好监控
 - 首推 Prometheus
@@ -326,14 +326,14 @@ how much >>> 做多少？做到什么程度？数量如何？质量水平如何�
 
 #### 5.1 Web 方向
 
-![3](https://openfilecdn.upupmo.com/upupmo-article/2022/charles.png)
+![3](https://cdn.uptmr.com/upupmo-article/2022/charles.png)
 
 - 抓包：Charles
 - 自动化：Scrapy、Selenium
 
 #### 5.2 APP 方向
 
-![3](https://openfilecdn.upupmo.com/upupmo-article/2022/webeditor.png)
+![3](https://cdn.uptmr.com/upupmo-article/2022/webeditor.png)
 
 - 安卓 ROOT：TWRP、Magisk、Move Certificates
 - 抓包：mitmproxy
@@ -343,7 +343,7 @@ how much >>> 做多少？做到什么程度？数量如何？质量水平如何�
 
 ## 6. 项目管理
 
-![3](https://openfilecdn.upupmo.com/upupmo-article/2022/scrum.png)
+![3](https://cdn.uptmr.com/upupmo-article/2022/scrum.png)
 
 #### 6.1 敏捷开发方法
 
@@ -410,7 +410,7 @@ how much >>> 做多少？做到什么程度？数量如何？质量水平如何�
 
 #### 6.5 认知、原则
 
-![3](https://openfilecdn.upupmo.com/upupmo-article/2022/5why.png)
+![3](https://cdn.uptmr.com/upupmo-article/2022/5why.png)
 
 - 5W2H
 - 5 Why
@@ -422,8 +422,8 @@ how much >>> 做多少？做到什么程度？数量如何？质量水平如何�
 
 #### 6.6 工具
 
-![3](https://openfilecdn.upupmo.com/upupmo-article/2022/tapd.png)
-![3](https://openfilecdn.upupmo.com/upupmo-article/2022/weixin-notice.png)
+![3](https://cdn.uptmr.com/upupmo-article/2022/tapd.png)
+![3](https://cdn.uptmr.com/upupmo-article/2022/weixin-notice.png)
 
 - TAPD + 企业微信（推荐）
 - 飞书一整套
@@ -433,7 +433,7 @@ how much >>> 做多少？做到什么程度？数量如何？质量水平如何�
 
 ## 推荐几本书
 
-![book](https://openfilecdn.upupmo.com/upupmo-article/2022/architecture-book.png)
+![book](https://cdn.uptmr.com/upupmo-article/2022/architecture-book.png)
 
 - 这几本书都是以人、技术角度进行综合探讨，是我比较推荐的
 - 《架构即未来》

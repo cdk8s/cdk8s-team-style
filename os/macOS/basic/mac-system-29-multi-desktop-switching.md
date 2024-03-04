@@ -1,5 +1,5 @@
 
-![2016-11-20_10-46-59.jpg](https://openfilecdn.upupmo.com/upupmo-article/mac/basic/mac-system-29-multi-desktop-switching.png)
+![2016-11-20_10-46-59.jpg](https://cdn.uptmr.com/upupmo-article/mac/basic/mac-system-29-multi-desktop-switching.png)
 
 - 如上图在 mission control 状态下可以新增多个桌面
 - 切换多个桌面的方式：

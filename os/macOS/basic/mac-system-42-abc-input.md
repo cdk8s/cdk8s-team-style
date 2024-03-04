@@ -1,5 +1,5 @@
 
-![2016-11-20_10-46-59.jpg](https://openfilecdn.upupmo.com/upupmo-article/mac/basic/mac-system-42-abc-input.png)
+![2016-11-20_10-46-59.jpg](https://cdn.uptmr.com/upupmo-article/mac/basic/mac-system-42-abc-input.png)
 
 
 - 需要关闭 SIP 不推荐

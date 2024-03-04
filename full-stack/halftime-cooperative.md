@@ -99,7 +99,7 @@
 
 ## 3.收费特有内容
 
-![img](https://openfilecdn.upupmo.com/upupmo-article/2022/baiduyun.png)
+![img](https://cdn.uptmr.com/upupmo-article/2022/baiduyun.png)
 
 ```
 支持协助开发一个后端、一个 PC 端（Nuxt.js）、一个 Chrome 扩展、一个 H5 端（uni-app）、一个微信小程序（uni-app）、一个 Android 端（uni-app、Flutter）、一个 iOS 端（uni-app、Flutter）、一个桌面端（Electron）

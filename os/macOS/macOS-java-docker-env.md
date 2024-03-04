@@ -76,7 +76,7 @@ sudo rm -rf /Library/Java/JavaVirtualMachines/jdk1.8.0_112.jdk
 	- `/Users/你的用户名/Library/Preferences/IntelliJIdeaXXXXXX`，用于保存你的个人配置、授权文件，等价于 Windows 下的 `config` 目录
 - IntelliJ IDEA 设置 JDK
 
-<a href= "https://openfilecdn.upupmo.com/upupmo-article/old-meek/Mac-IDEA-JDK.jpg" class="foobox"><img src="https://openfilecdn.upupmo.com/upupmo-article/old-meek/Mac-IDEA-JDK.jpg" alt="IntelliJ IDEA JDK 设置"></a>
+<a href= "https://cdn.uptmr.com/upupmo-article/old-meek/Mac-IDEA-JDK.jpg" class="foobox"><img src="https://cdn.uptmr.com/upupmo-article/old-meek/Mac-IDEA-JDK.jpg" alt="IntelliJ IDEA JDK 设置"></a>
 
 
 ## Maven

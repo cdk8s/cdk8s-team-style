@@ -22,7 +22,7 @@
 
 ## 1. 白苹果硬件推荐
 
-![opencore-index](https://openfilecdn.upupmo.com/upupmo-article/mac/2-macos/m1-cpu.png)
+![opencore-index](https://cdn.uptmr.com/upupmo-article/mac/2-macos/m1-cpu.png)
 
 
 - M1 CPU 首发在 2020-11，距离今天 2022-05 已经过去快 2 年。目前现状是只有少数工业化级软件不支持 M1，或者说支持的不完善。但是对于大多数用户、开发者来讲，基本可以说没啥影响了，可以大胆买。（Macbook Air 登场视频）
@@ -31,14 +31,14 @@
 #### 1.1 第一个产品
 
 
-![opencore-index](https://openfilecdn.upupmo.com/upupmo-article/mac/2-macos/macbook-pro.png)
+![opencore-index](https://cdn.uptmr.com/upupmo-article/mac/2-macos/macbook-pro.png)
 
 - MacBook Pro，它是我认为对于工作者来说最佳性价比的苹果设备。特别是对于那些不时需要出门在外办公、写代码、写文案、做设计、做音乐、做视频的人来讲，是最佳的移动办公设备。它的触控板真的是非常好用。（背景macbook pro登场视频）
 
 #### 1.2 第二个产品
 
 
-![opencore-index](https://openfilecdn.upupmo.com/upupmo-article/mac/2-macos/mac-studio.png)
+![opencore-index](https://cdn.uptmr.com/upupmo-article/mac/2-macos/mac-studio.png)
 
 - Mac Studio，它是最适合于固定办公场景的用户。
 - 但是由于 Mac Studio 价格还是有点高，我们可以用黑苹果来代替。
@@ -50,33 +50,33 @@
 ## 2. 黑苹果硬件推荐
 
 
-![opencore-index](https://openfilecdn.upupmo.com/upupmo-article/mac/2-macos/opencore-index.png)
+![opencore-index](https://cdn.uptmr.com/upupmo-article/mac/2-macos/opencore-index.png)
 
 - 当前最有名的黑苹果引导是 OpenCore，它的官网文档写得非常的好，不推荐大家使用第三方封装的镜像、EFI，而是我们自己根据官网的教程来定制。
 - OpenCore 官网有指导我们怎么选择硬件，接下来我将进行解读：
 - <https://dortania.github.io/OpenCore-Install-Guide/macos-limits.html#cpu-support>
 
-![opencore-index](https://openfilecdn.upupmo.com/upupmo-article/mac/2-macos/opencore-cpu.png)
+![opencore-index](https://cdn.uptmr.com/upupmo-article/mac/2-macos/opencore-cpu.png)
 
 - 对于 CPU 的选择，如官网说明，CPU 目前（2022-05）是支持到 Intel 11 代架构，但是 11 代的核显是无法驱动的，所以稳妥起见还是推荐 10 代为最佳。主要因为苹果有采用 Intel 十代的 iMac，该适配的都适配到位了。
 - 虽然官网没有专门提核显问题，这里我还是推荐 CPU 最好是有核显的，也就是排除带 F 后缀的 CPU 型号，比如：i7-10700F，这可以帮助我们在处理视频工作的时候有核显加速。虽然 W3275 这类服务器 CPU 性能更强，但是大多数人都是综合类生活场景需求。
 - 当然，不排除等等党胜利，不排除过一段时间 12 代的 kf 成为新成熟方案，但是至少在当下，想要以稳定作为生产力输出的话还是用官网推荐的 CPU 最好。
 - 假设我们这里选择了：i9-10900K，盒装已经不卖了，大家只能淘宝买散片
 
-![opencore-index](https://openfilecdn.upupmo.com/upupmo-article/mac/2-macos/opencore-gpu.png)
+![opencore-index](https://cdn.uptmr.com/upupmo-article/mac/2-macos/opencore-gpu.png)
 
 - 对于 GPU 的选择，能支持到最新系统的 GPU 目前（2022-05）只有 AMD 的才能免驱，主推 Navi 20 架构的 RX 6000 系列，更加具体的说是：Navi 23、Navi 21 两个系。
 - 目前已知支持的有：RX6600XT/RX6800/RX6800XT/RX6900XT（需要特别注意的是：RX6700 暂时不支持免驱，不建议购买）
 - 当然，很多人都想跳过这代 `矿卡`，你等，你赢。
 - 假设我们这里选择了：RX6600XT
 
-![opencore-index](https://openfilecdn.upupmo.com/upupmo-article/mac/2-macos/opencore-motherboard.png)
+![opencore-index](https://cdn.uptmr.com/upupmo-article/mac/2-macos/opencore-motherboard.png)
 
 - 对于主板、硬盘的选择，官网没太多限制，但是主板京东目前（2022-05）还在卖的一手 Z490 不多了，
 - 假设我们这里选择了：华擎（ASRock）Z490 Steel Legend钢铁传奇主板
 - 硬盘选择：西数SN770
 
-![opencore-index](https://openfilecdn.upupmo.com/upupmo-article/mac/2-macos/opencore-wifi.png)
+![opencore-index](https://cdn.uptmr.com/upupmo-article/mac/2-macos/opencore-wifi.png)
 
 
 - 无线网卡是非必须的，如果你想要无线网络相关功能，那官网也有推荐对应的型号：
@@ -86,13 +86,13 @@
 - BCM94360CS2 + PCIEx1 转接卡（两天线）
 - 个人主推 BCM94360CD
 
-![opencore-index](https://openfilecdn.upupmo.com/upupmo-article/mac/2-macos/opencore-other.png)
+![opencore-index](https://cdn.uptmr.com/upupmo-article/mac/2-macos/opencore-other.png)
 
 - 其他硬件上就再没特别要求了。
 
 #### 硬件总结
 
-![opencore-index](https://openfilecdn.upupmo.com/upupmo-article/mac/2-macos/macos-hardware.png)
+![opencore-index](https://cdn.uptmr.com/upupmo-article/mac/2-macos/macos-hardware.png)
 
 - 综合前面介绍的，最后我们总结下硬件上整体的推荐方案：
 - CPU 选用：i9-10900K
@@ -112,7 +112,7 @@
 ## 3. 黑苹果详细安装流程（macOS Monterey）
 
 
-![opencore-index](https://openfilecdn.upupmo.com/upupmo-article/mac/2-macos/macos-install-opencore.png)
+![opencore-index](https://cdn.uptmr.com/upupmo-article/mac/2-macos/macos-install-opencore.png)
 
 
 - 由于该章节内容过多，有一万多个字，所以我独立出一个文章，具体大家可以访问如下地址：
@@ -125,7 +125,7 @@
 
 ## 4. macOS 新手入门指南
 
-![opencore-index](https://openfilecdn.upupmo.com/upupmo-article/mac/2-macos/macos-basic.png)
+![opencore-index](https://cdn.uptmr.com/upupmo-article/mac/2-macos/macos-basic.png)
 
 
 - 一共六十多章节我已经全部整理好了，主要分为：必懂概念、系统功能点两部分。
@@ -139,7 +139,7 @@
 ## 5. macOS 软件大全推荐
 
 
-![opencore-index](https://openfilecdn.upupmo.com/upupmo-article/mac/2-macos/macos-game.png)
+![opencore-index](https://cdn.uptmr.com/upupmo-article/mac/2-macos/macos-game.png)
 
 
 - 常用、优秀的软件我都已经整理好了，大家可以访问下面链接查看。
@@ -147,7 +147,7 @@
 - <https://www.upupmo.com/subject?cpid=111111111111111211>
 
 
-![opencore-index](https://openfilecdn.upupmo.com/upupmo-article/mac/2-macos/macos-dev-software.png)
+![opencore-index](https://cdn.uptmr.com/upupmo-article/mac/2-macos/macos-dev-software.png)
 
 
 - 需要特别单独来说明的是：编程软件争论

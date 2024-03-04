@@ -136,7 +136,7 @@ brew install python@3.10
     - 目前大家喜欢设置的配色方案为 solarized，iTerm2 默认是有带的，如果没有则访问：<https://github.com/altercation/solarized>
         - 在项目中找到 solarized/iterm2-colors-solarized 目录，下面有两个文件：Solarized Dark.itermcolors 和 Solarized Light.itermcolors，双击这两个文件就可以把配置文件导入到 iTerm 里了。
     - 更改后的配色最终效果如下图：已经截图了。同时还要再切换到 Text 标签，把 `Draw bold text in bold font` 的勾去掉。
-    - <a href= "https://openfilecdn.upupmo.com/upupmo-article/old-youmeek/Mac-iTerm2-1.jpg" class="foobox"><img src="https://openfilecdn.upupmo.com/upupmo-article/old-youmeek/Mac-iTerm2-1.jpg" alt="iTerm2介绍"></a>
+    - <a href= "https://cdn.uptmr.com/upupmo-article/old-youmeek/Mac-iTerm2-1.jpg" class="foobox"><img src="https://cdn.uptmr.com/upupmo-article/old-youmeek/Mac-iTerm2-1.jpg" alt="iTerm2介绍"></a>
 
 
 ### iTerm2 软件特色
@@ -148,8 +148,8 @@ brew install python@3.10
 	- 这个非常好用，默认是没有设置，需要自己设置下。
 	- 实际使用时我们经常会遇到这种场景：有时候只是执行几行命令，然后就不再使用它。可是我们还是必须要打开终端，使用完成后关闭它。但是用 iTerm2 这个功能只要按快捷键，出来虚化的终端，输入命令，然后再把光标放在其他地方自动就消息了。
 	- 设置和效果如下图：
-	    - <a href= "https://openfilecdn.upupmo.com/upupmo-article/old-youmeek/Mac-iTerm2-2.jpg" class="foobox"><img src="https://openfilecdn.upupmo.com/upupmo-article/old-youmeek/Mac-iTerm2-2.jpg" alt="iTerm2介绍"></a>
-	    - <a href= "https://openfilecdn.upupmo.com/upupmo-article/old-youmeek/Mac-iTerm2-3.jpg" class="foobox"><img src="https://openfilecdn.upupmo.com/upupmo-article/old-youmeek/Mac-iTerm2-3.jpg" alt="iTerm2介绍"></a>
+	    - <a href= "https://cdn.uptmr.com/upupmo-article/old-youmeek/Mac-iTerm2-2.jpg" class="foobox"><img src="https://cdn.uptmr.com/upupmo-article/old-youmeek/Mac-iTerm2-2.jpg" alt="iTerm2介绍"></a>
+	    - <a href= "https://cdn.uptmr.com/upupmo-article/old-youmeek/Mac-iTerm2-3.jpg" class="foobox"><img src="https://cdn.uptmr.com/upupmo-article/old-youmeek/Mac-iTerm2-3.jpg" alt="iTerm2介绍"></a>
 - iTerm2 常用快捷键
 	- 这篇文章配了很多图，如果你想更加具体地了解可以看这篇文章，我不想截图了：<http://swiftcafe.io/2015/07/25/iterm/>
 

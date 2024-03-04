@@ -1,4 +1,4 @@
 
-![2016-11-20_10-46-59.jpg](https://openfilecdn.upupmo.com/upupmo-article/mac/basic/mac-system-24-disable-update.png)
+![2016-11-20_10-46-59.jpg](https://cdn.uptmr.com/upupmo-article/mac/basic/mac-system-24-disable-update.png)
 
-![2016-11-20_10-46-59.jpg](https://openfilecdn.upupmo.com/upupmo-article/mac/basic/mac-system-25-system-update.png)
+![2016-11-20_10-46-59.jpg](https://cdn.uptmr.com/upupmo-article/mac/basic/mac-system-25-system-update.png)

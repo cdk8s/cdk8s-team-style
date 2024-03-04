@@ -74,7 +74,7 @@ CPU：Intel i9-10900k、Intel i7-8700k、Intel i7-8700
 - 这时候你需要打开机箱，在主板边角位置找到写有版本号的信息，一般情况主板是没有那么多版本的。
 - 如下图，是作者的主板版本信息：
 
-![图片1](https://openfilecdn.upupmo.com/upupmo-article/mac/macos-install/motherboard-version.png)
+![图片1](https://cdn.uptmr.com/upupmo-article/mac/macos-install/motherboard-version.png)
 
 - 确定好主板版本后，到主板官网下载最新 BIOS：
 - 技嘉官网：<https://www.gigabyte.cn/Support/Motherboard>
@@ -87,9 +87,9 @@ CPU：Intel i9-10900k、Intel i7-8700k、Intel i7-8700
 - 准备一个 U盘，格式必须是 FAT32，把下载到 BIOS 更新包先解压到本地电脑后，再复制到 U盘根目录。
 - 接着重启电脑按 DEL 进入 BIOS 设置，再根据我主板界面提示的 Q-FLASH 快捷键进入 Q-FLASH 模式（这是技嘉主板的叫法，其他品牌不这么叫）。如下图步骤更新：
 
-![图片1](https://openfilecdn.upupmo.com/upupmo-article/mac/macos-install/bios-update-1.png)
-![图片2](https://openfilecdn.upupmo.com/upupmo-article/mac/macos-install/bios-update-2.png)
-![图片3](https://openfilecdn.upupmo.com/upupmo-article/mac/macos-install/bios-update-3.png)
+![图片1](https://cdn.uptmr.com/upupmo-article/mac/macos-install/bios-update-1.png)
+![图片2](https://cdn.uptmr.com/upupmo-article/mac/macos-install/bios-update-2.png)
+![图片3](https://cdn.uptmr.com/upupmo-article/mac/macos-install/bios-update-3.png)
 
 -------------------------------------------------------------------
 
@@ -353,7 +353,7 @@ SSDT-PMC（官网详情页说 Z370 的主板不需要，所以刚好省略）
 
 #### 7.1 在 ACPI 分类
 
-![配置方法](https://openfilecdn.upupmo.com/upupmo-article/mac/macos-install/opencore-config.png)
+![配置方法](https://cdn.uptmr.com/upupmo-article/mac/macos-install/opencore-config.png)
 
 - 根据官网文档里图片红框说明操作，三个都是 True
 

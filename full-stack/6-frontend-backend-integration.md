@@ -26,7 +26,7 @@
 ## 1. 企业现状
 
 
-![功归一篑](https://openfilecdn.upupmo.com/upupmo-article/old-gitnavi/build-railway.png)
+![功归一篑](https://cdn.uptmr.com/upupmo-article/old-gitnavi/build-railway.png)
 
 - **声明：本段内容可能有争议，不接受反驳**
 - 目前很多企业对于接口文档并没有足够重视，认为只是单纯对接文档而已，对接的时候遇到问题再修修改改就行了。
@@ -52,7 +52,7 @@
 ## 2. 前后端的对接标准
 
 
-![img](https://openfilecdn.upupmo.com/upupmo-article/2022/hasura.png)
+![img](https://cdn.uptmr.com/upupmo-article/2022/hasura.png)
 
 - 我试过 OpenAPI、GraphQL、TSRPC 等等新事物，我也懂 RESTFul。
 - 我早期也用过 Swagger，但是后来认真思考过，认为其要先编写代码的逻辑让其所在开发阶段过于偏后，对前后端的帮助有限。
@@ -75,7 +75,7 @@
 
 ## 3. YApi 介绍
 
-![img](https://openfilecdn.upupmo.com/upupmo-article/2022/yapi.png)
+![img](https://cdn.uptmr.com/upupmo-article/2022/yapi.png)
 
 
 - YApi 官网：<https://github.com/YMFE/yapi>

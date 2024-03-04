@@ -1,1 +1,1 @@
-![image.png](https://openfilecdn.upupmo.com/upupmo-article/mac/basic/mac-system-2-show-wifi-password.png)
+![image.png](https://cdn.uptmr.com/upupmo-article/mac/basic/mac-system-2-show-wifi-password.png)

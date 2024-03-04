@@ -411,9 +411,9 @@ spring:
 |zhparser|1.0|a parser for full-text search of Chinese|
 
 
-![阿里云记录](https://openfilecdn.upupmo.com/upupmo-article/old-gitnavi/aliyun-postgresql-1.png)
+![阿里云记录](https://cdn.uptmr.com/upupmo-article/old-gitnavi/aliyun-postgresql-1.png)
 
-![阿里云记录](https://openfilecdn.upupmo.com/upupmo-article/old-gitnavi/aliyun-postgresql-2.png)
+![阿里云记录](https://cdn.uptmr.com/upupmo-article/old-gitnavi/aliyun-postgresql-2.png)
 
 
 ## PostgreSQL 11 带 zhparser 插件的 Docker 部署（非官方）

@@ -121,7 +121,7 @@ WebSocket
 ## 2. 主流前端框架对比
 
 
-![img](https://openfilecdn.upupmo.com/upupmo-article/2022/Top-JavaScript-Frameworks.png)
+![img](https://cdn.uptmr.com/upupmo-article/2022/Top-JavaScript-Frameworks.png)
 
 
 
@@ -153,7 +153,7 @@ React、Vue 在社区生态中都是比较完善，但是它们的编码风格�
 
 ## 3. 正在发展的云开发介绍（无服务器）
 
-![img](https://openfilecdn.upupmo.com/upupmo-article/2022/serverless.png)
+![img](https://cdn.uptmr.com/upupmo-article/2022/serverless.png)
 
 
 ```
@@ -185,7 +185,7 @@ React、Vue 在社区生态中都是比较完善，但是它们的编码风格�
 
 #### 4.1 Vue3-Admin
 
-![img](https://openfilecdn.upupmo.com/upupmo-article/2022/element-plus.png)
+![img](https://cdn.uptmr.com/upupmo-article/2022/element-plus.png)
 
 
 - Vue 的后台管理模板，在 Vue2 的时候我用 Ant-Design-Vue。现在 Vue3 我用 Element-Plus，
@@ -193,7 +193,7 @@ React、Vue 在社区生态中都是比较完善，但是它们的编码风格�
 
 #### 4.2 Vu3-SSR
 
-![img](https://openfilecdn.upupmo.com/upupmo-article/2022/nuxt.png)
+![img](https://cdn.uptmr.com/upupmo-article/2022/nuxt.png)
 
 
 - PC Web 用 SSR 框架除了 SEO 需要，那些以阅读为主的前端也可以用来提速加载速度
@@ -202,7 +202,7 @@ React、Vue 在社区生态中都是比较完善，但是它们的编码风格�
 
 #### 4.3 Chrome 扩展开发
 
-![img](https://openfilecdn.upupmo.com/upupmo-article/2022/chrome-ext.png)
+![img](https://cdn.uptmr.com/upupmo-article/2022/chrome-ext.png)
 
 
 - Chrome 扩展开发我们可以用原生 JS 开发
@@ -210,14 +210,14 @@ React、Vue 在社区生态中都是比较完善，但是它们的编码风格�
 
 #### 4.4 Electron 桌面跨平台开发
 
-![img](https://openfilecdn.upupmo.com/upupmo-article/2022/electron.png)
+![img](https://cdn.uptmr.com/upupmo-article/2022/electron.png)
 
 - 考虑到桌面端类似于 PC Web 端，所以用 Electron-Vue 框架开发效率会更高。
 
 
 #### 4.5 Flutter 移动端跨平台开发
 
-![img](https://openfilecdn.upupmo.com/upupmo-article/2022/flutter.png)
+![img](https://cdn.uptmr.com/upupmo-article/2022/flutter.png)
 
 
 - APP 能用原生开发是最好的，Flutter 也只是一种折中，目前普通业务还是能支持的。
@@ -226,7 +226,7 @@ React、Vue 在社区生态中都是比较完善，但是它们的编码风格�
 
 #### 4.6 微信小程序开发
 
-![img](https://openfilecdn.upupmo.com/upupmo-article/2022/weixin.png)
+![img](https://cdn.uptmr.com/upupmo-article/2022/weixin.png)
 
 
 - 如果你是一次性的小程序项目，或只是简单展示项目可以考虑 uni-app、Taro 这类多端的框架。

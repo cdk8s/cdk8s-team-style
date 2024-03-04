@@ -1,6 +1,6 @@
 
 
-![2016-11-20_10-46-59.jpg](https://openfilecdn.upupmo.com/upupmo-article/mac/basic/mac-system-55-change-root.png)
+![2016-11-20_10-46-59.jpg](https://cdn.uptmr.com/upupmo-article/mac/basic/mac-system-55-change-root.png)
 
 
 - 默认 Mac 是没有启用 root 用户的，所以你需要先进行启用，具体方法如上图。

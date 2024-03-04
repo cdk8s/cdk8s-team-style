@@ -27,7 +27,7 @@
 #### 1.1 行业中的普遍争议
 
 
-![img](https://openfilecdn.upupmo.com/upupmo-article/2022/3-system-os.jpeg)
+![img](https://cdn.uptmr.com/upupmo-article/2022/3-system-os.jpeg)
 
 
 1. Windows、macOS、Linux 哪个更适合程序员日常?（暂停 3 秒，大家想一下自己心中的答案）
@@ -45,7 +45,7 @@
 2. 程序员应该用哪个 IDE 或编辑器?
 
 
-![img](https://openfilecdn.upupmo.com/upupmo-article/2022/JetBrains.png)
+![img](https://cdn.uptmr.com/upupmo-article/2022/JetBrains.png)
 
 
 ```
@@ -162,7 +162,7 @@ JDK 17
 ## 2. 后端企业级架构标准
 
 
-![img](https://openfilecdn.upupmo.com/upupmo-article/2022/cncf.png)
+![img](https://cdn.uptmr.com/upupmo-article/2022/cncf.png)
 
 - 立这个标准主要目的是：每当我学习一个新的后端语言、后端框架，我都会按照此功能需求进行调研
 - 我主要是以业务驱动去思考使用的语言、框架
@@ -243,7 +243,7 @@ A/B测试、灰度发布
 
 ## 3. 各类数据库应用场景
 
-![img](https://openfilecdn.upupmo.com/upupmo-article/2022/databases.png)
+![img](https://cdn.uptmr.com/upupmo-article/2022/databases.png)
 
 ```
 传统数据库的范式要求既是缺点也是优点。
