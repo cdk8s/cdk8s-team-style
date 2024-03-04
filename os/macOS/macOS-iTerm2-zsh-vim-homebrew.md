@@ -9,7 +9,10 @@
 - **牢记：** 装了 zsh 之后，修改终端配置就变成了：`vim ~/.zshrc`，而不是：`vim ~/.bashrc`，所以以后看到别人的文章中需要：`vim ~/.bashrc`，那你自己要变通思想过来。
 - 同时更新修改后的配置文件也从：`source ~/.bashrc`，变成了：`source ~/.zshrc`，当然还有其他取取巧方式，这里不谈。
 
+## 先安装 VSCode
 
+- 下载地址：<https://code.visualstudio.com/Download>
+- 安装 code 命令行到 path
 
 ### Homebrew 是什么
 
