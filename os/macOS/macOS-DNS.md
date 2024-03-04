@@ -17,3 +17,7 @@ ping 208.67.222.222 Cisco
 
 根据自己 ping 结果来确定用哪些
 ```
+
+## shell 脚本
+
+- [ping dns 脚本](../../playbook/shell/ping-dns.sh)
