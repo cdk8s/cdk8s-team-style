@@ -102,6 +102,9 @@ brew install curl
 brew install wget
 brew install zsh
 
+安装所有：
+brew install git vim htop wrk telnet curl wget zsh
+
 
 https://nodejs.org/en/
 brew install node@16
