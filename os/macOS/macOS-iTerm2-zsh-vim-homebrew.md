@@ -106,14 +106,6 @@ brew install zsh
 brew install git vim htop wrk telnet curl wget zsh
 
 
-https://nodejs.org/en/
-brew install node@16
-记得安装 npm install -g yarn
-
-https://www.python.org/downloads/
-brew install python@3.10
-
-
 如果安装过程报：git fatal: unsafe repository xxx is owned by someone else 这个错误，解决办法：git config --global --add safe.directory "*"
 
 ```
