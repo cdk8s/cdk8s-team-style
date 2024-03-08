@@ -1013,6 +1013,13 @@ location /user/ {
     proxy_pass http://127.0.0.1/;
 }
 
+# 不保留 /user 路径，直接读取指定目录下的静态 index.html 文件
+location /user {
+    alias /opt/jar;
+    index index.html;
+}
+
+
 location ^~ /user/ {
 
 }
