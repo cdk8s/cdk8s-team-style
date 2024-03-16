@@ -3,7 +3,8 @@
 ## supervisord
 
 - 注意：Supervisor 能管理非 daemon 的进程，也就是说 Supervisor 不能管理守护进程。否则提示 Exited too quickly (process log may have details) 异常。
-- Supervisor 不支持 python 3，安装 python 2 方法：<http://www.cnblogs.com/alex-xia/p/6062741.html>
+- Supervisor3 支持 python 3，
+- Supervisor2 支持 python 2，安装 python 2 方法：<http://www.cnblogs.com/alex-xia/p/6062741.html>
 - 官网：<http://supervisord.org/installing.html>
 - 安装过程：
 	- 解释：easy_install 是 setuptools 包里带的一个命令，使用 easy_install 实际上是在调用 setuptools 来完成安装模块的工作,所以安装 setuptools 即可。
@@ -11,7 +12,10 @@
 - 安装方案：
 
 ```
-#第一种（推荐）
+# 推荐
+pip install supervisor
+
+#第一种
 yum install python-setuptools
 easy_install supervisor
 
@@ -25,43 +29,8 @@ yum install -y epel-release
 yum install -y supervisor
 ```
 
-- 如果以上还不能安装，或是安装过程出现各种问题，或是安装完成后使用出现问题，应该就是环境有问题。至少我在京东云上发现会有这个问题。环境是 centos 6.8，python 2.6.6
-- 如果你遇到这种问题需要源码安装。
-- 源码和各个依赖的源码下载地址（密码：j797）：<http://pan.baidu.com/s/1hsGhNkK>
 
-```
-tar zxvf setuptools-36.6.0.tar.gz
-cd setuptools-36.6.0
-python bootstrap.py install
-python setup.py install
-
-tar zxvf meld3.tar.gz
-cd meld3
-python setup.py install
-
-tar zxvf elementtree-1.2.6-20050316.tar.gz
-cd elementtree-1.2.6-20050316
-python setup.py install
-
-tar zxvf supervisor-3.3.3.tar.gz
-cd supervisor-3.3.3
-python setup.py  install
-```
-
-
-- 生成配置文件：`echo_supervisord_conf > /etc/supervisord.conf`
-- 创建专门的程序配置文件目录、日志目录：
-	- `mkdir -p /var/log/supervisor`
-	- `mkdir -p /etc/supervisor/conf.d/`
-	- `echo -e "[include]\nfiles = /etc/supervisor/conf.d/*.conf">>/etc/supervisord.conf` 
-- 安装完成的内容介绍：supervisor 安装完成后会生成三个执行程序：
-	- supervisortd：supervisor 的守护进程服务（用于接收进程管理命令）
-	- supervisorctl：客户端（用于和守护进程通信，发送管理进程的指令）
-	- echo_supervisord_conf：生成初始配置文件程序。
-- 程序位置：`/usr/bin/supervisord`
-- 配置文件位置：`/etc/supervisord.conf`
-
-### Logstash 进程进行守护
+### 设置 Logstash 进程进行守护
 
 - 默认安装完 Supervisor 是已经启动的，所以在加入新配置之前，需要先停止程序：`ps -ef | grep supervisord`，kill 对应的 pid
 - 创建配置文件：`vim /etc/supervisor/conf.d/logstash.conf`
