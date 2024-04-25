@@ -49,18 +49,16 @@ docker cp yapi-mongo:/my-yapi/yapi-20240425.tar /opt
 
 -------------------------------------------------------------------
 导入：
-docker cp /opt/yapi-20240425.tar  容器名:/data/
+docker cp /opt/yapi-20240425.tar  yapi-mongo:/data/
 
 进入到容器中解压文件
-docker exec -it 容器名 /bin/bash
+docker exec -it yapi-mongo /bin/bash
 cd /data
-tar -zxvf yapi-20240425.tar
+tar -xvf yapi-20240425.tar
 
-还原数据
-docker exec 容器名 mongorestore -d yapi --drop --dir /data/yapi
+退出容器终端，还原数据
+docker exec yapi-mongo mongorestore -d yapi --drop --dir /data/my-yapi/yapi
 
-重启服务：
-docker-compose up -d
 
 ```
 
