@@ -90,8 +90,7 @@ sudo systemctl stop docker
 ``` bash
 {
     "registry-mirrors": [
-      "https://ldhc17y9.mirror.aliyuncs.com",
-      "https://hub-mirror.c.163.com",
+      "https://dockerproxy.com",
       "https://mirror.baidubce.com",
       "https://docker.mirrors.ustc.edu.cn"
     ],
