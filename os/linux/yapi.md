@@ -21,7 +21,7 @@ git clone --depth=1 https://github.com/fjc0k/docker-YApi.git
 修改 docker-compose.yml
 YAPI_ADMIN_ACCOUNT 为你的管理员邮箱
 YAPI_ADMIN_PASSWORD 为你的管理员密码
-YAPI_CLOSE_REGISTER 改为 false
+YAPI_CLOSE_REGISTER 改为 false（不需要开放给别人注册再设置为 true）
 
 启动服务
 docker-compose up -d
