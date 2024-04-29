@@ -21,8 +21,10 @@ source ~/.zshrc
 
 查看有哪些版本：nvm ls-remote
 
+nvm install v14.21.3
 nvm install v16.20.2
 nvm install v18.19.1
+nvm install v20.12.2
 
 nvm ls
 
