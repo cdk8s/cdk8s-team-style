@@ -31,6 +31,7 @@ nvm ls
 nvm use v18.19.1
 
 设置默认版本：nvm alias default v16.20.2
+设置默认版本：nvm alias default v18.19.1
 
 nvm uninstall v21.6.2
 ```
