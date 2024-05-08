@@ -40,12 +40,11 @@
     - 空气流通
     - 每顿饭后都必须洗牙，没条件洗牙就用漱口水
     - [复方氨酚烷胺片](https://search.jd.com/Search?keyword=复方氨酚烷胺片&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=30c9f3ae4f9344bc80bf2ff563edc76c-p_276666007&abt=3)，**适应症为适用于缓解普通感冒及流行性感冒引起的发热、头痛、四肢酸痛、打喷嚏、流鼻涕、鼻塞、咽痛等症状。**
-    - [芬必得](https://search.jd.com/Search?keyword=芬必得&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=63985febabef4a81b971af8865a153c7-p_276666007&abt=3)，**用于缓解轻至中度疼痛如头痛、关节痛、偏头痛、牙痛、肌肉痛、神经痛、痛经。也用于普通感冒或流行性感冒引起的发热**
+    - [布洛芬缓释胶囊](https://search.jd.com/Search?keyword=布洛芬缓释胶囊&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=63985febabef4a81b971af8865a153c7-p_276666007&abt=3)，**用于缓解轻至中度疼痛如头痛、关节痛、偏头痛、牙痛、肌肉痛、神经痛、痛经。也用于普通感冒或流行性感冒引起的发热**
+    - [复方氨溴酸右美沙芬糖浆（干咳）](https://search.jd.com/Search?keyword=复方氨溴酸右美沙芬糖浆&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=7bcac73ed7d740bcb30f62b2511056ab-p_276666007&abt=3)
+    - [盐酸氨溴索口服溶液（痰多咳嗽）](https://search.jd.com/Search?keyword=盐酸氨溴索口服溶液&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=7bcac73ed7d740bcb30f62b2511056ab-p_276666007&abt=3)
     - [曼秀雷敦薄荷膏](https://search.jd.com/Search?keyword=曼秀雷敦薄荷膏&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=70d7289e099b496288e25fe43849dfad-p_276666007&abt=3)，**用于由伤风感冒所致的鼻塞，昆虫叮咬及皮肤开裂等症的对症治疗。**
     - [维生素C](https://search.jd.com/Search?keyword=维生素C&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=7bcac73ed7d740bcb30f62b2511056ab-p_276666007&abt=3)
-    - [幸福伤风素（复方氨酚肾素片）](https://search.jd.com/Search?keyword=复方氨酚肾素片&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=7bcac73ed7d740bcb30f62b2511056ab-p_276666007&abt=3)
-    - [儿童幸福伤风素（儿童复方氨酚肾素片）](https://search.jd.com/Search?keyword=儿童复方氨酚肾素片&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=7bcac73ed7d740bcb30f62b2511056ab-p_276666007&abt=3)
-    - [Robitussin 乐必治 止咳药水（香港）](https://search.jd.com/Search?keyword=Robitussin&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=7bcac73ed7d740bcb30f62b2511056ab-p_276666007&abt=3)
 - 跌打损伤
     - 这里假设的是你没有皮外伤的前提，有皮外伤，要先处理皮外伤，并且注意下面这些药是否可以对在皮外伤处进行涂抹（一般是不行）
     - 没有皮外伤的情况下，受伤24小时内用冷敷，24小时后用药膏推拿，让它发热。
@@ -61,9 +60,9 @@
     - 十滴水、仁丹、风油精、藿香正气水这类没用过，普遍网上都是推荐这种。
     - [口服补液盐](https://search.jd.com/Search?keyword=口服补液盐&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=21c29aa136444540a02a8f89777aeb6a-p_276666007&abt=3)，**用于治疗儿童、成年消化不良和秋季腹泻引起的轻度及中度脱水**
 - 腹泻
+    - [盐酸洛哌丁胺](https://search.jd.com/Search?enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=c0d90a09b813492cbb88dbd39455a471-p_669678130&abt=3&keyword=%E6%B4%9B%E5%93%8C%E4%B8%81%E8%83%BA)
+    - [口服补液盐（博叶）](https://search.jd.com/Search?keyword=口服补液盐&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=21c29aa136444540a02a8f89777aeb6a-p_276666007&abt=3)，**用于治疗儿童、成年消化不良和秋季腹泻引起的轻度及中度脱水**
     - [蒙脱石散](https://search.jd.com/Search?keyword=蒙脱石散&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=e5dd4eabf5db41b8a67d56f695f844c4-p_276666007&abt=3)，**成人及儿童急、慢性腹泻。**
-    - [洛哌丁胺](https://search.jd.com/Search?enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=c0d90a09b813492cbb88dbd39455a471-p_669678130&abt=3&keyword=%E6%B4%9B%E5%93%8C%E4%B8%81%E8%83%BA)
-    - [口服补液盐](https://search.jd.com/Search?keyword=口服补液盐&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=21c29aa136444540a02a8f89777aeb6a-p_276666007&abt=3)，**用于治疗儿童、成年消化不良和秋季腹泻引起的轻度及中度脱水**
 	- [喇叭牌正露丸](https://search.jd.com/Search?keyword=喇叭牌正露丸&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=be4dc6a768dc44179644aca8812990c7-p_276666007&abt=3)
 - 肠道不适
     - [匹维溴铵](https://search.jd.com/Search?enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=c0d90a09b813492cbb88dbd39455a471-p_669678130&abt=3&keyword=%E5%8C%B9%E7%BB%B4%E6%BA%B4%E9%93%B5)
