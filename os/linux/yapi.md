@@ -62,11 +62,13 @@ docker exec yapi-mongo mongorestore -d yapi --drop --dir /data/my-yapi/yapi
 
 ```
 
-## Windows、macOS 的特殊性
+## Windows、macOS 的 mongodb 特殊性
 
 ```
 在 Windows、macOS 系统下 docker mongo 无法完成启动，会报错：Operation not permitted Actual exception type: std::system_error
 需要在 docker-compose.yml 增加一个：privileged: true
+并且因为它暴露端口是用 expose 参数，这种只是一种声明，不是真正的端口映射，所以如果是本地开发需要连接 mongo 需要额外增加一个 ports 参数。
+两个配置都修改之后的效果如下：
 
   yapi-mongo:
     image: mongo:latest
@@ -75,6 +77,8 @@ docker exec yapi-mongo mongorestore -d yapi --drop --dir /data/my-yapi/yapi
       - ./data/db:/data/db
     expose:
       - 27017
+    ports:
+      - 27017:27017
     restart: unless-stopped
     privileged: true
 ```
