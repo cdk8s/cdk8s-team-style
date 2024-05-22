@@ -62,6 +62,23 @@ docker exec yapi-mongo mongorestore -d yapi --drop --dir /data/my-yapi/yapi
 
 ```
 
+## Windows、macOS 的特殊性
+
+```
+在 Windows、macOS 系统下 docker mongo 无法完成启动，会报错：Operation not permitted Actual exception type: std::system_error
+需要在 docker-compose.yml 增加一个：privileged: true
+
+  yapi-mongo:
+    image: mongo:latest
+    container_name: yapi-mongo
+    volumes:
+      - ./data/db:/data/db
+    expose:
+      - 27017
+    restart: unless-stopped
+    privileged: true
+```
+
 
 ## YApi 介绍
 
