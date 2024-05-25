@@ -204,6 +204,8 @@ CONTAINER ID        NAME                      CPU %               MEM USAGE / LI
         - `-v /java_logs/:/opt/` 表示目录挂载，/java_logs/ 是宿主机的目录，/opt/ 是容器目录
     - `docker run --rm --name=myDockerNameIsGitNavi --hostname=myDockerNameIsGitNavi -i -t centos /bin/bash`，--rm，表示退出即删除容器，一般用在做实验测试的时候
     - `docker run --restart=always -i -t centos /bin/bash`，--restart=always 表示停止后会自动重启
+    - `docker run --restart=no -i -t centos /bin/bash`，--restart=no 默认值，表示容器退出时不重启。
+    - `docker run --restart=unless-stopped -i -t centos /bin/bash`，--restart=unless-stopped 除非手动停止容器，否则容器退出时总是重启。
     - `docker run --restart=on-failure:5 -i -t centos /bin/bash`，--restart=on-failure:5 表示停止后会自动重启，最多重启 5 次
 - `docker exec`：对守护式的容器里面执行命令，方便对正在运行的容器进行维护、监控、管理
     - `docker exec -i -t 容器ID /bin/bash`，进入正在运行的 docker 容器，并启动终端交互
