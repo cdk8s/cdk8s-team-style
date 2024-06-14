@@ -29,6 +29,7 @@
     - [碘伏（不是碘酊噢，这两个不一样）](https://search.jd.com/Search?keyword=碘伏&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=45fa1f1b448b451e98b424ce61742851-p_276666007&abt=3)
     - [注射针头](https://search.jd.com/Search?keyword=注射针头&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=ed475761c7ff48948f646ab390162fcb-p_276666007&abt=3)
     - [美宝湿润烧伤膏](https://search.jd.com/Search?keyword=美宝湿润烧伤膏&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=ed475761c7ff48948f646ab390162fcb-p_276666007&abt=3)
+    - [红霉素软膏](https://search.jd.com/Search?keyword=红霉素软膏&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=ed475761c7ff48948f646ab390162fcb-p_276666007&abt=3)
     - [医用绷带](https://search.jd.com/Search?keyword=医用绷带&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=2759ec164c49482f80783ae433fa84db-p_276666007&abt=3)
     - [无菌纱布](https://search.jd.com/Search?keyword=无菌纱布&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=7ad418bded154cc09e993983fdd67bac-p_276666007&abt=3)
     - [医用镊子](https://search.jd.com/Search?keyword=医用镊子&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=298ed83c09784dd9a166c10875c4b198-p_276666007&abt=3)
