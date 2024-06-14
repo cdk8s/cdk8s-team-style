@@ -72,7 +72,7 @@
 - 胃痛胃胀
 	- [胃仙U](https://search.jd.com/Search?keyword=胃仙U&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=139f6116f296457b8f8672def4ca9c0f-p_276666007&abt=3)，**主要用于胃溃疡、十二指肠溃疡、胃炎、胃酸过多症、消化不良、胃痛及便秘等**
 - 蚊虫叮咬
-    - [风油精](https://search.jd.com/Search?keyword=风油精&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=b5939c5ac9904d97a07bcf4c4a837ce3-p_276666007&abt=3)
+    - [泰国青草膏](https://search.jd.com/Search?keyword=泰国青草膏&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=b5939c5ac9904d97a07bcf4c4a837ce3-p_276666007&abt=3)
     - [无比滴](https://search.jd.com/Search?keyword=无比滴&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=48c6758a73a54b9cba1327ef24ab44f7-p_276666007&abt=3)，**蚊、蜂、虱、臭虫等毒虫叮咬止痒、镇痛。**
     - [曼秀雷敦薄荷膏](https://search.jd.com/Search?keyword=曼秀雷敦薄荷膏&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=a531cf371b6849dab6932df1d25093a4-p_276666007&abt=3)，**用于由伤风感冒所致的鼻塞，昆虫叮咬及皮肤开裂等症的对症治疗。**
 - 口腔溃疡
@@ -82,13 +82,14 @@
     - [维生素C](https://search.jd.com/Search?keyword=维生素C&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=cbab6c2e75674e86819d91542c8561c3-p_276666007&abt=3)
 - 过敏
     - 过敏很多类型，具体请根据自身情况进行选择药物。
-    - [氯雷他定](https://search.jd.com/Search?enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=c0d90a09b813492cbb88dbd39455a471-p_669678130&abt=3&keyword=%E6%B0%AF%E9%9B%B7%E4%BB%96%E5%AE%9A)
+    - [盐酸非索非那定片](https://search.jd.com/Search?keyword=盐酸非索非那定片&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=b5939c5ac9904d97a07bcf4c4a837ce3-p_276666007&abt=3)
     - [依巴斯汀](https://search.jd.com/Search?enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=c0d90a09b813492cbb88dbd39455a471-p_669678130&abt=3&keyword=%E4%BE%9D%E5%B7%B4%E6%96%AF%E6%B1%80)
+    - [氯雷他定](https://search.jd.com/Search?keyword=氯雷他定&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=b5939c5ac9904d97a07bcf4c4a837ce3-p_276666007&abt=3)
     - [复方甘草酸苷片](https://search.jd.com/Search?keyword=复方甘草酸苷片&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=94f6367229514b3ea8c5a43af21fde4d-p_276666007&abt=3)
     - [皿治林 咪唑斯汀缓释片](https://search.jd.com/Search?keyword=皿治林%20咪唑斯汀缓释片&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=94f6367229514b3ea8c5a43af21fde4d-p_276666007&abt=3)
     - [丁酸氢化可的松乳膏](https://search.jd.com/Search?keyword=丁酸氢化可的松乳膏&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=94f6367229514b3ea8c5a43af21fde4d-p_276666007&abt=3)
 - [晕车/晕船/晕机]()
-    - [风油精](https://search.jd.com/Search?keyword=风油精&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=6bb225914b8e41e99580ad113751c387-p_276666007&abt=3)
+    - [泰国鼻通棒](https://search.jd.com/Search?keyword=泰国鼻通棒&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=6bb225914b8e41e99580ad113751c387-p_276666007&abt=3)
     - [苯巴比妥东莨菪碱片](https://search.jd.com/Search?keyword=苯巴比妥东莨菪碱片&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=ae0a3972ba3f4b8282d0c9f0f7f9965b-p_276666007&abt=3)，**适应症为用于防治乘车、船和飞机引起的眩晕、恶心和呕吐等晕动病症状**
     - [曼秀雷敦薄荷膏](https://search.jd.com/Search?keyword=曼秀雷敦薄荷膏&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=b4ea498056f747268fa09b4b2743a0de-p_276666007&abt=3)，**用于由伤风感冒所致的鼻塞，昆虫叮咬及皮肤开裂等症的对症治疗。**
 - 皮肤瘙痒
