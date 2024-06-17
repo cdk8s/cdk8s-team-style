@@ -1121,6 +1121,18 @@ location ~ ^/get_json {
 
 ```
 
+## 文件下载 download
+
+```
+访问地址：http://18.134.134.195/download20240617/1111.zip
+磁盘实际目录：/opt/jar/1111.zip
+location ^~ /download20240617 {
+    alias    /opt/jar;
+    autoindex on;
+    autoindex_exact_size off;
+    autoindex_localtime on;
+} 
+```
 
 
 ### root 和 alias
