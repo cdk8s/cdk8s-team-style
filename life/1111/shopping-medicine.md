@@ -61,7 +61,7 @@
     - 十滴水、仁丹、风油精、藿香正气水这类没用过，普遍网上都是推荐这种。
     - [口服补液盐](https://search.jd.com/Search?keyword=口服补液盐&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=21c29aa136444540a02a8f89777aeb6a-p_276666007&abt=3)，**用于治疗儿童、成年消化不良和秋季腹泻引起的轻度及中度脱水**
 - 腹泻
-    - [盐酸洛哌丁胺](https://search.jd.com/Search?enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=c0d90a09b813492cbb88dbd39455a471-p_669678130&abt=3&keyword=%E6%B4%9B%E5%93%8C%E4%B8%81%E8%83%BA)
+    - [盐酸洛哌丁胺-易蒙停](https://search.jd.com/Search?enc=utf-8&cu=true&utm_source=ads-union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=c0d90a09b813492cbb88dbd39455a471-p_669678130&abt=3&keyword=%E6%B4%9B%E5%93%8C%E4%B8%81%E8%83%BA)
     - [口服补液盐（博叶）](https://search.jd.com/Search?keyword=口服补液盐&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=21c29aa136444540a02a8f89777aeb6a-p_276666007&abt=3)，**用于治疗儿童、成年消化不良和秋季腹泻引起的轻度及中度脱水**
     - [蒙脱石散](https://search.jd.com/Search?keyword=蒙脱石散&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=e5dd4eabf5db41b8a67d56f695f844c4-p_276666007&abt=3)，**成人及儿童急、慢性腹泻。**
 	- [喇叭牌正露丸](https://search.jd.com/Search?keyword=喇叭牌正露丸&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=be4dc6a768dc44179644aca8812990c7-p_276666007&abt=3)
