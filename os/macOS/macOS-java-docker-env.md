@@ -120,7 +120,7 @@ export PATH
 - 修改 register 的方式可以参看这篇文章：<http://www.runoob.com/docker/macos-docker-install.html>
 - 如果经常会在 Docker 中启动很多中间件，建议调整下 CPU 和 Memory 大小：`Advanced | CPUs | Memory | Swap`
     - 如果你有用 Elasticsearch，基本都要调整该参数
-- 配置国内镜像：（注意，不要使用阿里云镜像地址，已经很久不更新了）
+- 配置国内镜像 Settings > Docker Engine：（注意，不要使用阿里云镜像地址，已经很久不更新了）
 
 ```
 "registry-mirrors": [
