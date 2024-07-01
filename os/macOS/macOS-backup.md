@@ -15,6 +15,9 @@
 - 备份用户目录下的 .ssh 信息
 - QQ 和微信等聊天工具的记录
 - 备份 zshrc
+- 备份 Switch Host 配置
+- 备份 IntelliJ IDEA 等 IDE 配置
+- 备份 .m2 下的 maven 配置
 
 ### 安装
 
