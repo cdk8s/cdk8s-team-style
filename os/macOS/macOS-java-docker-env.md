@@ -124,10 +124,12 @@ export PATH
 
 ```
 "registry-mirrors": [
-  "https://dockerproxy.com",
-  "https://mirror.baidubce.com",
-  "https://docker.mirrors.ustc.edu.cn"
-]
+  "https://dockerhub.icu",
+  "https://docker.m.daocloud.io", 
+  "https://noohub.ru", 
+  "https://huecker.io",
+  "https://dockerhub.timeweb.cloud" 
+] 
 ```
 
 
