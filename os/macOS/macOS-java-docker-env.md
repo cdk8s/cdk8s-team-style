@@ -37,7 +37,7 @@
 
 ``` bash
 # JDK 1.8
-JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_112.jdk/Contents/Home
+JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-8.jdk/Contents/Home
 JRE_HOME=$JAVA_HOME/jre
 PATH=$PATH:$JAVA_HOME/bin
 CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
@@ -91,7 +91,7 @@ sudo rm -rf /Library/Java/JavaVirtualMachines/jdk1.8.0_112.jdk
 - Maven 的环境变量是要添加的，我这边可以贴一下：
 
 ``` bash
-MAVEN_HOME=/Users/meek/my_software/work_software/maven3.3.9
+MAVEN_HOME=/Users/meek/my-software/apache-maven-3.8.5
 PATH=$PATH:$MAVEN_HOME/bin
 export MAVEN_HOME
 export PATH
@@ -134,10 +134,15 @@ export PATH
 ## MySQL 5.8
 
 ```
+下载 8.0.x 版本，最新的 8.1 等 8.x 数字版本是创新版本，不算稳定版
+
 新版本设置初始化密码必须八位数以上
+密码类型选择：Use Strong Password Encryption
 
 打开：`系统偏好设置 -- 底部的 MySQL -- 点击：Start MySQL Server` 启动 MySQL
 
+用 GUI 工具连接的时候如果报错：Public Key Retrieval is not allowed
+把 allowPublicKeyRetrieval 参数改为 true 即可
 
 通过 navicat 连接后，输入：
 ALTER user 'root'@'localhost' IDENTIFIED BY '123456';
