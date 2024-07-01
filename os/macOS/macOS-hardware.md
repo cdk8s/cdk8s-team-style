@@ -36,6 +36,7 @@ M2 MAX 的 Mac studio 1TB 数据是：写6000，读5000
 
 ```
 使用软件：Geekbench Pro
+官网有具体分数排名：https://browser.geekbench.com/mac-benchmarks
 
 M1 Pro 的 macbook pro 500GB 数据是：
 cpu单核 1862，多核 8989
