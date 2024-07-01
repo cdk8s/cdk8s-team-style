@@ -18,6 +18,7 @@
 - 备份 Switch Host 配置
 - 备份 IntelliJ IDEA 等 IDE 配置
 - 备份 .m2 下的 maven 配置
+- 备份 docker 目录
 
 ### 安装
 
