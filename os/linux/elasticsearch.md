@@ -65,7 +65,7 @@ services:
       - /Users/meek/docker/elasticsearch-7.9.3/elasticsearch-analysis-pinyin-7.9.3:/usr/share/elasticsearch/plugins/elasticsearch-analysis-pinyin-7.9.3
 ```
 
-- 启动：`docker-compose -f ~/docker/elasticsearch-7.9.3/elasticsearch-7.9.3-docker.yml -p elasticsearch_7.9.3 up -d`
+- 启动：`docker-compose -f ~/docker/elasticsearch-7.9.3/elasticsearch-7.9.3-docker.yml -p elasticsearch_7_9_3 up -d`
 - 设置密码：
 
 ```
