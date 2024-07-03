@@ -400,7 +400,7 @@ WantedBy=multi-user.target
 - 官网命令列表：<http://redis.io/commands>
 - `redis-cli -h 127.0.0.1 -p 6379`，如果有密码，进入 client 后需要输入：`auth 123456`
 - `redis-cli -h 127.0.0.1 -p 6379 -a 123456  monitor`，监控当前 redis 执行的命令，可以观察程序通过框架真正执行的命令
-- `SET key value`，设值。eg：`SET myblog www.upupmo.com`
+- `SET key value`，设值。eg：`SET myblog www.uptmr.com`
 - `redis-server -v`，查看服务器版本
 - `info keyspace`，查看各个库的 key 使用情况
 - `GET key`，取值

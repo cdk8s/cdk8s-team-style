@@ -3,4 +3,4 @@
 
 
 - 需要关闭 SIP 不推荐
-- 推荐用 [自动切换输入法](https://www.upupmo.com/subject?cpid=111111111111111211)
+- 推荐用 [自动切换输入法](https://www.uptmr.com/subject?cpid=111111111111111211)

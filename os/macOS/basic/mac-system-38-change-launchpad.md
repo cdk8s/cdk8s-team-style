@@ -1,7 +1,7 @@
 
 ![2016-11-20_10-46-59.jpg](https://cdn.uptmr.com/upupmo-article/mac/basic/mac-system-38-change-launchpad.png)
 
-- 推荐用 [macOS 小助手](https://www.upupmo.com/subject?cpid=111111111111111211)
+- 推荐用 [macOS 小助手](https://www.uptmr.com/subject?cpid=111111111111111211)
 
 -------------------------------------------------------------------
 

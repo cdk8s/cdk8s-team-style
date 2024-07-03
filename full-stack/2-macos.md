@@ -144,7 +144,7 @@
 
 - 常用、优秀的软件我都已经整理好了，大家可以访问下面链接查看。
 - 特别需要说明的，macOS 是可以打游戏的，我也整理了主流的几十款中大型游戏。但是它整体效果没有 Windows 强，游戏也没有 Windows 多而已。应付一般人是足够的。
-- <https://www.upupmo.com/subject?cpid=111111111111111211>
+- <https://www.uptmr.com/subject?cpid=111111111111111211>
 
 
 ![opencore-index](https://cdn.uptmr.com/upupmo-article/mac/2-macos/macos-dev-software.png)

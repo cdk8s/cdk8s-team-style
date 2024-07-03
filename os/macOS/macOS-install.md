@@ -804,6 +804,6 @@ sh -c "$(curl -fsSL https://html.sqlsec.com/hidpi.sh)"
 - 教程
     - 完美双系统系列教程第9集，升级OC引导
 
-- 以上非 Github 链接都已整理在这里（用电脑浏览器打开）：<https://www.upupmo.com/s/5f6fdb1a9a9d4f0e8cb80817dcd00309>
+- 以上非 Github 链接都已整理在这里（用电脑浏览器打开）：<https://www.uptmr.com/s/5f6fdb1a9a9d4f0e8cb80817dcd00309>
 
 

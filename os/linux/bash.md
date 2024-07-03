@@ -465,7 +465,7 @@ rm -rf /home/temp/
 
 ## 其他常用命令
 
-- 编辑 hosts 文件：`vim /etc/hosts`，添加内容格式：`127.0.0.1 www.upupmo.com`
+- 编辑 hosts 文件：`vim /etc/hosts`，添加内容格式：`127.0.0.1 www.uptmr.com`
 - RPM 文件操作命令：
 	- 安装
 		- `rpm -i example.rpm`，安装 example.rpm 包
