@@ -7,7 +7,7 @@ Mac Studio 长按电源进入恢复模式，关闭 SIP 机制，终端输入：c
 然后重启电脑，进入电脑后找到 ~/Library/Preferences/com.apple.HIToolbox.plist 文件
 用 xcode 打开该文件，找到 Root > AppleEnabledInputSources > Item0 > KeyboardLayout Name = ABC 这个项，删除该 Item0
 保存配置文件
-右键点击 com.apple.HIToolbox.plist 文件 > 显示简介 > 勾选已锁定，不要让它改回来
+右键点击 com.apple.HIToolbox.plist 文件 > 显示简介 > 勾选：已锁定。这样后续它就改不回来
 重启电脑。
 进入恢复模式，打开系统完整性保护（SIP），终端输入：csrutil enable
 ```
