@@ -20,6 +20,6 @@
 勾选：允许远程用户对磁盘进行完全访问
 ```
 
-## 安装 VNC Viewer
+## 安装 VNC Viewer 或者 Jump Desktop（收费）
 
 - <https://www.realvnc.com/en/connect/download/viewer/>
