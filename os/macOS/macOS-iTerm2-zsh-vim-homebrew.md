@@ -101,9 +101,10 @@ brew install telnet
 brew install curl
 brew install wget
 brew install zsh
+brew install swiftlint
 
 安装所有：
-brew install git vim htop wrk telnet curl wget zsh
+brew install git vim htop wrk telnet curl wget zsh swiftlint
 
 
 如果安装过程报：git fatal: unsafe repository xxx is owned by someone else 这个错误，解决办法：git config --global --add safe.directory "*"
