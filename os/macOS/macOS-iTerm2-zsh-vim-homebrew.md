@@ -93,21 +93,27 @@ brew update
 - 常用安装软件
 
 ```
+日常工具：
 brew install git
+brew install zsh
 brew install vim
 brew install htop
+brew install btop
 brew install wrk
 brew install telnet
 brew install curl
 brew install wget
-brew install zsh
+简化命令安装所有：
+brew install git zsh vim htop btop wrk telnet curl wget
+
+Swift开发相关：
 brew install swiftlint
 brew install swiftgen
 brew install xcodegen
 brew install swiftformat
 
-安装所有：
-brew install git vim htop wrk telnet curl wget zsh swiftlint swiftgen xcodegen swiftformat
+简化命令安装所有：
+brew install swiftlint swiftgen xcodegen swiftformat
 
 
 如果安装过程报：git fatal: unsafe repository xxx is owned by someone else 这个错误，解决办法：git config --global --add safe.directory "*"
