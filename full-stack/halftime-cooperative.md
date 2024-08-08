@@ -48,6 +48,8 @@ Scrapy
 MapReduce
 ClickHouse
 Flink
+StreamPark
+Paimon
 ---------------------------------
 Shell
 Ansible
