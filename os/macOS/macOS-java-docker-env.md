@@ -102,17 +102,21 @@ export PATH
 ## Gradle
 
 - 官网下载：<https://gradle.org/releases/>
+- 如果你要开发 IntelliJ IDEA 插件，通过官网你可以了解到你最低的 Gradle 版本要求：
+  - 通过代码使用版本：<https://github.com/JetBrains/intellij-platform-gradle-plugin/blob/main/gradle/wrapper/gradle-wrapper.properties>
+  - 通过官网说明：<https://plugins.jetbrains.com/docs/intellij/tools-intellij-platform-gradle-plugin.html>
 - Gradle 和 Maven 思路是一模一样的，所以这里直接贴一下配置：
+- 官网安装说明：<https://docs.gradle.org/current/userguide/installation.html>
 
 ``` bash
- # Gradle
- GRADLE_HOME=/Users/meek/my_software/work_software/gradle4.2
- PATH=$PATH:$GRADLE_HOME/bin
- export GRADLE_HOME
- export PATH
+# Gradle
+GRADLE_HOME=/Users/meek/my-software/gradle-8.10.1
+PATH=$PATH:$GRADLE_HOME/bin
+export GRADLE_HOME
+export PATH
 ```
 
-- 验证：'gradle -v'
+- 验证：`gradle -v`
 
 ## Docker
 
