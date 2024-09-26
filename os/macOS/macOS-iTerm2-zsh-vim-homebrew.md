@@ -94,25 +94,9 @@ brew update
 
 ```
 日常工具：
-brew install git
-brew install zsh
-brew install vim
-brew install htop
-brew install btop
-brew install wrk
-brew install telnet
-brew install curl
-brew install wget
-简化命令安装所有：
-brew install git zsh vim htop btop wrk telnet curl wget
+brew install git zsh vim htop btop wrk telnet curl wget btop cmake
 
 Swift开发相关：
-brew install swiftlint
-brew install swiftgen
-brew install xcodegen
-brew install swiftformat
-
-简化命令安装所有：
 brew install swiftlint swiftgen xcodegen swiftformat
 
 
