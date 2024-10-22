@@ -1296,6 +1296,77 @@ server {
 ### Nginx 缓存
 
 
+### Nginx 处理跨域请求
+
+
+## 使用 logrotate 做 nginx(openresty) 日志轮询分割（归档）（推荐方案）
+
+- nginx 前提：
+	- 我 nginx 的成功日志路径：/var/log/nginx/access.log
+	- 我 nginx 的错误日志路径：/var/log/nginx/error.log
+	- pid 路径：/var/local/nginx/nginx.pid
+- openresty 前提：
+	- 我 nginx 的成功日志路径：/usr/local/openresty/nginx/logs/access.log
+	- 我 nginx 的错误日志路径：/usr/local/openresty/nginx/logs/error.log
+    - 先确保有 pid 文件，一般就是在 logs 目录下：/usr/local/openresty/nginx/logs/nginx.pid
+    - 如果你没有，那你需要配置下：`vim /usr/local/openresty/nginx/conf/nginx.conf`
+
+```
+增加一行：
+pid /usr/local/openresty/nginx/logs/nginx.pid;
+```
+
+- 一般情况 CentOS 是装有：logrotate，你可以检查下：`logrotate --version`，如果有相应结果，则表示你也装了。
+- logrotate 配置文件一般在：
+	- 全局配置：/etc/logrotate.conf 通用配置文件，可以定义全局默认使用的选项。
+	- 自定义配置，放在这个目录下的都算是：/etc/logrotate.d/
+
+- 针对 nginx 创建自定义的配置文件：`vim /etc/logrotate.d/openresty`
+- 文件内容如下：
+
+``` ini
+
+/usr/local/openresty/nginx/logs/*.log {
+	create 644 root root
+	notifempty
+	daily
+	rotate 15
+	missingok
+	dateext
+	sharedscripts
+	postrotate
+	    if [ -f /usr/local/openresty/nginx/logs/nginx.pid ]; then
+	        kill -USR1 `cat /usr/local/openresty/nginx/logs/nginx.pid`
+	    fi
+	endscript
+}
+
+```
+
+- /usr/local/openresty/nginx/logs/*.log，这里匹配符来匹配多个文件，如果要指定多个文件也可以用空格隔开表示
+- notifempty：如果是空文件的话，不转储
+- create 644 root root：create mode owner group 转储文件，使用指定的文件模式创建新的日志文件
+- 调用频率，有：daily，weekly，monthly可选
+- rotate 15：一次将存储15个归档日志。对于第16个归档，时间最久的归档将被删除。
+- sharedscripts：所有的日志文件都轮转完毕后统一执行一次脚本
+- missingok：如果日志文件丢失，不报错继续执行下一个
+- dateext：文件后缀是日期格式,也就是切割后文件是:access.log-20241022 这样,如果注释掉,切割出来是按数字递增,即前面说的 access.log-1 这种格式
+- postrotate：执行命令的开始标志
+- endscripthttp:执行命令的结束标志
+- 如果需要压缩可以增加一个 compress 参数
+- if 判断的意思不是中止Nginx的进程，而是传递给它信号重新生成日志，如果nginx没启动不做操作    
+- 更多参数可以看：<http://www.cnblogs.com/zengkefu/p/5498324.html>
+- 测试配置文件是否完整：`sudo logrotate -d /etc/logrotate.d/openresty`
+- 手动执行测试（加v参数可以展示详细过程）：`/usr/sbin/logrotate -vf /etc/logrotate.d/openresty`
+- 参数：‘-f’选项来强制logrotate轮循日志文件，‘-v’参数提供了详细的输出。
+- 验证是否手动执行成功，查看 cron 的日志即可：`grep logrotate /var/log/cron`
+- 设置 crontab 定时任务：`vim /etc/crontab`，添加下面内容：
+
+``` ini
+//每天2点10分执行一次
+10 2 * * *  /usr/sbin/logrotate -f /etc/logrotate.d/openresty
+```
+
 ### Nginx 自动分割日志文件
 
 - 在 [Tomcat 安装和配置、优化](Tomcat-Install-And-Settings.md) 文章已经使用了 cronolog，这里也借用 cronolog 来实现分割。具体安装看文章。
@@ -1305,67 +1376,6 @@ server {
 - 配置 cronolog（按月）：`nohup cat /data/nginx/log/access_log.log | /usr/sbin/cronolog /data/nginx/log/logs/access-%Y-%m.log &`
 - 编辑 nginx 配置文件，配置 log 位置：`access_log /data/nginx/log/access_log.log;`
 - 重启 nginx，最终可以在 /data/nginx/log/logs 目录下看到生成的 log
-
-### Nginx 处理跨域请求
-
-
-## 使用 logrotate 做 nginx 日志轮询分割
-
-- 前提：
-	- 我 nginx 的成功日志路径：/var/log/nginx/access.log
-	- 我 nginx 的错误日志路径：/var/log/nginx/error.log
-	- pid 路径：/var/local/nginx/nginx.pid
-
-- 一般情况 CentOS 是装有：logrotate，你可以检查下：`rpm -ql logrotate`，如果有相应结果，则表示你也装了。
-- logrotate 配置文件一般在：
-	- 全局配置：/etc/logrotate.conf 通用配置文件，可以定义全局默认使用的选项。
-	- 自定义配置，放在这个目录下的都算是：/etc/logrotate.d/
-
-- 针对 nginx 创建自定义的配置文件：`vim /etc/logrotate.d/nginx`
-- 文件内容如下：
-
-``` ini
-
-/var/log/nginx/access.log /var/log/nginx/error.log {
-	create 644 root root
-	notifempty
-	daily
-	rotate 15
-	missingok
-	dateext
-	sharedscripts
-	postrotate
-	    if [ -f /var/local/nginx/nginx.pid ]; then
-	        kill -USR1 `cat /var/local/nginx/nginx.pid`
-	    fi
-	endscript
-}
-
-```
-
-- /var/log/nginx/access.log /var/log/nginx/error.log：多个文件用空格隔开，也可以用匹配符：/var/log/nginx/*.log
-- notifempty：如果是空文件的话，不转储
-- create 644 root root：create mode owner group 转储文件，使用指定的文件模式创建新的日志文件
-- 调用频率，有：daily，weekly，monthly可选
-- rotate 15：一次将存储15个归档日志。对于第16个归档，时间最久的归档将被删除。
-- sharedscripts：所有的日志文件都轮转完毕后统一执行一次脚本
-- missingok：如果日志文件丢失，不报错继续执行下一个
-- dateext：文件后缀是日期格式,也就是切割后文件是:xxx.log-20131216.gz 这样,如果注释掉,切割出来是按数字递增,即前面说的 xxx.log-1 这种格式
-- postrotate：执行命令的开始标志
-- endscripthttp:执行命令的结束标志
-- if 判断的意思不是中止Nginx的进程，而是传递给它信号重新生成日志，如果nginx没启动不做操作    
-- 更多参数可以看：<http://www.cnblogs.com/zengkefu/p/5498324.html>
-
-
-- 手动执行测试：`/usr/sbin/logrotate -vf /etc/logrotate.d/nginx`
-- 参数：‘-f’选项来强制logrotate轮循日志文件，‘-v’参数提供了详细的输出。
-- 验证是否手动执行成功，查看 cron 的日志即可：`grep logrotate /var/log/cron`
-- 设置 crontab 定时任务：`vim /etc/crontab`，添加下面内容：
-
-``` ini
-//每天02点10分执行一次
-10 02 * * *  /usr/sbin/logrotate -f /etc/logrotate.d/nginx
-```
 
 
 ### 杂七杂八

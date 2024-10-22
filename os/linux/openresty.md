@@ -138,6 +138,11 @@ http {
 }
 ```
 
+## 使用 logrotate 做 nginx(openresty) 日志轮询分割（归档）（推荐方案）
+
+- 整理在了 [nginx.md](nginx.md)
+
+
 ## 资料
 
 - <https://my.oschina.net/u/4314104/blog/3584373>
