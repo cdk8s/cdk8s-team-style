@@ -76,4 +76,5 @@
 - [56.通过终端命令修改用户密码](https://github.com/cdk8s/cdk8s-team-style/blob/master/os/macOS/basic/mac-system-56-change-password.md)
 - [57.MacOS 10.15.x 无法添加屏幕录制权限解决办法](https://github.com/cdk8s/cdk8s-team-style/blob/master/os/macOS/basic/mac-system-57-recording-screen-permission.md)
 - [58.MacOS连接iPad-iPhone不停闪烁-不停连接断开](https://github.com/cdk8s/cdk8s-team-style/blob/master/os/macOS/basic/mac-system-58-connect-ipad.md)
-
+- [59.共享桌面-远程控制](https://github.com/cdk8s/cdk8s-team-style/blob/master/os/macOS/basic/mac-system-59-share-desktop.md)
+- [60.启用-禁用-SIP](https://github.com/cdk8s/cdk8s-team-style/blob/master/os/macOS/basic/mac-system-60-sip.md)
