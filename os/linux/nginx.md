@@ -1347,7 +1347,7 @@ pid /usr/local/openresty/nginx/logs/nginx.pid;
 - notifempty：如果是空文件的话，不转储
 - create 644 root root：create mode owner group 转储文件，使用指定的文件模式创建新的日志文件
 - 调用频率，有：daily，weekly，monthly可选
-- rotate 15：一次将存储15个归档日志。对于第16个归档，时间最久的归档将被删除。
+- rotate 15：将存储15个归档日志，这 15 个文件名后面都是带有日期值。对于第16个归档，时间最久的归档将被删除。
 - sharedscripts：所有的日志文件都轮转完毕后统一执行一次脚本
 - missingok：如果日志文件丢失，不报错继续执行下一个
 - dateext：文件后缀是日期格式,也就是切割后文件是:access.log-20241022 这样,如果注释掉,切割出来是按数字递增,即前面说的 access.log-1 这种格式
