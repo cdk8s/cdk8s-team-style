@@ -136,6 +136,8 @@ export PATH
 ] 
 ```
 
+- Docker 桌面端目前是自带 `docker-compose --version`
+
 
 ## MySQL 5.8
 

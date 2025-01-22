@@ -552,23 +552,7 @@ Build Cache                                                 0B                  
 }
 ```
 
-- 如果你已经有该文件文件莱使用国内源，那修改方案应该是这样的：
- 
-``` bash
-{
-    "registry-mirrors": [
-      "https://ldhc17y9.mirror.aliyuncs.com",
-      "https://hub-mirror.c.163.com",
-      "https://mirror.baidubce.com",
-      "https://docker.mirrors.ustc.edu.cn"
-    ],
-	"log-driver": "json-file",
-	"log-opts": {
-		"max-size": "10m",
-	    "max-file": "5"
-	}
-}
-```
+- 如果你已经有该文件文件莱使用国内源，那修改方案应该是这样的：[点击我](https://github.com/cdk8s/cdk8s-team-style/blob/master/os/macOS/macOS-java-docker-env.md)
 
 ## 删除 Docker 镜像中为 none 的镜像
 
