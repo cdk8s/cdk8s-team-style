@@ -155,6 +155,10 @@ drwxr-xr-x. 5 root root 4096 3月 26 10:57，其中最前面的 d 表示这是�
 	- `shell grep -H '安装' *.sh`，查找当前目录下所有 sh 类型文件中，文件内容包含 `安装` 的当前行内容
 	- `grep 'test' java*`，显示当前目录下所有以 java 开头的文件中包含 test 的行
 	- `grep 'test' spring.ini docker.sh`，显示当前目录下 spring.ini docker.sh 两个文件中匹配 test 的行
+    - `grep -rH --include='*.xml' 'device' .` 寻找当前文件夹以及子文件夹下所有 xml 文件中包含有单词：device 的内容，返回结果第一行是文件名，第二行是内容。
+        - `-H` 强制显示文件名
+        - `--include='*.xml'` 仅匹配 XML 文件
+        - `-r` 递归搜索子目录
     - `grep -B 100 -A 200 "测试句子" info.log | more` 寻找文件中某个句子，找就显示该句子前100行，和后200行的内容，把结果传给 more 展示
     - 更多参数
         - `-i` 搜索时忽略大小写
