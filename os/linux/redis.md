@@ -132,7 +132,8 @@ docker run -d -it \
     -p 8001:8001 \
     -v ~/docker/redis-stack/conf/redis-stack.conf:/etc/redis-stack.conf \
     -v ~/docker/redis-stack/db:/data \
-    --name redis-stack-6.2.6 redis/redis-stack:6.2.6-v19-arm64
+    --name redis-stack-6.2.6 redis/redis-stack:6.2.6-v19-arm64 \
+    redis-server /etc/redis-stack.conf
 ```
 - 8001 端口 用于运行 RedisInsight，这是 Redis 官方提供的可视化管理和监控工具，不要对外开放：<http://localhost:8001>
 - 查看镜像运行情况：`docker ps`
