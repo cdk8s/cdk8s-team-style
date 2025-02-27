@@ -142,6 +142,101 @@ http {
 
 - 整理在了 [nginx.md](nginx.md)
 
+## 内存黑名单（重启应用数据会消失）
+
+- 定义一个 lua_shared_dict，用于存储黑名单 IP
+
+```
+http {
+    # ... 其他配置 ...
+
+    # 定义一个名为 ip_blacklist 的共享字典，大小为 10MB
+    lua_shared_dict ip_blacklist 10m;
+
+    # ... 其他配置 ...
+}
+```
+
+- 请求时检查 IP
+
+```
+server {
+    # ... 其他配置 ...
+
+    location / {
+        access_by_lua_block {
+            local ip_blacklist = ngx.shared.ip_blacklist
+            local client_ip = ngx.var.remote_addr
+
+            if ip_blacklist:get(client_ip) then
+                # 如果 IP 在黑名单中，返回 403
+                return ngx.exit(403)
+            end
+        }
+
+        # ... 其他配置 ...
+    }
+}
+```
+
+- 管理黑名单
+
+```
+server {
+    # ... 其他配置 ...
+
+    location /admin_WUjjNAhaTnmln94cLINh2/ip_blacklist {
+        # 访问控制 (可选)
+        # 例如，只允许本地 IP 或特定 IP 访问
+        allow 127.0.0.1;
+        allow 192.168.1.0/24;
+        deny all;
+
+        content_by_lua_block {
+            local ip_blacklist = ngx.shared.ip_blacklist
+            local args = ngx.req.get_uri_args()
+
+            # 添加 IP 到黑名单
+            if args.action == "add" and args.ip then
+                # 将 IP 加入黑名单，值为 "1" (或任何非 nil 值)
+                ip_blacklist:set(args.ip, "1")
+                ngx.say("IP added to blacklist: ", args.ip)
+
+            # 从黑名单中删除 IP
+            elseif args.action == "delete" and args.ip then
+                ip_blacklist:delete(args.ip)
+                ngx.say("IP removed from blacklist: ", args.ip)
+
+            # 获取黑名单IP列表
+            elseif args.action == "list" then
+                local keys = ip_blacklist:get_keys()
+                ngx.say("Blacklisted IPs:")
+                for _, key in ipairs(keys) do
+                   ngx.say(key)
+                end    
+            else
+                ngx.say("Invalid action or missing IP parameter")
+            end
+        }
+    }
+}
+
+```
+
+- 操作（只能内网访问）：
+
+```
+添加 IP 到黑名单：
+curl "http://127.0.0.1/admin_WUjjNAhaTnmln94cLINh2/ip_blacklist?action=add&ip=120.230.119.143"
+
+从黑名单中删除 IP：
+curl "http://127.0.0.1/admin_WUjjNAhaTnmln94cLINh2/ip_blacklist?action=delete&ip=120.230.119.143"
+
+获取黑名单 IP 列表
+curl "http://127.0.0.1/admin_WUjjNAhaTnmln94cLINh2/ip_blacklist?action=list"
+```
+
+
 
 ## 资料
 
