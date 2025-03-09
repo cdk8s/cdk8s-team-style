@@ -138,6 +138,7 @@ docker run -d -it \
 - 8001 端口 用于运行 RedisInsight，这是 Redis 官方提供的可视化管理和监控工具，不要对外开放：<http://localhost:8001>
 - 查看镜像运行情况：`docker ps`
 - 进入镜像中 redis shell 交互界面：`docker exec -it redis-stack-6.2.6 redis-cli -h 127.0.0.1 -p 6379 -a 123456`
+- 查看所有配置：`CONFIG GET *`
 - 重新启动服务：`docker restart redis-stack-6.2.6`
 
 -------------------------------------------------------------------
