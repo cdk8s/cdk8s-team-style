@@ -5,7 +5,7 @@
 #### 通过 nvm 安装 node.js 18
 
 ```
-先下载 nvm-windows：
+先下载 nvm-windows(nvm-setup.exe)：
 官网：https://github.com/coreybutler/nvm-windows/releases
 百度云：https://pan.baidu.com/s/1uO-653iWJshwoBrsSfqFTw?pwd=f3j9
 
