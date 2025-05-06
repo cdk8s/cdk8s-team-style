@@ -16,3 +16,9 @@
 - 设置网络 DNS，具体参考：
 - <https://github.com/cdk8s/cdk8s-team-style/blob/master/os/macOS/macOS-DNS.md>
 - 然后清除 DNS 缓存：`sudo killall -HUP mDNSResponder`
+
+## 配置文件分享
+
+- stash 配置
+- SwitchHosts 配置
+- Cursor 配置
