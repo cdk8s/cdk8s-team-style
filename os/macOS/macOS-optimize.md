@@ -22,3 +22,5 @@
 - stash 配置
 - SwitchHosts 配置
 - Cursor 配置
+- Bob 配置
+- PopClip 配置
