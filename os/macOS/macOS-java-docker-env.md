@@ -124,8 +124,16 @@ export PATH
 - 修改 register 的方式可以参看这篇文章：<http://www.runoob.com/docker/macos-docker-install.html>
 - 如果经常会在 Docker 中启动很多中间件，建议调整下 CPU 和 Memory 大小：`Advanced | CPUs | Memory | Swap`
     - 如果你有用 Elasticsearch，基本都要调整该参数
-- 配置国内镜像 Settings > Docker Engine
-  - [国内镜像源获取](https://github.com/cdk8s/cdk8s-team-style/blob/master/playbook/python/docker-cn-image.py)
+- [国内镜像源获取](https://github.com/cdk8s/cdk8s-team-style/blob/master/playbook/python/docker-cn-image.py)
+- 配置国内镜像 Settings > Docker Engine，内容格式
+
+```
+"registry-mirrors": [
+  "https://dockerhub.icu",
+  "https://docker.m.daocloud.io"
+] 
+```
+
 - Docker 桌面端目前是自带 `docker-compose --version`
 
 
