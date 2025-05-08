@@ -120,26 +120,18 @@ export PATH
 
 ## Docker
 
-- 通过 dmg 安装：<https://download.docker.com/mac/stable/Docker.dmg>
+- 通过 dmg 安装：<https://docs.docker.com/desktop/setup/install/mac-install/>
 - 修改 register 的方式可以参看这篇文章：<http://www.runoob.com/docker/macos-docker-install.html>
 - 如果经常会在 Docker 中启动很多中间件，建议调整下 CPU 和 Memory 大小：`Advanced | CPUs | Memory | Swap`
     - 如果你有用 Elasticsearch，基本都要调整该参数
-- 配置国内镜像 Settings > Docker Engine：（注意，不要使用阿里云镜像地址，已经很久不更新了）
-
-```
-"registry-mirrors": [
-  "https://dockerhub.icu",
-  "https://docker.m.daocloud.io", 
-  "https://noohub.ru", 
-  "https://huecker.io",
-  "https://dockerhub.timeweb.cloud" 
-] 
-```
-
+- 配置国内镜像 Settings > Docker Engine
+  - [国内镜像源获取](https://github.com/cdk8s/cdk8s-team-style/blob/master/playbook/python/docker-cn-image.py)
 - Docker 桌面端目前是自带 `docker-compose --version`
 
 
-## MySQL 5.8
+## MySQL 8
+
+- <https://dev.mysql.com/downloads/mysql/8.0.html>
 
 ```
 下载 8.0.x 版本，最新的 8.1 等 8.x 数字版本是创新版本，不算稳定版
