@@ -46,6 +46,10 @@ gpu 的 opencl 模式下，分数 36775
 M2 MAX 的 Mac studio 1TB 数据是：
 cpu单核 2715，多核 14914
 gpu 的 opencl 模式下，分数 76404
+
+M4 Pro 的 Mac mini 1TB 数据是：
+cpu单核 3880，多核 20446
+gpu 的 opencl 模式下，分数 60495
 ```
 
 
