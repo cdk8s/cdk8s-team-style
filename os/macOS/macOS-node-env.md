@@ -3,6 +3,7 @@
 
 ## 多 Node 环境
 
+- 官网:<https://github.com/nvm-sh/nvm#installing-and-updating>
 - 先确保已经卸载了 brew 安装的 node、或者是 pkg 安装的 node
 
 ```
