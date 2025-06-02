@@ -11,6 +11,7 @@
 ## 内容
 
 - [家庭药箱](https://search.jd.com/Search?keyword=家庭药箱&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=419f24fac4764bb4b249285884eb9c7e-p_276666007&abt=3)
+- [便携药盒](https://search.jd.com/Search?keyword=家庭药箱&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=419f24fac4764bb4b249285884eb9c7e-p_276666007&abt=3)
 - [电子体温计](https://search.jd.com/Search?keyword=电子体温计&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=b0a011defae94de0a0f81e96a9654a16-p_276666007&abt=3)
 - 刺伤/割伤/擦伤
     - 创口大一定要去医疗机构看下。创口小，先保证自己手是干净的，然后用生理盐水清洗伤口处位置，用碘伏/酒精清洗伤口周边皮肤，用棉棒按压伤口附近止血，尽量抬高受伤的位置，让血液不易流到伤口处，最后等止血后的伤口位置自然干燥。
