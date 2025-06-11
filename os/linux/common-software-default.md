@@ -70,40 +70,6 @@ sudo apt install code
 
 ```
 
-#### 显卡驱动
-
-```
-英伟达
-
-
--------------------------------------------------------------------
-
-
-AMD rx560 驱动下载：
-https://www.amd.com/zh-hans/support/graphics/radeon-500-series/radeon-rx-500-series/radeon-rx-560
-但是只支持 ubuntu 下载，又因为 ubuntu 也是基于 debian 的，所以可以在 ubuntu 上输入：cat /proc/version，查看其基于哪个 debian，再和自己的 kali linux 对比 debian 就可以确定可以安装哪个了
-Debian 11 对应的 ubuntu 20、21
-Debian 12 对应的 ubuntu 22
-
-AMD rx5600xt 驱动下载：
-https://www.amd.com/zh-hans/support/graphics/amd-radeon-5600-series/amd-radeon-rx-5600-series/amd-radeon-rx-5600-xt
-
-下载下来的是 deb 文件，文件很小，
-安装：sudo apt install ./amdgpu-install_22.20.50200-1_all.deb
-安装完后会在在该路径有具体安装脚本：
-/usr/bin/amdgpu-install
-
-AMD 官网驱动安装说明：
-https://amdgpu-install.readthedocs.io/en/latest/index.html
-
-目前官网脚本是不支持 kali linux 安装的，需要修改脚本，在 288 行 function os_release() 方法中的 294 行改为 ubuntu|linuxmint|debian|kali
-默认全部安装的是否已经带了，只支持 ubuntu 安装
-
-查看帮助文档：amdgpu-install -h
-可以看到目前 --opencl 只支持 legacy、rocr 参数了
-开始安装：amdgpu-install -y --opencl=rocr,legacy
-```
-
 
 #### 截图软件
 
