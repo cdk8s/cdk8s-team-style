@@ -107,6 +107,7 @@
     - [宝路易 浴巾](https://search.jd.com/Search?keyword=宝路易%20浴巾&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=9a17542496f641b3b8e4fd6f79828f06-p_276666007&abt=3)
     - [漏水凉拖](https://search.jd.com/Search?keyword=漏水凉拖&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=62e49cd32bfa4cff84b03ade4c1914bb-p_276666007&abt=3)
     - [纯棉拖鞋](https://search.jd.com/Search?keyword=纯棉拖鞋&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=26e969d1dc2f43ab9883c6e8bcfc1fb6-p_276666007&abt=3)
+    - [洁面柔巾(山姆)](https://search.jd.com/Search?keyword=纯棉拖鞋&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=26e969d1dc2f43ab9883c6e8bcfc1fb6-p_276666007&abt=3)
 - [餐具水具](https://search.jd.com/Search?keyword=餐具水具&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=440b0a1e5e7a48e4bbe42fd744b74bfa-p_276666007&abt=3)
     - [宜家 奥夫塔 碗碟（钢化玻璃）](https://www.ikea.cn/cn/zh/catalog/products/60258916/)
     - [双枪筷子](https://search.jd.com/Search?keyword=双枪筷子&enc=utf-8&cu=true&utm_source=ads.union.jd.com&utm_medium=tuiguang&utm_campaign=t_248690136_&utm_term=a40ceebcf4a0410d83ab817f5ff5ef93-p_276666007&abt=3)
