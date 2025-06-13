@@ -45,24 +45,23 @@ Release:        2022.3
 Codename:       kali-rolling
 我这边是 kali-rolling，则我下面的地址都是 kali-rolling 关键字
 
-中科大：https://mirrors.ustc.edu.cn/help/kali.html
+中科大(优先)：https://mirrors.ustc.edu.cn/help/kali.html
 阿里：https://developer.aliyun.com/mirror/
 
-vim /etc/apt/sources.list
+sudo vim /etc/apt/sources.list
 先注释掉官方源
 
-# 官方源
+# 官方源(可以不用注释)
 # deb http://http.kali.org/kali kali-rolling main non-free contrib
 # deb-src http://http.kali.org/kali kali-rolling main non-free contrib
 
-#中科大
-deb http://mirrors.ustc.edu.cn/kali kali-rolling main non-free contrib
-deb-src http://mirrors.ustc.edu.cn/kali kali-rolling main non-free contrib
+#中科大(放最文件最前面)
+deb https://mirrors.ustc.edu.cn/kali kali-rolling main non-free non-free-firmware contrib
+deb-src https://mirrors.ustc.edu.cn/kali kali-rolling main non-free non-free-firmware contrib
 
 #阿里云
-#deb http://mirrors.aliyun.com/kali kali-rolling main non-free contrib
-#deb-src http://mirrors.aliyun.com/kali kali-rolling main non-free contrib
-
+deb https://mirrors.aliyun.com/kali kali-rolling main non-free contrib
+deb-src https://mirrors.aliyun.com/kali kali-rolling main non-free contrib
 
 
 备注：每次更新完软件源文件后，需要使用 sudo apt-get update 命令更新索引以生效。
