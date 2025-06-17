@@ -38,3 +38,5 @@ vim ~/.bashrc
 export https_proxy=socks5h://127.0.0.1:1080
 export http_proxy=socks5h://127.0.0.1:1080
 export all_proxy=socks5h://127.0.0.1:1080
+
+使用完代理之后，要注释掉这些配置，并 source ~/.bashrc，并且还要重新连上一个新会话的终端这样才可以
