@@ -33,3 +33,8 @@ nohup ss-local -c ~/shadowsocks.json > ~/ss-local.log 2>&1 &
 
 curl https://ipinfo.io
 curl --socks5 127.0.0.1:1080 https://ipinfo.io
+
+vim ~/.bashrc
+export https_proxy=socks5h://127.0.0.1:1080
+export http_proxy=socks5h://127.0.0.1:1080
+export all_proxy=socks5h://127.0.0.1:1080
