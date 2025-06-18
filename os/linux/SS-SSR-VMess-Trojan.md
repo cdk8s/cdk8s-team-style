@@ -1,5 +1,5 @@
 
-## 安装
+## 安装(只支持 socket5)
 
 sudo apt install shadowsocks-libev
 
@@ -31,12 +31,50 @@ nohup ss-local -c ~/shadowsocks.json > ~/ss-local.log 2>&1 &
 
 ## 测试
 
+没代理前:
 curl https://ipinfo.io
+
+代理后:
 curl --socks5 127.0.0.1:1080 https://ipinfo.io
 
+
+## 转换为 http 代理
+
+sudo apt install -y privoxy
+sudo cp /etc/privoxy/config /etc/privoxy/config.backup.20250617
+
+sudo vim /etc/privoxy/config
+```
+最后一行添加:
+forward-socks5t / 127.0.0.1:1080 .
+```
+
+sudo systemctl restart privoxy
+sudo systemctl start privoxy
+sudo systemctl status privoxy
+
+没代理前，访问失败
+curl https://www.google.com
+
+代理后:
+curl --proxy http://127.0.0.1:8118 https://ipinfo.io
+
+-------------------------------------------------------------------
+
 vim ~/.bashrc
-export https_proxy=socks5h://127.0.0.1:1080
-export http_proxy=socks5h://127.0.0.1:1080
+全局设置环境变量(方案一):
+export http_proxy=http://127.0.0.1:8118
+export https_proxy=http://127.0.0.1:8118
+export ftp_proxy=http://127.0.0.1:8118
+unset all_proxy
+
+全局设置环境变量(方案二):
+注意:(socks5h:// 表示域名解析也通过代理，而 socks5:// 则是本地解析域名。)
+unset http_proxy
+unset https_proxy
+unset ftp_proxy
 export all_proxy=socks5h://127.0.0.1:1080
 
-使用完代理之后，要注释掉这些配置，并 source ~/.bashrc，并且还要重新连上一个新会话的终端这样才可以
+以上方案你只能选一个实验，哪个有效用哪个。
+
+使用完代理之后，要注释掉这些配置，并 source ~/.bashrc，并且还要重新连上一个新会话的终端这样才可以被重置
