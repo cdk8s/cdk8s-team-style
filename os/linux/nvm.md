@@ -10,6 +10,7 @@ export all_proxy=socks5h://127.0.0.1:1080
 
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
 
+因为会自动加上一些环境变量，所以还需要:
 source ~/.bashrc
 
 nvm install v20
