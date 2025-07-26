@@ -11,7 +11,54 @@
 - 官网：<https://www.docker.com/>
 
 
-## Docker 安装
+## Docker 安装(ubuntu)
+
+- 主要有两个版本，我们选择 CE 版本
+    - Docker Enterprise Edition (Docker EE)
+    - Docker Community Edition (Docker CE)
+- 官网总的安装手册：<https://docs.docker.com/install/>
+- 官网 CentOS 安装手册，这里我进行了抽取：<https://docs.docker.com/engine/install/ubuntu/>
+    - 不推荐 RPM 安装，除非没有网络
+
+```
+关闭所有防火墙:
+sudo systemctl stop ufw
+sudo systemctl disable ufw
+
+
+卸载旧版本:
+for pkg in docker.io docker-doc docker-compose docker-compose-v2 podman-docker containerd runc; do sudo apt-get remove $pkg; done
+
+
+# Add Docker's official GPG key:
+sudo apt-get update
+sudo apt-get install ca-certificates curl
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+# Add the repository to Apt sources:
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+sudo apt-get update
+
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+
+启动服务
+sudo systemctl start docker
+
+运行 demo 容器（部分地区速度可能会有点慢）
+sudo docker run hello-world
+
+停止服务
+sudo systemctl stop docker
+```
+
+## Docker 安装(CentOS)
 
 - 主要有两个版本，我们选择 CE 版本
     - Docker Enterprise Edition (Docker EE)
