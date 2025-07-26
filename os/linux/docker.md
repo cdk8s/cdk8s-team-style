@@ -137,15 +137,16 @@ sudo systemctl stop docker
 ``` bash
 {
     "registry-mirrors": [
-      "https://dockerproxy.com",
-      "https://mirror.baidubce.com",
-      "https://docker.mirrors.ustc.edu.cn"
-    ],
-	"log-driver": "json-file",
-	"log-opts": {
-		"max-size": "10m",
-	    "max-file": "5"
-	}
+        "https://ccr.ccs.tencentyun.com",
+        "https://docker.m.daocloud.io",
+        "https://hub.fast360.xyz",
+        "https://docker.melikeme.cn",
+        "https://docker.kejilion.pro",
+        "https://docker.hlmirror.com",
+        "https://image.cloudlayer.icu",
+        "https://docker.tbedu.top",
+        "https://docker-0.unsee.tech"
+    ]
 }
 ```
  
@@ -788,21 +789,22 @@ logger.warn("-------------maxMemory=" + ((double) maxMemory / (1024 * 1024)));
 - 一个文件：docker-compose.yml
 - 一个命令：`docker-compose up`
     - 指定文件：`docker-compose -f zookeeper.yml -p zk_test up -d`
-- 官网安装说明：<https://docs.docker.com/compose/install/#install-compose>
+- 官网安装说明
+- <https://docs.docker.com/compose/install/linux/>
+- <https://docs.docker.com/compose/install/linux/#install-using-the-repository>
 - 安装方法：
 
 ```
-sudo curl -L https://github.com/docker/compose/releases/download/1.18.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+# ubuntu
+sudo apt-get update
+sudo apt-get install docker-compose-plugin
 
-sudo curl -L https://github.com/docker/compose/releases/download/v2.26.1/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
-
-一共 60MB 左右，如果下载比较慢可以在本地电脑下载完再上传上去。
-
-sudo chmod +x /usr/local/bin/docker-compose
-
+# centos
+sudo yum update
+sudo yum install docker-compose-plugin
 ```
 
-- 检查是否安装成功：`docker-compose --version`，输出：`docker-compose version 1.18.0, build 8dd22a9`
+- 检查是否安装成功：`docker compose version`，输出：`Docker Compose version v2.38.2`
 - 常用命令：
 	- 运行：`docker-compose up -d`
 	- 停止运行：`docker-compose down`
