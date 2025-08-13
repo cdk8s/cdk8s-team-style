@@ -16,6 +16,13 @@
 - 官网帮助中心：<http://dev.mysql.com/doc/refman/5.6/en/source-installation.html>
 - Docker 官网：<https://hub.docker.com/_/mysql/>
 
+## ubuntu 测试
+
+```
+sudo apt install mysql-client -y
+mysql -h 127.0.0.1 -u root -P 3306 -p
+```
+
 
 ## MySQL 日志介绍
 
