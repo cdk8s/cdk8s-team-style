@@ -30,7 +30,7 @@
 ## ubuntu 上测试
 
 ```
-sudo apt install redis-tools
+sudo apt install -y redis-tools
 redis-cli -h 127.0.0.1 -p 6379 -a 123456
 info keyspace
 ```
