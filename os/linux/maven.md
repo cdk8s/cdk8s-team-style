@@ -6,6 +6,8 @@
 - 官网下载：<http://maven.apache.org/download.cgi>
 - 历史版本下载：<https://archive.apache.org/dist/maven/binaries/>
 - 此时（20160208） Maven 最新版本为：**3.3.9**
+- 此时（20250813） Maven 最新版本为：**3.8.x** 该版本及其以上需要 JDK7 及以上
+- 此时（20250813） Maven 最新版本为：**3.9.x** 该版本及其以上需要 JDK8 及以上
 
 ##  Maven 安装（bash 环境）
 
