@@ -157,11 +157,12 @@ if __name__ == "__main__":
     # with open("valid_mirrors.txt", "w") as f:
     #     f.write("\n".join(valid_mirrors))
 
-    # 同时生成纯文本文件（用双引号包裹，最后有逗号）
+    # 生成 Docker daemon 配置格式的 JSON 文件
     with open('valid_mirrors.txt', 'w', encoding='utf-8') as file:
-        file.write('\n'.join(
-            f'"{item}"' + (',' if i < len(valid_mirrors) - 1 else '')
-            for i, item in enumerate(valid_mirrors)
-        ))
+        file.write('"registry-mirrors": [\n')
+        for i, url in enumerate(valid_mirrors):
+            comma = ',' if i < len(valid_mirrors) - 1 else ''
+            file.write(f'    "{url}"{comma}\n')
+        file.write('  ]\n')
 
     print(f"\n\033[36m已生成 {len(valid_mirrors)} 个有效镜像到 valid_mirrors.txt\033[0m")
