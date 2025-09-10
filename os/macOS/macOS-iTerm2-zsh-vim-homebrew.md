@@ -188,38 +188,5 @@ DISABLE_AUTO_UPDATE="true"
 - 安装：`brew install vim`
 - 下载配置：`curl https://gitee.com/cdk8s_org/vim-for-server/raw/master/vimrc > ~/.vimrc`
 
--------------------------------------------------------------------
-
-## Proxychains4 为终端做代理
-
-- 保证你本地有一个 socks5 到代理工具，不然下面的方法你无法使用。我这里的工具是：Shadowsocks
-- 安装 Proxychains4，输入命令：`brew install proxychains-ng`
-- 修改配置文件：`vim /usr/local/etc/proxychains.conf`
-    - 在配置文件中找到：`[ProxyList]`（也就是第 111 行的地方），在其下面一行新增一条：`socks5  127.0.0.1 1080 # my vps`
-- 测试：`proxychains4 curl www.google.com`，如果你能正常下载到 Google 页面，则表示成功了。以后只要在命令前面加个：proxychains4，即可。
-- 修改终端配置，让命令更加简洁：
-    - 如果你是 zsh 终端，配置修改：`vim ~/.zshrc`，添加一行：`alias proxy='proxychains4'`
-    - 如果你是 bash 终端，配置修改：`vim ~/.bashrc`，添加一行：`alias proxy='proxychains4'`
-    - 修改之后，以后要用 proxychains4 执行穿墙命令的话，那就可以这样写：`proxy curl www.google.com`
-
-
-## 资料整理
-
-- 来自 Google 过程中的资料（真心感谢这些作者）：
-	- [Mac 终端命令大全](http://www.jianshu.com/p/3291de46f3ff)
-    - <http://wiki.jikexueyuan.com/project/mac-dev-setup/iterm.html>
-    - <http://wulfric.me/2015/08/iterm2/>
-    - <http://yanghui.name/blog/2015/07/19/make-all-command-through-proxy/>
-    - <https://segmentfault.com/a/1190000003001555>
-    - <http://www.wklken.me/posts/2015/08/06/linux-tmux.html>
-    - <http://www.dreamxu.com/mac-terminal/>
-    - <http://zhaozhiming.github.io/blog/2015/11/22/save-and-restore-your-tmux/>
-    - <http://cenalulu.github.io/linux/tmux/>
-    - <http://blog.csdn.net/gatieme/article/details/49301037>
-    - <http://blog.jobbole.com/87278/>
-    - <http://wulfric.me/2015/08/zsh/>
-    - <http://hujiandong.com/2016/09/11/iterm2/>
-    - <http://www.jianshu.com/p/68ef9d2e1653>
-    - <http://swiftcafe.io/2015/07/25/iterm/>
 
 
