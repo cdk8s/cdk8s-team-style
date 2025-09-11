@@ -8,6 +8,9 @@
 - 系统偏好设置 》程序坞与菜单栏 》设置程序坞放大效果、取消时间显示、取消 Wi-Fi 显示、取消聚焦显示
 - 系统偏好设置 》显示器 》夜览模式
 - 系统偏好设置 》调度中心 》触发角
+- [在 Mac 电脑上接收 iPhone 短信](https://github.com/cdk8s/cdk8s-team-style/blob/master/os/macOS/basic/mac-system-61-sms-forwarding.md)
+- [禁用-启用-SIP](https://github.com/cdk8s/cdk8s-team-style/blob/master/os/macOS/basic/mac-system-60-sip.md)
+- [删除默认 ABC 输入法](https://github.com/cdk8s/cdk8s-team-style/blob/master/os/macOS/basic/mac-system-42-abc-input.md)
 - 系统偏好设置 》通用 》隔空投送与接力
   - 关闭：允许在这台Mac和iCloud设备之间使用“接力”，避免粘贴的传递（当前版本做得不聪明）
 - 通过终端命令修改用户密码
