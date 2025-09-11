@@ -14,9 +14,9 @@
 - 官网 Docker hub：<https://hub.docker.com/_/postgres>
 
 ```
-mkdir -p /data/docker/pgsql/data
+mkdir -p ~/docker/pgsql/data
 
-chmod -R 777 /data/docker/pgsql
+chmod -R 777 ~/docker/pgsql
 
 docker run \
 	-d \
@@ -24,12 +24,12 @@ docker run \
 	-p 5432:5432 \
 	-e POSTGRES_USER=cdk8s_user \
 	-e POSTGRES_PASSWORD=cdk8s123456 \
-	-v /data/docker/pgsql/data:/var/lib/postgresql/data \
+	-v ~/docker/pgsql/data:/var/lib/postgresql/data \
 	postgres:16
 
 20250824 根据官网说明:
 如果是 postgres:18 及其以上版本，挂载目录变了，会多一个版本号的目录
--v /data/docker/pgsql/data:/var/lib/postgresql/18/data \
+-v ~/docker/pgsql/data:/var/lib/postgresql/18/data \
 
 对于 PGDATA 变量主要是如果你使用共享存储（如 NFS），且包含其他文件（如 lost+found），需用 PGDATA 指定子目录避免冲突
 docker run \
