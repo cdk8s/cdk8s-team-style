@@ -790,6 +790,7 @@ logger.warn("-------------maxMemory=" + ((double) maxMemory / (1024 * 1024)));
 - 一个命令：`docker-compose up`
     - 指定文件：`docker-compose -f zookeeper.yml -p zk_test up -d`
 - 官网安装说明
+- macOS 的 docker desktop 自带了该程序，所以不需要额外安装
 - <https://docs.docker.com/compose/install/linux/>
 - <https://docs.docker.com/compose/install/linux/#install-using-the-repository>
 - 安装方法：
