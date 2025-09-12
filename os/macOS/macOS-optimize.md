@@ -19,6 +19,8 @@
 - 设置网络 DNS，具体参考：
 - <https://github.com/cdk8s/cdk8s-team-style/blob/master/os/macOS/macOS-DNS.md>
 - 然后清除 DNS 缓存：`sudo killall -HUP mDNSResponder`
+- [IntelliJ IDEA 的 JVM 配置](https://github.com/judasn/IntelliJ-IDEA-Tutorial/blob/master/vm-settings.md)
+
 
 ## 配置文件分享
 
