@@ -584,6 +584,21 @@ extundelete /dev/vda1 --restore-file wushan1.txt
 extundelete  /dev/vda1  --restore-directory /opt/my-soft/abc
 ```
 
+## shell 脚本特殊语句
+
+```shell
+# 一旦脚本中有任何一个命令执行失败（返回值非零），则立即退出整个脚本。
+# 该语句后面脚本代码支持，它前面的代码不支持
+set -e
+
+# -e是遇到错误就退出，-u是遇到未定义的变量则退出，-o pipefail 确保管道中任何错误都能被捕获
+# 只要发生任何错误（命令失败、变量未定义、管道中任意环节失败），脚本就会立即终止执行，而不是继续向下运行并可能造成更大的问题（如用错误的数据删除重要文件）。
+set -euo pipefail
+
+# 切换到脚本所在目录
+cd "$(dirname "$0")"
+
+```
 
 
 ## 资料
