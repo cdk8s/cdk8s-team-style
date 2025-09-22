@@ -14,6 +14,15 @@ export all_proxy=socks5h://127.0.0.1:1080
 
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
 
+```
+# 不能访问github的话， 可以用下面这条
+curl -o- https://gitee.com/RubyMetric/nvm-cn/raw/main/install.sh | bash
+ 
+# 然后执行下面的两条命令即可
+chmod +x ~/.nvm/nvm.sh
+source ~/.bashrc
+```
+
 因为会自动加上一些环境变量，所以还需要:
 source ~/.bashrc
 
