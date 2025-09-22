@@ -1222,6 +1222,45 @@ server {
 
 -------------------------------------------------------------------
 
+### React 编译出来非正常目录结构配置
+
+
+```
+编译出来的目录如下，index.html 根本没有在 dist 根目录下
+dist
+├── html
+│         └── main
+│             └── index.html
+├── modern.config.json
+├── nestedRoutes.json
+├── route.json
+├── routes-manifest.json
+└── static
+    ├── css
+    │         └── async
+    │             ├── lib-arco.4fd5d4b9.css
+    │             └── page.9d6bd9c5.css
+    ├── image
+    │         ├── DeepResearchPoster.e1732236.png
+    │         ├── link_reader.dd51dcae.png
+    │         └── search.3bf54eca.png
+    ├── js
+    │         ├── 846.6928f8b0.js
+
+
+
+这时候就需要这样配置
+location / {
+  root        /xxxx/dist;
+  index       html/main/index.html;
+  try_files $uri $uri/ /html/main/index.html;
+}
+
+```
+
+
+-------------------------------------------------------------------
+
 ### Vue 项目部署根目录配置
 
 ```

@@ -104,6 +104,7 @@ forward-socks5t / 127.0.0.1:1080 .
 sudo systemctl restart privoxy
 sudo systemctl start privoxy
 sudo systemctl status privoxy
+sudo systemctl stop privoxy
 
 没代理前，访问失败
 curl https://www.google.com
