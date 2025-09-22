@@ -1,4 +1,8 @@
 
+## 官网
+
+- <https://github.com/nvm-sh/nvm>
+
 ## 开启代理
 vim ~/.bashrc
 
