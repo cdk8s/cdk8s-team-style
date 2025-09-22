@@ -110,6 +110,7 @@ curl https://www.google.com
 
 代理后:
 curl --proxy http://127.0.0.1:8118 https://ipinfo.io
+curl --proxy http://127.0.0.1:8118 https://www.google.com
 
 -------------------------------------------------------------------
 
