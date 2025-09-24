@@ -127,6 +127,11 @@ sudo ln -s /etc/nginx/sites-available/huashi-mcp /etc/nginx/sites-enabled/
 
 sudo nginx -t  # 检查语法
 sudo systemctl reload nginx
+
+
+默认 log 位置:
+access_log /var/log/nginx/access.log;
+error_log /var/log/nginx/error.log;
 ```
 
 
