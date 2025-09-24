@@ -5,6 +5,7 @@
 - 虽然几年没更新了，但是 2025-09 的时候还是可以用
 - <https://github.com/trojan-gfw/trojan/releases>
 - 下载 trojan-1.16.0-linux-amd64.tar.xz
+- 百度云备份(提取码 1111): <https://pan.baidu.com/s/1iaOi_c_i9QDSx-qBFMmEVA>
 - 解压，把 config.json 改为如下内容:
 
 ```
