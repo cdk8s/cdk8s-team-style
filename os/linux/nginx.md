@@ -109,7 +109,28 @@ docker run --name local-nginx \
 -------------------------------------------------------------------
 
 
-## YUM 安装（版本一般滞后半年左右）
+## apt(ubuntu)
+
+
+```
+sudo apt install nginx
+
+sudo systemctl start nginx
+
+sudo systemctl enable nginx
+
+sudo vim /etc/nginx/sites-available/huashi-mcp
+
+ubuntu 是这个目录下通过软件配置是否启用哪些配置
+sudo ln -s /etc/nginx/sites-available/huashi-mcp /etc/nginx/sites-enabled/
+
+
+sudo nginx -t  # 检查语法
+sudo systemctl reload nginx
+```
+
+
+## YUM 安装（CentOS 版本一般滞后半年左右）
 
 - 安装：`yum install -y nginx`，同时增加了一个 nginx 用户组和用户
 - 默认配置文件位置：`vim /etc/nginx/nginx.conf`
