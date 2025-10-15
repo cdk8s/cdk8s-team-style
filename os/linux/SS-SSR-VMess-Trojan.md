@@ -47,7 +47,7 @@
 
 ```
 - 启动 `./trojan -c config.json`
-- 另起一个终端测试: `curl --socks5 127.0.0.1:1080 https://ipinfo.io`
+- 另起一个终端测试: `curl --socks5-hostname 127.0.0.1:1080 https://ipinfo.io`
 - 如果要专为 http 协议，参考本文下面的 `## 转换为 http 代理`
 
 -------------------------------------------------------------------
@@ -88,7 +88,9 @@ nohup ss-local -c ~/shadowsocks.json > ~/ss-local.log 2>&1 &
 curl https://ipinfo.io
 
 代理后:
-curl --socks5 127.0.0.1:1080 https://ipinfo.io
+curl --socks5-hostname 127.0.0.1:1080 https://ipinfo.io
+注意，这里不能使用 curl --socks5 127.0.0.1:1080 https://ipinfo.io
+两者的区别是 --socks5-hostname 参数是让后面的域名的 DNS 解析也交给代理来做，有更好的穿透性
 
 -------------------------------------------------------------------
 
