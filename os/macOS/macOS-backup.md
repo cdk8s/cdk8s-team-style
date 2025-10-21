@@ -19,6 +19,7 @@
 - 视频剪辑素材
 - 解压的绿色软件
 - 代码目录
+- 备份 Jump Desktop 连接信息
 - QQ 和微信等聊天工具的记录
 - 备份 zshrc
 - 备份 Switch Host 配置
