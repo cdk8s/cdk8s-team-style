@@ -4,8 +4,11 @@
 ### 先备份
 
 - 记录已安装软件列表
+- 记录 Edge 浏览器安装的扩展
 - 备份桌面文件/文件夹
 - 备份 MySQL、Mongo、Elasticsearch 数据库数据，以及连接信息
+  - dbeaver: `/Users/meek/Library/DBeaverData/workspace6/General/.dbeaver`
+- **备份本地数据库表数据**
 - 百度云盘下载到一半的文件
 - 输入法自定义词库
 - 备份浏览器书签
@@ -13,13 +16,17 @@
 - 备份 Chrome 扩展列表
     - 包括 Proxy SwitchyOmega 配置
 - 备份用户目录下的 .ssh 信息
+- 视频剪辑素材
+- 解压的绿色软件
+- 代码目录
 - QQ 和微信等聊天工具的记录
 - 备份 zshrc
 - 备份 Switch Host 配置
-- 备份 IntelliJ IDEA 等 IDE 配置
-- 备份 .m2 下的 maven 配置
-- 备份 docker 目录
+- 备份 IntelliJ IDEA 等 IDE 配置: `/Users/meek/Library/Application Support/JetBrains`
+- 备份 .m2 下的 maven 配置和完整本地仓库
+- 备份 docker 数据映射目录
 - 备份 Bob 翻译配置
+- 备份 Surge 配置
 
 ### 安装
 
