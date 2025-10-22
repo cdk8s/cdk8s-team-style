@@ -16,6 +16,7 @@
 - 通过终端命令修改用户密码
 - 先输入：`pwpolicy -clearaccountpolicies` 进行清除密码长度限制规则
 - 再输入：`passwd` 进行更换密码 ( macOS 12 及最新系统命令为：`security set-keychain-password`)
+- 强制设置时区为上海: `sudo systemsetup -settimezone Asia/Shanghai`
 - 设置网络 DNS，具体参考：
 - <https://github.com/cdk8s/cdk8s-team-style/blob/master/os/macOS/macOS-DNS.md>
 - 然后清除 DNS 缓存：`sudo killall -HUP mDNSResponder`
