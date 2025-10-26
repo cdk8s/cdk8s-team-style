@@ -154,6 +154,36 @@ docker run -d -it \
 
 -------------------------------------------------------------------
 
+## Redis 安装(Ubuntu 22.04)
+
+```
+sudo apt-get install -y lsb-release curl gpg
+curl -fsSL https://packages.redis.io/gpg | sudo gpg --dearmor -o /usr/share/keyrings/redis-archive-keyring.gpg
+sudo chmod 644 /usr/share/keyrings/redis-archive-keyring.gpg
+echo "deb [signed-by=/usr/share/keyrings/redis-archive-keyring.gpg] https://packages.redis.io/deb $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/redis.list
+sudo apt-get update
+
+检查可用版本:
+apt-cache policy redis-server
+
+sudo apt install redis-server=6:6.2.18-1rl1~jammy1 redis-tools=6:6.2.18-1rl1~jammy1
+sudo apt install redis-server=6:6.2.20-1rl1~jammy1 redis-tools=6:6.2.20-1rl1~jammy1
+
+redis-server --version
+
+sudo systemctl enable redis-server
+sudo systemctl restart redis-server
+
+redis-cli ping
+
+配置文件:
+sudo vim /etc/redis/redis.conf
+
+配置 Redis 密码:
+requirepass 123456
+```
+
+
 ## Redis 6.2.X 安装（Docker）
 
 - 官网：<https://hub.docker.com/r/redis/redis-stack/tags>
