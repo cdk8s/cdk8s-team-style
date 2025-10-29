@@ -54,12 +54,25 @@ http {
     include /etc/nginx/conf.d/*.conf;
     
     server {
+        # 容器里面还是 80 端口
         listen            80;
         server_name       192.168.1.40 mynginx.cdk8s.com;
     
         location / {
           root            /usr/share/nginx/html;
           index           index.html index.htm;
+        }
+    
+        location /aaa {
+            # 'host.docker.internal' 是 Docker Desktop 提供的一个特殊 DNS 名称
+            # 它指向你的宿主机（也就是你的 Mac）
+            proxy_pass http://host.docker.internal:3000;
+    
+            # 设置一些请求头，让后端服务能获取到真实的客户端信息
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
         }
     }
 }
@@ -87,20 +100,18 @@ vim ~/docker/nginx/html/index.html
 
 - 给目录赋权：`chmod -R 777 ~/docker/nginx`
 - 官网镜像：<https://hub.docker.com/_/nginx/>
-- 下载镜像：`docker pull nginx:1.12.2`
-  - 2021-06 最新版本为 1.21
-- 运行容器：（macOS 下也支持 80、443 端口）
+- 运行容器：（macOS 不支持 80、443 端口）
 
 ```
 docker run --name local-nginx \
--p 80:80 \
--p 443:443 \
--v ~/docker/nginx/logs:/var/log/nginx \
--v ~/docker/nginx/conf/nginx.conf:/etc/nginx/nginx.conf:ro \
--v ~/docker/nginx/html:/usr/share/nginx/html \
--d nginx:1.21
+    -p 18090:80 \
+    -v ~/docker/nginx/logs:/var/log/nginx \
+    -v ~/docker/nginx/conf/nginx.conf:/etc/nginx/nginx.conf:ro \
+    -v ~/docker/nginx/html:/usr/share/nginx/html \
+    -d nginx:1.21
 ```
 
+- 浏览器访问: <http://127.0.0.1:18090/>
 - 重新加载配置（目前测试无效，只能重启服务）：`docker exec -it local-nginx nginx -s reload`
 - 停止服务：`docker exec -it local-nginx nginx -s stop` 或者：`docker stop local-nginx`
 - 重新启动服务：`docker restart local-nginx`
