@@ -9,18 +9,111 @@
 - 注意：docker 版本下 client.transport.sniff = true 是无效的。
 
 
-#### 7.9.3（Windows zip 安装）
+#### 8.14.3（Docker 带 ik 分词）
+
+- 先测试下镜像下载网络情况，一般会很慢：`docker pull docker.elastic.co/elasticsearch/elasticsearch:8.14.3`
+    - 如果实在下载不下来就用：`docker pull elasticsearch:8.14.3`
+- `mkdir -p ~/docker/elasticsearch-8.14.3/data`
+- `vim ~/docker/elasticsearch-8.14.3/elasticsearch-8.14.3-docker.yml`，内容如下
+- 下载 ik 分词（版本必须和 Elasticsearch 版本对应，包括小版本号）：<https://release.infinilabs.com/analysis-ik/stable/>
+- 下载 pinyin 分词（版本必须和 Elasticsearch 版本对应，包括小版本号）：<https://release.infinilabs.com/analysis-pinyin/stable/>
+  - 百度云下载（提取码: 5t5m）：<https://pan.baidu.com/s/1CONDXhTZ7Khn3Lohh9clog>
+- 把 ik 解压到如下目录：`/Users/meek/docker/elasticsearch-8.14.3/elasticsearch-analysis-ik-8.14.3`
+- 把 pinyin 解压到如下目录：`/Users/meek/docker/elasticsearch-8.14.3/elasticsearch-analysis-pinyin-8.14.3`
 
 ```
-下载地址：
-https://www.elastic.co/guide/en/elasticsearch/reference/7.9/install-elasticsearch.html
+version: '3'
+services:
+  elasticsearch1:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.14.3
+    container_name: elasticsearch-8.14.3
+    restart: always
+    environment:
+      - "ES_JAVA_OPTS=-Xms512m -Xmx1512m"
+      - "cluster.name=elasticsearch"
+      - "discovery.type=single-node"
+      - "network.host=0.0.0.0"
+      - "http.host=0.0.0.0"
+      - "xpack.security.enabled=true"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    ports:
+      - 9200:9200
+      - 9300:9300
+    volumes:
+      - /Users/meek/docker/elasticsearch-8.14.3/data:/usr/share/elasticsearch/data
+      - /Users/meek/docker/elasticsearch-8.14.3/elasticsearch-analysis-ik-8.14.3:/usr/share/elasticsearch/plugins/elasticsearch-analysis-ik-8.14.3
+      - /Users/meek/docker/elasticsearch-8.14.3/elasticsearch-analysis-pinyin-8.14.3:/usr/share/elasticsearch/plugins/elasticsearch-analysis-pinyin-8.14.3
+```
 
-在 config/elasticsearch.yml 添加一条配置：
-xpack.ml.enabled: false
+- 启动：`docker-compose -f ~/docker/elasticsearch-8.14.3/elasticsearch-8.14.3-docker.yml -p elasticsearch_7_9_3 up -d`
+- 设置密码：
 
-然后启动：
-.\bin\elasticsearch.bat
+```
+进入 docker 中的 elasticsearch中，设置密码：
+docker exec -it elasticsearch-8.14.3 /bin/bash
+/usr/share/elasticsearch/bin/elasticsearch-setup-passwords interactive
+根据终端提示，会让你依次设置用户：elastic、apm_system、kibana_system、logstash_system、beats_system、remote_monitoring_user 的密码，所以整个过程比较多。
 
+测试：
+不输入密码，理论上会报错
+curl http://127.0.0.1:9200
+输入正确密码，返回集群信息：
+curl -u "elastic:123456" http://127.0.0.1:9200
+
+
+修改密码：
+格式：curl -u elastic -H "Content-Type: application/json" -X POST "http://127.0.0.1:9200/_xpack/security/user/用户名/_password" --data '{"password":"新密码"}'
+示例：curl -u elastic -H "Content-Type: application/json" -X POST "http://127.0.0.1:9200/_xpack/security/user/elastic/_password" --data '{"password":"1234567"}'
+回车后会让你输入旧密码，输入正确后，会自动修改密码。
+
+测试是否成功：
+curl -u "elastic:1234567" http://127.0.0.1:9200
+
+查看 license：
+curl -u "elastic:123456" http://127.0.0.1:9200/_license
+
+关于 license 官网说明：https://www.elastic.co/cn/subscriptions
+JDBC 直连客户端开源是不能使用的。
+
+所以我们需要先改为 30 天试用版：
+发起一个 POST 请求：
+curl --location --request POST -u "elastic:123456" 'http://127.0.0.1:9200/_license/start_trial?acknowledge=true&pretty' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "acknowledged" : true,
+  "trial_was_started" : true,
+  "type" : "trial"
+}'
+
+这样 DBeaver 才可以直连 Elasticsearch
+```
+
+- Elasticsearch Head 插件地址：<https://chrome.google.com/webstore/detail/ffmkiejjmecolpfloofpjologoblkegm>
+- Elasticsearch Elasticvue 插件地址：<https://microsoftedge.microsoft.com/addons/detail/elasticvue/geifniocjfnfilcbeloeidajlfmhdlgo>
+- 打开 Head 插件，选择 `复合查询` 测试：
+
+
+```
+http://localhost:9200/
+_analyze?pretty   POST
+
+
+{"analyzer":"ik_smart","text":"安徽省长江流域"}
+
+{"analyzer":"pinyin","text":"安徽省长江流域"}
+```
+
+- ik_max_word 和 ik_smart 什么区别?
+
+```
+ik_max_word: 会将文本做最细粒度的拆分，比如会将“中华人民共和国国歌”拆分为“中华人民共和国,中华人民,中华,华人,人民共和国,人民,人,民,共和国,共和,和,国国,国歌”，会穷尽各种可能的组合，适合 Term Query；
+ik_smart: 会做最粗粒度的拆分，比如会将“中华人民共和国国歌”拆分为“中华人民共和国,国歌”，适合 Phrase 查询。
 ```
 
 #### 7.9.3（Docker 带 ik 分词）
@@ -29,8 +122,8 @@ xpack.ml.enabled: false
     - 如果实在下载不下来就用：`docker pull elasticsearch:7.9.3`
 - `mkdir -p ~/docker/elasticsearch-7.9.3/data`
 - `vim ~/docker/elasticsearch-7.9.3/elasticsearch-7.9.3-docker.yml`，内容如下
-- 下载 ik 分词（版本必须和 Elasticsearch 版本对应，包括小版本号）：<https://github.com/medcl/elasticsearch-analysis-ik/tags>
-- 下载 pinyin 分词（版本必须和 Elasticsearch 版本对应，包括小版本号）：<https://github.com/medcl/elasticsearch-analysis-pinyin/tags>
+- 下载 ik 分词（版本必须和 Elasticsearch 版本对应，包括小版本号）：<https://release.infinilabs.com/analysis-ik/stable/>
+- 下载 pinyin 分词（版本必须和 Elasticsearch 版本对应，包括小版本号）：<https://release.infinilabs.com/analysis-pinyin/stable/>
   - 百度云下载（提取码: 5t5m）：<https://pan.baidu.com/s/1CONDXhTZ7Khn3Lohh9clog>
 - 把 ik 解压到如下目录：`/Users/meek/docker/elasticsearch-7.9.3/elasticsearch-analysis-ik-7.9.3`
 - 把 pinyin 解压到如下目录：`/Users/meek/docker/elasticsearch-7.9.3/elasticsearch-analysis-pinyin-7.9.3`
@@ -131,6 +224,20 @@ ik_smart: 会做最粗粒度的拆分，比如会将“中华人民共和国国�
 ```
 
 
+
+#### 7.9.3（Windows zip 安装）
+
+```
+下载地址：
+https://www.elastic.co/guide/en/elasticsearch/reference/7.9/install-elasticsearch.html
+
+在 config/elasticsearch.yml 添加一条配置：
+xpack.ml.enabled: false
+
+然后启动：
+.\bin\elasticsearch.bat
+
+```
 
 
 #### 5.6.x
