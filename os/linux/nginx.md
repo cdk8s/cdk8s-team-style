@@ -60,6 +60,18 @@ brew services restart nginx
 配置文件路径:
 /opt/homebrew/etc/nginx/nginx.conf
 
+默认上传的文件大小有限制要修改下:
+http {
+    # ... 其他 http 配置 ...
+
+    # 在这里添加或修改，设置你需要的最大上传大小
+    # 例如，设置为 100MB
+    client_max_body_size 100M;
+
+    # ... 其他 http 配置，如 include 等 ...
+    include       servers/*;
+}
+
 日志路径:
 /opt/homebrew/var/log/nginx/
 
