@@ -54,9 +54,9 @@ http {
     include /etc/nginx/conf.d/*.conf;
     
     server {
-        # 容器里面还是 80 端口
-        listen            80;
-        server_name       192.168.1.40 mynginx.cdk8s.com;
+        # Nginx 在容器内部仍然监听 80 端口
+        listen 80;
+        server_name localhost;
     
         location / {
           root            /usr/share/nginx/html;
