@@ -20,6 +20,55 @@
 
 -------------------------------------------------------------------
 
+## apt(ubuntu)
+
+
+```
+sudo apt install nginx
+
+sudo systemctl start nginx
+
+sudo systemctl enable nginx
+
+sudo vim /etc/nginx/sites-available/huashi-mcp
+
+ubuntu 是这个目录下通过软件配置是否启用哪些配置
+sudo ln -s /etc/nginx/sites-available/huashi-mcp /etc/nginx/sites-enabled/
+
+
+sudo nginx -t  # 检查语法
+sudo systemctl reload nginx
+
+
+默认 log 位置:
+access_log /var/log/nginx/access.log;
+error_log /var/log/nginx/error.log;
+```
+
+-------------------------------------------------------------------
+
+## mac
+
+
+```
+brew install nginx
+
+brew services start nginx
+brew services stop nginx
+brew services restart nginx
+
+配置文件路径:
+/opt/homebrew/etc/nginx/nginx.conf
+
+日志路径:
+/opt/homebrew/var/log/nginx/
+
+启动 Nginx 后，打开你的浏览器，访问以下地址：(在 macOS 上，监听 1024 以下的端口（如 80 端口）需要 root 权限)
+http://localhost:8080
+```
+
+-------------------------------------------------------------------
+
 ## Nginx 安装（Docker）
 
 - 预设好目录，在宿主机上创建下面目录：`mkdir -p ~/docker/nginx/logs ~/docker/nginx/conf ~/docker/nginx/html`
@@ -119,31 +168,7 @@ docker run --name local-nginx \
 
 -------------------------------------------------------------------
 
-
-## apt(ubuntu)
-
-
-```
-sudo apt install nginx
-
-sudo systemctl start nginx
-
-sudo systemctl enable nginx
-
-sudo vim /etc/nginx/sites-available/huashi-mcp
-
-ubuntu 是这个目录下通过软件配置是否启用哪些配置
-sudo ln -s /etc/nginx/sites-available/huashi-mcp /etc/nginx/sites-enabled/
-
-
-sudo nginx -t  # 检查语法
-sudo systemctl reload nginx
-
-
-默认 log 位置:
-access_log /var/log/nginx/access.log;
-error_log /var/log/nginx/error.log;
-```
+-------------------------------------------------------------------
 
 
 ## YUM 安装（CentOS 版本一般滞后半年左右）
