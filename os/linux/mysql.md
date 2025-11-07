@@ -20,6 +20,8 @@
 
 ```
 sudo apt install mysql-client -y
+sudo yum install mysql-community-client -y
+
 mysql -h 127.0.0.1 -u root -P 3306 -p
 ```
 
