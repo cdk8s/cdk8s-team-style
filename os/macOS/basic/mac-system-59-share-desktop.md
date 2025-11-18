@@ -23,3 +23,6 @@
 ## 安装 VNC Viewer 或者 Jump Desktop（收费）
 
 - <https://www.realvnc.com/en/connect/download/viewer/>
+- Jump Desktop 输入 IP 地址，选择 VNC 类型，点击连接，输入账号密码即可
+- 注意确保 WIFI 和有线的区别
+- 重启后没有输入账号密码的状态下也是可以连接上去的
