@@ -66,6 +66,9 @@ curl http://127.0.0.1:9200
 输入正确密码，返回集群信息：
 curl -u "elastic:123456" http://127.0.0.1:9200
 
+如果你使用的 apikey 方式是这样:
+curl -H "Authorization: ApiKey 11111111111" http://127.0.0.1:9200
+
 
 修改密码：
 格式：curl -u elastic -H "Content-Type: application/json" -X POST "http://127.0.0.1:9200/_xpack/security/user/用户名/_password" --data '{"password":"新密码"}'
