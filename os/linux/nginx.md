@@ -35,6 +35,7 @@ sudo vim /etc/nginx/sites-available/huashi-mcp
 ubuntu 是这个目录下通过软件配置是否启用哪些配置
 sudo ln -s /etc/nginx/sites-available/huashi-mcp /etc/nginx/sites-enabled/
 
+不推荐直接在 cd /etc/nginx/conf.d 目录下修改
 
 sudo nginx -t  # 检查语法
 sudo systemctl reload nginx
