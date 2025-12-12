@@ -667,7 +667,7 @@ rm -rf /var/lib/docker
 - 修改其配置文件：`vim /lib/systemd/system/docker.service`
 - 修改默认值为：`ExecStart=/usr/bin/dockerd`
 - 改为：`ExecStart=/usr/bin/dockerd -H unix:///var/run/docker.sock -H tcp://0.0.0.0:2376`
-	- 如果还需要连自己的 harbor 这类，完整配置：`ExecStart=/usr/bin/dockerd --insecure-registry harbor.upupmo.com -H unix:///var/run/docker.sock -H tcp://0.0.0.0:2376`
+	- 如果还需要连自己的 harbor 这类，完整配置：`ExecStart=/usr/bin/dockerd --insecure-registry harbor.uptmr.com -H unix:///var/run/docker.sock -H tcp://0.0.0.0:2376`
 - `systemctl daemon-reload`
 - `systemctl reload docker`
 - `systemctl restart docker`

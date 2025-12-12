@@ -11,14 +11,14 @@
     file_upload_path: "/opt/workspace/sculptor-boot-backend-upload-dir"
     nginx_conf_path: "/usr/local/openresty/nginx/conf.d"
 
-    domain_to_www_frontend: "web.upupmo.com"
-    domain_to_backend_api: "api.upupmo.com"
+    domain_to_www_frontend: "web.uptmr.com"
+    domain_to_backend_api: "api.uptmr.com"
 
     cert_file_path: "/opt/workspace/cert"
-    ssl_pem_path_to_backend_api: "{{ cert_file_path }}/5131204_api.upupmo.com.pem"
-    ssl_key_path_to_backend_api: "{{ cert_file_path }}/5131204_api.upupmo.com.key"
-    ssl_pem_path_to_www_frontend: "{{ cert_file_path }}/5131230_web.upupmo.com.pem"
-    ssl_key_path_to_www_frontend: "{{ cert_file_path }}/5131230_web.upupmo.com.key"
+    ssl_pem_path_to_backend_api: "{{ cert_file_path }}/5131204_api.uptmr.com.pem"
+    ssl_key_path_to_backend_api: "{{ cert_file_path }}/5131204_api.uptmr.com.key"
+    ssl_pem_path_to_www_frontend: "{{ cert_file_path }}/5131230_web.uptmr.com.pem"
+    ssl_key_path_to_www_frontend: "{{ cert_file_path }}/5131230_web.uptmr.com.key"
   tasks:
     - name: create directory
       file:

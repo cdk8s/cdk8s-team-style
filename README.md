@@ -2,33 +2,6 @@
 # CDK8S 研发风格
 
 
-## 作者新方向，感谢支持
-
-- [开发全平台产品（文字版）](https://github.com/cdk8s/cdk8s-team-style/blob/master/full-stack/README.md)
-- [UPGPT - 简洁 AI 助手](https://upgpt.uptmr.com/)
-
-## 只有上云才能撑住规模化后的发展
-
-- 初期技术选型上尽可能寻找云支持的
-- 在公司规模小，自建服务基本都做不到 99.999% 高可用
-- 在公司规模发展变迅速时，如果云技术和已有技术契合，迁移成本会低很多很多
-- 目前暂定只选择：[阿里云服务](https://www.aliyun.com/minisite/goods?userCode=v2zozyxz)
-- 这里罗列了阿里云常用的一些：[产品](https://github.com/cdk8s/cdk8s-team-style/blob/master/ops/aliyun.md)
-
-## 别人的人生（Life）
-
-> They say we die twice. Once when the breath leaves our body, and once when the last person we know says our name. -- Stand Up Guys
-
-- 人生短暂，你不应该浪费时间在意他人眼光
-- 每个人活着都应有属于自己的意义，衷心地希望你能找到.Orz.
-- [《人生七年》(第 1 ~ 9 部)](https://movie.douban.com/tag/#/?sort=T&tags=%E4%BA%BA%E7%94%9F%E4%B8%83%E5%B9%B4)
-- [《穷富翁大作战》(第 2 部)](https://movie.douban.com/subject/25926859/)
-
-## 线上仓库
-
-- <https://github.com/cdk8s/cdk8s-team-style>
-- <https://gitee.com/cdk8s/cdk8s-team-style>
-
 ## 声明（Notice）
 
 - **本系列没有终点，时间仓促，有部分还未完成，有部分会随着我们认知的变化而变化**
@@ -36,7 +9,7 @@
 - 很多事情，我们不知道什么是对的，但是错的也许已经遇到过，能避则避
 - 有部分内容适合中型公司，小型公司不建议参考
 - 后续发布的专题都会基于此风格下
-- **最后：** 不打嘴炮，没有银弹，请 `持怀疑态度` 看待本专题任何内容
+- **最后：** 没有银弹，请 `持怀疑态度` 看待本专题任何内容
 
 ## 介绍（Introduce）
 
@@ -55,19 +28,14 @@
 ## 认为（Preference）
 
 
-- 只有 macOS 系统是最适合 **国内** 开发者
-- 只有 JetBrains 的 IDE 是最适合开发者
-- 只有 Google 能摆渡
+- Cursor、Claude Code、Codex 等 AI 新时代的 IDE 必须使用
+- JetBrains 的 IDE 是最适合开发者，虽然它在 AI 时代开始有点掉队了
 - 只有上云才能撑住规模化后的企业发展，符合当今以及未来的企业发展模式
     - 初期技术选型上，尽可能寻找已经有云支持的技术类型
     - 在公司规模小，自建服务基本都做不到 99.999% 高可用
     - 在公司规模变大后，有云的支持，迁移、扩容成本会低很多很多
-- 以上是肯定句，不接受反驳，不引战，只接受建议
-    - 我们知道国内有大量 Eclipse、Visual Studio Code 的粉丝，也有大量的 Windows 和 Linux 粉丝，我们尊重别人的选择
-    - 我对 VSC 也是喜欢的，只是目前它更适合于个人。在推广整个团队规范和开发体验上，IDE 有更好的优势。
 - 以下是我们的早期作品，我们只是想表达：我们和大家的经验都是类似的，我们没有做盲目的否定他人信仰这件事
-    - 大学和工作初期使用的是 NetBeans + Eclipse + MyEclipse，后面工作几年全部都是 IntelliJ IDEA
-    - 我们在 Windows + macOS + Ubuntu 下的软件列表：[UPUPMO](https://upupmo.com)
+    - 我们在 Windows + macOS + Ubuntu 下的软件列表：[UPTMR](https://uptmr.com)
     - 我们对 macOS 的理解：[点击我](https://github.com/cdk8s/cdk8s-team-style/blob/master/os/macOS/README.md)
     - 我们对 Linux 的理解：[点击我](https://github.com/cdk8s/cdk8s-team-style/blob/master/os/linux/README.md)
     - 我们对 IntelliJ IDEA 的理解：[点击我](https://github.com/judasn/IntelliJ-IDEA-Tutorial)
@@ -91,12 +59,6 @@
     - 方便自动代码生成器生成代码
     - 对外宣传团队理念的表达方式
 
-
-## 硬件（Hardware）
-
-- 硬件是所有软件的基础，是团队合作的基础，我们很不希望大家开发的时候总是在抱怨这个卡、那个慢
-- 我们推荐还没有经济实力情况下使用黑苹果，有经济实力后购买原生苹果产品
-- 相关硬件配置推荐：[点击我](https://github.com/cdk8s/cdk8s-team-style/blob/master/other/hardware.md)
 
 
 ## 细分（Category）
@@ -193,11 +155,6 @@
 - [写作意识](https://github.com/cdk8s/cdk8s-team-style/blob/master/other/read-write.md)
 - [IDE 思维](https://github.com/cdk8s/cdk8s-team-style/blob/master/other/ide-style.md)
 
-
-## 生活用品指南
-
-- [购物指南-程序员-系列](https://github.com/cdk8s/cdk8s-team-style/blob/master/life/1111/)
-
 ## 学习逻辑
 
 - 要解决什么问题
@@ -208,12 +165,9 @@
 ## 联系（Contact）
 
 - 邮箱：`cdk8s#qq.com`
-- 微信公众号
-
-![公众号](https://cdn.uptmr.com/upupmo-article/old-gitnavi/cdk8s_qr_300px.png)
 
 
-## 忧伤
+## 规避
 
 ![功归一篑](https://cdn.uptmr.com/upupmo-article/old-gitnavi/build-railway.png)
 

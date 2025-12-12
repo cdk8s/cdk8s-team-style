@@ -23,7 +23,7 @@
 
 ## 常用软件
 
-- [UPUPMO](https://upupmo.com)
+- [UPUPMO](https://uptmr.com)
 
 ##  终端环境
 
