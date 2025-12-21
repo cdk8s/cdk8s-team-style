@@ -25,7 +25,7 @@ DISABLE_AUTO_UPDATE="true"
 
 ```
 
-#### 中文输入法
+#### 中文输入法(ubuntu)
 
 ```
 安装搜狗
@@ -49,6 +49,30 @@ sudo apt -f install
 /home/meek/.config/sogoupinyin/dict/PCPYDict/phrase/PhraseEdit.txt
 /home/meek/.config/sogoupinyin/dict/PCWBDict
 
+```
+
+#### 中文输入法(kali linux)
+
+```
+安装搜狗
+官网安装方法：https://shurufa.sogou.com/linux/guide
+sudo apt update
+sudo apt install fcitx
+
+如果安装过程中提示缺少相关依赖，则执行如下命令解决：
+sudo apt -f install
+
+sudo dpkg -i ./sogoupinyin_4.0.1.2800_x86_64.deb
+如果安装过程中提示缺少相关依赖，则执行如下命令解决：
+sudo apt -f install
+
+后重启电脑，按 Ctrl + 空格切换输入法
+
+记得在搜狗中去掉不要的快捷键，比如 ctrl + shift + f 切换简繁体
+
+理论上重启电脑后是不需要做任何配置的，如果发现还没出现，可以这样操作：
+
+打开：左上角开始面板》设置》输入法 》按引导配置 
 ```
 
 #### VSCode
