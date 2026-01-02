@@ -289,6 +289,34 @@ CONTAINER ID        NAME                      CPU %               MEM USAGE / LI
     - `docker cp  96f7f14e99ab:/www /tmp/` 将容器96f7f14e99ab的/www目录拷贝到主机的/tmp目录中。
 
 
+#### docker 卷目录
+
+```
+列出所有卷
+docker volume ls
+
+查看卷的详细信息(macOS 一般是在本地: /var/lib/docker/volumes/your_project_name_neo4j_data)
+docker volume inspect your_project_name_neo4j_data
+
+删除指定卷
+docker volume rm your_project_name_neo4j_data
+
+清理所有未使用的卷(慎重)
+docker volume prune
+
+使用卷挂载
+docker run -d \
+  --name my_neo4j \
+  -v your_project_name_neo4j_data:/data \
+  neo4j:latest
+
+docker run -d \
+  --name my_neo4j \
+  --mount source=your_project_name_neo4j_data,target=/data \
+  neo4j:latest
+```
+
+
 #### docker 网络模式
 
 - 查看也有网络：`docker network ls`
