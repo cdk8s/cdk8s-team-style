@@ -9,6 +9,7 @@
 - 一般情况，运行：
 
 ```
+# 这里必须使用 rabbitmq:3-management，这是自带后台管理界面的
 docker run -d --name cloud-rabbitmq \
     -p 5671:5671 \
     -p 5672:5672 \
