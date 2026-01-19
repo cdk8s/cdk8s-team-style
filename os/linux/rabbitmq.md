@@ -4,8 +4,8 @@
 ## Docker 安装 RabbitMQ
 
 - 官网镜像：<https://hub.docker.com/_/rabbitmq/>
-- 创建一个宿主机目录用来存放数据：`mkdir -p ~/docker/rabbitmq`
-- 赋权：`chmod -R 777 ~/docker/rabbitmq`
+- 创建一个宿主机目录用来存放数据：`mkdir -p ~/docker/rabbitmq3`
+- 赋权：`chmod -R 777 ~/docker/rabbitmq3`
 - 一般情况，运行：
 
 ```
@@ -17,7 +17,7 @@ docker run -d --name cloud-rabbitmq \
     -p 25672:25672 \
     -p 15671:15671 \
     -p 15672:15672 \
-    -v ~/docker/rabbitmq:/var/lib/rabbitmq \
+    -v ~/docker/rabbitmq3:/var/lib/rabbitmq \
     -e RABBITMQ_DEFAULT_USER=admin \
     -e RABBITMQ_DEFAULT_PASS=123456 \
     rabbitmq:3-management
