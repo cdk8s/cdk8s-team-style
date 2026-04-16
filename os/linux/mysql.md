@@ -26,9 +26,18 @@ mysql -h 127.0.0.1 -u root -P 3306 -p
 ```
 
 
-## MySQL 日志介绍
+## MySQL 日志介绍(macOS/Linux)
 
 ```
+先确定默认配置可以从哪些地方读取:
+mysqld --verbose --help 2>/dev/null | grep -A1 'Default options';
+一般结果返回的是: 
+/etc/my.cnf /etc/mysql/my.cnf /usr/local/mysql/etc/my.cnf ~/.my.cnf
+必须确保目录权限，不然不会报错，但是会一直无法生效: chmod 777 /home/data/mysql/log/mysql-slow-query.log
+slow_query_log_file = /home/data/mysql/log/mysql-slow-query.log
+
+
+
 MySQL中存在着以下几种日志：重写日志（redo log）、回滚日志（undo log）、二进制日志（bin log）、错误日志（error log）、慢查询日志（slow query log）、一般查询日志（general log）。
 MySQL中的数据变化会体现在上面这些日志中，比如事务操作会体现在redo log、undo log以及bin log中，数据的增删改查会体现在 binlog 中。
 
@@ -49,7 +58,7 @@ slow_query_log_file = /home/data/mysql/log/mysql-slow-query.log
 #慢查询日志阈值，指超过阈值时间的SQL会被记录，单位秒
 long_query_time = 2
 #表示未走索引的SQL也会被记录
-log_queries_not_using_indexes
+log_queries_not_using_indexes = 1
 =================================
 查询 general_log 配置：show variables like '%general_log%';
 # general log 记录了客户端连接信息以及执行的SQL语句信息，默认是 off，该记录消耗比较大
