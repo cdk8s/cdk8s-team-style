@@ -31,7 +31,7 @@ mysql -h 127.0.0.1 -u root -P 3306 -p
 ```
 先确定默认配置可以从哪些地方读取:
 mysqld --verbose --help 2>/dev/null | grep -A1 'Default options';
-一般结果返回的是: 
+一般结果返回的是，我实际测试过 /etc/my.cnf 是最好的，而 ~/.my.cnf 我测试无效
 /etc/my.cnf /etc/mysql/my.cnf /usr/local/mysql/etc/my.cnf ~/.my.cnf
 必须确保目录权限，不然不会报错，但是会一直无法生效: chmod 777 /home/data/mysql/log/mysql-slow-query.log
 slow_query_log_file = /home/data/mysql/log/mysql-slow-query.log
