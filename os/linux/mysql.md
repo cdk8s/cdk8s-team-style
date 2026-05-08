@@ -98,6 +98,13 @@ mysql -u root -p mydb < backup.sql
 导入数据(大文件，超过GB)
 mysql --max_allowed_packet=1G -u root -p mydb < backup.sql
 
+验证:
+SHOW DATABASES;
+USE mydb;
+SHOW TABLES;
+SHOW CREATE TABLE users;
+SELECT * FROM users limit 10;
+
 -------------------------------------------------------------------
 
 
