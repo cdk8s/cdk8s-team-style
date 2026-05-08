@@ -25,6 +25,95 @@ sudo yum install mysql-community-client -y
 mysql -h 127.0.0.1 -u root -P 3306 -p
 ```
 
+## ubuntu 在线安装(MySQL 8.0.x)
+
+
+```
+
+Ubuntu 自带 MariaDB 冲突
+先卸载：
+sudo apt remove mariadb-server mariadb-client
+
+-------------------------------------------------------------------
+
+使用官方 MySQL APT 仓库（推荐）
+
+2. 下载 MySQL 官方 APT 配置包
+
+打开官方下载页：https://dev.mysql.com/downloads/repo/apt
+
+
+2026-05 最新版本是这个：
+wget https://dev.mysql.com/get/mysql-apt-config_0.8.39-1_all.deb
+
+3. 安装 APT 配置包
+sudo dpkg -i mysql-apt-config_0.8.39-1_all.deb
+
+安装过程中会弹出配置界面：
+* 选择：
+    * MySQL Server & Cluster
+* 然后选择：
+    * mysql-8.0
+* 最后选择：
+    * Ok
+
+更新源并安装:
+sudo apt update
+sudo apt install mysql-server -y
+
+中间会提示输入: root 密码
+
+6. 查看安装版本
+mysql --version
+
+
+7. 启动并设置开机自启
+sudo systemctl start mysql
+sudo systemctl enable mysql
+
+查看状态：
+sudo systemctl status mysql
+
+⸻
+
+测试连接
+mysql -u root -p
+
+
+-- mysql
+DROP DATABASE IF EXISTS `sales_intelligence_engine`;
+CREATE DATABASE IF NOT EXISTS `sales_intelligence_engine` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- 默认密码管理工具
+CREATE USER 'edsp_sales_online'@'%' IDENTIFIED BY '12345678';
+GRANT ALL PRIVILEGES ON sales_intelligence_engine.* TO 'edsp_sales_online'@'%';
+FLUSH PRIVILEGES;
+
+测试连接
+mysql -u edsp_sales_online -p
+
+
+导入数据:
+mysql -u root -p mydb < backup.sql
+导入数据(大文件，超过GB)
+mysql --max_allowed_packet=1G -u root -p mydb < backup.sql
+
+-------------------------------------------------------------------
+
+
+常见问题
+1. GPG key 错误
+执行：
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys B7B3B788A8D3785C
+
+
+卸载 MySQL
+sudo apt remove mysql-server mysql-client mysql-common
+sudo apt autoremove
+sudo rm -rf /etc/mysql /var/lib/mysql
+
+```
+
 
 ## MySQL 日志介绍(macOS/Linux)
 
