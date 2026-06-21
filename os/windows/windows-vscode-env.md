@@ -1,22 +1,4 @@
 
-## node.js 知识
-
-
-#### 通过 nvm 安装 node.js 18
-
-```
-先下载 nvm-windows(nvm-setup.exe)：
-官网：https://github.com/coreybutler/nvm-windows/releases
-百度云：https://pan.baidu.com/s/1BNaHh8a5DlAtg7qtsIB4UQ?pwd=7mv2
-
-
-nvm install v18.20.4
-nvm use v18.20.4
-nvm alias default v18.20.4
-```
-
--------------------------------------------------------------------
-
 ## vscode 知识
 
 #### vscode 安装
