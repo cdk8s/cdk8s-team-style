@@ -31,4 +31,9 @@ curl.exe -I https://npmmirror.com/mirrors/node/index.json
 nvm install v18.20.4
 nvm use v18.20.4
 nvm alias default v18.20.4
+
+
+以管理员身份打开 PowerShell，执行以下命令，因为 Windows PowerShell 的默认安全策略禁止了运行未签名的脚本，执行了这个才可以在 powershell 运行 claude
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+
 ```
