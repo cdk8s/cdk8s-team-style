@@ -11,4 +11,8 @@ uv python install 3.12 --default
 
 如果 path 没生效:
 uv python update-shell
+
+
+设置国内源，打开 powershell:
+setx UV_DEFAULT_INDEX "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple"
 ```
