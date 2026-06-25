@@ -44,6 +44,15 @@ docker run \
 
 ```
 CREATE DATABASE sonar;
+
+# 创建用户
+CREATE USER test_user WITH PASSWORD '123456';
+
+# 创建数据库并指定用户
+CREATE DATABASE test_db OWNER test_user;
+
+# 授权已有数据库
+GRANT CONNECT ON DATABASE test_db TO test_user;
 ```
 
 ## PostgreSQL 11 带 zhparser（非官方）
