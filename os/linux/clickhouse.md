@@ -25,7 +25,7 @@
 mkdir -p ~/docker/clickhouse/data  ~/docker/clickhouse/log ~/docker/clickhouse/config
 
 先运行一个基础版本，复制出默认的配置文件：
-docker run -d --name clickhouse-server yandex/clickhouse-server
+docker run -d --name clickhouse-server clickhouse/clickhouse-server
 docker cp clickhouse-server:/etc/clickhouse-server/config.xml ~/docker/clickhouse/config/config.xml
 docker cp clickhouse-server:/etc/clickhouse-server/users.xml ~/docker/clickhouse/config/users.xml
 删除 docker stop clickhouse-server && docker rm clickhouse-server
@@ -45,7 +45,7 @@ docker run -d --name clickhouse \
 -v ~/docker/clickhouse/log:/var/log/clickhouse-server \
 -v ~/docker/clickhouse/config/config.xml:/etc/clickhouse-server/config.xml \
 -v ~/docker/clickhouse/config/users.xml:/etc/clickhouse-server/users.xml \
-yandex/clickhouse-server
+clickhouse/clickhouse-server
 
 
 使用 DataGrip 连接
